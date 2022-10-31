@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Hexo</title>
+  <title>Liucj&#39;s Harbour</title>
   
   
   <link href="http://example.com/atom.xml" rel="self"/>
@@ -33,6 +33,32 @@
     
     
     
+    
+  </entry>
+  
+  <entry>
+    <title>Ubuntu 下使用 Clash 代理</title>
+    <link href="http://example.com/2022/02/02/Ubuntu%20%E4%B8%8B%E4%BD%BF%E7%94%A8%20Clash%20%E4%BB%A3%E7%90%86/"/>
+    <id>http://example.com/2022/02/02/Ubuntu%20%E4%B8%8B%E4%BD%BF%E7%94%A8%20Clash%20%E4%BB%A3%E7%90%86/</id>
+    <published>2022-02-01T16:00:00.000Z</published>
+    <updated>2022-10-31T16:21:23.581Z</updated>
+    
+    <content type="html"><![CDATA[<p>Ubuntu科学上网</p><ol><li> 在 <a href="https://link.zhihu.com/?target=https://github.com/Dreamacro/clash/releases">https://github.com/Dreamacro/clash/releases</a> 下载对应的 clash 版本（普通电脑对应的是 linux-amd64 版本），解压，重命名为 clash。</li><li> 添加执行权限（sudo chmod + x clash），将 clash 放到 /usr/bin/ 目录下（sudo cp clash /usr/bin/）。</li><li> 在终端中运行 clash，会在 ~/.config/clash 文件夹下生成 config.yaml 和 Country.mmdb 两个文件。用商家提供的替换这两个文件，重新运行 clash。</li><li>设置系统代理：<br> <img src="/images/2022-02-02-clash-on-Ubuntu_1.png" alt="1"></li></ol><blockquote><ol><li>用 nohup clash &amp; 命令可以使程序在后台运行，即使退出终端也不影响。</li><li>将clash进程加入开机自启动</li></ol></blockquote>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;Ubuntu科学上网&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt; 在 &lt;a href=&quot;https://link.zhihu.com/?target=https://github.com/Dreamacro/clash/releases&quot;&gt;https://github.com/Dreama</summary>
+      
+    
+    
+    
+    <category term="Linux" scheme="http://example.com/categories/Linux/"/>
+    
+    
+    <category term="Network" scheme="http://example.com/tags/Network/"/>
     
   </entry>
   
