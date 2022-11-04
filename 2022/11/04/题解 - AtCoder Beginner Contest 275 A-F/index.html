@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>题解 - AtCoder Beginner Contest 275 A-F | Liucj&#39;s Harbour</title>
+  <meta name="description" content="C题意一个$r \times c (r, c\in [1, 9])$二维平面S. 元素S[i][j]是’#’或者’.’, 找出这个平面上所有四个顶点都是’#’的正方形数.  如 123456789##.......##.......................#......#...........#......#.................... 具有顶点 (1,1)、(1,2)、(2,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="题解 - AtCoder Beginner Contest 275 A-F">
+<meta property="og:url" content="http://example.com/2022/11/04/%E9%A2%98%E8%A7%A3%20-%20AtCoder%20Beginner%20Contest%20275%20A-F/index.html">
+<meta property="og:site_name" content="Liucj&#39;s Harbour">
+<meta property="og:description" content="C题意一个$r \times c (r, c\in [1, 9])$二维平面S. 元素S[i][j]是’#’或者’.’, 找出这个平面上所有四个顶点都是’#’的正方形数.  如 123456789##.......##.......................#......#...........#......#.................... 具有顶点 (1,1)、(1,2)、(2,">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-11-03T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-11-04T05:26:55.507Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="算法_模拟">
+<meta property="article:tag" content="算法_记忆化搜索">
+<meta property="article:tag" content="算法_DP_概率">
+<meta property="article:tag" content="算法_DP_数组划分">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://example.com/2022/11/04/%E9%A2%98%E8%A7%A3%20-%20AtCoder%20Beginner%20Contest%20275%20A-F/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Liucj&#39;s Harbour" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/lcj2021" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">Liucj2021</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Graph &amp; Algorithm</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Guangzhou, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%A2%98%E8%A7%A3/">题解</a><span class="category-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/" rel="tag">Network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-DP-%E6%95%B0%E7%BB%84%E5%88%92%E5%88%86/" rel="tag">算法_DP_数组划分</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-DP-%E6%A6%82%E7%8E%87/" rel="tag">算法_DP_概率</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-DP-%E8%83%8C%E5%8C%85/" rel="tag">算法_DP_背包</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E4%BA%8C%E5%88%86/" rel="tag">算法_二分</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%80%9D%E7%BB%B4/" rel="tag">算法_思维</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%9C%80%E7%9F%AD%E8%B7%AF/" rel="tag">算法_最短路</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%A8%A1%E6%8B%9F/" rel="tag">算法_模拟</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E8%AE%B0%E5%BF%86%E5%8C%96%E6%90%9C%E7%B4%A2/" rel="tag">算法_记忆化搜索</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/Network/" style="font-size: 13px;">Network</a> <a href="/tags/%E7%AE%97%E6%B3%95-DP-%E6%95%B0%E7%BB%84%E5%88%92%E5%88%86/" style="font-size: 13px;">算法_DP_数组划分</a> <a href="/tags/%E7%AE%97%E6%B3%95-DP-%E6%A6%82%E7%8E%87/" style="font-size: 13px;">算法_DP_概率</a> <a href="/tags/%E7%AE%97%E6%B3%95-DP-%E8%83%8C%E5%8C%85/" style="font-size: 13px;">算法_DP_背包</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E4%BA%8C%E5%88%86/" style="font-size: 13px;">算法_二分</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%80%9D%E7%BB%B4/" style="font-size: 13px;">算法_思维</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%9C%80%E7%9F%AD%E8%B7%AF/" style="font-size: 13px;">算法_最短路</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%A8%A1%E6%8B%9F/" style="font-size: 13px;">算法_模拟</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E8%AE%B0%E5%BF%86%E5%8C%96%E6%90%9C%E7%B4%A2/" style="font-size: 13px;">算法_记忆化搜索</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">十一月 2022</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">十月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E9%A2%98%E8%A7%A3/">题解</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/11/04/%E9%A2%98%E8%A7%A3%20-%20AtCoder%20Beginner%20Contest%20275%20A-F/" class="title">题解 - AtCoder Beginner Contest 275 A-F</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-11-03T16:00:00.000Z" itemprop="datePublished">2022-11-04</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E9%A2%98%E8%A7%A3/">题解</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/11/03/%E9%A2%98%E8%A7%A3%20-%20AtCoder%20Beginner%20Contest%20192%20D-F/" class="title">题解 - AtCoder Beginner Contest 192 D-F</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-11-02T16:00:00.000Z" itemprop="datePublished">2022-11-03</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E9%A2%98%E8%A7%A3/">题解</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/11/01/%E9%A2%98%E8%A7%A3%20-%20%E7%89%9B%E5%AE%A2%E5%B0%8F%E7%99%BD%E6%9C%88%E8%B5%9B59%20D-F/" class="title">题解 - 牛客小白月赛59 D-F</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-10-31T16:00:00.000Z" itemprop="datePublished">2022-11-01</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2022/10/31/hello-world/" class="title">Hello World</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-10-31T11:31:34.473Z" itemprop="datePublished">2022-10-31</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Linux/">Linux</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/02/02/Ubuntu%20%E4%B8%8B%E4%BD%BF%E7%94%A8%20Clash%20%E4%BB%A3%E7%90%86/" class="title">Ubuntu 下使用 Clash 代理</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-02-01T16:00:00.000Z" itemprop="datePublished">2022-02-02</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-题解 - AtCoder Beginner Contest 275 A-F" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      题解 - AtCoder Beginner Contest 275 A-F
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2022/11/04/%E9%A2%98%E8%A7%A3%20-%20AtCoder%20Beginner%20Contest%20275%20A-F/" class="article-date">
+	  <time datetime="2022-11-03T16:00:00.000Z" itemprop="datePublished">2022-11-04</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E9%A2%98%E8%A7%A3/">题解</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E7%AE%97%E6%B3%95-DP-%E6%95%B0%E7%BB%84%E5%88%92%E5%88%86/" rel="tag">算法_DP_数组划分</a>, <a class="article-tag-link-link" href="/tags/%E7%AE%97%E6%B3%95-DP-%E6%A6%82%E7%8E%87/" rel="tag">算法_DP_概率</a>, <a class="article-tag-link-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%A8%A1%E6%8B%9F/" rel="tag">算法_模拟</a>, <a class="article-tag-link-link" href="/tags/%E7%AE%97%E6%B3%95-%E8%AE%B0%E5%BF%86%E5%8C%96%E6%90%9C%E7%B4%A2/" rel="tag">算法_记忆化搜索</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2022/11/04/%E9%A2%98%E8%A7%A3%20-%20AtCoder%20Beginner%20Contest%20275%20A-F/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h2 id="C"><a href="#C" class="headerlink" title="C"></a>C</h2><h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><p>一个$r \times c (r, c\in [1, 9])$二维平面S. 元素S[i][j]是’#’或者’.’, 找出这个平面上所有四个顶点都是’#’的正方形数. </p>
+<p>如</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">##.......</span><br><span class="line">##.......</span><br><span class="line">.........</span><br><span class="line">.......#.</span><br><span class="line">.....#...</span><br><span class="line">........#</span><br><span class="line">......#..</span><br><span class="line">.........</span><br><span class="line">.........</span><br></pre></td></tr></table></figure>
+<p>具有顶点 (1,1)、(1,2)、(2,2) 和 (2,1) 的正方形在所有四个顶点都放置了棋子. </p>
+<p>具有顶点 (4,8)、(5,6)、(7,7) 和 (6,9) 的正方形也有放置在所有四个顶点的棋子. </p>
+<p>因此，答案是 2. </p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>枚举正方形两个顶点, 确定一条向量. 再通过旋转这条向量, 得到其他两个点的坐标. </p>
+<p>向量<code>[x, y]</code>顺时针旋转90°: <code>[y, -x]</code></p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">rot</span><span class="params">(array&lt;<span class="type">int</span>, <span class="number">2</span>&gt; &amp; v)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> [x, y] = v;</span><br><span class="line">    v = &#123;y, -x&#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">check</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x &gt;= <span class="number">1</span> &amp;&amp; x &lt;= <span class="number">9</span> &amp;&amp; y &gt;= <span class="number">1</span> &amp;&amp; y &lt;= <span class="number">9</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">9</span>; ++ i)</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= <span class="number">9</span>; ++ j) </span><br><span class="line">            cin &gt;&gt; g[i][j];</span><br><span class="line"></span><br><span class="line">    cerr &lt;&lt; g[<span class="number">5</span>][<span class="number">5</span>] &lt;&lt; endl;</span><br><span class="line">    cerr &lt;&lt; g[<span class="number">5</span>][<span class="number">7</span>] &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    set&lt;set&lt;array&lt;<span class="type">int</span>, 2&gt;&gt;&gt; S;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> ci = <span class="number">1</span>; ci &lt;= <span class="number">9</span>; ++ ci) </span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> cj = <span class="number">1</span>; cj &lt;= <span class="number">9</span>; ++ cj) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> ni = <span class="number">1</span>; ni &lt;= <span class="number">9</span>; ++ ni) &#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="type">int</span> nj = <span class="number">1</span>; nj &lt;= <span class="number">9</span>; ++ nj) </span><br><span class="line">                    <span class="keyword">if</span> (!(ni == ci &amp;&amp; nj == cj) &amp;&amp; g[ci][cj] == <span class="string">&#x27;#&#x27;</span> &amp;&amp; g[ni][nj] == <span class="string">&#x27;#&#x27;</span>) &#123;</span><br><span class="line">                        array&lt;<span class="type">int</span>, 2&gt; v = &#123;ni - ci, nj - cj&#125;;</span><br><span class="line">                        <span class="built_in">rot</span>(v);</span><br><span class="line">                        <span class="type">int</span> i3 = ni + v[<span class="number">0</span>], j3 = nj + v[<span class="number">1</span>];</span><br><span class="line">                        <span class="built_in">rot</span>(v);</span><br><span class="line">                        <span class="type">int</span> i4 = i3 + v[<span class="number">0</span>], j4 = j3 + v[<span class="number">1</span>];</span><br><span class="line">                        <span class="comment">// if (ci == 5 &amp;&amp; cj == 5 &amp;&amp; ni == 5 &amp;&amp; nj == 7)   cerr &lt;&lt; &quot;!!!&quot; &lt;&lt; endl;</span></span><br><span class="line">                        <span class="keyword">if</span> (<span class="built_in">check</span>(i3, j3) &amp;&amp; <span class="built_in">check</span>(i4, j4)</span><br><span class="line">                        &amp;&amp; g[i3][j3] == <span class="string">&#x27;#&#x27;</span> &amp;&amp; g[i4][j4] == <span class="string">&#x27;#&#x27;</span>) &#123;</span><br><span class="line">                            <span class="comment">// cerr &lt;&lt; ci &lt;&lt; &#x27; &#x27; &lt;&lt; cj &lt;&lt; &#x27; &#x27; &lt;&lt; ni &lt;&lt; &#x27; &#x27; &lt;&lt; nj &lt;&lt; &#x27; &#x27; &lt;&lt; i3 &lt;&lt; &#x27; &#x27; &lt;&lt; j3 &lt;&lt; endl;</span></span><br><span class="line">                            set&lt;array&lt;<span class="type">int</span>, 2&gt;&gt; s;</span><br><span class="line">                            s.<span class="built_in">insert</span>(&#123;ci, cj&#125;);</span><br><span class="line">                            s.<span class="built_in">insert</span>(&#123;ni, nj&#125;);</span><br><span class="line">                            s.<span class="built_in">insert</span>(&#123;i3, j3&#125;);</span><br><span class="line">                            s.<span class="built_in">insert</span>(&#123;i4, j4&#125;);</span><br><span class="line">                            S.<span class="built_in">insert</span>(s);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;   </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    cerr &lt;&lt; S.<span class="built_in">size</span>() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; S.<span class="built_in">size</span>() &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="D"><a href="#D" class="headerlink" title="D"></a>D</h2><h3 id="题意-1"><a href="#题意-1" class="headerlink" title="题意"></a>题意</h3><p>为非负整数 x 定义的函数 f(x) 满足以下条件：</p>
+<ul>
+<li><p>$f(0) = 1$</p>
+</li>
+<li><p>$f(k) = f(\lfloor \frac{k}{2}\rfloor) + f(\lfloor \frac{k}{3}\rfloor)$ 对于任何正整数 k</p>
+</li>
+</ul>
+<p>然后找到 $f(N), N\in[0, 1^{18}]$. </p>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>最多需要$log_2n \times log_3n$这么多个数的f值. 标准记搜</p>
+<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> n;</span><br><span class="line"></span><br><span class="line">unordered_map&lt;<span class="type">int</span>, <span class="type">int</span>&gt; dp;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> u)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (dp.<span class="built_in">count</span>(u))    <span class="keyword">return</span> dp[u];</span><br><span class="line">    <span class="keyword">return</span> dp[u] = <span class="built_in">dfs</span>(u / <span class="number">2</span>) + <span class="built_in">dfs</span>(u / <span class="number">3</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    dp[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    cout &lt;&lt; <span class="built_in">dfs</span>(n) &lt;&lt; endl;</span><br><span class="line">    cerr &lt;&lt; dp.<span class="built_in">size</span>() &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="E"><a href="#E" class="headerlink" title="E"></a>E</h2><h3 id="题意-2"><a href="#题意-2" class="headerlink" title="题意"></a>题意</h3><p>一个一维的棋盘上有 N + 1 个格子，下标从 0 到 N ，玩家要从 0 这个点出发，前往 N 这个点. 每个回合玩家都要扔一个 M 面的骰子，每个骰面上都有不同的数字，值域是 $[1, M]$ ，扔出每个面的概率都是 $\frac{1}{M}$ . 玩家需要根据要出来的骰面前进，如果预计前进之后走出了棋盘，就需要退回多走出的步数，如果在终点停了下来，游戏就胜利了，不能再扔骰子. 问 K 回合后，玩家胜利的概率. 将结果对 998244353 取模. </p>
+<p>$0 \le M \le N \le 1000, M \in [1, 10], K \in [1, 1000]$ . </p>
+<h2 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h2><p>令 dp[i][j] 为扔第 j 次骰子后，玩家到达下标为 i 的格子的概率. </p>
+<p>对于每一个 dp[i][j]  $dp[next_i][j + 1] = dp[i][j] \times \frac{1}{M}$. 注意如果走出了棋盘，要特殊讨论停下来的下标. </p>
+<p>已经到达终点n的状态[n][j]不用再向[next_i][j + 1]转移了</p>
+<h3 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">1000</span> + <span class="number">10</span>, mod = <span class="number">998244353</span>;</span><br><span class="line"><span class="type">int</span> n, m, k;</span><br><span class="line"><span class="type">int</span> dp[N][N];       <span class="comment">// 到达第i格, 共走了j步的所有情况之和</span></span><br><span class="line"><span class="comment">// 已经到达n的情况: dp[n][j] 要分开算, += dp[n][j-1]</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">qmi</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> res = <span class="number">1</span> % mod;</span><br><span class="line">    <span class="keyword">while</span> (k) &#123;</span><br><span class="line">        <span class="keyword">if</span> (k &amp; <span class="number">1</span>) res = res * a % mod;</span><br><span class="line">        a = a * a % mod;</span><br><span class="line">        k &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; m &gt;&gt; k;</span><br><span class="line">    dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span> m_1 = <span class="built_in">qmi</span>(m , mod - <span class="number">2</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; k; ++ j) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++ i) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> len = <span class="number">1</span>; len &lt;= m; ++ len) &#123;</span><br><span class="line">                <span class="type">int</span> ni = i + len;</span><br><span class="line">                <span class="keyword">if</span> (ni &gt; n) &#123;</span><br><span class="line">                    ni = n - (ni - n);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// if (next_i &lt;= i) &#123;</span></span><br><span class="line">                <span class="comment">//     cerr &lt;&lt; i &lt;&lt; &#x27; &#x27; &lt;&lt; len &lt;&lt; &#x27; &#x27; &lt;&lt; next_i &lt;&lt; endl;</span></span><br><span class="line">                <span class="comment">// &#125;</span></span><br><span class="line">                dp[ni][j + <span class="number">1</span>] += (dp[i][j] * m_1) % mod;</span><br><span class="line">                dp[ni][j + <span class="number">1</span>] %= mod;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        dp[n][j + <span class="number">1</span>] += dp[n][j];</span><br><span class="line">        dp[n][j + <span class="number">1</span>] %= mod;</span><br><span class="line">    &#125;</span><br><span class="line">    cerr &lt;&lt; dp[n][k] &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; dp[n][k] &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="F"><a href="#F" class="headerlink" title="F"></a>F</h2><h3 id="题意-3"><a href="#题意-3" class="headerlink" title="题意"></a>题意</h3><p>给定一个数组 A ，定义一次操作的内容是，删除 A 中一段连续的序列. </p>
+<p>问对于 1, 2, …, M 中的每个数 s ，分别至少要操作多少次， 才能使得 A 中剩下的数和为 s ，如果不可能就输出 -1 . </p>
+<p>$0 \le N \le M \le 3000， 1 \le a_i \le 3000$</p>
+<h3 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h3><p>数组分段式的DP, 用一个维度表示当前元素是否在分段中</p>
+<p>dp[N][N][2]: 前i个数, 构成总和为j, 且第i个数是否在总和中</p>
+<p>如果a[i]不计入总和: <code>dp[i][j][0] = min(&#123;dp[i][j][0], dp[i - 1][j][0], dp[i - 1][j][1] + 1&#125;);</code></p>
+<p>如果a[i]计入总和: <code>dp[i][j][1] = min(&#123;dp[i][j][1], dp[i - 1][j - a[i]][0], dp[i - 1][j - a[i]][1]&#125;);</code></p>
+<h3 id="代码-3"><a href="#代码-3" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">3e3</span> + <span class="number">10</span>;</span><br><span class="line"><span class="type">int</span> n, m;</span><br><span class="line"><span class="type">int</span> a[N];</span><br><span class="line"><span class="type">int</span> dp[N][N][<span class="number">2</span>];            <span class="comment">// 前i个数, 构成总和为j, 且第i个数是否在总和中</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++ i)   cin &gt;&gt; a[i];</span><br><span class="line"></span><br><span class="line">    <span class="built_in">memset</span>(dp, <span class="number">0x3f</span>, <span class="keyword">sizeof</span> dp);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++ i)   dp[i][<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    dp[<span class="number">0</span>][<span class="number">0</span>][<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++ i) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= m; ++ j) &#123;</span><br><span class="line">            dp[i][j][<span class="number">0</span>] = <span class="built_in">min</span>(&#123;dp[i][j][<span class="number">0</span>], dp[i - <span class="number">1</span>][j][<span class="number">0</span>], dp[i - <span class="number">1</span>][j][<span class="number">1</span>] + <span class="number">1</span>&#125;);</span><br><span class="line">            <span class="keyword">if</span> (j - a[i] &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">                dp[i][j][<span class="number">1</span>] = <span class="built_in">min</span>(&#123;dp[i][j][<span class="number">1</span>], dp[i - <span class="number">1</span>][j - a[i]][<span class="number">0</span>], dp[i - <span class="number">1</span>][j - a[i]][<span class="number">1</span>]&#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// cerr &lt;&lt; dp[n][2][0] &lt;&lt; &#x27; &#x27; &lt;&lt; dp[n][2][1] &lt;&lt; endl;</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= m; ++ j) &#123;</span><br><span class="line">        <span class="type">int</span> ans = <span class="built_in">min</span>(&#123;dp[n][j][<span class="number">0</span>], dp[n][j][<span class="number">1</span>]&#125;);</span><br><span class="line">        <span class="keyword">if</span> (ans &gt; <span class="number">0x3f3f3f3f3f3f3f3f</span> / <span class="number">2</span>)   ans = <span class="number">-1</span>;</span><br><span class="line">        cout &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="评价"><a href="#评价" class="headerlink" title="评价"></a>评价</h2><p>这次题目总体比较简单, 但是由于概率dp的短板, 导致赛时只做出了A-D, Rank 1600+. 事实上我认为F作为蓝题DP也是比较简单的</p>
+<p>C 模拟 + 向量旋转</p>
+<p>D 记忆化搜索</p>
+<p>E 概率DP</p>
+<p>F DP + 数组划分 / 选取子段</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/2022/11/04/%E9%A2%98%E8%A7%A3%20-%20AtCoder%20Beginner%20Contest%20275%20A-F/" title="题解 - AtCoder Beginner Contest 275 A-F" target="_blank" rel="external">http://example.com/2022/11/04/题解 - AtCoder Beginner Contest 275 A-F/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/lcj2021" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/lcj2021" target="_blank"><span class="text-dark">Liucj2021</span><small class="ml-1x">Graph &amp; Algorithm</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2022/11/03/%E9%A2%98%E8%A7%A3%20-%20AtCoder%20Beginner%20Contest%20192%20D-F/" title="题解 - AtCoder Beginner Contest 192 D-F"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+
+
+
+
+
+
+</body>
+</html>
