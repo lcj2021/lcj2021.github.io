@@ -17,16 +17,21 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>归档 | Liucj&#39;s Harbour</title>
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Liucj&#39;s Harbour">
-<meta property="og:url" content="http://example.com/archives/index.html">
+  <title>题解 - 第八届“图灵杯”个人赛 | Liucj&#39;s Harbour</title>
+  <meta name="description" content="比赛链接 贪吃的派蒙题意在每一次的排队中，编号为i的角色领取上限为Ai，这意味着他可以领取的甜甜花酿鸡在$[1-Ai]$范围内。当一个角色领完本次的甜甜花酿鸡，他&#x2F;她就会回到队列的末尾，直到所有甜甜花酿鸡都被吃完为止。当轮到一个角色领取时，如果所有的甜甜花酿鸡都被领完，那么他&#x2F;她就要帮大家刷盘子。 贪吃的派蒙每次都吃固定的Ax个甜甜花酿鸡(如果剩下的甜甜花酿鸡的数量比Ax小，那么他就把剩下的都吃完">
+<meta property="og:type" content="article">
+<meta property="og:title" content="题解 - 第八届“图灵杯”个人赛">
+<meta property="og:url" content="http://example.com/2022/11/07/%E9%A2%98%E8%A7%A3%20-%20%E7%AC%AC%E5%85%AB%E5%B1%8A%E2%80%9C%E5%9B%BE%E7%81%B5%E6%9D%AF%E2%80%9D%E4%B8%AA%E4%BA%BA%E8%B5%9B/index.html">
 <meta property="og:site_name" content="Liucj&#39;s Harbour">
+<meta property="og:description" content="比赛链接 贪吃的派蒙题意在每一次的排队中，编号为i的角色领取上限为Ai，这意味着他可以领取的甜甜花酿鸡在$[1-Ai]$范围内。当一个角色领完本次的甜甜花酿鸡，他&#x2F;她就会回到队列的末尾，直到所有甜甜花酿鸡都被吃完为止。当轮到一个角色领取时，如果所有的甜甜花酿鸡都被领完，那么他&#x2F;她就要帮大家刷盘子。 贪吃的派蒙每次都吃固定的Ax个甜甜花酿鸡(如果剩下的甜甜花酿鸡的数量比Ax小，那么他就把剩下的都吃完">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-11-06T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-11-11T01:32:37.155Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="算法_最短路">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://example.com/archives/index.html">
+  <link rel="canonical" href="http://example.com/2022/11/07/%E9%A2%98%E8%A7%A3%20-%20%E7%AC%AC%E5%85%AB%E5%B1%8A%E2%80%9C%E5%9B%BE%E7%81%B5%E6%9D%AF%E2%80%9D%E4%B8%AA%E4%BA%BA%E8%B5%9B/index.html">
   
     <link rel="alternate" href="/atom.xml" title="Liucj&#39;s Harbour" type="application/atom+xml">
   
@@ -297,118 +302,128 @@
   
   
 <main class="main" role="main">
-  	<article class="content article article-archives article-type-list" itemscope="">
-	    <header class="article-header">
-	      <h1 itemprop="title">归档</h1>
-	      <p class="text-muted">共 8 篇文章</p>
-	    </header>
-	    <div class="article-body">
-	      
-  
-  
+  <div class="content">
+  <article id="post-题解 - 第八届“图灵杯”个人赛" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
-    
+    <div class="article-header">
       
+        
+  
+    <h1 class="article-title" itemprop="name">
+      题解 - 第八届“图灵杯”个人赛
+    </h1>
+  
+
       
-      <section class="panel panel-default b-no">
-        <div class="panel-heading" role="tab">
-          <h3 class="panel-title">
-            <a data-toggle="collapse" href="#collapse2022" aria-expanded="true">
-              <i class="icon icon-calendar-plus text-active"></i><i class="icon icon-calendar-minus text"></i>
-              2022
-            </a>
-            <!-- <a href="/archives/2022" class="archive-year">2022</a> -->
-          </h3>
-        </div>
-        <div id="collapse2022" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading2022">
-        <div class="panel-body">
-          <div class="collection">
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2022/11/07/%E9%A2%98%E8%A7%A3%20-%20%E7%AC%AC%E5%85%AB%E5%B1%8A%E2%80%9C%E5%9B%BE%E7%81%B5%E6%9D%AF%E2%80%9D%E4%B8%AA%E4%BA%BA%E8%B5%9B/" class="article-date">
+	  <time datetime="2022-11-06T16:00:00.000Z" itemprop="datePublished">2022-11-07</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E9%A2%98%E8%A7%A3/">题解</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%9C%80%E7%9F%AD%E8%B7%AF/" rel="tag">算法_最短路</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2022/11/07/%E9%A2%98%E8%A7%A3%20-%20%E7%AC%AC%E5%85%AB%E5%B1%8A%E2%80%9C%E5%9B%BE%E7%81%B5%E6%9D%AF%E2%80%9D%E4%B8%AA%E4%BA%BA%E8%B5%9B/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/11746">比赛链接</a></p>
+<h2 id="贪吃的派蒙"><a href="#贪吃的派蒙" class="headerlink" title="贪吃的派蒙"></a><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/11746/G">贪吃的派蒙</a></h2><h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><p>在每一次的排队中，编号为i的角色领取上限为Ai，这意味着他可以领取的甜甜花酿鸡在$[1-Ai]$范围内。当一个角色领完本次的甜甜花酿鸡，他/她就会回到队列的末尾，直到所有甜甜花酿鸡都被吃完为止。当轮到一个角色领取时，如果所有的甜甜花酿鸡都被领完，那么他/她就要帮大家刷盘子。</p>
+<p>贪吃的派蒙每次都吃固定的Ax个甜甜花酿鸡(如果剩下的甜甜花酿鸡的数量比Ax小，那么他就把剩下的都吃完)。我们很容易找到派蒙的编号，Ax比其他所有的Ai都要大。大家都想让派蒙最后留下来刷盘子，请你写一个程序来判断这是否可能。 </p>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="Seek-the-Joker-II"><a href="#Seek-the-Joker-II" class="headerlink" title="Seek the Joker II"></a><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/11746/E">Seek the Joker II</a></h2><h3 id="题意-1"><a href="#题意-1" class="headerlink" title="题意"></a>题意</h3><p>两堆石子，一堆k-1，另一堆n-k，先取到任意一堆的最后一个输</p>
+<h3 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h3><h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
     
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/2022/11/07/%E9%A2%98%E8%A7%A3%20-%20%E7%AC%AC%E5%85%AB%E5%B1%8A%E2%80%9C%E5%9B%BE%E7%81%B5%E6%9D%AF%E2%80%9D%E4%B8%AA%E4%BA%BA%E8%B5%9B/" title="题解 - 第八届“图灵杯”个人赛" target="_blank" rel="external">http://example.com/2022/11/07/题解 - 第八届“图灵杯”个人赛/</a>
+    </li>
     
-<a href="/2022/11/07/%E9%A2%98%E8%A7%A3%20-%20%E7%89%9B%E5%AE%A2%E7%BB%83%E4%B9%A0%E8%B5%9B105%20D/" class="collection-item"   itemprop="url">
-  <time datetime="2022-11-06T16:00:00.000Z" itemprop="datePublished">2022-11-07</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> 题解 - 牛客小白月赛59 D-F
-</a>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/lcj2021" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/lcj2021" target="_blank"><span class="text-dark">Liucj2021</span><small class="ml-1x">Graph &amp; Algorithm</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+  </section>
 
 
   
-    
-    
-    
-<a href="/2022/11/07/%E9%A2%98%E8%A7%A3%20-%20%E7%AC%AC%E5%85%AB%E5%B1%8A%E2%80%9C%E5%9B%BE%E7%81%B5%E6%9D%AF%E2%80%9D%E4%B8%AA%E4%BA%BA%E8%B5%9B/" class="collection-item"   itemprop="url">
-  <time datetime="2022-11-06T16:00:00.000Z" itemprop="datePublished">2022-11-07</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> 题解 - 第八届“图灵杯”个人赛
-</a>
+</div>
 
-
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
   
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2022/11/07/%E9%A2%98%E8%A7%A3%20-%20%E7%89%9B%E5%AE%A2%E7%BB%83%E4%B9%A0%E8%B5%9B105%20D/" title="题解 - 牛客小白月赛59 D-F"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
     
     
-    
-<a href="/2022/11/06/%E5%91%A8%E8%AE%B0%20-%202022%2010.31-11.6/" class="collection-item"   itemprop="url">
-  <time datetime="2022-11-05T16:00:00.000Z" itemprop="datePublished">2022-11-06</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> 周记 - 2022 10.31-11.6
-</a>
-
-
-  
+    <li class="next">
+      <a href="/2022/11/06/%E5%91%A8%E8%AE%B0%20-%202022%2010.31-11.6/" title="周记 - 2022 10.31-11.6"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
     
     
-    
-<a href="/2022/11/04/%E9%A2%98%E8%A7%A3%20-%20AtCoder%20Beginner%20Contest%20275%20A-F/" class="collection-item"   itemprop="url">
-  <time datetime="2022-11-03T16:00:00.000Z" itemprop="datePublished">2022-11-04</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> 题解 - AtCoder Beginner Contest 275 A-F
-</a>
-
-
-  
-    
-    
-    
-<a href="/2022/11/03/%E9%A2%98%E8%A7%A3%20-%20AtCoder%20Beginner%20Contest%20192%20D-F/" class="collection-item"   itemprop="url">
-  <time datetime="2022-11-02T16:00:00.000Z" itemprop="datePublished">2022-11-03</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> 题解 - AtCoder Beginner Contest 192 D-F
-</a>
-
-
-  
-    
-    
-    
-<a href="/2022/11/01/%E9%A2%98%E8%A7%A3%20-%20%E7%89%9B%E5%AE%A2%E5%B0%8F%E7%99%BD%E6%9C%88%E8%B5%9B59%20D-F/" class="collection-item"   itemprop="url">
-  <time datetime="2022-10-31T16:00:00.000Z" itemprop="datePublished">2022-11-01</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> 题解 - 牛客小白月赛59 D-F
-</a>
-
-
-  
-    
-    
-    
-<a href="/2022/10/31/hello-world/" class="collection-item"   itemprop="url">
-  <time datetime="2022-10-31T11:31:34.473Z" itemprop="datePublished">2022-10-31</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> Hello World
-</a>
-
-
-  
-    
-    
-    
-<a href="/2022/02/02/Ubuntu%20%E4%B8%8B%E4%BD%BF%E7%94%A8%20Clash%20%E4%BB%A3%E7%90%86/" class="collection-item"   itemprop="url">
-  <time datetime="2022-02-01T16:00:00.000Z" itemprop="datePublished">2022-02-02</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> Ubuntu 下使用 Clash 代理
-</a>
-
-
+  </ul>
   
   
-    </div></div></div></section>
+  
+  <div class="bar-right">
+    
+  </div>
+  </div>
+</nav>
   
 
-	    </div>
-  	</article>
-  	 	
+
 </main>
 
   <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
@@ -455,6 +470,12 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
+   
+
+
+
+
+   
 
 
 

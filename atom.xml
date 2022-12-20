@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-11-07T08:24:35.618Z</updated>
+  <updated>2022-11-07T16:03:22.710Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,13 +17,63 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>周记 - 2022 10.31-11.6</title>
-    <link href="http://example.com/2022/11/04/%E5%91%A8%E8%AE%B0%20-%202022%2010.31-11.6/"/>
-    <id>http://example.com/2022/11/04/%E5%91%A8%E8%AE%B0%20-%202022%2010.31-11.6/</id>
-    <published>2022-11-03T16:00:00.000Z</published>
-    <updated>2022-11-07T08:24:35.618Z</updated>
+    <title>题解 - 牛客小白月赛59 D-F</title>
+    <link href="http://example.com/2022/11/07/%E9%A2%98%E8%A7%A3%20-%20%E7%89%9B%E5%AE%A2%E7%BB%83%E4%B9%A0%E8%B5%9B105%20D/"/>
+    <id>http://example.com/2022/11/07/%E9%A2%98%E8%A7%A3%20-%20%E7%89%9B%E5%AE%A2%E7%BB%83%E4%B9%A0%E8%B5%9B105%20D/</id>
+    <published>2022-11-06T16:00:00.000Z</published>
+    <updated>2022-11-07T16:03:22.710Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="11-3-周四-晴"><a href="#11-3-周四-晴" class="headerlink" title="11.3 周四 晴"></a>11.3 周四 晴</h2><p>今天一早起来就看到知乎推送《多地核酸开始自费》，又了解到大舅那边前几天已经开始自费了，收费是4元/次。不禁联想到昨天还吐槽核酸检测人员的高收入。</p><p>早十有《高性能计算》，依旧是平平无奇地上半节课签到，课间从复邻舍401后门溜回宿舍。不过今天罗HZ老师提到了签到的问题，在课上指出了缺课达3次需要补卡。我想起上上周自己因为没看课表，直接漏掉了一次签到。不料午饭后，有同学在课程群里问有没有爬山组队。这才知道所谓的补卡其实是跟LHZ爬岳麓山，好感度++。自己也得找个机会把缺的这次签到补回来。</p><p>下午依旧是赛前的日常刷题。看到了百度上关于</p><p>晚饭步步高挑香小面。晚九点打算继续昨晚的师大天马宿舍之行。虽然没有大门大开，但是也只是扫个码就放行了。漫步在师大宿舍园区，我和ZZM都明显感觉到和湖大天马宿舍不同的地方。简单来说就是中南南校区和这里都更加具有校园的氛围，体现在绿化，路旁的人行道，路旁的宣传栏，也体现在这里建筑的杂乱。</p><h2 id="11-4-周五-晴"><a href="#11-4-周五-晴" class="headerlink" title="11.4 周五 晴"></a>11.4 周五 晴</h2><p>8点30分第一个下床。刷题。干午饭。学委此时也发了关于毕设导师的通知了，毕设郑老师之前提过，但是目前又没了消息。我最担心的是找不到愿意挂名的导师。</p><p>下午第三节有《软件工程》，课上做了些2022辽宁省赛的题目，发现题目难度不大。做了<a href="https://ac.nowcoder.com/acm/contest/43937/B">可莉的五子棋</a>和<a href="https://ac.nowcoder.com/acm/contest/43937/M">画画</a>。<a href="https://ac.nowcoder.com/acm/contest/43937/I">图的分割</a>和<a href="https://ac.nowcoder.com/acm/contest/43937/G">栈与公约数</a>暂时没想到做法。</p><p>晚上有例行的每周大组会，我问了WSH，发现大家都找了毕设的导师，所以我也打算把当前进度汇报一下，顺便问问毕设的事情。于是跟老师和彭Z约了明天晚上讨论进度。</p><h2 id="11-5-周六-晴"><a href="#11-5-周六-晴" class="headerlink" title="11.5 周六 晴"></a>11.5 周六 晴</h2><p>今天14:00-16:00是ICPC沈阳站的热身赛。所以10点半不到就吃了午餐，休息小睡了20分钟后。便在阜埠河公交站和zwl骑车去院楼105准备上机环境。</p><p>在比赛开始时，zwl的后置录像手机夹住了关机键，手机直接关机了，所以我们整场比赛都没法正常交题。不过还是能看题面，A题签到，B题是输出 (随机生成)满足条件的a序列的期望。公式是$\frac{(n!)^2}{n^n}$。就是不知道<code>double</code>的精度能否满足要求。C题是类似石子合并的DP题。但是暴力DP只能$O(n^3)$由于不知道如何优化至$O(n^2)$，所以最后只能写一个假算法。赛后问了SJ，得知是四边形不等式决策单调性相关，打扰了。</p><p>晚上的Atcoder只打了半小时。</p><h2 id="11-6-周日-晴"><a href="#11-6-周日-晴" class="headerlink" title="11.6 周日 晴"></a>11.6 周日 晴</h2><p>总结: 遗憾打铁<br>仍是凌晨1点睡，8:30起床，10:30前进餐完毕，睡了10来分钟。11:30到院楼参加沈阳正是赛。</p><p>开题签到题，统计字符串中T和D的个数，WA了一发。<br>第二题找规律题，姜哥首先发现r取越大越好，但是只考虑a[i]作为左端点，没加上右端点的情况，WA了一发</p><p>第三题构造题，我首先用子矩阵数量公式判断出了无解情况。ZWL打表，发现了长相特殊的合法情况，所以尝试将二维压缩为一维。问题转换成把一个数分解成若干个$\frac{i \times (i+1)}{2}$表示。我提出从i王高到低贪心，二分i的位置，上机同时姜哥找反例。姜哥发现没有反例并且提出可以线性，但是我写到后面犯傻，直接神志不清，并不清楚线性的意思。于是姜哥接过来完成算法。第一发TLE，<code>endl</code>原因。第二发WA，爆<code>long long</code>。最后过了</p><p>第四题大模拟暴搜，题意没读懂，其实就是炉石随从攻击的逻辑，奈何没玩过。调试1个半小时，没能调对第二个样例。以为是精度问题。最后Rank290+无奈打铁。</p>]]></content>
+    <content type="html"><![CDATA[<p><a href="https://ac.nowcoder.com/acm/contest/44749">比赛链接</a></p><h2 id="Dijkstra-松弛的理解"><a href="#Dijkstra-松弛的理解" class="headerlink" title="Dijkstra 松弛的理解"></a>Dijkstra 松弛的理解</h2><p>“松弛”的概念来自对最短路径的估计与不为压缩而设计的螺旋拉伸弹簧的长度之间的类比。最初，最短路径的成本被高估了，就像延伸的弹簧一样。当找到更短的路径时，估计的成本会降低，弹簧会放松。最终，找到了最短的路径（如果存在），并且弹簧已经松弛到其静止长度。</p><h2 id="D-点分治分点"><a href="#D-点分治分点" class="headerlink" title="D - 点分治分点"></a>D - 点分治分点</h2><h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><p>G&lt;n, m&gt;, 且$n, m \leq 1e5$，定义一条简单路径的 low 值为其路径上的边权的最小值，d(u, v) 为从 u 到 v 所有简单路径的最大 low 值。对于给定的s，u 从 1 到 n 输出 d(s, u)，如果没有任何一条简单路径则输出 -1。</p><h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>点边数1e5 -&gt; Dijkstra变形套路</p><p>dist[i]: s-&gt;i的每条路径最短边中的最大值</p><p>松弛逻辑: 起初dist[nv]置为-inf, 小于实际值. 需要经过nv的入点cv和入边w的更新来进行松弛变大, 让dist[nv]松弛到实际值. 如果w比dist[cv]小, 说明w将成为s-&gt;nv所有路径的最短边. 反之, 还是用dist[cv]去更新dist[nv]. </p><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">1e5</span> + <span class="number">10</span>, inf = <span class="number">0x3f3f3f3f3f3f3f3f</span>;</span><br><span class="line"><span class="type">int</span> n, m, s;</span><br><span class="line">vector&lt;array&lt;<span class="type">int</span>, 2&gt;&gt; G[N];</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> dist[N];    <span class="comment">// s-&gt;i 每条路径最短边中的最大值</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; m &gt;&gt; s;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; ++ i) &#123;</span><br><span class="line">        <span class="type">int</span> u, v, w;    cin &gt;&gt; u &gt;&gt; v &gt;&gt; w;</span><br><span class="line">        G[u].<span class="built_in">pb</span>(&#123;v, w&#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    priority_queue&lt;array&lt;<span class="type">int</span>, 2&gt;&gt; pq;</span><br><span class="line">    <span class="built_in">memset</span>(dist, <span class="number">-0x3f</span>, <span class="keyword">sizeof</span> dist);</span><br><span class="line">    dist[s] = inf;</span><br><span class="line">    pq.<span class="built_in">push</span>(&#123;inf, s&#125;);</span><br><span class="line">    <span class="keyword">while</span> (pq.<span class="built_in">size</span>()) &#123;</span><br><span class="line">        <span class="keyword">auto</span> [cd, cv] = pq.<span class="built_in">top</span>();   pq.<span class="built_in">pop</span>();</span><br><span class="line">        <span class="keyword">if</span> (dist[cv] &gt; cd) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="comment">// cerr &lt;&lt; cv &lt;&lt; endl;</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> [nv, w] : G[cv]) &#123;</span><br><span class="line">            <span class="keyword">if</span> (dist[nv] &lt; <span class="built_in">min</span>(dist[cv], w)) &#123;</span><br><span class="line">                dist[nv] = <span class="built_in">min</span>(dist[cv], w);</span><br><span class="line">                pq.<span class="built_in">push</span>(&#123;dist[nv], nv&#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++ i) &#123;</span><br><span class="line">        <span class="keyword">if</span> (dist[i] &lt; -inf / <span class="number">2</span> || dist[i] &gt; inf / <span class="number">2</span>) &#123;</span><br><span class="line">            dist[i] = <span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++ i) &#123;</span><br><span class="line">        cout &lt;&lt; dist[i] &lt;&lt; <span class="string">&quot; \n&quot;</span>[i == n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://ac.nowcoder.com/acm/contest/44749&quot;&gt;比赛链接&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;Dijkstra-松弛的理解&quot;&gt;&lt;a href=&quot;#Dijkstra-松弛的理解&quot; class=&quot;headerlink&quot; tit</summary>
+      
+    
+    
+    
+    <category term="题解" scheme="http://example.com/categories/%E9%A2%98%E8%A7%A3/"/>
+    
+    
+    <category term="算法_最短路" scheme="http://example.com/tags/%E7%AE%97%E6%B3%95-%E6%9C%80%E7%9F%AD%E8%B7%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>题解 - 第八届“图灵杯”个人赛</title>
+    <link href="http://example.com/2022/11/07/%E9%A2%98%E8%A7%A3%20-%20%E7%AC%AC%E5%85%AB%E5%B1%8A%E2%80%9C%E5%9B%BE%E7%81%B5%E6%9D%AF%E2%80%9D%E4%B8%AA%E4%BA%BA%E8%B5%9B/"/>
+    <id>http://example.com/2022/11/07/%E9%A2%98%E8%A7%A3%20-%20%E7%AC%AC%E5%85%AB%E5%B1%8A%E2%80%9C%E5%9B%BE%E7%81%B5%E6%9D%AF%E2%80%9D%E4%B8%AA%E4%BA%BA%E8%B5%9B/</id>
+    <published>2022-11-06T16:00:00.000Z</published>
+    <updated>2022-11-11T01:32:37.155Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://ac.nowcoder.com/acm/contest/11746">比赛链接</a></p><h2 id="贪吃的派蒙"><a href="#贪吃的派蒙" class="headerlink" title="贪吃的派蒙"></a><a href="https://ac.nowcoder.com/acm/contest/11746/G">贪吃的派蒙</a></h2><h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><p>在每一次的排队中，编号为i的角色领取上限为Ai，这意味着他可以领取的甜甜花酿鸡在$[1-Ai]$范围内。当一个角色领完本次的甜甜花酿鸡，他/她就会回到队列的末尾，直到所有甜甜花酿鸡都被吃完为止。当轮到一个角色领取时，如果所有的甜甜花酿鸡都被领完，那么他/她就要帮大家刷盘子。</p><p>贪吃的派蒙每次都吃固定的Ax个甜甜花酿鸡(如果剩下的甜甜花酿鸡的数量比Ax小，那么他就把剩下的都吃完)。我们很容易找到派蒙的编号，Ax比其他所有的Ai都要大。大家都想让派蒙最后留下来刷盘子，请你写一个程序来判断这是否可能。 </p><h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure><h2 id="Seek-the-Joker-II"><a href="#Seek-the-Joker-II" class="headerlink" title="Seek the Joker II"></a><a href="https://ac.nowcoder.com/acm/contest/11746/E">Seek the Joker II</a></h2><h3 id="题意-1"><a href="#题意-1" class="headerlink" title="题意"></a>题意</h3><p>两堆石子，一堆k-1，另一堆n-k，先取到任意一堆的最后一个输</p><h3 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h3><h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://ac.nowcoder.com/acm/contest/11746&quot;&gt;比赛链接&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;贪吃的派蒙&quot;&gt;&lt;a href=&quot;#贪吃的派蒙&quot; class=&quot;headerlink&quot; title=&quot;贪吃的派蒙&quot;&gt;&lt;/a&gt;&lt;a </summary>
+      
+    
+    
+    
+    <category term="题解" scheme="http://example.com/categories/%E9%A2%98%E8%A7%A3/"/>
+    
+    
+    <category term="算法_最短路" scheme="http://example.com/tags/%E7%AE%97%E6%B3%95-%E6%9C%80%E7%9F%AD%E8%B7%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>周记 - 2022 10.31-11.6</title>
+    <link href="http://example.com/2022/11/06/%E5%91%A8%E8%AE%B0%20-%202022%2010.31-11.6/"/>
+    <id>http://example.com/2022/11/06/%E5%91%A8%E8%AE%B0%20-%202022%2010.31-11.6/</id>
+    <published>2022-11-05T16:00:00.000Z</published>
+    <updated>2022-11-07T15:16:51.243Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="11-3-周四-晴"><a href="#11-3-周四-晴" class="headerlink" title="11.3 周四 晴"></a>11.3 周四 晴</h2><p>今天一早起来就看到知乎推送《多地核酸开始自费》，又了解到大舅那边前几天已经开始自费了，收费是4元/次。不禁联想到昨天还吐槽核酸检测人员的高收入。</p><p>早十有《高性能计算》，依旧是平平无奇地上半节课签到，课间从复邻舍401后门溜回宿舍。不过今天罗HZ老师提到了签到的问题，在课上指出了缺课达3次需要补卡。我想起上上周自己因为没看课表，直接漏掉了一次签到。不料午饭后，有同学在课程群里问有没有爬山组队。这才知道所谓的补卡其实是跟LHZ爬岳麓山，好感度++。自己也得找个机会把缺的这次签到补回来。</p><p>下午依旧是赛前的日常刷题。看到了百度上关于</p><p>晚饭步步高挑香小面。晚九点打算继续昨晚的师大天马宿舍之行。虽然没有大门大开，但是也只是扫个码就放行了。漫步在师大宿舍园区，我和ZZM都明显感觉到和湖大天马宿舍不同的地方。简单来说就是中南南校区和这里都更加具有校园的氛围，体现在绿化，路旁的人行道，路旁的宣传栏，也体现在这里建筑的杂乱。</p><h2 id="11-4-周五-晴"><a href="#11-4-周五-晴" class="headerlink" title="11.4 周五 晴"></a>11.4 周五 晴</h2><p>8点30分第一个下床。刷题。干午饭。学委此时也发了关于毕设导师的通知了，毕设郑老师之前提过，但是目前又没了消息。我最担心的是找不到愿意挂名的导师。</p><p>下午第三节有《软件工程》，课上做了些2022辽宁省赛的题目，发现题目难度不大。做了<a href="https://ac.nowcoder.com/acm/contest/43937/B">可莉的五子棋</a>和<a href="https://ac.nowcoder.com/acm/contest/43937/M">画画</a>。<a href="https://ac.nowcoder.com/acm/contest/43937/I">图的分割</a>和<a href="https://ac.nowcoder.com/acm/contest/43937/G">栈与公约数</a>暂时没想到做法。</p><p>晚上有例行的每周大组会，我问了WSH，发现大家都找了毕设的导师，所以我也打算把当前进度汇报一下，顺便问问毕设的事情。于是跟老师和彭Z约了明天晚上讨论进度。</p><h2 id="11-5-周六-晴"><a href="#11-5-周六-晴" class="headerlink" title="11.5 周六 晴"></a>11.5 周六 晴</h2><p>今天14:00-16:00是ICPC沈阳站的热身赛。所以10点半不到就吃了午餐，休息小睡了20分钟后。便在阜埠河公交站和zwl骑车去院楼105准备上机环境。</p><p>在比赛开始时，zwl的后置录像手机夹住了关机键，手机直接关机了，所以我们整场比赛都没法正常交题。不过还是能看题面，A题签到，B题是输出 (随机生成)满足条件的a序列的期望。公式是$\frac{(n!)^2}{n^n}$。就是不知道<code>double</code>的精度能否满足要求。C题是类似石子合并的DP题。但是暴力DP只能$O(n^3)$由于不知道如何优化至$O(n^2)$，所以最后只能写一个假算法。赛后问了SJ，得知是四边形不等式决策单调性相关，打扰了。</p><p>晚上的Atcoder只打了半小时。</p><h2 id="11-6-周日-晴"><a href="#11-6-周日-晴" class="headerlink" title="11.6 周日 晴"></a>11.6 周日 晴</h2><p>总结: 遗憾打铁<br>仍是凌晨1点睡，8:30起床，10:30前进餐完毕，睡了10来分钟。11:30到院楼参加沈阳正是赛。</p><p>开题签到题，统计字符串中T和D的个数，WA了一发。<br>第二题找规律题，姜哥首先发现r取越大越好，但是只考虑a[i]作为左端点，没加上右端点的情况，WA了一发</p><p>第三题构造题，我首先用子矩阵数量公式判断出了无解情况。ZWL打表，发现了长相特殊的合法情况，所以尝试将二维压缩为一维。问题转换成把一个数分解成若干个$\frac{i \times (i+1)}{2}$表示。我提出从i从高到低贪心，二分i的位置，上机同时姜哥找反例。姜哥发现没有反例并且提出可以线性，但是我写到后面犯傻，直接神志不清，并不清楚线性的意思。于是姜哥接过来完成算法。第一发TLE，<code>endl</code>原因。第二发WA，爆<code>long long</code>。最后过了</p><p>第四题大模拟暴搜，题意没读懂，其实就是炉石随从攻击的逻辑，奈何没玩过。调试1个半小时，没能调对第二个样例。以为是精度问题。最后Rank290+无奈打铁。</p>]]></content>
     
     
       
