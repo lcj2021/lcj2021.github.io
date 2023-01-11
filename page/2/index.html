@@ -17,16 +17,16 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>归档: 2022/10 | Liucj&#39;s Harbour</title>
+  <title>Liucj&#39;s Harbour</title>
   <meta property="og:type" content="website">
 <meta property="og:title" content="Liucj&#39;s Harbour">
-<meta property="og:url" content="http://example.com/archives/2022/10/index.html">
+<meta property="og:url" content="http://example.com/page/2/index.html">
 <meta property="og:site_name" content="Liucj&#39;s Harbour">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://example.com/archives/2022/10/index.html">
+  <link rel="canonical" href="http://example.com/page/2/index.html">
   
     <link rel="alternate" href="/atom.xml" title="Liucj&#39;s Harbour" type="application/atom+xml">
   
@@ -295,50 +295,133 @@
 </aside>
 
   
+  <main class="main" role="main">
   
-<main class="main" role="main">
-  	<article class="content article article-archives article-type-list" itemscope="">
-	    <header class="article-header">
-	      <h1 itemprop="title">归档: 2022/10</h1>
-	      <p class="text-muted">共 11 篇文章</p>
-	    </header>
-	    <div class="article-body">
-	      
   
+    <div class="content">
+  <article id="post-Ubuntu 下使用 Clash 代理" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/02/02/Ubuntu%20%E4%B8%8B%E4%BD%BF%E7%94%A8%20Clash%20%E4%BB%A3%E7%90%86/">Ubuntu 下使用 Clash 代理</a>
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2022/02/02/Ubuntu%20%E4%B8%8B%E4%BD%BF%E7%94%A8%20Clash%20%E4%BB%A3%E7%90%86/" class="article-date">
+	  <time datetime="2022-02-01T16:00:00.000Z" itemprop="datePublished">2022-02-02</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/Network/" rel="tag">Network</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2022/02/02/Ubuntu%20%E4%B8%8B%E4%BD%BF%E7%94%A8%20Clash%20%E4%BB%A3%E7%90%86/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>Ubuntu科学上网</p>
+<ol>
+<li> 在 <a href="https://link.zhihu.com/?target=https://github.com/Dreamacro/clash/releases">https://github.com/Dreamacro/clash/releases</a> 下载对应的 clash 版本（普通电脑对应的是 linux-amd64 版本），解压，重命名为 clash。</li>
+<li> 添加执行权限（sudo chmod + x clash），将 clash 放到 /usr/bin/ 目录下（sudo cp clash /usr/bin/）。</li>
+<li> 在终端中运行 clash，会在 ~/.config/clash 文件夹下生成 config.yaml 和 Country.mmdb 两个文件。用商家提供的替换这两个文件，重新运行 clash。</li>
+<li>设置系统代理：<br> <img src="/images/2022-02-02-clash-on-Ubuntu_1.png" alt="1"></li>
+</ol>
+<blockquote>
+<ol>
+<li>用 nohup clash &amp; 命令可以使程序在后台运行，即使退出终端也不影响。</li>
+<li>将clash进程加入开机自启动</li>
+</ol>
+</blockquote>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/2022/02/02/Ubuntu%20%E4%B8%8B%E4%BD%BF%E7%94%A8%20Clash%20%E4%BB%A3%E7%90%86/" title="Ubuntu 下使用 Clash 代理" target="_blank" rel="external">http://example.com/2022/02/02/Ubuntu 下使用 Clash 代理/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/lcj2021" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/lcj2021" target="_blank"><span class="text-dark">Liucj2021</span><small class="ml-1x">Graph &amp; Algorithm</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+</div>
+
+  
+
   
     
-    
-      
-      
-      <section class="panel panel-default b-no">
-        <div class="panel-heading" role="tab">
-          <h3 class="panel-title">
-            <a data-toggle="collapse" href="#collapse2022" aria-expanded="true">
-              <i class="icon icon-calendar-plus text-active"></i><i class="icon icon-calendar-minus text"></i>
-              2022
-            </a>
-            <!-- <a href="/archives/2022" class="archive-year">2022</a> -->
-          </h3>
+    <nav class="bar bar-footer clearfix" data-stick-bottom>
+        <div class="bar-inner">
+        <ul class="pager pull-left">
+            
+            <li class="prev">
+                <a href="/">
+                    <i class="icon icon-angle-left"></i>
+                    上一页
+                </a>
+            </li>
+            
+            
+            <li class="next disabled">
+                <a href="javascript:;">
+                    下一页
+                    <i class="icon icon-angle-right"></i>                    
+                </a>
+            </li>
+            
+        </ul>
+            <div class="total-article bar-right">Page 2 of 2</div>
         </div>
-        <div id="collapse2022" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading2022">
-        <div class="panel-body">
-          <div class="collection">
+    </nav>
     
-    
-<a href="/2022/10/31/hello-world/" class="collection-item"   itemprop="url">
-  <time datetime="2022-10-31T11:31:34.473Z" itemprop="datePublished">2022-10-31</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> Hello World
-</a>
-
-
-  
-  
-    </div></div></div></section>
-  
-
-	    </div>
-  	</article>
-  	 	
+ 
 </main>
 
   <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
@@ -382,6 +465,10 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
+
+
+
+   
 
 
 
