@@ -17,21 +17,24 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>题解 - 第八届“图灵杯”个人赛 | Liucj&#39;s Harbour</title>
-  <meta name="description" content="比赛链接 贪吃的派蒙题意在每一次的排队中，编号为i的角色领取上限为Ai，这意味着他可以领取的甜甜花酿鸡在$[1-Ai]$范围内。当一个角色领完本次的甜甜花酿鸡，他&#x2F;她就会回到队列的末尾，直到所有甜甜花酿鸡都被吃完为止。当轮到一个角色领取时，如果所有的甜甜花酿鸡都被领完，那么他&#x2F;她就要帮大家刷盘子。 贪吃的派蒙每次都吃固定的Ax个甜甜花酿鸡(如果剩下的甜甜花酿鸡的数量比Ax小，那么他就把剩下的都吃完">
+  <title>题解 - Codeforces Round 685 (Div. 2) A-E | Liucj&#39;s Harbour</title>
+  <meta name="description" content="做这套题主要是因为我搜”模仿棋”, 搜到了这场的D题, 顺便把其他题也做了 C. String Equality题意给两个字符串a和b，问a能不能通过无限次操作到b. 第一种操作，相邻交换字符； 第二种操作，选取区间长度为k的子串,而且子串中的字母都 &lt;’z’，每一个字母都加一（比如S0&#x3D;’a’ 操作后,S0&#x3D;’b’)  分析代码1   D. Circle Game题意给一个d和R,A和B轮">
 <meta property="og:type" content="article">
-<meta property="og:title" content="题解 - 第八届“图灵杯”个人赛">
-<meta property="og:url" content="http://example.com/2022/11/07/%E9%A2%98%E8%A7%A3%20-%20%E7%AC%AC%E5%85%AB%E5%B1%8A%E2%80%9C%E5%9B%BE%E7%81%B5%E6%9D%AF%E2%80%9D%E4%B8%AA%E4%BA%BA%E8%B5%9B/index.html">
+<meta property="og:title" content="题解 - Codeforces Round 685 (Div. 2) A-E">
+<meta property="og:url" content="http://example.com/2023/01/11/%E9%A2%98%E8%A7%A3%20-%20Codeforces%20Round%20685%20(Div.%202)%20A-E/index.html">
 <meta property="og:site_name" content="Liucj&#39;s Harbour">
-<meta property="og:description" content="比赛链接 贪吃的派蒙题意在每一次的排队中，编号为i的角色领取上限为Ai，这意味着他可以领取的甜甜花酿鸡在$[1-Ai]$范围内。当一个角色领完本次的甜甜花酿鸡，他&#x2F;她就会回到队列的末尾，直到所有甜甜花酿鸡都被吃完为止。当轮到一个角色领取时，如果所有的甜甜花酿鸡都被领完，那么他&#x2F;她就要帮大家刷盘子。 贪吃的派蒙每次都吃固定的Ax个甜甜花酿鸡(如果剩下的甜甜花酿鸡的数量比Ax小，那么他就把剩下的都吃完">
+<meta property="og:description" content="做这套题主要是因为我搜”模仿棋”, 搜到了这场的D题, 顺便把其他题也做了 C. String Equality题意给两个字符串a和b，问a能不能通过无限次操作到b. 第一种操作，相邻交换字符； 第二种操作，选取区间长度为k的子串,而且子串中的字母都 &lt;’z’，每一个字母都加一（比如S0&#x3D;’a’ 操作后,S0&#x3D;’b’)  分析代码1   D. Circle Game题意给一个d和R,A和B轮">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-11-06T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-01-11T09:16:08.174Z">
+<meta property="article:published_time" content="2023-01-10T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-01-11T15:06:22.192Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="算法_最短路">
+<meta property="article:tag" content="算法_贪心">
+<meta property="article:tag" content="算法_构造">
+<meta property="article:tag" content="算法_博弈">
+<meta property="article:tag" content="算法_位运算">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://example.com/2022/11/07/%E9%A2%98%E8%A7%A3%20-%20%E7%AC%AC%E5%85%AB%E5%B1%8A%E2%80%9C%E5%9B%BE%E7%81%B5%E6%9D%AF%E2%80%9D%E4%B8%AA%E4%BA%BA%E8%B5%9B/index.html">
+  <link rel="canonical" href="http://example.com/2023/01/11/%E9%A2%98%E8%A7%A3%20-%20Codeforces%20Round%20685%20(Div.%202)%20A-E/index.html">
   
     <link rel="alternate" href="/atom.xml" title="Liucj&#39;s Harbour" type="application/atom+xml">
   
@@ -303,14 +306,14 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-题解 - 第八届“图灵杯”个人赛" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-题解 - Codeforces Round 685 (Div. 2) A-E" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      题解 - 第八届“图灵杯”个人赛
+      题解 - Codeforces Round 685 (Div. 2) A-E
     </h1>
   
 
@@ -318,8 +321,8 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2022/11/07/%E9%A2%98%E8%A7%A3%20-%20%E7%AC%AC%E5%85%AB%E5%B1%8A%E2%80%9C%E5%9B%BE%E7%81%B5%E6%9D%AF%E2%80%9D%E4%B8%AA%E4%BA%BA%E8%B5%9B/" class="article-date">
-	  <time datetime="2022-11-06T16:00:00.000Z" itemprop="datePublished">2022-11-07</time>
+	<a href="/2023/01/11/%E9%A2%98%E8%A7%A3%20-%20Codeforces%20Round%20685%20(Div.%202)%20A-E/" class="article-date">
+	  <time datetime="2023-01-10T16:00:00.000Z" itemprop="datePublished">2023-01-11</time>
 	</a>
 </span>
         
@@ -331,25 +334,34 @@
         
   <span class="article-tag">
     <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%9C%80%E7%9F%AD%E8%B7%AF/" rel="tag">算法_最短路</a>
+	<a class="article-tag-link-link" href="/tags/%E7%AE%97%E6%B3%95-%E4%BD%8D%E8%BF%90%E7%AE%97/" rel="tag">算法_位运算</a>, <a class="article-tag-link-link" href="/tags/%E7%AE%97%E6%B3%95-%E5%8D%9A%E5%BC%88/" rel="tag">算法_博弈</a>, <a class="article-tag-link-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%9E%84%E9%80%A0/" rel="tag">算法_构造</a>, <a class="article-tag-link-link" href="/tags/%E7%AE%97%E6%B3%95-%E8%B4%AA%E5%BF%83/" rel="tag">算法_贪心</a>
   </span>
 
 
         
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2022/11/07/%E9%A2%98%E8%A7%A3%20-%20%E7%AC%AC%E5%85%AB%E5%B1%8A%E2%80%9C%E5%9B%BE%E7%81%B5%E6%9D%AF%E2%80%9D%E4%B8%AA%E4%BA%BA%E8%B5%9B/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2023/01/11/%E9%A2%98%E8%A7%A3%20-%20Codeforces%20Round%20685%20(Div.%202)%20A-E/#comments" class="article-comment-link">评论</a></span>
         
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <p><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/11746">比赛链接</a></p>
-<h2 id="贪吃的派蒙"><a href="#贪吃的派蒙" class="headerlink" title="贪吃的派蒙"></a><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/11746/G">贪吃的派蒙</a></h2><h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><p>在每一次的排队中，编号为i的角色领取上限为Ai，这意味着他可以领取的甜甜花酿鸡在$[1-Ai]$范围内。当一个角色领完本次的甜甜花酿鸡，他/她就会回到队列的末尾，直到所有甜甜花酿鸡都被吃完为止。当轮到一个角色领取时，如果所有的甜甜花酿鸡都被领完，那么他/她就要帮大家刷盘子。</p>
-<p>贪吃的派蒙每次都吃固定的Ax个甜甜花酿鸡(如果剩下的甜甜花酿鸡的数量比Ax小，那么他就把剩下的都吃完)。我们很容易找到派蒙的编号，Ax比其他所有的Ai都要大。大家都想让派蒙最后留下来刷盘子，请你写一个程序来判断这是否可能。</p>
+        <p>做这套题主要是因为我搜”模仿棋”, 搜到了这场的D题, 顺便把其他题也做了</p>
+<h2 id="C-String-Equality"><a href="#C-String-Equality" class="headerlink" title="C. String Equality"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1451/problem/C">C. String Equality</a></h2><h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><p>给两个字符串a和b，问a能不能通过无限次操作到b.</p>
+<p>第一种操作，相邻交换字符；</p>
+<p>第二种操作，选取区间长度为k的子串,而且子串中的字母都 &lt;’z’，每一个字母都加一（比如S0=’a’ 操作后,S0=’b’) </p>
 <h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
 
-<h2 id="Seek-the-Joker-II"><a href="#Seek-the-Joker-II" class="headerlink" title="Seek the Joker II"></a><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/11746/E">Seek the Joker II</a></h2><h3 id="题意-1"><a href="#题意-1" class="headerlink" title="题意"></a>题意</h3><p>两堆石子，一堆k-1，另一堆n-k，先取到任意一堆的最后一个输</p>
+
+<h2 id="D-Circle-Game"><a href="#D-Circle-Game" class="headerlink" title="D. Circle Game"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1451/problem/D">D. Circle Game</a></h2><h3 id="题意-1"><a href="#题意-1" class="headerlink" title="题意"></a>题意</h3><p>给一个d和R,A和B轮流操作，从(0,0)开始移动，可以选择 x+=d 或者 y+=d ,当某人下一次移动会超过圆(圆心在(0,0), 半径为R)的时候，那个人就输了</p>
 <h3 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h3><h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="E-Bitwise-Queries-Hard-Version"><a href="#E-Bitwise-Queries-Hard-Version" class="headerlink" title="E. Bitwise Queries (Hard Version)"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1451/problem/E2">E. Bitwise Queries (Hard Version)</a></h2><h3 id="题意-2"><a href="#题意-2" class="headerlink" title="题意"></a>题意</h3><p>有一个长度为 n 的数组(n 是 2 的幂) ，有 3 种操作，AND OR XOR，可以获得数组两个元素的 AND OR XOR 值，仅限 n+1 次操作求原数组</p>
+<h3 id="分析-2"><a href="#分析-2" class="headerlink" title="分析"></a>分析</h3><p>首先考虑以 $a_1$ 为基准求出 $a_1 \oplus a_k$，这样只要求出 $a_1$ 就可以求出整个数组，这一步需要 $n-1$ 次操作。</p>
+<p>因为只有 $n$ 个元素，元素的范围是 $[0,n-1]$，所以可以进行分类讨论：</p>
+<p>1.所有元素并不是互不相同。也就是说有重复的元素，这样只要找到相同的元素，对相同的元素进行 AND 操作就可以求出这个元素（因为知道了这两个元素和 $a_1$ 的异或值），又因为知道了所有元素和 $a_1$ 的 XOR，所以可以直接算出整个数组。考虑如何找到相同的元素，可以开个桶记录每个元素出现的次数。取最大的出现次数（这种情况下至少两次），然后进行一次查找就可以得到所有异或 $a_1$ 相同的元素也就是相同的元素，任意取两个询问 AND 就可以了。不过这里有个要注意的，如果 $a_1$ 恰好是重复的元素只会扫到 $1$ 个不一样的元素，取 $1$ 询问即可。</p>
+<p>2.所有元素互不相同。也就是是 $[0,n-1]$ 的全排列。考虑 XOR 的性质，相同就是 $0$，也就是说可以选择 $1$ 这个数，只有最后一位是 $1$，其他都是 $0$，也就是说如果 $a_1\oplus a_k=1$，$a_1$ 和 $a_k$ 只有最后一位不一样，可以通过 AND 操作求出前 $\log n-1$ 位。同理如果 $a_1\oplus a_k=\frac n2$，$a_1$ 和 $a_k$ 只有第一位不一样，可以通过 AND 操作求出后 $\log n-1$ 位。把两个结果组合一下（直接或起来）就可以得到 $a_1$。其实不一定要选择 $1$ 和 $\frac n2$，只要保证这两个数二进制下每位都至少有个数是 $0$ 就行。</p>
+<h3 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">AND</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> </span>&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;AND &quot;</span> &lt;&lt; x &lt;&lt; <span class="string">&#x27; &#x27;</span> &lt;&lt; y &lt;&lt; endl;</span><br><span class="line">    <span class="type">int</span> res;    cin &gt;&gt; res;     <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">XOR</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> </span>&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;XOR &quot;</span> &lt;&lt; x &lt;&lt; <span class="string">&#x27; &#x27;</span> &lt;&lt; y &lt;&lt; endl;</span><br><span class="line">    <span class="type">int</span> res;    cin &gt;&gt; res;     <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n;  cin &gt;&gt; n;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">xr</span><span class="params">(n + <span class="number">1</span>)</span></span>;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">cnt</span><span class="params">(n + <span class="number">1</span>, <span class="number">0</span>)</span></span>;  cnt[<span class="number">0</span>] ++;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">2</span>; i &lt;= n; ++ i) &#123;</span><br><span class="line">        xr[i] = <span class="built_in">XOR</span>(<span class="number">1</span>, i);</span><br><span class="line">        cnt[xr[i]] ++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> a1, mx_show_xr = <span class="built_in">max_element</span>(<span class="built_in">all</span>(cnt)) - cnt.<span class="built_in">begin</span>(); <span class="comment">// mx_show_xr: 出现最多的xr值</span></span><br><span class="line">    <span class="keyword">if</span> (cnt[mx_show_xr] &gt; <span class="number">1</span>) &#123;        <span class="comment">// n个数中有重复的</span></span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; dulplicate_pos;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">2</span>; i &lt;= n; ++ i) &#123; </span><br><span class="line">            <span class="comment">// if (cnt[xr[i]] == cnt[mx_show_xr]) &#123;         // X!!! cnt一致的xr值可能有多个!!!</span></span><br><span class="line">            <span class="keyword">if</span> (xr[i] == mx_show_xr) &#123;</span><br><span class="line">                dulplicate_pos.<span class="built_in">pb</span>(i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">LOG</span>(dulplicate_pos)</span><br><span class="line">        <span class="comment">// assert(dulplicate_pos.size() &gt; 1);</span></span><br><span class="line">        <span class="type">int</span> a_dulplicate;</span><br><span class="line">        <span class="keyword">if</span> (dulplicate_pos.<span class="built_in">size</span>() == <span class="number">1</span>) &#123;</span><br><span class="line">            a_dulplicate = <span class="built_in">AND</span>(<span class="number">1</span>, dulplicate_pos.<span class="built_in">back</span>());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            a_dulplicate = <span class="built_in">AND</span>(dulplicate_pos.<span class="built_in">front</span>(), dulplicate_pos.<span class="built_in">back</span>());</span><br><span class="line">        &#125;</span><br><span class="line">        a1 = a_dulplicate ^ mx_show_xr;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;! &quot;</span> &lt;&lt; a1 &lt;&lt; <span class="string">&#x27; &#x27;</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">2</span>; i &lt;= n; ++ i) &#123;</span><br><span class="line">            cout &lt;&lt; (a1 ^ xr[i]) &lt;&lt; <span class="string">&#x27; &#x27;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 因为全排列, 并且n是二的次幂 a1^a[2~n], 会保证1~n-1的数全部出现一次</span></span><br><span class="line">    <span class="keyword">else</span> &#123;      <span class="comment">// n个数无重复, 就是[0, n-1]的全排列 </span></span><br><span class="line">        <span class="type">int</span> px = <span class="built_in">find</span>(<span class="built_in">all</span>(xr), <span class="number">1</span>) - xr.<span class="built_in">begin</span>();         <span class="comment">// a1跟x异或, 得到了00...1, 说明a1大部分都跟x相同</span></span><br><span class="line">        <span class="type">int</span> py = <span class="built_in">find</span>(<span class="built_in">all</span>(xr), n / <span class="number">2</span>) - xr.<span class="built_in">begin</span>();</span><br><span class="line">        a1 = <span class="built_in">AND</span>(<span class="number">1</span>, px) | <span class="built_in">AND</span>(<span class="number">1</span>, py);</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;! &quot;</span> &lt;&lt; a1 &lt;&lt; <span class="string">&#x27; &#x27;</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">2</span>; i &lt;= n; ++ i) &#123;</span><br><span class="line">            cout &lt;&lt; (a1 ^ xr[i]) &lt;&lt; <span class="string">&#x27; &#x27;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -359,7 +371,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="http://example.com/2022/11/07/%E9%A2%98%E8%A7%A3%20-%20%E7%AC%AC%E5%85%AB%E5%B1%8A%E2%80%9C%E5%9B%BE%E7%81%B5%E6%9D%AF%E2%80%9D%E4%B8%AA%E4%BA%BA%E8%B5%9B/" title="题解 - 第八届“图灵杯”个人赛" target="_blank" rel="external">http://example.com/2022/11/07/题解 - 第八届“图灵杯”个人赛/</a>
+      <a href="http://example.com/2023/01/11/%E9%A2%98%E8%A7%A3%20-%20Codeforces%20Round%20685%20(Div.%202)%20A-E/" title="题解 - Codeforces Round 685 (Div. 2) A-E" target="_blank" rel="external">http://example.com/2023/01/11/题解 - Codeforces Round 685 (Div. 2) A-E/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -403,13 +415,9 @@
   
   <ul class="pager pull-left">
     
-    <li class="prev">
-      <a href="/2022/11/07/%E9%A2%98%E8%A7%A3%20-%20%E7%89%9B%E5%AE%A2%E7%BB%83%E4%B9%A0%E8%B5%9B105%20D/" title="题解 - 牛客小白月赛59 D-F"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
-    </li>
-    
     
     <li class="next">
-      <a href="/2022/11/06/%E5%91%A8%E8%AE%B0%20-%202022%2010.31-11.6/" title="周记 - 2022 10.31-11.6"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2023/01/11/%E9%A2%98%E8%A7%A3%20-%20Codeforces%20Round%20843%20(Div.%202)%20A-E/" title="题解 - Codeforces Round #843 (Div. 2) A-E"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     
