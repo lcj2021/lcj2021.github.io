@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>题解 - Codeforces Round 797 (Div. 3) A-G | Liucj&#39;s Harbour</title>
+  <meta name="description" content="昨晚vp, div3+rk600+, 感觉还行. 虽然前四题很久之前比赛时做过, 但是vp的时候还是出的很慢. E题当时比赛时就不会做, vp的时候依然卡住了. 先做了F题, 比较套路的置换环. 倒回去再想出了E题. G题考虑不周全, 讨论完了才发现样例对不上.  补题:  A. Print a Pedestal (Codeforces logo?)题意分析代码12345678910111213v">
+<meta property="og:type" content="article">
+<meta property="og:title" content="题解 - Codeforces Round 797 (Div. 3) A-G">
+<meta property="og:url" content="http://example.com/2023/01/14/%E9%A2%98%E8%A7%A3%20-%20Codeforces%20Round%20797%20(Div.%203)%20A-G/index.html">
+<meta property="og:site_name" content="Liucj&#39;s Harbour">
+<meta property="og:description" content="昨晚vp, div3+rk600+, 感觉还行. 虽然前四题很久之前比赛时做过, 但是vp的时候还是出的很慢. E题当时比赛时就不会做, vp的时候依然卡住了. 先做了F题, 比较套路的置换环. 倒回去再想出了E题. G题考虑不周全, 讨论完了才发现样例对不上.  补题:  A. Print a Pedestal (Codeforces logo?)题意分析代码12345678910111213v">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-01-13T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-01-14T04:51:41.517Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="算法_贪心">
+<meta property="article:tag" content="算法_构造">
+<meta property="article:tag" content="算法_双指针">
+<meta property="article:tag" content="算法_组合数学">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://example.com/2023/01/14/%E9%A2%98%E8%A7%A3%20-%20Codeforces%20Round%20797%20(Div.%203)%20A-G/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Liucj&#39;s Harbour" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/lcj2021" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">Liucj2021</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Graph &amp; Competitive Programming</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Guangzhou, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8/">日常</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%A2%98%E8%A7%A3/">题解</a><span class="category-list-count">11</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/" rel="tag">Network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-DP/" rel="tag">算法_DP</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E4%BA%8C%E5%88%86/" rel="tag">算法_二分</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E4%BD%8D%E8%BF%90%E7%AE%97/" rel="tag">算法_位运算</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E5%8D%9A%E5%BC%88/" rel="tag">算法_博弈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E5%8F%8C%E6%8C%87%E9%92%88/" rel="tag">算法_双指针</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E5%AE%9E%E7%8E%B0/" rel="tag">算法_实现</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%90%9C%E7%B4%A2/" rel="tag">算法_搜索</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%95%B0%E8%AE%BA/" rel="tag">算法_数论</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%9C%80%E7%9F%AD%E8%B7%AF/" rel="tag">算法_最短路</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%9E%84%E9%80%A0/" rel="tag">算法_构造</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/" rel="tag">算法_组合数学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E8%B4%AA%E5%BF%83/" rel="tag">算法_贪心</a><span class="tag-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/Network/" style="font-size: 13px;">Network</a> <a href="/tags/%E7%AE%97%E6%B3%95-DP/" style="font-size: 13.6px;">算法_DP</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E4%BA%8C%E5%88%86/" style="font-size: 13px;">算法_二分</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E4%BD%8D%E8%BF%90%E7%AE%97/" style="font-size: 13.2px;">算法_位运算</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E5%8D%9A%E5%BC%88/" style="font-size: 13.4px;">算法_博弈</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E5%8F%8C%E6%8C%87%E9%92%88/" style="font-size: 13px;">算法_双指针</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E5%AE%9E%E7%8E%B0/" style="font-size: 13px;">算法_实现</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%90%9C%E7%B4%A2/" style="font-size: 13px;">算法_搜索</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%95%B0%E8%AE%BA/" style="font-size: 13.2px;">算法_数论</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%9C%80%E7%9F%AD%E8%B7%AF/" style="font-size: 13.6px;">算法_最短路</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%9E%84%E9%80%A0/" style="font-size: 14px;">算法_构造</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/" style="font-size: 13px;">算法_组合数学</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E8%B4%AA%E5%BF%83/" style="font-size: 13.8px;">算法_贪心</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">十一月 2022</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">十月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E9%A2%98%E8%A7%A3/">题解</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/01/14/%E9%A2%98%E8%A7%A3%20-%20Codeforces%20Round%20797%20(Div.%203)%20A-G/" class="title">题解 - Codeforces Round 797 (Div. 3) A-G</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-01-13T16:00:00.000Z" itemprop="datePublished">2023-01-14</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E6%97%A5%E5%B8%B8/">日常</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/01/13/%E5%B9%B4%E8%AE%B0%20-%202022/" class="title">年记 - 2022</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-01-12T16:00:00.000Z" itemprop="datePublished">2023-01-13</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E9%A2%98%E8%A7%A3/">题解</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/01/12/%E9%A2%98%E8%A7%A3%20-%20Codeforces%20Round%20839%20(Div.%203)%20A-G/" class="title">题解 - Codeforces Round 839 (Div. 3) A-F</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-01-11T16:00:00.000Z" itemprop="datePublished">2023-01-12</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E9%A2%98%E8%A7%A3/">题解</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/01/11/%E9%A2%98%E8%A7%A3%20-%20Codeforces%20Round%20685%20(Div.%202)%20A-E/" class="title">题解 - Codeforces Round 685 (Div. 2) A-E</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-01-10T16:00:00.000Z" itemprop="datePublished">2023-01-11</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E9%A2%98%E8%A7%A3/">题解</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/01/11/%E9%A2%98%E8%A7%A3%20-%20Codeforces%20Round%20843%20(Div.%202)%20A-E/" class="title">题解 - Codeforces Round #843 (Div. 2) A-E</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-01-10T16:00:00.000Z" itemprop="datePublished">2023-01-11</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-题解 - Codeforces Round 797 (Div. 3) A-G" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      题解 - Codeforces Round 797 (Div. 3) A-G
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2023/01/14/%E9%A2%98%E8%A7%A3%20-%20Codeforces%20Round%20797%20(Div.%203)%20A-G/" class="article-date">
+	  <time datetime="2023-01-13T16:00:00.000Z" itemprop="datePublished">2023-01-14</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E9%A2%98%E8%A7%A3/">题解</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E7%AE%97%E6%B3%95-%E5%8F%8C%E6%8C%87%E9%92%88/" rel="tag">算法_双指针</a>, <a class="article-tag-link-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%9E%84%E9%80%A0/" rel="tag">算法_构造</a>, <a class="article-tag-link-link" href="/tags/%E7%AE%97%E6%B3%95-%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/" rel="tag">算法_组合数学</a>, <a class="article-tag-link-link" href="/tags/%E7%AE%97%E6%B3%95-%E8%B4%AA%E5%BF%83/" rel="tag">算法_贪心</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2023/01/14/%E9%A2%98%E8%A7%A3%20-%20Codeforces%20Round%20797%20(Div.%203)%20A-G/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>昨晚vp, div3+rk600+, 感觉还行. 虽然前四题很久之前比赛时做过, 但是vp的时候还是出的很慢. E题当时比赛时就不会做, vp的时候依然卡住了. 先做了F题, 比较套路的置换环. 倒回去再想出了E题. G题考虑不周全, 讨论完了才发现样例对不上. </p>
+<p>补题: </p>
+<h2 id="A-Print-a-Pedestal-Codeforces-logo"><a href="#A-Print-a-Pedestal-Codeforces-logo" class="headerlink" title="A. Print a Pedestal (Codeforces logo?)"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1690/problem/A">A. Print a Pedestal (Codeforces logo?)</a></h2><h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n;  cin &gt;&gt; n;</span><br><span class="line">    <span class="type">int</span> d = n / <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">if</span> (n % <span class="number">3</span> == <span class="number">0</span>) &#123;</span><br><span class="line">        cout &lt;&lt; d &lt;&lt; <span class="string">&#x27; &#x27;</span> &lt;&lt; d + <span class="number">1</span> &lt;&lt; <span class="string">&#x27; &#x27;</span> &lt;&lt; d - <span class="number">1</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (n % <span class="number">3</span> == <span class="number">1</span>) &#123;</span><br><span class="line">        cout &lt;&lt; d + <span class="number">0</span> &lt;&lt; <span class="string">&#x27; &#x27;</span> &lt;&lt; d + <span class="number">2</span> &lt;&lt; <span class="string">&#x27; &#x27;</span> &lt;&lt; d - <span class="number">1</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        cout &lt;&lt; d + <span class="number">1</span> &lt;&lt; <span class="string">&#x27; &#x27;</span> &lt;&lt; d + <span class="number">2</span> &lt;&lt; <span class="string">&#x27; &#x27;</span> &lt;&lt; d - <span class="number">1</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="B-Array-Decrements"><a href="#B-Array-Decrements" class="headerlink" title="B. Array Decrements)"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1690/problem/B">B. Array Decrements)</a></h2><h3 id="题意-1"><a href="#题意-1" class="headerlink" title="题意"></a>题意</h3><h3 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h3><h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n;  cin &gt;&gt; n;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">a</span><span class="params">(n)</span>, <span class="title">b</span><span class="params">(n)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> &amp;x : a)   cin &gt;&gt; x;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> &amp;x : b)   cin &gt;&gt; x;</span><br><span class="line"></span><br><span class="line">    set&lt;<span class="type">int</span>&gt; d0, d;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++ i) &#123;</span><br><span class="line">        <span class="type">int</span> cd = b[i] - a[i];</span><br><span class="line">        <span class="keyword">if</span> (b[i] == <span class="number">0</span>) &#123;</span><br><span class="line">            d0.<span class="built_in">insert</span>(cd);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            d.<span class="built_in">insert</span>(cd);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (d.<span class="built_in">size</span>() &gt; <span class="number">1</span>) &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;NO&quot;</span> &lt;&lt; endl;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (d.<span class="built_in">size</span>() == <span class="number">0</span>) &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;YES&quot;</span> &lt;&lt; endl;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// d.size == 1</span></span><br><span class="line">    <span class="keyword">if</span> (*d0.<span class="built_in">begin</span>() &lt; *d.<span class="built_in">begin</span>()) &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;NO&quot;</span> &lt;&lt; endl;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;YES&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="C-Restoring-the-Duration-of-Tasks"><a href="#C-Restoring-the-Duration-of-Tasks" class="headerlink" title="C. Restoring the Duration of Tasks"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1690/problem/C">C. Restoring the Duration of Tasks</a></h2><h3 id="题意-2"><a href="#题意-2" class="headerlink" title="题意"></a>题意</h3><h3 id="分析-2"><a href="#分析-2" class="headerlink" title="分析"></a>分析</h3><p>如果当前任务到来时间s &gt; 上个任务完成时间f[i - 1], d = f - s<br>否则当前任务到来时间s &lt; 上个任务完成时间 d = f - f[i - 1]</p>
+<h3 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n;  cin &gt;&gt; n;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">s</span><span class="params">(n)</span> ,<span class="title">f</span><span class="params">(n)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> &amp;x : s)   cin &gt;&gt; x;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> &amp;x : f)   cin &gt;&gt; x;</span><br><span class="line"></span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">ans</span><span class="params">(<span class="number">1</span>, f[<span class="number">0</span>] - s[<span class="number">0</span>])</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; n; ++ i) &#123;</span><br><span class="line">        <span class="keyword">if</span> (s[i] &gt; f[i - <span class="number">1</span>])    ans.<span class="built_in">pb</span>(f[i] - s[i]);</span><br><span class="line">        <span class="keyword">else</span>                    ans.<span class="built_in">pb</span>(f[i] - f[i - <span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">LOG</span>(ans)</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++ i) &#123;</span><br><span class="line">        cout &lt;&lt; ans[i] &lt;&lt; <span class="string">&quot; \n&quot;</span>[i == n - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="D-Black-and-White-Stripe"><a href="#D-Black-and-White-Stripe" class="headerlink" title="D. Black and White Stripe"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1690/problem/D">D. Black and White Stripe</a></h2><h3 id="题意-3"><a href="#题意-3" class="headerlink" title="题意"></a>题意</h3><h3 id="分析-3"><a href="#分析-3" class="headerlink" title="分析"></a>分析</h3><h3 id="代码-3"><a href="#代码-3" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n, k;   cin &gt;&gt; n &gt;&gt; k;</span><br><span class="line">    string s;   cin &gt;&gt; s;   s = <span class="string">&quot; &quot;</span> + s;</span><br><span class="line"></span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">pre</span><span class="params">(n + <span class="number">1</span>)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++ i) &#123;</span><br><span class="line">        pre[i] = pre[i - <span class="number">1</span>] + (s[i] == <span class="string">&#x27;B&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> ans = n;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i + k - <span class="number">1</span> &lt;= n; ++ i) &#123;</span><br><span class="line">        <span class="type">int</span> l = i, r = l + k - <span class="number">1</span>;</span><br><span class="line">        ans = <span class="built_in">min</span>(ans, r - l + <span class="number">1</span> - (pre[r] - pre[l - <span class="number">1</span>]));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">LOG</span>(ans)</span><br><span class="line">    cout &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="E-Price-Maximization"><a href="#E-Price-Maximization" class="headerlink" title="E. Price Maximization"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1690/problem/E">E. Price Maximization</a></h2><h3 id="题意-4"><a href="#题意-4" class="headerlink" title="题意"></a>题意</h3><p>给定一个序列和一个数k,将序列中的数两两分组,总得分为每组两个数除以<br>的和k, 求和最大是多少</p>
+<h3 id="分析-4"><a href="#分析-4" class="headerlink" title="分析"></a>分析</h3><p>每个数能整除k的部分一定会对答案有贡献. 所以每个数先mod上k. 然后ans加上整除的部分. </p>
+<p>把mod完k之后的数扔进multiset里面, 然后取出第一个数x, 要想有1的贡献, 那么跟他配对的另一个数y, 一定要&gt;=k - x, 所以lower_bound一下k - x</p>
+<p>也可以把a排序, 然后首尾双指针搞搞</p>
+<h3 id="代码-4"><a href="#代码-4" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n, k;   cin &gt;&gt; n &gt;&gt; k;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">a</span><span class="params">(n)</span></span>;</span><br><span class="line">    <span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">    multiset&lt;<span class="type">int</span>&gt; S;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> &amp;x : a) &#123;</span><br><span class="line">        cin &gt;&gt; x;</span><br><span class="line">        ans += x / k;</span><br><span class="line">        x %= k;</span><br><span class="line">        <span class="keyword">if</span> (x)  S.<span class="built_in">insert</span>(x);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (S.<span class="built_in">size</span>() &gt;= <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="keyword">auto</span> itx = S.<span class="built_in">begin</span>();</span><br><span class="line">        <span class="comment">// 先取值, 再删除? </span></span><br><span class="line">        <span class="type">int</span> x = *itx;</span><br><span class="line">        S.<span class="built_in">erase</span>(itx);</span><br><span class="line">        <span class="keyword">auto</span> ity = S.<span class="built_in">lower_bound</span>(k - x);</span><br><span class="line">        <span class="keyword">if</span> (ity != S.<span class="built_in">end</span>()) &#123;</span><br><span class="line">            <span class="type">int</span> y = *ity;</span><br><span class="line">            ans ++;</span><br><span class="line">            S.<span class="built_in">erase</span>(ity);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="F-Shifting-String"><a href="#F-Shifting-String" class="headerlink" title="F. Shifting String"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1690/problem/F">F. Shifting String</a></h2><h3 id="题意-5"><a href="#题意-5" class="headerlink" title="题意"></a>题意</h3><p>给出一个字符串和一个置换群,问按照置换群操作多少次后字符串会回到最初的状态</p>
+<h3 id="分析-5"><a href="#分析-5" class="headerlink" title="分析"></a>分析</h3><p>首先把置换拆成若干个环,环之间是独立的. 答案就是每个环回到初始状态需要步数的最小公倍数.判断每个环的周期只需要循环移位判断(or 暴力check环长的因数是否满足要求)即可,复杂度为 $O(n \sqrt{n})$</p>
+<h3 id="代码-5"><a href="#代码-5" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n;      cin &gt;&gt; n;</span><br><span class="line">    string s;   cin &gt;&gt; s;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">p</span><span class="params">(n)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> &amp;x : p) &#123;</span><br><span class="line">        cin &gt;&gt; x;</span><br><span class="line">        x --;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">st</span><span class="params">(n, <span class="number">-1</span>)</span></span>;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; len;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++ i) <span class="keyword">if</span> (st[i] == <span class="number">-1</span>) &#123;</span><br><span class="line">        <span class="type">int</span> now = i;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; loop;</span><br><span class="line">        <span class="keyword">for</span> (; st[now] == <span class="number">-1</span>; now = p[now]) &#123;</span><br><span class="line">            loop.<span class="built_in">pb</span>(now);</span><br><span class="line">            st[now] = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">LOG</span>(loop)</span><br><span class="line">        deque&lt;<span class="type">char</span>&gt; dq0, dq;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> p : loop) dq0.<span class="built_in">pb</span>(s[p]);</span><br><span class="line">        dq.<span class="built_in">assign</span>(<span class="built_in">all</span>(dq0));</span><br><span class="line">        <span class="type">int</span> cl = <span class="number">0</span>; </span><br><span class="line">        <span class="keyword">for</span> (;cl &lt; loop.<span class="built_in">size</span>(); ++ cl) &#123;</span><br><span class="line">            <span class="keyword">auto</span> c = dq.<span class="built_in">back</span>(); dq.<span class="built_in">pop_back</span>();</span><br><span class="line">            dq.<span class="built_in">push_front</span>(c);</span><br><span class="line">            <span class="keyword">if</span> (dq == dq0) &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        len.<span class="built_in">pb</span>(cl + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> ans = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> x : len) &#123;</span><br><span class="line">        ans = <span class="built_in">lcm</span>(ans, x);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">LOG</span>(ans)</span><br><span class="line">    cout &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="G-Count-the-Trains"><a href="#G-Count-the-Trains" class="headerlink" title="G. Count the Trains"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1690/problem/G">G. Count the Trains</a></h2><h3 id="题意-6"><a href="#题意-6" class="headerlink" title="题意"></a>题意</h3><p>每辆车有一个最高速度,其速度不能超过最高速度也不能超过它前面的车的速度,如此整个序列会被分成速度值相等的若干段,每次操作会降低某个位置的最高速度,问每次操作完序列的总段数是多少</p>
+<p>例如[10, 13, 5, 2, 6] =&gt; [10, 10, 5, 2, 2] 一共有3种不同的数</p>
+<h3 id="分析-6"><a href="#分析-6" class="headerlink" title="分析"></a>分析</h3><p>维护每段火车的车头位置和整节车的速度. </p>
+<p>在i位置插入一节速度为x的车厢it, 等同于插入一节长度为1的火车</p>
+<p>如果速度x &gt;= 左边的火车段的速度, 就直接把it合并到左边(erase掉it)</p>
+<p>如果速度x &lt; 右边, 就把it作为右边火车的车头, 合并掉右边的火车段(erase掉next(it)).</p>
+<p>insert和erase的次数不会超过O(n)</p>
+<h3 id="代码-6"><a href="#代码-6" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n, m;   cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">    map&lt;<span class="type">int</span>, <span class="type">int</span>&gt; mp;</span><br><span class="line">    <span class="keyword">auto</span> add = [&amp;](<span class="type">int</span> i, <span class="type">int</span> x) &#123;</span><br><span class="line">        mp[i] = x;</span><br><span class="line">        <span class="keyword">auto</span> it = mp.<span class="built_in">find</span>(i);       <span class="comment">// 根据键key查找</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 9 | 5    ---&gt; 9 10 | 5</span></span><br><span class="line">        <span class="keyword">if</span> (it != mp.<span class="built_in">begin</span>() &amp;&amp; <span class="built_in">prev</span>(it)-&gt;second &lt;= x) &#123;</span><br><span class="line">            mp.<span class="built_in">erase</span>(it);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 9 | 5 | 3 | 1  ---&gt; 9 | 2 5 3 | 1</span></span><br><span class="line">        <span class="keyword">while</span> (<span class="built_in">next</span>(it) != mp.<span class="built_in">end</span>() &amp;&amp; <span class="built_in">next</span>(it)-&gt;second &gt;= x) &#123;</span><br><span class="line">            mp.<span class="built_in">erase</span>(<span class="built_in">next</span>(it));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">a</span><span class="params">(n)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> &amp;x : a)   cin &gt;&gt; x;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++ i) &#123;</span><br><span class="line">        <span class="built_in">add</span>(i, a[i]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; m; ++ i) &#123;</span><br><span class="line">        <span class="type">int</span> k, d;   cin &gt;&gt; k &gt;&gt; d;      k --;</span><br><span class="line">        a[k] -= d;</span><br><span class="line">        <span class="built_in">add</span>(k, a[k]);</span><br><span class="line">        cout &lt;&lt; mp.<span class="built_in">size</span>() &lt;&lt; <span class="string">&quot; \n&quot;</span>[i == m - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/2023/01/14/%E9%A2%98%E8%A7%A3%20-%20Codeforces%20Round%20797%20(Div.%203)%20A-G/" title="题解 - Codeforces Round 797 (Div. 3) A-G" target="_blank" rel="external">http://example.com/2023/01/14/题解 - Codeforces Round 797 (Div. 3) A-G/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/lcj2021" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/lcj2021" target="_blank"><span class="text-dark">Liucj2021</span><small class="ml-1x">Graph &amp; Competitive Programming</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2023/01/13/%E5%B9%B4%E8%AE%B0%20-%202022/" title="年记 - 2022"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+
+
+
+
+
+
+</body>
+</html>
