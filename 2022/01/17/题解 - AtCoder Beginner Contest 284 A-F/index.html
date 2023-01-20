@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>题解 - AtCoder Beginner Contest 285 A-F | Liucj&#39;s Harbour</title>
+  <meta name="description" content="A. Generalized ABC题意思路代码123456void solve() &amp;#123;    int n;  cin &gt;&gt; n;    vector&lt;string&gt; s(n);    for (auto &amp;x : s)   cin &gt;&gt; x;    for (int i &#x3D; n - 1; i &gt;&#x3D; 0; -- i)   cout &amp;lt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="题解 - AtCoder Beginner Contest 285 A-F">
+<meta property="og:url" content="http://example.com/2022/01/17/%E9%A2%98%E8%A7%A3%20-%20AtCoder%20Beginner%20Contest%20284%20A-F/index.html">
+<meta property="og:site_name" content="Liucj&#39;s Harbour">
+<meta property="og:description" content="A. Generalized ABC题意思路代码123456void solve() &amp;#123;    int n;  cin &gt;&gt; n;    vector&lt;string&gt; s(n);    for (auto &amp;x : s)   cin &gt;&gt; x;    for (int i &#x3D; n - 1; i &gt;&#x3D; 0; -- i)   cout &amp;lt">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-01-16T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-01-20T06:02:03.786Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="算法_并查集">
+<meta property="article:tag" content="算法_数论">
+<meta property="article:tag" content="算法_图论">
+<meta property="article:tag" content="算法_哈希">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://example.com/2022/01/17/%E9%A2%98%E8%A7%A3%20-%20AtCoder%20Beginner%20Contest%20284%20A-F/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Liucj&#39;s Harbour" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/lcj2021" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">Liucj2021</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Graph &amp; Competitive Programming</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Guangzhou, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8/">日常</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%A2%98%E8%A7%A3/">题解</a><span class="category-list-count">15</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/" rel="tag">Network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AC%94%E8%AE%B0-%E6%A8%A1%E6%9D%BF/" rel="tag">笔记_模板</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-DP/" rel="tag">算法_DP</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E4%BA%8C%E5%88%86/" rel="tag">算法_二分</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E4%BD%8D%E8%BF%90%E7%AE%97/" rel="tag">算法_位运算</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E5%8D%9A%E5%BC%88/" rel="tag">算法_博弈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E5%8F%8C%E6%8C%87%E9%92%88/" rel="tag">算法_双指针</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E5%93%88%E5%B8%8C/" rel="tag">算法_哈希</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E5%9B%BE%E8%AE%BA/" rel="tag">算法_图论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E5%AE%9E%E7%8E%B0/" rel="tag">算法_实现</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">算法_并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%90%9C%E7%B4%A2/" rel="tag">算法_搜索</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%95%B0%E5%AD%A6/" rel="tag">算法_数学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%95%B0%E8%AE%BA/" rel="tag">算法_数论</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%9A%B4%E5%8A%9B/" rel="tag">算法_暴力</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%9C%80%E7%9F%AD%E8%B7%AF/" rel="tag">算法_最短路</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%9E%84%E9%80%A0/" rel="tag">算法_构造</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/" rel="tag">算法_组合数学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E8%B4%AA%E5%BF%83/" rel="tag">算法_贪心</a><span class="tag-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/Network/" style="font-size: 13px;">Network</a> <a href="/tags/%E7%AC%94%E8%AE%B0-%E6%A8%A1%E6%9D%BF/" style="font-size: 13px;">笔记_模板</a> <a href="/tags/%E7%AE%97%E6%B3%95-DP/" style="font-size: 13.83px;">算法_DP</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E4%BA%8C%E5%88%86/" style="font-size: 13px;">算法_二分</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E4%BD%8D%E8%BF%90%E7%AE%97/" style="font-size: 13.33px;">算法_位运算</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E5%8D%9A%E5%BC%88/" style="font-size: 13.33px;">算法_博弈</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E5%8F%8C%E6%8C%87%E9%92%88/" style="font-size: 13px;">算法_双指针</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E5%93%88%E5%B8%8C/" style="font-size: 13px;">算法_哈希</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E5%9B%BE%E8%AE%BA/" style="font-size: 13px;">算法_图论</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E5%AE%9E%E7%8E%B0/" style="font-size: 13.17px;">算法_实现</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 13px;">算法_并查集</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%90%9C%E7%B4%A2/" style="font-size: 13px;">算法_搜索</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%95%B0%E5%AD%A6/" style="font-size: 13px;">算法_数学</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%95%B0%E8%AE%BA/" style="font-size: 13.5px;">算法_数论</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%9A%B4%E5%8A%9B/" style="font-size: 13px;">算法_暴力</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%9C%80%E7%9F%AD%E8%B7%AF/" style="font-size: 13.5px;">算法_最短路</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%9E%84%E9%80%A0/" style="font-size: 14px;">算法_构造</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/" style="font-size: 13px;">算法_组合数学</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E8%B4%AA%E5%BF%83/" style="font-size: 13.67px;">算法_贪心</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">十一月 2022</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">十月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/01/18/%E7%AC%94%E8%AE%B0%20-%20CP%E6%A8%A1%E6%9D%BF/" class="title">笔记 - CP模板</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-01-17T16:00:00.000Z" itemprop="datePublished">2023-01-18</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E9%A2%98%E8%A7%A3/">题解</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/01/17/%E9%A2%98%E8%A7%A3%20-%20Codeforces%20Round%20844%20(Div.%201%20+%20Div.%202,%20based%20on%20VK%20Cup%202022%20-%20Elimination%20Round)%20A-D/" class="title">题解 - Codeforces Round 844 (Div. 1 + Div. 2, based on VK Cup 2022 - Elimination Round) A-D</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-01-16T16:00:00.000Z" itemprop="datePublished">2023-01-17</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E9%A2%98%E8%A7%A3/">题解</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/01/15/%E9%A2%98%E8%A7%A3%20-%20AtCoder%20Beginner%20Contest%20134%20A-F/" class="title">题解 - AtCoder Beginner Contest 134 F</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-01-14T16:00:00.000Z" itemprop="datePublished">2023-01-15</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E9%A2%98%E8%A7%A3/">题解</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/01/14/%E9%A2%98%E8%A7%A3%20-%20Codeforces%20Round%20797%20(Div.%203)%20A-G/" class="title">题解 - Codeforces Round 797 (Div. 3) A-G</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-01-13T16:00:00.000Z" itemprop="datePublished">2023-01-14</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E6%97%A5%E5%B8%B8/">日常</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/01/13/%E5%B9%B4%E8%AE%B0%20-%202022/" class="title">年记 - 2022</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-01-12T16:00:00.000Z" itemprop="datePublished">2023-01-13</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-题解 - AtCoder Beginner Contest 284 A-F" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      题解 - AtCoder Beginner Contest 285 A-F
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2022/01/17/%E9%A2%98%E8%A7%A3%20-%20AtCoder%20Beginner%20Contest%20284%20A-F/" class="article-date">
+	  <time datetime="2022-01-16T16:00:00.000Z" itemprop="datePublished">2022-01-17</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E9%A2%98%E8%A7%A3/">题解</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E7%AE%97%E6%B3%95-%E5%93%88%E5%B8%8C/" rel="tag">算法_哈希</a>, <a class="article-tag-link-link" href="/tags/%E7%AE%97%E6%B3%95-%E5%9B%BE%E8%AE%BA/" rel="tag">算法_图论</a>, <a class="article-tag-link-link" href="/tags/%E7%AE%97%E6%B3%95-%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">算法_并查集</a>, <a class="article-tag-link-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%95%B0%E8%AE%BA/" rel="tag">算法_数论</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2022/01/17/%E9%A2%98%E8%A7%A3%20-%20AtCoder%20Beginner%20Contest%20284%20A-F/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h2 id="A-Generalized-ABC"><a href="#A-Generalized-ABC" class="headerlink" title="A. Generalized ABC"></a><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/abc284/tasks/abc284_a">A. Generalized ABC</a></h2><h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n;  cin &gt;&gt; n;</span><br><span class="line">    <span class="function">vector&lt;string&gt; <span class="title">s</span><span class="params">(n)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> &amp;x : s)   cin &gt;&gt; x;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = n - <span class="number">1</span>; i &gt;= <span class="number">0</span>; -- i)   cout &lt;&lt; s[i] &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="B-Multi-Test-Cases"><a href="#B-Multi-Test-Cases" class="headerlink" title="B. Multi Test Cases"></a><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/abc284/tasks/abc284_b">B. Multi Test Cases</a></h2><h3 id="题意-1"><a href="#题意-1" class="headerlink" title="题意"></a>题意</h3><h3 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h3><h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n;  cin &gt;&gt; n;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">a</span><span class="params">(n)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> &amp;x : a)   cin &gt;&gt; x;</span><br><span class="line">    <span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> x : a) &#123;</span><br><span class="line">        ans += (x &amp; <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="C-Count-Connected-Components"><a href="#C-Count-Connected-Components" class="headerlink" title="C. Count Connected Components"></a><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/abc284/tasks/abc284_c">C. Count Connected Components</a></h2><h3 id="题意-2"><a href="#题意-2" class="headerlink" title="题意"></a>题意</h3><h3 id="思路-2"><a href="#思路-2" class="headerlink" title="思路"></a>思路</h3><h3 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;<span class="type">int</span>&gt; p;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x == p[x] ? p[x] : p[x] = <span class="built_in">find</span>(p[x]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n, m;   cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">    p.<span class="built_in">resize</span>(n + <span class="number">1</span>);</span><br><span class="line">    <span class="built_in">iota</span>(<span class="built_in">all</span>(p), <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; ++ i) &#123;</span><br><span class="line">        <span class="type">int</span> u, v;   cin &gt;&gt; u &gt;&gt; v;</span><br><span class="line">        u = <span class="built_in">find</span>(u), v = <span class="built_in">find</span>(v);</span><br><span class="line">        <span class="keyword">if</span> (u == v)     <span class="keyword">continue</span>;</span><br><span class="line">        p[u] = v;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> wcc = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">LOG</span>(wcc);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++ i) &#123;</span><br><span class="line">        wcc += (<span class="built_in">find</span>(i) == i);</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; wcc &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="D-Happy-New-Year-2023"><a href="#D-Happy-New-Year-2023" class="headerlink" title="D. Happy New Year 2023"></a><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/abc284/tasks/abc284_d">D. Happy New Year 2023</a></h2><h3 id="题意-3"><a href="#题意-3" class="headerlink" title="题意"></a>题意</h3><p>给定一个正整数n (n &lt;= 4e18), 找出两个质数p, q. 满足n = p * p * q</p>
+<h3 id="思路-3"><a href="#思路-3" class="headerlink" title="思路"></a>思路</h3><p>看到(n &lt;= 4e18) + 乘三次 —&gt; $(1e18)^{1/3} \to \ O(1e6)$</p>
+<p>n = p * p * q </p>
+<p>显然有min(p, q) &lt;= n^(1/3)</p>
+<p>设x为p, q中最小的数, y为最大的数</p>
+<p>检查x * x * y 和 x * y * y</p>
+<h3 id="代码-3"><a href="#代码-3" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">4e6</span> + <span class="number">10</span>;</span><br><span class="line"><span class="type">int</span> primes[N], cnt;</span><br><span class="line"><span class="type">bool</span> is_p[N];</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">get_primes</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(is_p, <span class="number">1</span>, <span class="keyword">sizeof</span> is_p);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">2</span>; i &lt;= n; ++ i) &#123;</span><br><span class="line">        <span class="keyword">if</span> (is_p[i]) &#123;</span><br><span class="line">            primes[cnt ++] = i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = i + i; j &lt;= n; j += i) &#123;</span><br><span class="line">            is_p[j] = <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n;  cin &gt;&gt; n;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; cnt; ++ i) &#123;</span><br><span class="line">        <span class="type">int</span> p = primes[i];</span><br><span class="line">        <span class="type">int</span> p2 = p * p;</span><br><span class="line">        <span class="keyword">if</span> (n % p2 == <span class="number">0</span>) &#123;</span><br><span class="line">            cout &lt;&lt; p &lt;&lt; <span class="string">&#x27; &#x27;</span> &lt;&lt; n / p2 &lt;&lt; endl;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (n % p)  <span class="keyword">continue</span>;</span><br><span class="line">        <span class="type">int</span> val = n / p;</span><br><span class="line">        <span class="comment">// p * q * q</span></span><br><span class="line">        <span class="type">int</span> rt = <span class="built_in">sqrtl</span>(val);</span><br><span class="line">        <span class="keyword">if</span> (rt * rt == val) &#123;</span><br><span class="line">            cout &lt;&lt; rt &lt;&lt; <span class="string">&#x27; &#x27;</span> &lt;&lt; p &lt;&lt; endl;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="E-Count-Simple-Paths"><a href="#E-Count-Simple-Paths" class="headerlink" title="E. Count Simple Paths"></a><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/abc284/tasks/abc284_e">E. Count Simple Paths</a></h2><h3 id="题意-4"><a href="#题意-4" class="headerlink" title="题意"></a>题意</h3><p>给定G(n &lt;= 1e5, m),  统计从1出发的简单路径数目. 其中每个节点度数&lt;8. </p>
+<h3 id="思路-4"><a href="#思路-4" class="headerlink" title="思路"></a>思路</h3><p>简单路径数目: dfs + st[n]回溯 / bit_dp [1 &lt;&lt; n][n]</p>
+<p>节点数量过大 + 有节点度数保证 == dfs. </p>
+<h3 id="代码-4"><a href="#代码-4" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">vector&lt;<span class="type">bool</span>&gt; st;</span><br><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; g;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> u)</span> </span>&#123;</span><br><span class="line">    st[u] = <span class="literal">true</span>;</span><br><span class="line">    ++ cnt;</span><br><span class="line">    <span class="keyword">if</span> (cnt &gt;= <span class="number">1000000</span>) &#123;</span><br><span class="line">        cout &lt;&lt; cnt &lt;&lt; endl;</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> v : g[u]) &#123;</span><br><span class="line">        <span class="keyword">if</span> (st[v])  <span class="keyword">continue</span>;</span><br><span class="line">        <span class="built_in">dfs</span>(v);</span><br><span class="line">    &#125;</span><br><span class="line">    st[u] = <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n, m;   cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">    g.<span class="built_in">resize</span>(n);</span><br><span class="line">    st.<span class="built_in">resize</span>(n);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; ++ i) &#123;</span><br><span class="line">        <span class="type">int</span> u, v;   cin &gt;&gt; u &gt;&gt; v;  u --, v --;</span><br><span class="line">        g[u].<span class="built_in">pb</span>(v);</span><br><span class="line">        g[v].<span class="built_in">pb</span>(u);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">dfs</span>(<span class="number">0</span>);</span><br><span class="line">    <span class="built_in">LOG</span>(cnt);</span><br><span class="line">    cout &lt;&lt; cnt &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="F-ABCBAC"><a href="#F-ABCBAC" class="headerlink" title="F. ABCBAC"></a><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/abc284/tasks/abc284_f">F. ABCBAC</a></h2><h3 id="题意-5"><a href="#题意-5" class="headerlink" title="题意"></a>题意</h3><p>给定一个字符串s[2 * n](n &lt;= 1e6), 设s1[i] = s[1, i] + s[n - (i) + 1, n], s2[i] = reverse(all(s[i + 1, n - i]))</p>
+<p>问是否存在i, 满足s1 == s2</p>
+<h3 id="思路-5"><a href="#思路-5" class="headerlink" title="思路"></a>思路</h3><p>string hash: 第一次使用double hash</p>
+<p>本质考察: <strong>哈希拼接(base进制数理解) + 翻转哈希(后缀哈希)</strong></p>
+<p><strong>哈希拼接</strong>: 前缀i + 后缀n-i 拼接. 就比如俩十进制数12, 34567 要拼接起来, 要先把12 * 100000再和后者相加, 才能变成1234567. </p>
+<p>这里的哈希同理, 只不过换成了base进制数, 所以前者(前缀s[1, i])的哈希值先 * pw[n - i] (后缀的长度次幂), 再与后缀的哈希相加. </p>
+<p><strong>哈希截取</strong>: 从1234567中截取”34567”的哈希值, 要将前缀哈希1234567 - 12 * 100000. 即pre[r] - pre[l - 1] * base[r - l + 1]. </p>
+<p><strong>翻转哈希</strong>: s[l, r]的翻转哈希: suf[l] - suf[r + 1] * pw[r - l + 1]即可</p>
+<h3 id="代码-5"><a href="#代码-5" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> <span class="type">hash_t</span> = array&lt;<span class="type">int</span>, <span class="number">2</span>&gt;;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> mod0 = <span class="number">1e9</span> + <span class="number">7</span>, mod1 = <span class="number">1e9</span> + <span class="number">9</span>;</span><br><span class="line"><span class="type">hash_t</span> base = &#123;<span class="number">13331</span>, <span class="number">23333</span>&#125;;</span><br><span class="line"><span class="type">hash_t</span> pw[N];</span><br><span class="line"><span class="type">hash_t</span> <span class="keyword">operator</span> + (<span class="type">hash_t</span> a, <span class="type">hash_t</span> b) &#123;</span><br><span class="line">    <span class="type">hash_t</span> res = &#123;(a[<span class="number">0</span>] + b[<span class="number">0</span>]) % mod0, (a[<span class="number">1</span>] + b[<span class="number">1</span>]) % mod1&#125;;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">hash_t</span> <span class="keyword">operator</span> - (<span class="type">hash_t</span> a, <span class="type">hash_t</span> b) &#123;</span><br><span class="line">    <span class="type">hash_t</span> res = &#123;(a[<span class="number">0</span>] - b[<span class="number">0</span>] + mod0) % mod0, (a[<span class="number">1</span>] - b[<span class="number">1</span>] + mod1) % mod1&#125;;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">hash_t</span> <span class="keyword">operator</span> * (<span class="type">hash_t</span> a, <span class="type">hash_t</span> b) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;a[<span class="number">0</span>] * b[<span class="number">0</span>] % mod0, a[<span class="number">1</span>] * b[<span class="number">1</span>] % mod1&#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">hash_t</span> pre[N], suf[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n;  cin &gt;&gt; n;</span><br><span class="line">    string s;   cin &gt;&gt; s;   s = <span class="string">&quot; &quot;</span> + s;</span><br><span class="line"></span><br><span class="line">    pw[<span class="number">0</span>] = &#123;<span class="number">1</span>, <span class="number">1</span>&#125;;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">2</span> * n; ++ i) &#123;</span><br><span class="line">        pw[i] = pw[i - <span class="number">1</span>] * base;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">2</span> * n; ++ i) &#123;</span><br><span class="line">        pre[i] = pre[i - <span class="number">1</span>] * base + <span class="type">hash_t</span>&#123;s[i], s[i]&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">2</span> * n; i &gt;= <span class="number">1</span>; -- i) &#123;</span><br><span class="line">        suf[i] = suf[i + <span class="number">1</span>] * base + <span class="type">hash_t</span>&#123;s[i], s[i]&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">LOG</span>(n, s)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// s前i + s后2* n - i</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt;= n; ++ i) &#123;</span><br><span class="line">        <span class="comment">// s前i + s后2* n - i 哈希拼接</span></span><br><span class="line">        <span class="comment">// [1, i] [i + 1, i + n] [i + n + 1, 2 * n]</span></span><br><span class="line">        <span class="type">hash_t</span> h1 = pre[i] * pw[n - i] + (pre[<span class="number">2</span> * n] - pre[i + n + <span class="number">1</span> - <span class="number">1</span>] * pw[n - i]) ;</span><br><span class="line">        <span class="comment">// [i + 1, i + n] 翻转后的哈希</span></span><br><span class="line">        <span class="type">hash_t</span> h2 = suf[i + <span class="number">1</span>] - suf[(i + n) + <span class="number">1</span>] * pw[n];</span><br><span class="line">        <span class="keyword">if</span> (h1 == h2) &#123;</span><br><span class="line">            string ans = s.<span class="built_in">substr</span>(<span class="number">1</span> + i, n);</span><br><span class="line">            <span class="built_in">reverse</span>(<span class="built_in">all</span>(ans));</span><br><span class="line">            cout &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">            cout &lt;&lt; i &lt;&lt; endl;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; <span class="number">-1</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/2022/01/17/%E9%A2%98%E8%A7%A3%20-%20AtCoder%20Beginner%20Contest%20284%20A-F/" title="题解 - AtCoder Beginner Contest 285 A-F" target="_blank" rel="external">http://example.com/2022/01/17/题解 - AtCoder Beginner Contest 284 A-F/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/lcj2021" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/lcj2021" target="_blank"><span class="text-dark">Liucj2021</span><small class="ml-1x">Graph &amp; Competitive Programming</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2022/02/02/Ubuntu%20%E4%B8%8B%E4%BD%BF%E7%94%A8%20Clash%20%E4%BB%A3%E7%90%86/" title="Ubuntu 下使用 Clash 代理"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2022/01/17/%E9%A2%98%E8%A7%A3%20-%20AtCoder%20Beginner%20Contest%20285%20A-F/" title="题解 - AtCoder Beginner Contest 285 A-F"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+
+
+
+
+
+
+</body>
+</html>

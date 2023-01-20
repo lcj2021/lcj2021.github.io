@@ -18,15 +18,15 @@
   
   
   <title>题解 - 牛客小白月赛59 D-F | Liucj&#39;s Harbour</title>
-  <meta name="description" content="比赛链接 Dijkstra 松弛的理解“松弛”的概念来自对最短路径的估计与不为压缩而设计的螺旋拉伸弹簧的长度之间的类比. 最初，最短路径的成本被高估了，就像延伸的弹簧一样. 当找到更短的路径时，估计的成本会降低，弹簧会放松. 最终，找到了最短的路径（如果存在），并且弹簧已经松弛到其静止长度.  D - 点分治分点题意G&lt;n, m&gt;, 且$n, m \leq 1e5$，定义一条简单路径的">
+  <meta name="description" content="比赛链接 Dijkstra 松弛的理解“松弛”的概念来自对最短路径的估计与不为压缩而设计的螺旋拉伸弹簧的长度之间的类比. 最初, 最短路径的成本被高估了, 就像延伸的弹簧一样. 当找到更短的路径时, 估计的成本会降低, 弹簧会放松. 最终, 找到了最短的路径（如果存在）, 并且弹簧已经松弛到其静止长度.  D - 点分治分点题意G&lt;n, m&gt;, 且$n, m \leq 1e5$, 定义">
 <meta property="og:type" content="article">
 <meta property="og:title" content="题解 - 牛客小白月赛59 D-F">
 <meta property="og:url" content="http://example.com/2022/11/07/%E9%A2%98%E8%A7%A3%20-%20%E7%89%9B%E5%AE%A2%E7%BB%83%E4%B9%A0%E8%B5%9B105%20D/index.html">
 <meta property="og:site_name" content="Liucj&#39;s Harbour">
-<meta property="og:description" content="比赛链接 Dijkstra 松弛的理解“松弛”的概念来自对最短路径的估计与不为压缩而设计的螺旋拉伸弹簧的长度之间的类比. 最初，最短路径的成本被高估了，就像延伸的弹簧一样. 当找到更短的路径时，估计的成本会降低，弹簧会放松. 最终，找到了最短的路径（如果存在），并且弹簧已经松弛到其静止长度.  D - 点分治分点题意G&lt;n, m&gt;, 且$n, m \leq 1e5$，定义一条简单路径的">
+<meta property="og:description" content="比赛链接 Dijkstra 松弛的理解“松弛”的概念来自对最短路径的估计与不为压缩而设计的螺旋拉伸弹簧的长度之间的类比. 最初, 最短路径的成本被高估了, 就像延伸的弹簧一样. 当找到更短的路径时, 估计的成本会降低, 弹簧会放松. 最终, 找到了最短的路径（如果存在）, 并且弹簧已经松弛到其静止长度.  D - 点分治分点题意G&lt;n, m&gt;, 且$n, m \leq 1e5$, 定义">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-11-06T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-01-14T11:49:23.822Z">
+<meta property="article:modified_time" content="2023-01-20T07:04:06.206Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="算法_最短路">
 <meta name="twitter:card" content="summary">
@@ -174,7 +174,7 @@
   <div class="widget">
     <h3 class="widget-title">分类</h3>
     <div class="widget-body">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8/">日常</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%A2%98%E8%A7%A3/">题解</a><span class="category-list-count">13</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8/">日常</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%A2%98%E8%A7%A3/">题解</a><span class="category-list-count">15</span></li></ul>
     </div>
   </div>
 
@@ -184,7 +184,7 @@
   <div class="widget">
     <h3 class="widget-title">标签</h3>
     <div class="widget-body">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/" rel="tag">Network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-DP/" rel="tag">算法_DP</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E4%BA%8C%E5%88%86/" rel="tag">算法_二分</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E4%BD%8D%E8%BF%90%E7%AE%97/" rel="tag">算法_位运算</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E5%8D%9A%E5%BC%88/" rel="tag">算法_博弈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E5%8F%8C%E6%8C%87%E9%92%88/" rel="tag">算法_双指针</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E5%AE%9E%E7%8E%B0/" rel="tag">算法_实现</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%90%9C%E7%B4%A2/" rel="tag">算法_搜索</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%95%B0%E5%AD%A6/" rel="tag">算法_数学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%95%B0%E8%AE%BA/" rel="tag">算法_数论</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%9A%B4%E5%8A%9B/" rel="tag">算法_暴力</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%9C%80%E7%9F%AD%E8%B7%AF/" rel="tag">算法_最短路</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%9E%84%E9%80%A0/" rel="tag">算法_构造</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/" rel="tag">算法_组合数学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E8%B4%AA%E5%BF%83/" rel="tag">算法_贪心</a><span class="tag-list-count">5</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/" rel="tag">Network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AC%94%E8%AE%B0-%E6%A8%A1%E6%9D%BF/" rel="tag">笔记_模板</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-DP/" rel="tag">算法_DP</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E4%BA%8C%E5%88%86/" rel="tag">算法_二分</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E4%BD%8D%E8%BF%90%E7%AE%97/" rel="tag">算法_位运算</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E5%8D%9A%E5%BC%88/" rel="tag">算法_博弈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E5%8F%8C%E6%8C%87%E9%92%88/" rel="tag">算法_双指针</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E5%93%88%E5%B8%8C/" rel="tag">算法_哈希</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E5%9B%BE%E8%AE%BA/" rel="tag">算法_图论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E5%AE%9E%E7%8E%B0/" rel="tag">算法_实现</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">算法_并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%90%9C%E7%B4%A2/" rel="tag">算法_搜索</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%95%B0%E5%AD%A6/" rel="tag">算法_数学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%95%B0%E8%AE%BA/" rel="tag">算法_数论</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%9A%B4%E5%8A%9B/" rel="tag">算法_暴力</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%9C%80%E7%9F%AD%E8%B7%AF/" rel="tag">算法_最短路</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%9E%84%E9%80%A0/" rel="tag">算法_构造</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/" rel="tag">算法_组合数学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E8%B4%AA%E5%BF%83/" rel="tag">算法_贪心</a><span class="tag-list-count">5</span></li></ul>
     </div>
   </div>
 
@@ -194,7 +194,7 @@
   <div class="widget">
     <h3 class="widget-title">标签云</h3>
     <div class="widget-body tagcloud">
-      <a href="/tags/Network/" style="font-size: 13px;">Network</a> <a href="/tags/%E7%AE%97%E6%B3%95-DP/" style="font-size: 13.8px;">算法_DP</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E4%BA%8C%E5%88%86/" style="font-size: 13px;">算法_二分</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E4%BD%8D%E8%BF%90%E7%AE%97/" style="font-size: 13.4px;">算法_位运算</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E5%8D%9A%E5%BC%88/" style="font-size: 13.4px;">算法_博弈</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E5%8F%8C%E6%8C%87%E9%92%88/" style="font-size: 13px;">算法_双指针</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E5%AE%9E%E7%8E%B0/" style="font-size: 13.2px;">算法_实现</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%90%9C%E7%B4%A2/" style="font-size: 13px;">算法_搜索</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%95%B0%E5%AD%A6/" style="font-size: 13px;">算法_数学</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%95%B0%E8%AE%BA/" style="font-size: 13.4px;">算法_数论</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%9A%B4%E5%8A%9B/" style="font-size: 13px;">算法_暴力</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%9C%80%E7%9F%AD%E8%B7%AF/" style="font-size: 13.6px;">算法_最短路</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%9E%84%E9%80%A0/" style="font-size: 14px;">算法_构造</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/" style="font-size: 13px;">算法_组合数学</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E8%B4%AA%E5%BF%83/" style="font-size: 13.8px;">算法_贪心</a>
+      <a href="/tags/Network/" style="font-size: 13px;">Network</a> <a href="/tags/%E7%AC%94%E8%AE%B0-%E6%A8%A1%E6%9D%BF/" style="font-size: 13px;">笔记_模板</a> <a href="/tags/%E7%AE%97%E6%B3%95-DP/" style="font-size: 13.83px;">算法_DP</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E4%BA%8C%E5%88%86/" style="font-size: 13px;">算法_二分</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E4%BD%8D%E8%BF%90%E7%AE%97/" style="font-size: 13.33px;">算法_位运算</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E5%8D%9A%E5%BC%88/" style="font-size: 13.33px;">算法_博弈</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E5%8F%8C%E6%8C%87%E9%92%88/" style="font-size: 13px;">算法_双指针</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E5%93%88%E5%B8%8C/" style="font-size: 13px;">算法_哈希</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E5%9B%BE%E8%AE%BA/" style="font-size: 13px;">算法_图论</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E5%AE%9E%E7%8E%B0/" style="font-size: 13.17px;">算法_实现</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 13px;">算法_并查集</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%90%9C%E7%B4%A2/" style="font-size: 13px;">算法_搜索</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%95%B0%E5%AD%A6/" style="font-size: 13px;">算法_数学</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%95%B0%E8%AE%BA/" style="font-size: 13.5px;">算法_数论</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%9A%B4%E5%8A%9B/" style="font-size: 13px;">算法_暴力</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%9C%80%E7%9F%AD%E8%B7%AF/" style="font-size: 13.5px;">算法_最短路</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%9E%84%E9%80%A0/" style="font-size: 14px;">算法_构造</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/" style="font-size: 13px;">算法_组合数学</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E8%B4%AA%E5%BF%83/" style="font-size: 13.67px;">算法_贪心</a>
     </div>
   </div>
 
@@ -203,7 +203,7 @@
   <div class="widget">
     <h3 class="widget-title">归档</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">十一月 2022</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">十月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">十一月 2022</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">十月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a><span class="archive-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -215,6 +215,21 @@
     <div class="widget-body">
       <ul class="recent-post-list list-unstyled no-thumbnail">
         
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/01/18/%E7%AC%94%E8%AE%B0%20-%20CP%E6%A8%A1%E6%9D%BF/" class="title">笔记 - CP模板</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-01-17T16:00:00.000Z" itemprop="datePublished">2023-01-18</time>
+              </p>
+            </div>
+          </li>
+          
           <li>
             
             <div class="item-inner">
@@ -275,21 +290,6 @@
             </div>
           </li>
           
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                <a class="category-link" href="/categories/%E9%A2%98%E8%A7%A3/">题解</a>
-              </p>
-              <p class="item-title">
-                <a href="/2023/01/12/%E9%A2%98%E8%A7%A3%20-%20Codeforces%20Round%20839%20(Div.%203)%20A-G/" class="title">题解 - Codeforces Round 839 (Div. 3) A-G</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2023-01-11T16:00:00.000Z" itemprop="datePublished">2023-01-12</time>
-              </p>
-            </div>
-          </li>
-          
       </ul>
     </div>
   </div>
@@ -344,8 +344,8 @@
     <div class="article-entry marked-body" itemprop="articleBody">
       
         <p><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/44749">比赛链接</a></p>
-<h2 id="Dijkstra-松弛的理解"><a href="#Dijkstra-松弛的理解" class="headerlink" title="Dijkstra 松弛的理解"></a>Dijkstra 松弛的理解</h2><p>“松弛”的概念来自对最短路径的估计与不为压缩而设计的螺旋拉伸弹簧的长度之间的类比. 最初，最短路径的成本被高估了，就像延伸的弹簧一样. 当找到更短的路径时，估计的成本会降低，弹簧会放松. 最终，找到了最短的路径（如果存在），并且弹簧已经松弛到其静止长度. </p>
-<h2 id="D-点分治分点"><a href="#D-点分治分点" class="headerlink" title="D - 点分治分点"></a>D - 点分治分点</h2><h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><p>G&lt;n, m&gt;, 且$n, m \leq 1e5$，定义一条简单路径的 low 值为其路径上的边权的最小值，d(u, v) 为从 u 到 v 所有简单路径的最大 low 值. 对于给定的s，u 从 1 到 n 输出 d(s, u)，如果没有任何一条简单路径则输出 -1. </p>
+<h2 id="Dijkstra-松弛的理解"><a href="#Dijkstra-松弛的理解" class="headerlink" title="Dijkstra 松弛的理解"></a>Dijkstra 松弛的理解</h2><p>“松弛”的概念来自对最短路径的估计与不为压缩而设计的螺旋拉伸弹簧的长度之间的类比. 最初, 最短路径的成本被高估了, 就像延伸的弹簧一样. 当找到更短的路径时, 估计的成本会降低, 弹簧会放松. 最终, 找到了最短的路径（如果存在）, 并且弹簧已经松弛到其静止长度. </p>
+<h2 id="D-点分治分点"><a href="#D-点分治分点" class="headerlink" title="D - 点分治分点"></a>D - 点分治分点</h2><h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><p>G&lt;n, m&gt;, 且$n, m \leq 1e5$, 定义一条简单路径的 low 值为其路径上的边权的最小值, d(u, v) 为从 u 到 v 所有简单路径的最大 low 值. 对于给定的s, u 从 1 到 n 输出 d(s, u), 如果没有任何一条简单路径则输出 -1. </p>
 <h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>点边数1e5 -&gt; Dijkstra变形套路</p>
 <p>dist[i]: s-&gt;i的每条路径最短边中的最大值</p>
 <p>松弛逻辑: 起初dist[nv]置为-inf, 小于实际值. 需要经过nv的入点cv和入边w的更新来进行松弛变大, 让dist[nv]松弛到实际值. 如果w比dist[cv]小, 说明w将成为s-&gt;nv所有路径的最短边. 反之, 还是用dist[cv]去更新dist[nv]. </p>
@@ -404,12 +404,12 @@
   <ul class="pager pull-left">
     
     <li class="prev">
-      <a href="/2022/12/20/%E5%91%A8%E8%AE%B0%20-%202022%2012.12-12.18/" title="周记 - 2022 12.12-12.18"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+      <a href="/2022/11/07/%E9%A2%98%E8%A7%A3%20-%20%E7%AC%AC%E5%85%AB%E5%B1%8A%E2%80%9C%E5%9B%BE%E7%81%B5%E6%9D%AF%E2%80%9D%E4%B8%AA%E4%BA%BA%E8%B5%9B/" title="题解 - 第八届“图灵杯”个人赛"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
     </li>
     
     
     <li class="next">
-      <a href="/2022/11/07/%E9%A2%98%E8%A7%A3%20-%20%E7%AC%AC%E5%85%AB%E5%B1%8A%E2%80%9C%E5%9B%BE%E7%81%B5%E6%9D%AF%E2%80%9D%E4%B8%AA%E4%BA%BA%E8%B5%9B/" title="题解 - 第八届“图灵杯”个人赛"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2022/11/06/%E5%91%A8%E8%AE%B0%20-%202022%2010.31-11.6/" title="周记 - 2022 10.31-11.6"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     
