@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://example.com/2022/01/22/%E9%A2%98%E8%A7%A3%20-%20AtCoder%20Beginner%20Contest%20286%20A-F/</loc>
-    <lastmod>2023-01-23</lastmod>
+    <loc>http://example.com/2022/01/29/%E9%A2%98%E8%A7%A3%20-%20AtCoder%20Beginner%20Contest%20287%20A-F/</loc>
+    <lastmod>2023-01-29</lastmod>
+  </url>
+  <url>
+    <loc>http://example.com/2023/01/24/%E5%91%A8%E8%AE%B0%20-%202023%2001.16-01.29%20(2023%E6%98%A5%E8%8A%82)/</loc>
+    <lastmod>2023-01-29</lastmod>
   </url>
   <url>
     <loc>http://example.com/2023/01/21/%E5%91%A8%E8%AE%B0%20-%202023%2001.09-01.15/</loc>
-    <lastmod>2023-01-22</lastmod>
+    <lastmod>2023-01-27</lastmod>
+  </url>
+  <url>
+    <loc>http://example.com/2022/01/22/%E9%A2%98%E8%A7%A3%20-%20AtCoder%20Beginner%20Contest%20286%20A-F/</loc>
+    <lastmod>2023-01-23</lastmod>
   </url>
   <url>
     <loc>http://example.com/2023/01/11/%E9%A2%98%E8%A7%A3%20-%20Codeforces%20Round%20843%20(Div.%202)%20A-E/</loc>
