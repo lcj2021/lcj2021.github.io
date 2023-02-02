@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>题解 - Codeforces Round 848 (Div. 2) A-D | Liucj&#39;s Harbour</title>
+  <meta name="description" content="比赛次日早上做的题, 50min内能出ABC, 感觉前面题目不难. 补题: D期望dp, 期望公式dp[i]依赖于dp[i-1]和dp[i+1], 每一项dp都用k*dp[1]+b的形式表示. 递推到最后一项dp[n]&#x3D;dp[n-1]+1. 从而求出dp[1] A. Parallel Projection题意给定由 1 和 -1 组成的数组，你必须选择两个相邻元素，然后翻转它们的符号。 求翻转后数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="题解 - Codeforces Round 848 (Div. 2) A-D">
+<meta property="og:url" content="http://example.com/2023/02/02/%E9%A2%98%E8%A7%A3%20-%20Codeforces%20Round%20848%20(Div.%202)%20A-D/index.html">
+<meta property="og:site_name" content="Liucj&#39;s Harbour">
+<meta property="og:description" content="比赛次日早上做的题, 50min内能出ABC, 感觉前面题目不难. 补题: D期望dp, 期望公式dp[i]依赖于dp[i-1]和dp[i+1], 每一项dp都用k*dp[1]+b的形式表示. 递推到最后一项dp[n]&#x3D;dp[n-1]+1. 从而求出dp[1] A. Parallel Projection题意给定由 1 和 -1 组成的数组，你必须选择两个相邻元素，然后翻转它们的符号。 求翻转后数">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-02-01T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-02-02T08:04:42.881Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="算法_暴力">
+<meta property="article:tag" content="算法_数学">
+<meta property="article:tag" content="算法_概率期望">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://example.com/2023/02/02/%E9%A2%98%E8%A7%A3%20-%20Codeforces%20Round%20848%20(Div.%202)%20A-D/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Liucj&#39;s Harbour" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/lcj2021" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">Liucj2021</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Graph &amp; Competitive Programming</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Guangzhou, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8/">日常</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%A2%98%E8%A7%A3/">题解</a><span class="category-list-count">20</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/" rel="tag">Network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AC%94%E8%AE%B0-%E6%A8%A1%E6%9D%BF/" rel="tag">笔记_模板</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-DP/" rel="tag">算法_DP</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E4%BA%8C%E5%88%86/" rel="tag">算法_二分</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E4%BD%8D%E8%BF%90%E7%AE%97/" rel="tag">算法_位运算</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E5%80%8D%E5%A2%9E/" rel="tag">算法_倍增</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E5%8D%9A%E5%BC%88/" rel="tag">算法_博弈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E5%8F%8C%E6%8C%87%E9%92%88/" rel="tag">算法_双指针</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E5%93%88%E5%B8%8C/" rel="tag">算法_哈希</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E5%9B%BE%E8%AE%BA/" rel="tag">算法_图论</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag">算法_字符串</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E5%AE%9E%E7%8E%B0/" rel="tag">算法_实现</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">算法_并查集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%90%9C%E7%B4%A2/" rel="tag">算法_搜索</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%95%B0%E5%AD%A6/" rel="tag">算法_数学</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">算法_数据结构</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%95%B0%E8%AE%BA/" rel="tag">算法_数论</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%9A%B4%E5%8A%9B/" rel="tag">算法_暴力</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%9C%80%E7%9F%AD%E8%B7%AF/" rel="tag">算法_最短路</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%9E%84%E9%80%A0/" rel="tag">算法_构造</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%A6%82%E7%8E%87%E6%9C%9F%E6%9C%9B/" rel="tag">算法_概率期望</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/" rel="tag">算法_组合数学</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E8%B4%AA%E5%BF%83/" rel="tag">算法_贪心</a><span class="tag-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/Network/" style="font-size: 13px;">Network</a> <a href="/tags/%E7%AC%94%E8%AE%B0-%E6%A8%A1%E6%9D%BF/" style="font-size: 13px;">笔记_模板</a> <a href="/tags/%E7%AE%97%E6%B3%95-DP/" style="font-size: 13.83px;">算法_DP</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E4%BA%8C%E5%88%86/" style="font-size: 13px;">算法_二分</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E4%BD%8D%E8%BF%90%E7%AE%97/" style="font-size: 13.33px;">算法_位运算</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E5%80%8D%E5%A2%9E/" style="font-size: 13px;">算法_倍增</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E5%8D%9A%E5%BC%88/" style="font-size: 13.33px;">算法_博弈</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E5%8F%8C%E6%8C%87%E9%92%88/" style="font-size: 13px;">算法_双指针</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E5%93%88%E5%B8%8C/" style="font-size: 13px;">算法_哈希</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E5%9B%BE%E8%AE%BA/" style="font-size: 13.17px;">算法_图论</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E5%AD%97%E7%AC%A6%E4%B8%B2/" style="font-size: 13.17px;">算法_字符串</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E5%AE%9E%E7%8E%B0/" style="font-size: 13.17px;">算法_实现</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 13px;">算法_并查集</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%90%9C%E7%B4%A2/" style="font-size: 13px;">算法_搜索</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%95%B0%E5%AD%A6/" style="font-size: 13.17px;">算法_数学</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 13.33px;">算法_数据结构</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%95%B0%E8%AE%BA/" style="font-size: 13.5px;">算法_数论</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%9A%B4%E5%8A%9B/" style="font-size: 13.33px;">算法_暴力</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%9C%80%E7%9F%AD%E8%B7%AF/" style="font-size: 13.67px;">算法_最短路</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%9E%84%E9%80%A0/" style="font-size: 14px;">算法_构造</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%A6%82%E7%8E%87%E6%9C%9F%E6%9C%9B/" style="font-size: 13px;">算法_概率期望</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/" style="font-size: 13.17px;">算法_组合数学</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E8%B4%AA%E5%BF%83/" style="font-size: 13.5px;">算法_贪心</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">十一月 2022</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">十月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a><span class="archive-list-count">4</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E9%A2%98%E8%A7%A3/">题解</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/02/02/%E9%A2%98%E8%A7%A3%20-%20Codeforces%20Round%20848%20(Div.%202)%20A-D/" class="title">题解 - Codeforces Round 848 (Div. 2) A-D</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-02-01T16:00:00.000Z" itemprop="datePublished">2023-02-02</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E9%A2%98%E8%A7%A3/">题解</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/02/02/%E9%A2%98%E8%A7%A3%20-%20Educational%20Round%20142%20(Div.%202)%20A-D/" class="title">题解 - Educational Round 142 (Div. 2) A-D</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-02-01T16:00:00.000Z" itemprop="datePublished">2023-02-02</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E6%97%A5%E5%B8%B8/">日常</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/01/24/%E5%91%A8%E8%AE%B0%20-%202023%2001.16-01.29%20(2023%E6%98%A5%E8%8A%82)/" class="title">周记 - 2023 01.16-01.29 (2023春节)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-01-23T16:00:00.000Z" itemprop="datePublished">2023-01-24</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E6%97%A5%E5%B8%B8/">日常</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/01/21/%E5%91%A8%E8%AE%B0%20-%202023%2001.09-01.15/" class="title">周记 - 2023 01.09-01.15</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-01-20T16:00:00.000Z" itemprop="datePublished">2023-01-21</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E9%A2%98%E8%A7%A3/">题解</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/01/21/%E9%A2%98%E8%A7%A3%20-%20AtCoder%20Beginner%20Contest%2089%20A-D/" class="title">题解 - AtCoder Beginner Contest 89 A-D</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-01-20T16:00:00.000Z" itemprop="datePublished">2023-01-21</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-题解 - Codeforces Round 848 (Div. 2) A-D" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      题解 - Codeforces Round 848 (Div. 2) A-D
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2023/02/02/%E9%A2%98%E8%A7%A3%20-%20Codeforces%20Round%20848%20(Div.%202)%20A-D/" class="article-date">
+	  <time datetime="2023-02-01T16:00:00.000Z" itemprop="datePublished">2023-02-02</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E9%A2%98%E8%A7%A3/">题解</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%95%B0%E5%AD%A6/" rel="tag">算法_数学</a>, <a class="article-tag-link-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%9A%B4%E5%8A%9B/" rel="tag">算法_暴力</a>, <a class="article-tag-link-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%A6%82%E7%8E%87%E6%9C%9F%E6%9C%9B/" rel="tag">算法_概率期望</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2023/02/02/%E9%A2%98%E8%A7%A3%20-%20Codeforces%20Round%20848%20(Div.%202)%20A-D/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>比赛次日早上做的题, 50min内能出ABC, 感觉前面题目不难.</p>
+<p>补题: D期望dp, 期望公式dp[i]依赖于dp[i-1]和dp[i+1], 每一项dp都用k*dp[1]+b的形式表示. 递推到最后一项dp[n]=dp[n-1]+1. 从而求出dp[1]</p>
+<h2 id="A-Parallel-Projection"><a href="#A-Parallel-Projection" class="headerlink" title="A. Parallel Projection"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1782/problem/A">A. Parallel Projection</a></h2><h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><p>给定由 1 和 -1 组成的数组，你必须选择两个相邻元素，然后翻转它们的符号。</p>
+<p>求翻转后数组的最大和。</p>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>对于相邻的2个数, 总共3种情况: </p>
+<ol>
+<li>(-1, -1)             总贡献 +4</li>
+<li>(-1, 1) / (1, -1)    总贡献 0</li>
+<li>只有(1, 1)           总贡献 -4</li>
+</ol>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n;  cin &gt;&gt; n;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">a</span><span class="params">(n)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> &amp;&amp;x : a)  cin &gt;&gt; x;</span><br><span class="line">    <span class="type">int</span> ans = <span class="built_in">accumulate</span>(<span class="built_in">all</span>(a), <span class="number">0</span>);</span><br><span class="line">    <span class="type">bool</span> add0 = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++ i) &#123;</span><br><span class="line">        <span class="keyword">if</span> (i + <span class="number">1</span> &lt; n &amp;&amp; a[i] == <span class="number">-1</span> &amp;&amp; a[i + <span class="number">1</span>] == <span class="number">-1</span>) &#123;</span><br><span class="line">            cout &lt;&lt; ans + <span class="number">4</span> &lt;&lt; endl;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">if</span> (i + <span class="number">1</span> &lt; n &amp;&amp; a[i] * a[i + <span class="number">1</span>] == <span class="number">-1</span>) &#123;</span><br><span class="line">            add0 = <span class="literal">true</span>;   </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (add0)   cout &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">else</span>        cout &lt;&lt; ans - <span class="number">4</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="B-The-Forbidden-Permutation"><a href="#B-The-Forbidden-Permutation" class="headerlink" title="B. The Forbidden Permutation"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1778/problem/B">B. The Forbidden Permutation</a></h2><h3 id="题意-1"><a href="#题意-1" class="headerlink" title="题意"></a>题意</h3><p>给定排列 p 和数组 a和正整数d. </p>
+<p>定义a是不好数组, 如果对于所有a[1~m-1], 都有pos[a[i]] &lt; pos[a[i+1]] &lt;= pos[a[i]] + d</p>
+<p>比如: p=[4,2,1,3,6,5] 和 d=2</p>
+<blockquote>
+<p>a=[2,3,6] is a not good array.<br>a=[2,6,5] is good because pos(a1)=2, pos(a2)=5, so the condition pos(a2)≤pos(a1)+d is not satisfied.<br>a=[1,6,3] is good because pos(a2)=5, pos(a3)=4, so the condition pos(a2)&lt;pos(a3) is not satisfied.</p>
+</blockquote>
+<p>请多次交换排列p中相邻的元素，使得a变成好数组</p>
+<p>求最少交换次数。</p>
+<h3 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h3><p>要破坏现有满足的2个条件, 只需要破坏其中一个条件就行. </p>
+<p>枚举每个数, 分别计算破坏左边不等式和右边不等式的代价. 取个min就行</p>
+<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n, m, d;    cin &gt;&gt; n &gt;&gt; m &gt;&gt; d;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">p</span><span class="params">(n)</span>, <span class="title">a</span><span class="params">(m)</span>, <span class="title">pos</span><span class="params">(n)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++ i) &#123;</span><br><span class="line">        cin &gt;&gt; p[i];    p[i] --;</span><br><span class="line">        pos[p[i]] = i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> &amp;&amp;x : a)  cin &gt;&gt; x, x --;</span><br><span class="line">    <span class="type">int</span> ans = n;</span><br><span class="line">    <span class="built_in">LOG</span>(a)</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i + <span class="number">1</span> &lt; m; ++ i) &#123;</span><br><span class="line">        <span class="type">int</span> x = a[i], y = a[i + <span class="number">1</span>];</span><br><span class="line">        <span class="type">int</span> px = pos[x], py = pos[y];</span><br><span class="line">        <span class="keyword">if</span> (px + n - <span class="number">1</span> - py &gt;= d - (py - px) + <span class="number">1</span>)   ans = <span class="built_in">min</span>(ans, <span class="built_in">max</span>(d - (py - px) + <span class="number">1</span>, (<span class="type">int</span>)<span class="number">0</span>));</span><br><span class="line">        ans = <span class="built_in">min</span>(ans, <span class="built_in">max</span>(py - px, (<span class="type">int</span>)<span class="number">0</span>));</span><br><span class="line">    &#125; <span class="built_in">LOG</span>(ans)</span><br><span class="line">    cout &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="C-Flexible-String"><a href="#C-Flexible-String" class="headerlink" title="C. Flexible String"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1778/problem/C">C. Flexible String</a></h2><h3 id="题意-2"><a href="#题意-2" class="headerlink" title="题意"></a>题意</h3><p>现有字符串 a,b 。请选择修改 a 中至多 k 种 字符，对于 每一个 这样的字符，都可以将其改为另一个其他字符。</p>
+<p>求修改后 a’ 的子串以及 b 的子串中，满足 a’[l..r] = b[l..r] 的数量的最大值。保证 a 中至多有 10 种字符。</p>
+<h3 id="分析-2"><a href="#分析-2" class="headerlink" title="分析"></a>分析</h3><p>n(1e5), k(10). </p>
+<p>暴力二进制枚举子集, 最高O(2^10 * 1e5), 2s能接受. </p>
+<p>枚举每个子集, 对于a[i], 若是子集里的字母, 都替换成b[i]</p>
+<h3 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1024 * 1e5 2s 应该能过</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n, k;   cin &gt;&gt; n &gt;&gt; k;</span><br><span class="line">    string a, b;    cin &gt;&gt; a &gt;&gt; b;</span><br><span class="line">    string unique_a = a;</span><br><span class="line">    <span class="built_in">uniq</span>(unique_a);</span><br><span class="line">    <span class="type">int</span> m = unique_a.<span class="built_in">size</span>();</span><br><span class="line">    <span class="built_in">LOG</span>(unique_a, m)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (k &gt;= m) &#123;</span><br><span class="line">        cout &lt;&lt; n * (n + <span class="number">1</span>) / <span class="number">2</span> &lt;&lt; endl;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> val = <span class="number">0</span>; val &lt; (<span class="number">1</span> &lt;&lt; m); ++ val) <span class="keyword">if</span> (<span class="built_in">popcountll</span>(val) == k) &#123;</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">change</span><span class="params">(<span class="number">26</span>)</span></span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> b = <span class="number">0</span>; b &lt; m; ++ b) &#123;</span><br><span class="line">            <span class="keyword">if</span> (val &gt;&gt; b &amp; <span class="number">1</span>) &#123;</span><br><span class="line">                change[unique_a[b] - <span class="string">&#x27;a&#x27;</span>] = <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> len = <span class="number">0</span>, curr = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++ i) &#123;</span><br><span class="line">            <span class="keyword">if</span> (change[a[i] - <span class="string">&#x27;a&#x27;</span>] || a[i] == b[i]) &#123;</span><br><span class="line">                len ++;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                curr += len * (len + <span class="number">1</span>) / <span class="number">2</span>;</span><br><span class="line">                len = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (len)    curr += len * (len + <span class="number">1</span>) / <span class="number">2</span>;</span><br><span class="line">        ans = <span class="built_in">max</span>(ans, curr);</span><br><span class="line">    &#125; <span class="built_in">LOG</span>(ans)</span><br><span class="line">    cout &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="D-Flexible-String-Revisit"><a href="#D-Flexible-String-Revisit" class="headerlink" title="D. Flexible String Revisit"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1778/problem/D">D. Flexible String Revisit</a></h2><h3 id="题意-3"><a href="#题意-3" class="headerlink" title="题意"></a>题意</h3><p>给定两个二进制串 a, b. </p>
+<p>每次随意翻转一个二进制位，求第一次使得 a=b 所需的期望次数。</p>
+<h3 id="分析-3"><a href="#分析-3" class="headerlink" title="分析"></a>分析</h3><p>设有 i 个二进制位不同的情况下，所需的次数是 dp[i] ，则有转移方程：</p>
+<p><code>dp[i] = 1 + dp[i + 1] * (n - i) / n + dp[i - 1] * (i) / n</code></p>
+<p>其含义是，我们进行一次翻转后，有 i/n 的概率减少一个不同的位，这样就还需要 dp[i−1] 次；其他情况下将增加一个不同的位，则还需要 dp[i+1] 次。特别地， dp[0]=0， dp[n]=1+dp[n−1]</p>
+<p>但是(しかし), 期望公式dp[i]依赖于dp[i-1]和dp[i+1]. 而我们的初始状态只有dp[0]=0. 因此需要通过解方程的方式才能得到答案</p>
+<p>$$<br>dp[i] = 1 + dp[i + 1] * (n - i) / n + dp[i - 1] * (i) / n \ </p>
+<p>dp[i - 1] = 1 + dp[i] * (n - i + 1) / n + dp[i - 2] * (i - 1) / n \ </p>
+<p>dp[i - 1] = 1 + dp[i] * (1 - (i-1) / n) + dp[i - 2] * (i - 1) / n   \ </p>
+<p>dp[i] = (dp[i-1] - 1 - dp[i-2] * (i-1) / n) / (1 - (i-1)/n) \<br>$$</p>
+<p>dp[2] = dp[1] + … = k * dp[1] + b</p>
+<p>用 dp[1] 看作已知，各个 dp[i] 表示为k * dp[1] + b. </p>
+<p>一直到 dp[n] = 1 + dp[n - 1]</p>
+<p>dp[n] - dp[n - 1] = k * dp[1] + b = 1, 这里的k和b都是已经通过递推算出来的, 所以dp[1]的值也就算出来了.</p>
+<p>答案就是<code>dp[diff_cnt][0] * dp[1] + dp[diff_cnt][1]</code></p>
+<h3 id="代码-3"><a href="#代码-3" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">array&lt;mint, 2&gt; <span class="keyword">operator</span>-(array&lt;mint, <span class="number">2</span>&gt; a, array&lt;mint, <span class="number">2</span>&gt; b) &#123;</span><br><span class="line">	<span class="keyword">return</span> array&lt;mint, <span class="number">2</span>&gt; &#123;a[<span class="number">0</span>]-b[<span class="number">0</span>], a[<span class="number">1</span>]-b[<span class="number">1</span>]&#125;;</span><br><span class="line">&#125;</span><br><span class="line">array&lt;mint, 2&gt; <span class="keyword">operator</span>-(array&lt;mint, <span class="number">2</span>&gt; a, mint b) &#123;</span><br><span class="line">	<span class="keyword">return</span> array&lt;mint, <span class="number">2</span>&gt; &#123;a[<span class="number">0</span>], a[<span class="number">1</span>]-b&#125;;</span><br><span class="line">&#125;</span><br><span class="line">array&lt;mint, 2&gt; <span class="keyword">operator</span>*(array&lt;mint, <span class="number">2</span>&gt; a, mint b) &#123;</span><br><span class="line">	<span class="keyword">return</span> array&lt;mint, <span class="number">2</span>&gt; &#123;a[<span class="number">0</span>]*b, a[<span class="number">1</span>]*b&#125;;</span><br><span class="line">&#125;</span><br><span class="line">array&lt;mint, 2&gt; <span class="keyword">operator</span>/(array&lt;mint, <span class="number">2</span>&gt; a, mint b) &#123;</span><br><span class="line">	<span class="keyword">return</span> array&lt;mint, <span class="number">2</span>&gt; &#123;a[<span class="number">0</span>]/b, a[<span class="number">1</span>]/b&#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n;          cin &gt;&gt; n;</span><br><span class="line">    string a, b;    cin &gt;&gt; a &gt;&gt; b;</span><br><span class="line">    <span class="type">int</span> diff = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++ i)    diff += (a[i] != b[i]);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// dp[i]: 有i个不同之处的期望: dp[i][0] * dp[1] + dp[i][1]</span></span><br><span class="line">    vector&lt;array&lt;mint, 2&gt;&gt; <span class="built_in">dp</span>(n + <span class="number">1</span>);   </span><br><span class="line">    dp[<span class="number">0</span>] = &#123;<span class="number">0</span>, <span class="number">0</span>&#125;;</span><br><span class="line">    dp[<span class="number">1</span>] = &#123;<span class="number">1</span>, <span class="number">0</span>&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// dp[i] = 1 + dp[i + 1] * (n - i) / n + dp[i - 1] * (i) / n</span></span><br><span class="line">    <span class="comment">// dp[i - 1] = 1 + dp[i] * (n - i + 1) / n + dp[i - 2] * (i - 1) / n</span></span><br><span class="line">    <span class="comment">// dp[i - 1] = 1 + dp[i] * (1 - (i-1) / n) + dp[i - 2] * (i - 1) / n</span></span><br><span class="line">    <span class="comment">// dp[i] = (dp[i-1] - 1 - dp[i-2] * (i-1) / n) / (1 - (i-1)/n)</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">2</span>; i &lt;= n; ++ i) &#123;</span><br><span class="line">        dp[i] = (dp[i<span class="number">-1</span>] - <span class="built_in">mint</span>(<span class="number">1</span>) - dp[i<span class="number">-2</span>] * <span class="built_in">mint</span>(i<span class="number">-1</span>) / <span class="built_in">mint</span>(n)) / (<span class="built_in">mint</span>(<span class="number">1</span>) - <span class="built_in">mint</span>(i<span class="number">-1</span>)/<span class="built_in">mint</span>(n));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// dp[n] = 1 + dp[n - 1]</span></span><br><span class="line">    <span class="comment">// dp[n] - dp[n - 1] = d[0] * dp[1][0] + d[1] = 1</span></span><br><span class="line">    <span class="comment">// k = dp[1][0] = (1 - d[1]) / d[0]</span></span><br><span class="line">    array&lt;mint, 2&gt; d = dp[n] - dp[n - <span class="number">1</span>];</span><br><span class="line">    mint k = (<span class="built_in">mint</span>(<span class="number">1</span>) - d[<span class="number">1</span>]) / d[<span class="number">0</span>];</span><br><span class="line">    cout &lt;&lt; dp[diff][<span class="number">0</span>] * k + dp[diff][<span class="number">1</span>] &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="A-Flip-Flop-Sum"><a href="#A-Flip-Flop-Sum" class="headerlink" title="A. Flip Flop Sum"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1778/problem/A">A. Flip Flop Sum</a></h2><h3 id="题意-4"><a href="#题意-4" class="headerlink" title="题意"></a>题意</h3><h3 id="分析-4"><a href="#分析-4" class="headerlink" title="分析"></a>分析</h3><h3 id="代码-4"><a href="#代码-4" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/2023/02/02/%E9%A2%98%E8%A7%A3%20-%20Codeforces%20Round%20848%20(Div.%202)%20A-D/" title="题解 - Codeforces Round 848 (Div. 2) A-D" target="_blank" rel="external">http://example.com/2023/02/02/题解 - Codeforces Round 848 (Div. 2) A-D/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/lcj2021" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/lcj2021" target="_blank"><span class="text-dark">Liucj2021</span><small class="ml-1x">Graph &amp; Competitive Programming</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2023/02/02/%E9%A2%98%E8%A7%A3%20-%20Educational%20Round%20142%20(Div.%202)%20A-D/" title="题解 - Educational Round 142 (Div. 2) A-D"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+
+
+
+
+
+
+</body>
+</html>

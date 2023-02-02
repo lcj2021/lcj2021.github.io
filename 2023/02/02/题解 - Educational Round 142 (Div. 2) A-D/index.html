@@ -17,21 +17,23 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>题解 - AtCoder Beginner Contest 134 A-F | Liucj&#39;s Harbour</title>
-  <meta name="description" content="R2532橙题 F - Permutation Oddness题意设 P &#x3D; (p1, p2, p3, …, pn)是{1,2,3,…,n}(n&lt;&#x3D;50)的排列. 定义Oddness:&#x3D; $\sum |p_i - i|$. 求满足定义Oddness &#x3D; k 的不同排列P的数量 思路此题相当困难. 做的第一道橙题, 看题解都看了好久才能理解. 这里以官方题解为基础, 加以翻译并解释.   若存">
+  <title>题解 - Educational Round 142 (Div. 2) A-D | Liucj&#39;s Harbour</title>
+  <meta name="description" content="C题洗澡的时候想了挺久, 还是想出正解了. 并且D题属于一眼Trie, 但是不太会倒映射.  C. Min Max Sort题意一个排列p，每次可以选两个数x和y，将两者较小的移到开头，较大的移到结尾。 问排成增序所需最小操作次数。 分析代码123456789101112131415161718192021222324252627282930void solve() &amp;#123;    int n">
 <meta property="og:type" content="article">
-<meta property="og:title" content="题解 - AtCoder Beginner Contest 134 A-F">
-<meta property="og:url" content="http://example.com/2023/01/15/%E9%A2%98%E8%A7%A3%20-%20AtCoder%20Beginner%20Contest%20134%20A-F/index.html">
+<meta property="og:title" content="题解 - Educational Round 142 (Div. 2) A-D">
+<meta property="og:url" content="http://example.com/2023/02/02/%E9%A2%98%E8%A7%A3%20-%20Educational%20Round%20142%20(Div.%202)%20A-D/index.html">
 <meta property="og:site_name" content="Liucj&#39;s Harbour">
-<meta property="og:description" content="R2532橙题 F - Permutation Oddness题意设 P &#x3D; (p1, p2, p3, …, pn)是{1,2,3,…,n}(n&lt;&#x3D;50)的排列. 定义Oddness:&#x3D; $\sum |p_i - i|$. 求满足定义Oddness &#x3D; k 的不同排列P的数量 思路此题相当困难. 做的第一道橙题, 看题解都看了好久才能理解. 这里以官方题解为基础, 加以翻译并解释.   若存">
+<meta property="og:description" content="C题洗澡的时候想了挺久, 还是想出正解了. 并且D题属于一眼Trie, 但是不太会倒映射.  C. Min Max Sort题意一个排列p，每次可以选两个数x和y，将两者较小的移到开头，较大的移到结尾。 问排成增序所需最小操作次数。 分析代码123456789101112131415161718192021222324252627282930void solve() &amp;#123;    int n">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-01-14T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-01-20T07:14:17.586Z">
+<meta property="article:published_time" content="2023-02-01T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-02-02T15:59:27.901Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="算法_DP">
+<meta property="article:tag" content="算法_数据结构">
+<meta property="article:tag" content="算法_字符串">
+<meta property="article:tag" content="算法_构造">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://example.com/2023/01/15/%E9%A2%98%E8%A7%A3%20-%20AtCoder%20Beginner%20Contest%20134%20A-F/index.html">
+  <link rel="canonical" href="http://example.com/2023/02/02/%E9%A2%98%E8%A7%A3%20-%20Educational%20Round%20142%20(Div.%202)%20A-D/index.html">
   
     <link rel="alternate" href="/atom.xml" title="Liucj&#39;s Harbour" type="application/atom+xml">
   
@@ -303,14 +305,14 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-题解 - AtCoder Beginner Contest 134 A-F" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-题解 - Educational Round 142 (Div. 2) A-D" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      题解 - AtCoder Beginner Contest 134 A-F
+      题解 - Educational Round 142 (Div. 2) A-D
     </h1>
   
 
@@ -318,8 +320,8 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2023/01/15/%E9%A2%98%E8%A7%A3%20-%20AtCoder%20Beginner%20Contest%20134%20A-F/" class="article-date">
-	  <time datetime="2023-01-14T16:00:00.000Z" itemprop="datePublished">2023-01-15</time>
+	<a href="/2023/02/02/%E9%A2%98%E8%A7%A3%20-%20Educational%20Round%20142%20(Div.%202)%20A-D/" class="article-date">
+	  <time datetime="2023-02-01T16:00:00.000Z" itemprop="datePublished">2023-02-02</time>
 	</a>
 </span>
         
@@ -331,57 +333,28 @@
         
   <span class="article-tag">
     <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/tags/%E7%AE%97%E6%B3%95-DP/" rel="tag">算法_DP</a>
+	<a class="article-tag-link-link" href="/tags/%E7%AE%97%E6%B3%95-%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag">算法_字符串</a>, <a class="article-tag-link-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">算法_数据结构</a>, <a class="article-tag-link-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%9E%84%E9%80%A0/" rel="tag">算法_构造</a>
   </span>
 
 
         
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2023/01/15/%E9%A2%98%E8%A7%A3%20-%20AtCoder%20Beginner%20Contest%20134%20A-F/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2023/02/02/%E9%A2%98%E8%A7%A3%20-%20Educational%20Round%20142%20(Div.%202)%20A-D/#comments" class="article-comment-link">评论</a></span>
         
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h2 id="R2532橙题-F-Permutation-Oddness"><a href="#R2532橙题-F-Permutation-Oddness" class="headerlink" title="R2532橙题 F - Permutation Oddness"></a>R2532橙题 <a target="_blank" rel="noopener" href="https://atcoder.jp/contests/abc134/tasks/abc134_f">F - Permutation Oddness</a></h2><h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><p>设 P = (p1, p2, p3, …, pn)是{1,2,3,…,n}(n&lt;=50)的排列. 定义Oddness:= $\sum |p_i - i|$. 求满足定义Oddness = k 的不同排列P的数量</p>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>此题相当困难. 做的第一道橙题, 看题解都看了好久才能理解.</p>
-<p>这里以<a target="_blank" rel="noopener" href="https://img.atcoder.jp/abc134/editorial.pdf">官方题解</a>为基础, 加以翻译并解释. </p>
-<blockquote>
-<p>若存在一组兔子(R1​∼Rn​)和一组海龟(T1​∼Tn​), 请问有多少种方式可以形成n组 (兔,龟) 组合, 使得各组龟兔下标的差值（绝对值）求和之后恰等于 K</p>
-</blockquote>
-<p>dp[i][j][k][l]=表示在考虑R1​∼Ri​与T1​∼Ti​时, 仍然有j个兔没有在这个范围内找到配对、有k个龟没有在这个范围内找到配对、可以确定的oddess为l的排列数量. </p>
-<p>因为在考虑前i个时, 兔和龟未配对的数量实际上是相等的(j=k), 所以dp数组可以简化浓缩为dp[i][j][k], 这里的k继承之前l的意义. </p>
-<p>状态转移方程写作：<br>dp[i][j][k] = (2j + 1)dp[i-1][j][k-2j] + (j+1)(j+1)dp[i-1][j+1][k-2j]+dp[i-1][j-1][k-2j]</p>
-<p>当考虑第i个数与盒子的时候, 分5种情况: </p>
-<blockquote>
-<p>数i和盒子i直接配对, 未配对的依然是j个</p>
-<p>但是这剩下的j个数, 由于他们最终配对的目标都往右移了1个数, 每个对总k值的贡献就要+1了</p>
-<p>dp[i][j][k] += dp[i - 1][j][k - 2 * j];</p>
-</blockquote>
-<blockquote>
-<p>数i和[1~i-1]的盒子的j个盒子中选一个配对, 未配对的数不变, 盒子-1+1, 所以未配对的依然是j个</p>
-<p>有j中可能. 同样, 剩下的j个数, 每个对总k值的贡献就要+1了</p>
-<p>dp[i][j][k] += dp[i - 1][j][k - 2 * j] * j;</p>
-</blockquote>
-<blockquote>
-<p>盒子i和[1~i-1]的数的j个数中选一个配对, 未配对的数-1+1, 盒子不变, 所以未配对的依然是j个</p>
-<p>有j中可能. 同样, 剩下的j个数, 每个对总k值的贡献就要+1了</p>
-<p>dp[i][j][k] += dp[i - 1][j][k - 2 * j] * j;</p>
-</blockquote>
-<blockquote>
-<p>盒子i和[1~i-1]的数的j个数中选一个配对, 数i和[1~i-1]的盒子的j个盒子中选一个配对</p>
-<p>未配对的数-1, 盒子数-1, 所以未配对的-1个. </p>
-<p>当前状态j, 所以上一状态j+1</p>
-<p>有(j+1)*(j+1)中可能. 同样, 剩下的j个数, 每个对总k值的贡献就要+1了</p>
-<p>if (j + 1 &lt;= i) dp[i][j][k] += dp[i - 1][j + 1][k - 2 * j] * (j + 1) * (j + 1);</p>
-</blockquote>
-<blockquote>
-<p>数i和盒子i都不配对, 未配对的是j+1个</p>
-<p>有1中可能. 同样, 剩下的j个数, 每个对总k值的贡献就要+1了</p>
-<p>if (j &gt;= 1)     dp[i][j][k] += dp[i - 1][j - 1][k - 2 * j];</p>
-</blockquote>
-<p>注意, 可能情况个数要从上一状态出发考虑</p>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">mint dp[N][N][N * N];    </span><br><span class="line"><span class="comment">// 前i个数, 还剩下j个数不能够在当前考虑的1~i个盒子中找到目标安放配对</span></span><br><span class="line"><span class="comment">// 且 当前的奇异值为k的方案数</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n, k;   cin &gt;&gt; n &gt;&gt; k;</span><br><span class="line">    dp[<span class="number">0</span>][<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++ i) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt;= i; ++ j) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> k = <span class="number">2</span> * j; k &lt;= n * n; ++ k) &#123;</span><br><span class="line">                <span class="comment">// 数i和盒子i直接配对, 未配对的依然是j个</span></span><br><span class="line">                <span class="comment">// 但是这剩下的j个数, 由于他们最终配对的目标都往右移了1个数, 每个对总k值的贡献就要+1了</span></span><br><span class="line">                dp[i][j][k] += dp[i - <span class="number">1</span>][j][k - <span class="number">2</span> * j];</span><br><span class="line">                <span class="comment">// 数i和[1~i-1]的盒子的j个盒子中选一个配对, 未配对的数不变, 盒子-1+1, 所以未配对的依然是j个</span></span><br><span class="line">                <span class="comment">// 有j中可能. 同样, 剩下的j个数, 每个对总k值的贡献就要+1了</span></span><br><span class="line">                dp[i][j][k] += dp[i - <span class="number">1</span>][j][k - <span class="number">2</span> * j] * j;</span><br><span class="line">                <span class="comment">// 盒子i和[1~i-1]的数的j个数中选一个配对, 未配对的数-1+1, 盒子不变, 所以未配对的依然是j个</span></span><br><span class="line">                <span class="comment">// 有j中可能. 同样, 剩下的j个数, 每个对总k值的贡献就要+1了</span></span><br><span class="line">                dp[i][j][k] += dp[i - <span class="number">1</span>][j][k - <span class="number">2</span> * j] * j;</span><br><span class="line">                <span class="comment">// 盒子i和[1~i-1]的数的j个数中选一个配对, 数i和[1~i-1]的盒子的j个盒子中选一个配对</span></span><br><span class="line">                <span class="comment">// 未配对的数-1, 盒子数-1, 所以未配对的-1个. </span></span><br><span class="line">                <span class="comment">// 当前状态j, 所以上一状态j+1</span></span><br><span class="line">                <span class="comment">// 有(j+1)*(j+1)中可能. 同样, 剩下的j个数, 每个对总k值的贡献就要+1了</span></span><br><span class="line">                <span class="keyword">if</span> (j + <span class="number">1</span> &lt;= i) dp[i][j][k] += dp[i - <span class="number">1</span>][j + <span class="number">1</span>][k - <span class="number">2</span> * j] * (j + <span class="number">1</span>) * (j + <span class="number">1</span>);</span><br><span class="line">                <span class="comment">// 数i和盒子i都不配对, 未配对的是j+1个</span></span><br><span class="line">                <span class="comment">// 有1中可能. 同样, 剩下的j个数, 每个对总k值的贡献就要+1了</span></span><br><span class="line">                <span class="keyword">if</span> (j &gt;= <span class="number">1</span>)     dp[i][j][k] += dp[i - <span class="number">1</span>][j - <span class="number">1</span>][k - <span class="number">2</span> * j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; dp[n][<span class="number">0</span>][k] &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>C题洗澡的时候想了挺久, 还是想出正解了. 并且D题属于一眼Trie, 但是不太会倒映射. </p>
+<h2 id="C-Min-Max-Sort"><a href="#C-Min-Max-Sort" class="headerlink" title="C. Min Max Sort"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1792/problem/C">C. Min Max Sort</a></h2><h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><p>一个排列p，每次可以选两个数x和y，将两者较小的移到开头，较大的移到结尾。</p>
+<p>问排成增序所需最小操作次数。</p>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n;  cin &gt;&gt; n;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">a</span><span class="params">(n)</span></span>;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">pos</span><span class="params">(n)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++ i) &#123;</span><br><span class="line">        cin &gt;&gt; a[i];   a[i] --;</span><br><span class="line">        pos[a[i]] = i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">LOG</span>(a)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 4: </span></span><br><span class="line">    <span class="comment">// 0 1 2 3</span></span><br><span class="line">    <span class="comment">// 5: 2</span></span><br><span class="line">    <span class="comment">// 0 1 2 3 4</span></span><br><span class="line">    <span class="type">int</span> ans = n / <span class="number">2</span>;</span><br><span class="line">    <span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> l = pos[n / <span class="number">2</span>], r = pos[n / <span class="number">2</span>];</span><br><span class="line">    <span class="keyword">for</span> (; i &lt; n / <span class="number">2</span>; ++ i) &#123;</span><br><span class="line">        <span class="type">int</span> v1 = (n - <span class="number">2</span>) / <span class="number">2</span> - i, v2 = n - <span class="number">1</span> - v1;</span><br><span class="line">        <span class="built_in">LOG</span>(v1, v2)</span><br><span class="line">        <span class="type">int</span> p1 = pos[v1], p2 = pos[v2];</span><br><span class="line">        <span class="keyword">if</span> (p1 &gt; p2 || !(p1 &lt;= l &amp;&amp; p2 &gt;= r)) &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        l = p1, r = p2;</span><br><span class="line">    &#125;</span><br><span class="line">    ans -= i;</span><br><span class="line">    <span class="built_in">LOG</span>(ans)</span><br><span class="line">    cout &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="D-Fixed-Prefix-Permutations"><a href="#D-Fixed-Prefix-Permutations" class="headerlink" title="D. Fixed Prefix Permutations"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1792/problem/D">D. Fixed Prefix Permutations</a></h2><h3 id="题意-1"><a href="#题意-1" class="headerlink" title="题意"></a>题意</h3><h3 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h3><p>学习(偷)了日本大神maspy的Trie板子. </p>
+<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n, m;   cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">    <span class="function">vector <span class="title">p</span><span class="params">(n, vector&lt;<span class="type">int</span>&gt;(m))</span></span>;</span><br><span class="line">    <span class="function">vector <span class="title">pos</span><span class="params">(n, vector&lt;<span class="type">int</span>&gt;(m))</span></span>;</span><br><span class="line">    Trie&lt;<span class="number">10</span>&gt; tr;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++ i) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; m; ++ j) &#123;</span><br><span class="line">            cin &gt;&gt; p[i][j];     p[i][j] --;</span><br><span class="line">            pos[i][p[i][j]] = j;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        tr.add&lt;vector&lt;<span class="type">int</span>&gt;&gt;(pos[i], <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++ i) &#123;</span><br><span class="line">        <span class="built_in">LOG</span>(pos[i])</span><br><span class="line">        <span class="type">int</span> cv = <span class="number">0</span>, cnt = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; m; ++ j) &#123;</span><br><span class="line">            cv = tr.TO[cv][p[i][j]];</span><br><span class="line">            <span class="built_in">LOG</span>(cv)</span><br><span class="line">            <span class="keyword">if</span> (cv == <span class="number">-1</span>)   <span class="keyword">break</span>;</span><br><span class="line">            ++ cnt;</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; cnt &lt;&lt; <span class="string">&quot; \n&quot;</span>[i == n - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="C-Min-Max-Sort-1"><a href="#C-Min-Max-Sort-1" class="headerlink" title="C. Min Max Sort"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1792/problem/C">C. Min Max Sort</a></h2><h3 id="题意-2"><a href="#题意-2" class="headerlink" title="题意"></a>题意</h3><h3 id="分析-2"><a href="#分析-2" class="headerlink" title="分析"></a>分析</h3><h3 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
 
       
     </div>
@@ -391,7 +364,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="http://example.com/2023/01/15/%E9%A2%98%E8%A7%A3%20-%20AtCoder%20Beginner%20Contest%20134%20A-F/" title="题解 - AtCoder Beginner Contest 134 A-F" target="_blank" rel="external">http://example.com/2023/01/15/题解 - AtCoder Beginner Contest 134 A-F/</a>
+      <a href="http://example.com/2023/02/02/%E9%A2%98%E8%A7%A3%20-%20Educational%20Round%20142%20(Div.%202)%20A-D/" title="题解 - Educational Round 142 (Div. 2) A-D" target="_blank" rel="external">http://example.com/2023/02/02/题解 - Educational Round 142 (Div. 2) A-D/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -436,12 +409,12 @@
   <ul class="pager pull-left">
     
     <li class="prev">
-      <a href="/2023/01/17/%E9%A2%98%E8%A7%A3%20-%20Codeforces%20Round%20844%20(Div.%201%20+%20Div.%202,%20based%20on%20VK%20Cup%202022%20-%20Elimination%20Round)%20A-D/" title="题解 - Codeforces Round 844 (Div. 1 + Div. 2, based on VK Cup 2022 - Elimination Round) A-D"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+      <a href="/2023/02/02/%E9%A2%98%E8%A7%A3%20-%20Codeforces%20Round%20848%20(Div.%202)%20A-D/" title="题解 - Codeforces Round 848 (Div. 2) A-D"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
     </li>
     
     
     <li class="next">
-      <a href="/2023/01/14/%E9%A2%98%E8%A7%A3%20-%20Codeforces%20Round%20797%20(Div.%203)%20A-G/" title="题解 - Codeforces Round 797 (Div. 3) A-G"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2023/01/24/%E5%91%A8%E8%AE%B0%20-%202023%2001.16-01.29%20(2023%E6%98%A5%E8%8A%82)/" title="周记 - 2023 01.16-01.29 (2023春节)"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     

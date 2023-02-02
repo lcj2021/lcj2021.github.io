@@ -17,21 +17,16 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>题解 - AtCoder Beginner Contest 134 A-F | Liucj&#39;s Harbour</title>
-  <meta name="description" content="R2532橙题 F - Permutation Oddness题意设 P &#x3D; (p1, p2, p3, …, pn)是{1,2,3,…,n}(n&lt;&#x3D;50)的排列. 定义Oddness:&#x3D; $\sum |p_i - i|$. 求满足定义Oddness &#x3D; k 的不同排列P的数量 思路此题相当困难. 做的第一道橙题, 看题解都看了好久才能理解. 这里以官方题解为基础, 加以翻译并解释.   若存">
-<meta property="og:type" content="article">
-<meta property="og:title" content="题解 - AtCoder Beginner Contest 134 A-F">
-<meta property="og:url" content="http://example.com/2023/01/15/%E9%A2%98%E8%A7%A3%20-%20AtCoder%20Beginner%20Contest%20134%20A-F/index.html">
+  <title>标签: 算法_概率期望 | Liucj&#39;s Harbour</title>
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Liucj&#39;s Harbour">
+<meta property="og:url" content="http://example.com/tags/%E7%AE%97%E6%B3%95-%E6%A6%82%E7%8E%87%E6%9C%9F%E6%9C%9B/index.html">
 <meta property="og:site_name" content="Liucj&#39;s Harbour">
-<meta property="og:description" content="R2532橙题 F - Permutation Oddness题意设 P &#x3D; (p1, p2, p3, …, pn)是{1,2,3,…,n}(n&lt;&#x3D;50)的排列. 定义Oddness:&#x3D; $\sum |p_i - i|$. 求满足定义Oddness &#x3D; k 的不同排列P的数量 思路此题相当困难. 做的第一道橙题, 看题解都看了好久才能理解. 这里以官方题解为基础, 加以翻译并解释.   若存">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-01-14T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-01-20T07:14:17.586Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="算法_DP">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://example.com/2023/01/15/%E9%A2%98%E8%A7%A3%20-%20AtCoder%20Beginner%20Contest%20134%20A-F/index.html">
+  <link rel="canonical" href="http://example.com/tags/%E7%AE%97%E6%B3%95-%E6%A6%82%E7%8E%87%E6%9C%9F%E6%9C%9B/index.html">
   
     <link rel="alternate" href="/atom.xml" title="Liucj&#39;s Harbour" type="application/atom+xml">
   
@@ -300,163 +295,100 @@
 </aside>
 
   
-  
-<main class="main" role="main">
-  <div class="content">
-  <article id="post-题解 - AtCoder Beginner Contest 134 A-F" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <main class="main" role="main">
+  <article class="content article article-tags post-type-list" itemscope="">
+    <header class="article-header">
+      <h1 itemprop="name" class="hidden-xs">标签: 算法_概率期望</h1>
+      <p class="text-muted hidden-xs">共 1 篇文章</p>
+      <nav role="navigation" id="nav-main" class="okayNav">
+        <ul>
+          <li><a href="/tags">All</a></li>
+          
+          <li><a href="/tags/Network/">Network</a></li>
+          
+          <li><a href="/tags/笔记-模板/">笔记_模板</a></li>
+          
+          <li><a href="/tags/算法-DP/">算法_DP</a></li>
+          
+          <li><a href="/tags/算法-二分/">算法_二分</a></li>
+          
+          <li><a href="/tags/算法-最短路/">算法_最短路</a></li>
+          
+          <li><a href="/tags/算法-实现/">算法_实现</a></li>
+          
+          <li><a href="/tags/算法-搜索/">算法_搜索</a></li>
+          
+          <li><a href="/tags/算法-并查集/">算法_并查集</a></li>
+          
+          <li><a href="/tags/算法-数论/">算法_数论</a></li>
+          
+          <li><a href="/tags/算法-图论/">算法_图论</a></li>
+          
+          <li><a href="/tags/算法-哈希/">算法_哈希</a></li>
+          
+          <li><a href="/tags/算法-暴力/">算法_暴力</a></li>
+          
+          <li><a href="/tags/算法-组合数学/">算法_组合数学</a></li>
+          
+          <li><a href="/tags/算法-数据结构/">算法_数据结构</a></li>
+          
+          <li><a href="/tags/算法-字符串/">算法_字符串</a></li>
+          
+          <li><a href="/tags/算法-倍增/">算法_倍增</a></li>
+          
+          <li><a href="/tags/算法-贪心/">算法_贪心</a></li>
+          
+          <li><a href="/tags/算法-构造/">算法_构造</a></li>
+          
+          <li><a href="/tags/算法-博弈/">算法_博弈</a></li>
+          
+          <li><a href="/tags/算法-位运算/">算法_位运算</a></li>
+          
+          <li><a href="/tags/算法-双指针/">算法_双指针</a></li>
+          
+          <li><a href="/tags/算法-数学/">算法_数学</a></li>
+          
+          <li><a href="/tags/算法-概率期望/">算法_概率期望</a></li>
+          
+        </ul>
+      </nav>
+    </header>
+    <!-- /header -->
+    <div class="article-body">
+      <div class="row">
+        
+<div class="col-md-6">
     
-    <div class="article-header">
-      
-        
-  
-    <h1 class="article-title" itemprop="name">
-      题解 - AtCoder Beginner Contest 134 A-F
-    </h1>
-  
-
-      
-      <div class="article-meta">
-        <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/2023/01/15/%E9%A2%98%E8%A7%A3%20-%20AtCoder%20Beginner%20Contest%20134%20A-F/" class="article-date">
-	  <time datetime="2023-01-14T16:00:00.000Z" itemprop="datePublished">2023-01-15</time>
-	</a>
-</span>
-        
-  <span class="article-category">
-    <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/%E9%A2%98%E8%A7%A3/">题解</a>
-  </span>
-
-        
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/tags/%E7%AE%97%E6%B3%95-DP/" rel="tag">算法_DP</a>
-  </span>
-
-
-        
-
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2023/01/15/%E9%A2%98%E8%A7%A3%20-%20AtCoder%20Beginner%20Contest%20134%20A-F/#comments" class="article-comment-link">评论</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="R2532橙题-F-Permutation-Oddness"><a href="#R2532橙题-F-Permutation-Oddness" class="headerlink" title="R2532橙题 F - Permutation Oddness"></a>R2532橙题 <a target="_blank" rel="noopener" href="https://atcoder.jp/contests/abc134/tasks/abc134_f">F - Permutation Oddness</a></h2><h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><p>设 P = (p1, p2, p3, …, pn)是{1,2,3,…,n}(n&lt;=50)的排列. 定义Oddness:= $\sum |p_i - i|$. 求满足定义Oddness = k 的不同排列P的数量</p>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>此题相当困难. 做的第一道橙题, 看题解都看了好久才能理解.</p>
-<p>这里以<a target="_blank" rel="noopener" href="https://img.atcoder.jp/abc134/editorial.pdf">官方题解</a>为基础, 加以翻译并解释. </p>
-<blockquote>
-<p>若存在一组兔子(R1​∼Rn​)和一组海龟(T1​∼Tn​), 请问有多少种方式可以形成n组 (兔,龟) 组合, 使得各组龟兔下标的差值（绝对值）求和之后恰等于 K</p>
-</blockquote>
-<p>dp[i][j][k][l]=表示在考虑R1​∼Ri​与T1​∼Ti​时, 仍然有j个兔没有在这个范围内找到配对、有k个龟没有在这个范围内找到配对、可以确定的oddess为l的排列数量. </p>
-<p>因为在考虑前i个时, 兔和龟未配对的数量实际上是相等的(j=k), 所以dp数组可以简化浓缩为dp[i][j][k], 这里的k继承之前l的意义. </p>
-<p>状态转移方程写作：<br>dp[i][j][k] = (2j + 1)dp[i-1][j][k-2j] + (j+1)(j+1)dp[i-1][j+1][k-2j]+dp[i-1][j-1][k-2j]</p>
-<p>当考虑第i个数与盒子的时候, 分5种情况: </p>
-<blockquote>
-<p>数i和盒子i直接配对, 未配对的依然是j个</p>
-<p>但是这剩下的j个数, 由于他们最终配对的目标都往右移了1个数, 每个对总k值的贡献就要+1了</p>
-<p>dp[i][j][k] += dp[i - 1][j][k - 2 * j];</p>
-</blockquote>
-<blockquote>
-<p>数i和[1~i-1]的盒子的j个盒子中选一个配对, 未配对的数不变, 盒子-1+1, 所以未配对的依然是j个</p>
-<p>有j中可能. 同样, 剩下的j个数, 每个对总k值的贡献就要+1了</p>
-<p>dp[i][j][k] += dp[i - 1][j][k - 2 * j] * j;</p>
-</blockquote>
-<blockquote>
-<p>盒子i和[1~i-1]的数的j个数中选一个配对, 未配对的数-1+1, 盒子不变, 所以未配对的依然是j个</p>
-<p>有j中可能. 同样, 剩下的j个数, 每个对总k值的贡献就要+1了</p>
-<p>dp[i][j][k] += dp[i - 1][j][k - 2 * j] * j;</p>
-</blockquote>
-<blockquote>
-<p>盒子i和[1~i-1]的数的j个数中选一个配对, 数i和[1~i-1]的盒子的j个盒子中选一个配对</p>
-<p>未配对的数-1, 盒子数-1, 所以未配对的-1个. </p>
-<p>当前状态j, 所以上一状态j+1</p>
-<p>有(j+1)*(j+1)中可能. 同样, 剩下的j个数, 每个对总k值的贡献就要+1了</p>
-<p>if (j + 1 &lt;= i) dp[i][j][k] += dp[i - 1][j + 1][k - 2 * j] * (j + 1) * (j + 1);</p>
-</blockquote>
-<blockquote>
-<p>数i和盒子i都不配对, 未配对的是j+1个</p>
-<p>有1中可能. 同样, 剩下的j个数, 每个对总k值的贡献就要+1了</p>
-<p>if (j &gt;= 1)     dp[i][j][k] += dp[i - 1][j - 1][k - 2 * j];</p>
-</blockquote>
-<p>注意, 可能情况个数要从上一状态出发考虑</p>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">mint dp[N][N][N * N];    </span><br><span class="line"><span class="comment">// 前i个数, 还剩下j个数不能够在当前考虑的1~i个盒子中找到目标安放配对</span></span><br><span class="line"><span class="comment">// 且 当前的奇异值为k的方案数</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n, k;   cin &gt;&gt; n &gt;&gt; k;</span><br><span class="line">    dp[<span class="number">0</span>][<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++ i) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt;= i; ++ j) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> k = <span class="number">2</span> * j; k &lt;= n * n; ++ k) &#123;</span><br><span class="line">                <span class="comment">// 数i和盒子i直接配对, 未配对的依然是j个</span></span><br><span class="line">                <span class="comment">// 但是这剩下的j个数, 由于他们最终配对的目标都往右移了1个数, 每个对总k值的贡献就要+1了</span></span><br><span class="line">                dp[i][j][k] += dp[i - <span class="number">1</span>][j][k - <span class="number">2</span> * j];</span><br><span class="line">                <span class="comment">// 数i和[1~i-1]的盒子的j个盒子中选一个配对, 未配对的数不变, 盒子-1+1, 所以未配对的依然是j个</span></span><br><span class="line">                <span class="comment">// 有j中可能. 同样, 剩下的j个数, 每个对总k值的贡献就要+1了</span></span><br><span class="line">                dp[i][j][k] += dp[i - <span class="number">1</span>][j][k - <span class="number">2</span> * j] * j;</span><br><span class="line">                <span class="comment">// 盒子i和[1~i-1]的数的j个数中选一个配对, 未配对的数-1+1, 盒子不变, 所以未配对的依然是j个</span></span><br><span class="line">                <span class="comment">// 有j中可能. 同样, 剩下的j个数, 每个对总k值的贡献就要+1了</span></span><br><span class="line">                dp[i][j][k] += dp[i - <span class="number">1</span>][j][k - <span class="number">2</span> * j] * j;</span><br><span class="line">                <span class="comment">// 盒子i和[1~i-1]的数的j个数中选一个配对, 数i和[1~i-1]的盒子的j个盒子中选一个配对</span></span><br><span class="line">                <span class="comment">// 未配对的数-1, 盒子数-1, 所以未配对的-1个. </span></span><br><span class="line">                <span class="comment">// 当前状态j, 所以上一状态j+1</span></span><br><span class="line">                <span class="comment">// 有(j+1)*(j+1)中可能. 同样, 剩下的j个数, 每个对总k值的贡献就要+1了</span></span><br><span class="line">                <span class="keyword">if</span> (j + <span class="number">1</span> &lt;= i) dp[i][j][k] += dp[i - <span class="number">1</span>][j + <span class="number">1</span>][k - <span class="number">2</span> * j] * (j + <span class="number">1</span>) * (j + <span class="number">1</span>);</span><br><span class="line">                <span class="comment">// 数i和盒子i都不配对, 未配对的是j+1个</span></span><br><span class="line">                <span class="comment">// 有1中可能. 同样, 剩下的j个数, 每个对总k值的贡献就要+1了</span></span><br><span class="line">                <span class="keyword">if</span> (j &gt;= <span class="number">1</span>)     dp[i][j][k] += dp[i - <span class="number">1</span>][j - <span class="number">1</span>][k - <span class="number">2</span> * j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; dp[n][<span class="number">0</span>][k] &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
-  <ul class="post-copyright list-unstyled">
-    
-    <li class="post-copyright-link hidden-xs">
-      <strong>本文链接：</strong>
-      <a href="http://example.com/2023/01/15/%E9%A2%98%E8%A7%A3%20-%20AtCoder%20Beginner%20Contest%20134%20A-F/" title="题解 - AtCoder Beginner Contest 134 A-F" target="_blank" rel="external">http://example.com/2023/01/15/题解 - AtCoder Beginner Contest 134 A-F/</a>
-    </li>
-    
-    <li class="post-copyright-license">
-      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
-    </li>
-  </ul>
-</blockquote>
-
-
-<div class="panel panel-default panel-badger">
+<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
   <div class="panel-body">
-    <figure class="media">
-      <div class="media-left">
-        <a href="https://github.com/lcj2021" target="_blank" class="img-burn thumb-sm visible-lg">
-          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
-        </a>
-      </div>
-      <div class="media-body">
-        <h3 class="media-heading"><a href="https://github.com/lcj2021" target="_blank"><span class="text-dark">Liucj2021</span><small class="ml-1x">Graph &amp; Competitive Programming</small></a></h3>
-        <div>个人简介。</div>
-      </div>
-    </figure>
-  </div>
+     <div class="article-meta">
+       <time datetime="2023-02-01T16:00:00.000Z" itemprop="datePublished">2023-02-02</time>
+     </div>
+     <h3 class="article-title" itemprop="name">
+       <a class="article-link" href="/2023/02/02/%E9%A2%98%E8%A7%A3%20-%20Codeforces%20Round%20848%20(Div.%202)%20A-D/">题解 - Codeforces Round 848 (Div. 2) A-D</a>
+     </h3>
+   </div>
+   
+   <div class="panel-footer">
+     
+      <a href="/tags/%E7%AE%97%E6%B3%95-%E6%9A%B4%E5%8A%9B/" class="label label-default mb">算法_暴力</a>
+     
+      <a href="/tags/%E7%AE%97%E6%B3%95-%E6%95%B0%E5%AD%A6/" class="label label-default mb">算法_数学</a>
+     
+      <a href="/tags/%E7%AE%97%E6%B3%95-%E6%A6%82%E7%8E%87%E6%9C%9F%E6%9C%9B/" class="label label-default mb">算法_概率期望</a>
+     
+     
+   </div>
+   
+</article>
+
+
 </div>
 
-
+      </div>
     </div>
   </article>
-  
-    
-  <section id="comments">
-  	
-  </section>
-
-
-  
-</div>
-
-  <nav class="bar bar-footer clearfix" data-stick-bottom>
-  <div class="bar-inner">
-  
-  <ul class="pager pull-left">
-    
-    <li class="prev">
-      <a href="/2023/01/17/%E9%A2%98%E8%A7%A3%20-%20Codeforces%20Round%20844%20(Div.%201%20+%20Div.%202,%20based%20on%20VK%20Cup%202022%20-%20Elimination%20Round)%20A-D/" title="题解 - Codeforces Round 844 (Div. 1 + Div. 2, based on VK Cup 2022 - Elimination Round) A-D"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
-    </li>
-    
-    
-    <li class="next">
-      <a href="/2023/01/14/%E9%A2%98%E8%A7%A3%20-%20Codeforces%20Round%20797%20(Div.%203)%20A-G/" title="题解 - Codeforces Round 797 (Div. 3) A-G"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
-    </li>
-    
-    
-  </ul>
-  
-  
-  
-  <div class="bar-right">
-    
-  </div>
-  </div>
-</nav>
-  
-
-
+   
 </main>
 
   <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
@@ -503,12 +435,6 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
-   
-
-
-
-
-   
 
 
 
