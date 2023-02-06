@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://example.com/2023/02/06/%E7%AC%94%E8%AE%B0%20-%20CP%E6%A8%A1%E6%9D%BF/</loc>
+    <lastmod>2023-02-06</lastmod>
+  </url>
+  <url>
+    <loc>http://example.com/2023/02/06/%E5%91%A8%E8%AE%B0%20-%202023%2001.30-02.05/</loc>
+    <lastmod>2023-02-06</lastmod>
+  </url>
+  <url>
     <loc>http://example.com/2023/02/02/%E9%A2%98%E8%A7%A3%20-%20Educational%20Round%20142%20(Div.%202)%20A-D/</loc>
-    <lastmod>2023-02-02</lastmod>
+    <lastmod>2023-02-06</lastmod>
   </url>
   <url>
     <loc>http://example.com/2022/01/29/%E9%A2%98%E8%A7%A3%20-%20AtCoder%20Beginner%20Contest%20287%20A-F%20+%20Ex/</loc>
@@ -70,10 +78,6 @@
   </url>
   <url>
     <loc>http://example.com/2022/01/17/%E9%A2%98%E8%A7%A3%20-%20AtCoder%20Beginner%20Contest%20285%20A-F/</loc>
-    <lastmod>2023-01-20</lastmod>
-  </url>
-  <url>
-    <loc>http://example.com/2023/01/18/%E7%AC%94%E8%AE%B0%20-%20CP%E6%A8%A1%E6%9D%BF/</loc>
     <lastmod>2023-01-20</lastmod>
   </url>
   <url>

@@ -18,15 +18,15 @@
   
   
   <title>题解 - Educational Round 142 (Div. 2) A-D | Liucj&#39;s Harbour</title>
-  <meta name="description" content="C题洗澡的时候想了挺久, 还是想出正解了. 并且D题属于一眼Trie, 但是不太会倒映射.  C. Min Max Sort题意一个排列p，每次可以选两个数x和y，将两者较小的移到开头，较大的移到结尾。 问排成增序所需最小操作次数。 分析代码123456789101112131415161718192021222324252627282930void solve() &amp;#123;    int n">
+  <meta name="description" content="C题洗澡的时候想了挺久, 还是想出正解了. 并且D题属于一眼Trie, 但是不太会倒映射. 6号中午做了一下B, 是那种讨论题. 虽说只有1200分, 但我还是WA了2发, 并且花了半个小时. 是真的难顶.  B. Stand-up Comedian题意Stand-up Comedian: 单口相声演员 有四种类型的笑话：  第一种: 使AB的情绪都 +1 第二种: 使A的情绪 +1, B的情绪-">
 <meta property="og:type" content="article">
 <meta property="og:title" content="题解 - Educational Round 142 (Div. 2) A-D">
 <meta property="og:url" content="http://example.com/2023/02/02/%E9%A2%98%E8%A7%A3%20-%20Educational%20Round%20142%20(Div.%202)%20A-D/index.html">
 <meta property="og:site_name" content="Liucj&#39;s Harbour">
-<meta property="og:description" content="C题洗澡的时候想了挺久, 还是想出正解了. 并且D题属于一眼Trie, 但是不太会倒映射.  C. Min Max Sort题意一个排列p，每次可以选两个数x和y，将两者较小的移到开头，较大的移到结尾。 问排成增序所需最小操作次数。 分析代码123456789101112131415161718192021222324252627282930void solve() &amp;#123;    int n">
+<meta property="og:description" content="C题洗澡的时候想了挺久, 还是想出正解了. 并且D题属于一眼Trie, 但是不太会倒映射. 6号中午做了一下B, 是那种讨论题. 虽说只有1200分, 但我还是WA了2发, 并且花了半个小时. 是真的难顶.  B. Stand-up Comedian题意Stand-up Comedian: 单口相声演员 有四种类型的笑话：  第一种: 使AB的情绪都 +1 第二种: 使A的情绪 +1, B的情绪-">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-02-01T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-02-02T15:59:27.901Z">
+<meta property="article:modified_time" content="2023-02-06T13:55:56.070Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="算法_数据结构">
 <meta property="article:tag" content="算法_字符串">
@@ -176,7 +176,7 @@
   <div class="widget">
     <h3 class="widget-title">分类</h3>
     <div class="widget-body">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8/">日常</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%A2%98%E8%A7%A3/">题解</a><span class="category-list-count">20</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8/">日常</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%A2%98%E8%A7%A3/">题解</a><span class="category-list-count">20</span></li></ul>
     </div>
   </div>
 
@@ -205,7 +205,7 @@
   <div class="widget">
     <h3 class="widget-title">归档</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">十一月 2022</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">十月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a><span class="archive-list-count">4</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">十一月 2022</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">十月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a><span class="archive-list-count">4</span></li></ul>
     </div>
   </div>
 
@@ -217,6 +217,36 @@
     <div class="widget-body">
       <ul class="recent-post-list list-unstyled no-thumbnail">
         
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E6%97%A5%E5%B8%B8/">日常</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/02/06/%E5%91%A8%E8%AE%B0%20-%202023%2001.30-02.05/" class="title">周记 - 2023 01.30-02.05</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-02-05T16:00:00.000Z" itemprop="datePublished">2023-02-06</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/02/06/%E7%AC%94%E8%AE%B0%20-%20CP%E6%A8%A1%E6%9D%BF/" class="title">笔记 - CP模板</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-02-05T16:00:00.000Z" itemprop="datePublished">2023-02-06</time>
+              </p>
+            </div>
+          </li>
+          
           <li>
             
             <div class="item-inner">
@@ -258,36 +288,6 @@
               </p>
               <p class="item-date">
                 <time datetime="2023-01-23T16:00:00.000Z" itemprop="datePublished">2023-01-24</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                <a class="category-link" href="/categories/%E6%97%A5%E5%B8%B8/">日常</a>
-              </p>
-              <p class="item-title">
-                <a href="/2023/01/21/%E5%91%A8%E8%AE%B0%20-%202023%2001.09-01.15/" class="title">周记 - 2023 01.09-01.15</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2023-01-20T16:00:00.000Z" itemprop="datePublished">2023-01-21</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                <a class="category-link" href="/categories/%E9%A2%98%E8%A7%A3/">题解</a>
-              </p>
-              <p class="item-title">
-                <a href="/2023/01/21/%E9%A2%98%E8%A7%A3%20-%20AtCoder%20Beginner%20Contest%2089%20A-D/" class="title">题解 - AtCoder Beginner Contest 89 A-D</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2023-01-20T16:00:00.000Z" itemprop="datePublished">2023-01-21</time>
               </p>
             </div>
           </li>
@@ -345,16 +345,50 @@
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <p>C题洗澡的时候想了挺久, 还是想出正解了. 并且D题属于一眼Trie, 但是不太会倒映射. </p>
-<h2 id="C-Min-Max-Sort"><a href="#C-Min-Max-Sort" class="headerlink" title="C. Min Max Sort"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1792/problem/C">C. Min Max Sort</a></h2><h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><p>一个排列p，每次可以选两个数x和y，将两者较小的移到开头，较大的移到结尾。</p>
-<p>问排成增序所需最小操作次数。</p>
-<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n;  cin &gt;&gt; n;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">a</span><span class="params">(n)</span></span>;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">pos</span><span class="params">(n)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++ i) &#123;</span><br><span class="line">        cin &gt;&gt; a[i];   a[i] --;</span><br><span class="line">        pos[a[i]] = i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">LOG</span>(a)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 4: </span></span><br><span class="line">    <span class="comment">// 0 1 2 3</span></span><br><span class="line">    <span class="comment">// 5: 2</span></span><br><span class="line">    <span class="comment">// 0 1 2 3 4</span></span><br><span class="line">    <span class="type">int</span> ans = n / <span class="number">2</span>;</span><br><span class="line">    <span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> l = pos[n / <span class="number">2</span>], r = pos[n / <span class="number">2</span>];</span><br><span class="line">    <span class="keyword">for</span> (; i &lt; n / <span class="number">2</span>; ++ i) &#123;</span><br><span class="line">        <span class="type">int</span> v1 = (n - <span class="number">2</span>) / <span class="number">2</span> - i, v2 = n - <span class="number">1</span> - v1;</span><br><span class="line">        <span class="built_in">LOG</span>(v1, v2)</span><br><span class="line">        <span class="type">int</span> p1 = pos[v1], p2 = pos[v2];</span><br><span class="line">        <span class="keyword">if</span> (p1 &gt; p2 || !(p1 &lt;= l &amp;&amp; p2 &gt;= r)) &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        l = p1, r = p2;</span><br><span class="line">    &#125;</span><br><span class="line">    ans -= i;</span><br><span class="line">    <span class="built_in">LOG</span>(ans)</span><br><span class="line">    cout &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>C题洗澡的时候想了挺久, 还是想出正解了. 并且D题属于一眼Trie, 但是不太会倒映射.</p>
+<p>6号中午做了一下B, 是那种讨论题. 虽说只有1200分, 但我还是WA了2发, 并且花了半个小时. 是真的难顶. </p>
+<h2 id="B-Stand-up-Comedian"><a href="#B-Stand-up-Comedian" class="headerlink" title="B. Stand-up Comedian"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1792/problem/B">B. Stand-up Comedian</a></h2><h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><p>Stand-up Comedian: 单口相声演员</p>
+<p>有四种类型的笑话：</p>
+<blockquote>
+<p>第一种: 使AB的情绪都 +1</p>
+<p>第二种: 使A的情绪 +1, B的情绪-1</p>
+<p>第三种: 使A的情绪 -1, B的情绪+1</p>
+<p>第四种会使AB的情绪都-1</p>
+</blockquote>
+<p>两人的情绪初始为0. 求在AB中某一人情绪降至0时可以讲的最大笑话数</p>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>又犯了经典错误之 <code>b -= min(b, c);   c -= min(b, c);</code>. </p>
+<p>第一种类型直接加上</p>
+<p>所以 ans += a</p>
+<p>第二种类型和第三种类型交替使用. </p>
+<p>所以 ans += min(b, c)</p>
+<p>最后时刻, 最后一类和剩下的第二第三类地位等价. </p>
+<p>所以 ans += min(a + 1, b + c + d)</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> a, b, c, d; cin &gt;&gt; a &gt;&gt; b &gt;&gt; c &gt;&gt; d;</span><br><span class="line">    <span class="type">int</span> ans = a;</span><br><span class="line">    <span class="keyword">if</span> (a) &#123;</span><br><span class="line">        <span class="type">int</span> dec = <span class="built_in">min</span>(b, c);</span><br><span class="line">        ans += dec * <span class="number">2</span>;</span><br><span class="line">        <span class="comment">// b -= min(b, c);</span></span><br><span class="line">        <span class="comment">// c -= min(b, c);</span></span><br><span class="line">        b -= dec;</span><br><span class="line">        c -= dec;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">LOG</span>(a, b, c, d)</span><br><span class="line">    <span class="comment">// 此时 bc与d的地位等价</span></span><br><span class="line">    ans += <span class="built_in">min</span>(a + <span class="number">1</span>, b + c + d);</span><br><span class="line">    cout &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="D-Fixed-Prefix-Permutations"><a href="#D-Fixed-Prefix-Permutations" class="headerlink" title="D. Fixed Prefix Permutations"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1792/problem/D">D. Fixed Prefix Permutations</a></h2><h3 id="题意-1"><a href="#题意-1" class="headerlink" title="题意"></a>题意</h3><h3 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h3><p>学习(偷)了日本大神maspy的Trie板子. </p>
-<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n, m;   cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">    <span class="function">vector <span class="title">p</span><span class="params">(n, vector&lt;<span class="type">int</span>&gt;(m))</span></span>;</span><br><span class="line">    <span class="function">vector <span class="title">pos</span><span class="params">(n, vector&lt;<span class="type">int</span>&gt;(m))</span></span>;</span><br><span class="line">    Trie&lt;<span class="number">10</span>&gt; tr;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++ i) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; m; ++ j) &#123;</span><br><span class="line">            cin &gt;&gt; p[i][j];     p[i][j] --;</span><br><span class="line">            pos[i][p[i][j]] = j;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        tr.add&lt;vector&lt;<span class="type">int</span>&gt;&gt;(pos[i], <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++ i) &#123;</span><br><span class="line">        <span class="built_in">LOG</span>(pos[i])</span><br><span class="line">        <span class="type">int</span> cv = <span class="number">0</span>, cnt = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; m; ++ j) &#123;</span><br><span class="line">            cv = tr.TO[cv][p[i][j]];</span><br><span class="line">            <span class="built_in">LOG</span>(cv)</span><br><span class="line">            <span class="keyword">if</span> (cv == <span class="number">-1</span>)   <span class="keyword">break</span>;</span><br><span class="line">            ++ cnt;</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; cnt &lt;&lt; <span class="string">&quot; \n&quot;</span>[i == n - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="C-Min-Max-Sort-1"><a href="#C-Min-Max-Sort-1" class="headerlink" title="C. Min Max Sort"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1792/problem/C">C. Min Max Sort</a></h2><h3 id="题意-2"><a href="#题意-2" class="headerlink" title="题意"></a>题意</h3><h3 id="分析-2"><a href="#分析-2" class="headerlink" title="分析"></a>分析</h3><h3 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="C-Min-Max-Sort"><a href="#C-Min-Max-Sort" class="headerlink" title="C. Min Max Sort"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1792/problem/C">C. Min Max Sort</a></h2><h3 id="题意-1"><a href="#题意-1" class="headerlink" title="题意"></a>题意</h3><p>一个排列p, 每次可以选两个数x和y, 将两者较小的移到开头, 较大的移到</p>
+<p>最后时刻, 最后一类和剩下的第二第三类地位等价结尾.. </p>
+<p>问排成增序所需最小操作次数.</p>
+<h3 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h3><p>首先可以确定操作次数上限是n/2, 即(n/2, n/2+1)…(1, n).</p>
+<p>接下来再看怎么样能少操作几次.</p>
+<p>例子: 1 6 3 4 2 5. (3, 4)一开始就挨在一起了, 并且是(3, 4)而不是(4, 3), 所以可以省略掉这一步, 直接考虑(2, 5). 发现(2, 5)并不分别位于(2, 3)的左右两侧. 所以这一步是必不可少的操作</p>
+<p>如果情况是 1 2 3 4 6 5, 那么(3, 4)和(2, 5)都可以省略了. 只需要做一次(1, 6)操作就行.</p>
+<p>结论就是 (n/2, n/2+1) 在最中间, 然后n/2-1, n/2+2分别位于(n/2, n/2+1)左右两侧, 如果某对逆序了, 或者没有位于两侧, 那么接下来的操作都不能省略.</p>
+<p>用pos记下每个数的位置, l, r记录上一对数对的位置(注意n为奇数的情况, 此时中间只有一个数, 所以l = r) 然后从中间开始枚举, 依次判断数对的相对位置就行.</p>
+<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n;  cin &gt;&gt; n;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">a</span><span class="params">(n)</span></span>;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">pos</span><span class="params">(n)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++ i) &#123;</span><br><span class="line">        cin &gt;&gt; a[i];   a[i] --;</span><br><span class="line">        pos[a[i]] = i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">LOG</span>(a)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 4: </span></span><br><span class="line">    <span class="comment">// 0 1 2 3</span></span><br><span class="line">    <span class="comment">// 5: 2</span></span><br><span class="line">    <span class="comment">// 0 1 2 3 4</span></span><br><span class="line">    <span class="type">int</span> ans = n / <span class="number">2</span>;</span><br><span class="line">    <span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> l = pos[n / <span class="number">2</span>], r = pos[n / <span class="number">2</span>];</span><br><span class="line">    <span class="keyword">for</span> (; i &lt; n / <span class="number">2</span>; ++ i) &#123;</span><br><span class="line">        <span class="type">int</span> v1 = (n - <span class="number">2</span>) / <span class="number">2</span> - i, v2 = n - <span class="number">1</span> - v1;</span><br><span class="line">        <span class="built_in">LOG</span>(v1, v2)</span><br><span class="line">        <span class="type">int</span> p1 = pos[v1], p2 = pos[v2];</span><br><span class="line">        <span class="keyword">if</span> (p1 &gt; p2 || !(p1 &lt;= l &amp;&amp; p2 &gt;= r)) &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        l = p1, r = p2;</span><br><span class="line">    &#125;</span><br><span class="line">    ans -= i;</span><br><span class="line">    <span class="built_in">LOG</span>(ans)</span><br><span class="line">    cout &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h2 id="D-Fixed-Prefix-Permutations"><a href="#D-Fixed-Prefix-Permutations" class="headerlink" title="D. Fixed Prefix Permutations"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1792/problem/D">D. Fixed Prefix Permutations</a></h2><h3 id="题意-2"><a href="#题意-2" class="headerlink" title="题意"></a>题意</h3><p>给定 n 个 1<del>m 的排列a[1</del>n].</p>
+<p>定义一个排列的分值为: 最大的满足 p1=1,p2=2,….,pk=k 的 k .</p>
+<p>定义两个排列 p,q 的乘积 p×q=r 为 r[j]=q[p[j]].</p>
+<p>对于每个排列a[i], 求出它乘以所有这 n 个排列a[j]能得到的最大分值.</p>
+<p>最后时刻, 最后一类和剩下的第二第三类地位等价. </p>
+<h3 id="分析-2"><a href="#分析-2" class="headerlink" title="分析"></a>分析</h3><p>学习(偷)了日本大神maspy的Trie板子.</p>
+<p>固定的a[i], 记为p. a[j], 记为q. r[i] = q[p[i]] = i</p>
+<p>q[p[i]] = i. 两边同时取q^-1, 也就是取pos_q. </p>
+<p>p[i] = pos_q[i] = i. 也就是找p[i]和所有pos_q[i]最长的公共前缀. 只需要把所有的pos_q建一个Trie. 然后每次查询p[i]时, 在pos_q中找最长公共前缀的长度就行. </p>
+<h3 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n, m;   cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">    <span class="function">vector <span class="title">p</span><span class="params">(n, vector&lt;<span class="type">int</span>&gt;(m))</span></span>;</span><br><span class="line">    <span class="function">vector <span class="title">pos</span><span class="params">(n, vector&lt;<span class="type">int</span>&gt;(m))</span></span>;</span><br><span class="line">    Trie&lt;<span class="number">10</span>&gt; tr;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++ i) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; m; ++ j) &#123;</span><br><span class="line">            cin &gt;&gt; p[i][j];     p[i][j] --;</span><br><span class="line">            pos[i][p[i][j]] = j;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        tr.add&lt;vector&lt;<span class="type">int</span>&gt;&gt;(pos[i], <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++ i) &#123;</span><br><span class="line">        <span class="built_in">LOG</span>(pos[i])</span><br><span class="line">        <span class="type">int</span> cv = <span class="number">0</span>, cnt = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; m; ++ j) &#123;</span><br><span class="line">            cv = tr.TO[cv][p[i][j]];</span><br><span class="line">            <span class="built_in">LOG</span>(cv)</span><br><span class="line">            <span class="keyword">if</span> (cv == <span class="number">-1</span>)   <span class="keyword">break</span>;</span><br><span class="line">            ++ cnt;</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; cnt &lt;&lt; <span class="string">&quot; \n&quot;</span>[i == n - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="C-Min-Max-Sort-1"><a href="#C-Min-Max-Sort-1" class="headerlink" title="C. Min Max Sort"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1792/problem/C">C. Min Max Sort</a></h2><h3 id="题意-3"><a href="#题意-3" class="headerlink" title="题意"></a>题意</h3><h3 id="分析-3"><a href="#分析-3" class="headerlink" title="分析"></a>分析</h3><h3 id="代码-3"><a href="#代码-3" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
 
       
     </div>
