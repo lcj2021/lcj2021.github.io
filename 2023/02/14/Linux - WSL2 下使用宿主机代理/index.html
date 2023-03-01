@@ -17,25 +17,25 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>Linux - Ubuntu 下使用 Clash 代理 | Liucj&#39;s Harbour</title>
+  <title>Linux - WSL2 下使用宿主机代理 | Liucj&#39;s Harbour</title>
   <meta name="description" content="WSL2科学上网 前言: 情人节当天搞了一晚上… 最后参考的这篇才成功 https:&#x2F;&#x2F;www.cnblogs.com&#x2F;tuilk&#x2F;p&#x2F;16287472.html, 1. Windows下打开代理1.1 允许局域网以Clash为例, 购买相关配置, 选择主页选项卡, 开启允许局域网:  1.2 开启防火墙打开Windows Defender 防火墙, 选择允许应用或功能通过 Windows Def">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux - Ubuntu 下使用 Clash 代理">
-<meta property="og:url" content="http://example.com/2022/02/14/Linux%20-%20WSL2%20%E4%B8%8B%E4%BD%BF%E7%94%A8%E5%AE%BF%E4%B8%BB%E6%9C%BA%E4%BB%A3%E7%90%86/index.html">
+<meta property="og:title" content="Linux - WSL2 下使用宿主机代理">
+<meta property="og:url" content="http://example.com/2023/02/14/Linux%20-%20WSL2%20%E4%B8%8B%E4%BD%BF%E7%94%A8%E5%AE%BF%E4%B8%BB%E6%9C%BA%E4%BB%A3%E7%90%86/index.html">
 <meta property="og:site_name" content="Liucj&#39;s Harbour">
 <meta property="og:description" content="WSL2科学上网 前言: 情人节当天搞了一晚上… 最后参考的这篇才成功 https:&#x2F;&#x2F;www.cnblogs.com&#x2F;tuilk&#x2F;p&#x2F;16287472.html, 1. Windows下打开代理1.1 允许局域网以Clash为例, 购买相关配置, 选择主页选项卡, 开启允许局域网:  1.2 开启防火墙打开Windows Defender 防火墙, 选择允许应用或功能通过 Windows Def">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://img2022.cnblogs.com/blog/2026333/202205/2026333-20220519095954875-534125057.png">
 <meta property="og:image" content="https://img2022.cnblogs.com/blog/2026333/202205/2026333-20220519100052696-2100542151.png">
 <meta property="og:image" content="https://img2022.cnblogs.com/blog/2026333/202205/2026333-20220519100127832-1936469422.png">
-<meta property="article:published_time" content="2022-02-13T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-02-14T14:23:18.811Z">
+<meta property="article:published_time" content="2023-02-13T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-02-15T13:26:37.634Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="Network">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://img2022.cnblogs.com/blog/2026333/202205/2026333-20220519095954875-534125057.png">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://example.com/2022/02/14/Linux%20-%20WSL2%20%E4%B8%8B%E4%BD%BF%E7%94%A8%E5%AE%BF%E4%B8%BB%E6%9C%BA%E4%BB%A3%E7%90%86/index.html">
+  <link rel="canonical" href="http://example.com/2023/02/14/Linux%20-%20WSL2%20%E4%B8%8B%E4%BD%BF%E7%94%A8%E5%AE%BF%E4%B8%BB%E6%9C%BA%E4%BB%A3%E7%90%86/index.html">
   
     <link rel="alternate" href="/atom.xml" title="Liucj&#39;s Harbour" type="application/atom+xml">
   
@@ -178,7 +178,7 @@
   <div class="widget">
     <h3 class="widget-title">分类</h3>
     <div class="widget-body">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8/">日常</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%A2%98%E8%A7%A3/">题解</a><span class="category-list-count">21</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8/">日常</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%A2%98%E8%A7%A3/">题解</a><span class="category-list-count">21</span></li></ul>
     </div>
   </div>
 
@@ -207,7 +207,7 @@
   <div class="widget">
     <h3 class="widget-title">归档</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">十一月 2022</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">十月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a><span class="archive-list-count">4</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">十一月 2022</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">十月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -226,7 +226,52 @@
                 <a class="category-link" href="/categories/%E6%97%A5%E5%B8%B8/">日常</a>
               </p>
               <p class="item-title">
-                <a href="/2023/02/14/%E5%91%A8%E8%AE%B0%20-%202023%2002.06-02.12/" class="title">周记 - 2023 02.06-02.12</a>
+                <a href="/2023/02/22/%E5%91%A8%E8%AE%B0%20-%202023%2002.20-02.26/" class="title">周记 - 2023 02.20-02.26</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-02-21T16:00:00.000Z" itemprop="datePublished">2023-02-22</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E6%97%A5%E5%B8%B8/">日常</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/02/19/%E5%91%A8%E8%AE%B0%20-%202023%2002.13-02.19/" class="title">周记 - 2023 02.13-02.19</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-02-18T16:00:00.000Z" itemprop="datePublished">2023-02-19</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E6%97%A5%E5%B8%B8/">日常</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/02/16/%E4%BA%8B%E8%AE%B0%20-%202022%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BF%9D%E7%A0%94%E5%9B%9E%E5%BF%86%E5%BD%95/" class="title">事记 - 2022计算机保研回忆录</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-02-15T16:00:00.000Z" itemprop="datePublished">2023-02-16</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Linux/">Linux</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/02/14/Linux%20-%20WSL2%20%E4%B8%8B%E4%BD%BF%E7%94%A8%E5%AE%BF%E4%B8%BB%E6%9C%BA%E4%BB%A3%E7%90%86/" class="title">Linux - WSL2 下使用宿主机代理</a>
               </p>
               <p class="item-date">
                 <time datetime="2023-02-13T16:00:00.000Z" itemprop="datePublished">2023-02-14</time>
@@ -241,55 +286,10 @@
                 <a class="category-link" href="/categories/%E6%97%A5%E5%B8%B8/">日常</a>
               </p>
               <p class="item-title">
-                <a href="/2023/02/06/%E5%91%A8%E8%AE%B0%20-%202023%2001.30-02.05/" class="title">周记 - 2023 01.30-02.05</a>
+                <a href="/2023/02/14/%E5%91%A8%E8%AE%B0%20-%202023%2002.06-02.12/" class="title">周记 - 2023 02.06-02.12</a>
               </p>
               <p class="item-date">
-                <time datetime="2023-02-05T16:00:00.000Z" itemprop="datePublished">2023-02-06</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                <a class="category-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a>
-              </p>
-              <p class="item-title">
-                <a href="/2023/02/06/%E7%AC%94%E8%AE%B0%20-%20CP%E6%A8%A1%E6%9D%BF/" class="title">笔记 - CP模板</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2023-02-05T16:00:00.000Z" itemprop="datePublished">2023-02-06</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                <a class="category-link" href="/categories/%E9%A2%98%E8%A7%A3/">题解</a>
-              </p>
-              <p class="item-title">
-                <a href="/2023/02/02/%E9%A2%98%E8%A7%A3%20-%20Codeforces%20Round%20848%20(Div.%202)%20A-D/" class="title">题解 - Codeforces Round 848 (Div. 2) A-D</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2023-02-01T16:00:00.000Z" itemprop="datePublished">2023-02-02</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                <a class="category-link" href="/categories/%E9%A2%98%E8%A7%A3/">题解</a>
-              </p>
-              <p class="item-title">
-                <a href="/2023/02/02/%E9%A2%98%E8%A7%A3%20-%20Educational%20Round%20142%20(Div.%202)%20A-D/" class="title">题解 - Educational Round 142 (Div. 2) A-D</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2023-02-01T16:00:00.000Z" itemprop="datePublished">2023-02-02</time>
+                <time datetime="2023-02-13T16:00:00.000Z" itemprop="datePublished">2023-02-14</time>
               </p>
             </div>
           </li>
@@ -314,7 +314,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Linux - Ubuntu 下使用 Clash 代理
+      Linux - WSL2 下使用宿主机代理
     </h1>
   
 
@@ -322,8 +322,8 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2022/02/14/Linux%20-%20WSL2%20%E4%B8%8B%E4%BD%BF%E7%94%A8%E5%AE%BF%E4%B8%BB%E6%9C%BA%E4%BB%A3%E7%90%86/" class="article-date">
-	  <time datetime="2022-02-13T16:00:00.000Z" itemprop="datePublished">2022-02-14</time>
+	<a href="/2023/02/14/Linux%20-%20WSL2%20%E4%B8%8B%E4%BD%BF%E7%94%A8%E5%AE%BF%E4%B8%BB%E6%9C%BA%E4%BB%A3%E7%90%86/" class="article-date">
+	  <time datetime="2023-02-13T16:00:00.000Z" itemprop="datePublished">2023-02-14</time>
 	</a>
 </span>
         
@@ -341,7 +341,7 @@
 
         
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2022/02/14/Linux%20-%20WSL2%20%E4%B8%8B%E4%BD%BF%E7%94%A8%E5%AE%BF%E4%B8%BB%E6%9C%BA%E4%BB%A3%E7%90%86/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2023/02/14/Linux%20-%20WSL2%20%E4%B8%8B%E4%BD%BF%E7%94%A8%E5%AE%BF%E4%B8%BB%E6%9C%BA%E4%BB%A3%E7%90%86/#comments" class="article-comment-link">评论</a></span>
         
       </div>
     </div>
@@ -393,7 +393,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="http://example.com/2022/02/14/Linux%20-%20WSL2%20%E4%B8%8B%E4%BD%BF%E7%94%A8%E5%AE%BF%E4%B8%BB%E6%9C%BA%E4%BB%A3%E7%90%86/" title="Linux - Ubuntu 下使用 Clash 代理" target="_blank" rel="external">http://example.com/2022/02/14/Linux - WSL2 下使用宿主机代理/</a>
+      <a href="http://example.com/2023/02/14/Linux%20-%20WSL2%20%E4%B8%8B%E4%BD%BF%E7%94%A8%E5%AE%BF%E4%B8%BB%E6%9C%BA%E4%BB%A3%E7%90%86/" title="Linux - WSL2 下使用宿主机代理" target="_blank" rel="external">http://example.com/2023/02/14/Linux - WSL2 下使用宿主机代理/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -438,12 +438,12 @@
   <ul class="pager pull-left">
     
     <li class="prev">
-      <a href="/2022/10/31/hello-world/" title="Hello World"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+      <a href="/2023/02/16/%E4%BA%8B%E8%AE%B0%20-%202022%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BF%9D%E7%A0%94%E5%9B%9E%E5%BF%86%E5%BD%95/" title="事记 - 2022计算机保研回忆录"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
     </li>
     
     
     <li class="next">
-      <a href="/2022/02/11/%E9%A2%98%E8%A7%A3%20-%20AtCoder%20Beginner%20Contest%20289%20A-E/" title="题解 - AtCoder Beginner Contest 289 A-E"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2023/02/14/%E5%91%A8%E8%AE%B0%20-%202023%2002.06-02.12/" title="周记 - 2023 02.06-02.12"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     

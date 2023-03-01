@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>事记 - 2022计算机保研回忆录 | Liucj&#39;s Harbour</title>
+  <meta name="description" content="事记 - 2022计算机保研回忆录 术语:CS: 计算机科学SE: 软件工程  个人情况 本科院校: 湖南大学 专业: 计算机科学与技术 排名情况: 14&#x2F;225(夏令营), 13&#x2F;221(预推免) 外语水平: 四级629, 六级598. 自认为口语能过关. 获奖及竞赛: 详见 &lt;关于博主&gt; 页面 科研项目: CCF A类会议挂名一篇, 复旦大学大数据学院一学期的实习经历 最终去向:">
+<meta property="og:type" content="article">
+<meta property="og:title" content="事记 - 2022计算机保研回忆录">
+<meta property="og:url" content="http://example.com/2023/02/16/%E4%BA%8B%E8%AE%B0%20-%202022%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BF%9D%E7%A0%94%E5%9B%9E%E5%BF%86%E5%BD%95/index.html">
+<meta property="og:site_name" content="Liucj&#39;s Harbour">
+<meta property="og:description" content="事记 - 2022计算机保研回忆录 术语:CS: 计算机科学SE: 软件工程  个人情况 本科院校: 湖南大学 专业: 计算机科学与技术 排名情况: 14&#x2F;225(夏令营), 13&#x2F;221(预推免) 外语水平: 四级629, 六级598. 自认为口语能过关. 获奖及竞赛: 详见 &lt;关于博主&gt; 页面 科研项目: CCF A类会议挂名一篇, 复旦大学大数据学院一学期的实习经历 最终去向:">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-02-15T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-02-18T10:44:30.084Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://example.com/2023/02/16/%E4%BA%8B%E8%AE%B0%20-%202022%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BF%9D%E7%A0%94%E5%9B%9E%E5%BF%86%E5%BD%95/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Liucj&#39;s Harbour" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/lcj2021" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">Liucj2021</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Graph &amp; Competitive Programming</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Guangzhou, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8/">日常</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%A2%98%E8%A7%A3/">题解</a><span class="category-list-count">21</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/" rel="tag">Network</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AC%94%E8%AE%B0-%E6%A8%A1%E6%9D%BF/" rel="tag">笔记_模板</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-DP/" rel="tag">算法_DP</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E4%BA%8C%E5%88%86/" rel="tag">算法_二分</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E4%BD%8D%E8%BF%90%E7%AE%97/" rel="tag">算法_位运算</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E5%80%8D%E5%A2%9E/" rel="tag">算法_倍增</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E5%8D%9A%E5%BC%88/" rel="tag">算法_博弈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E5%8F%8C%E6%8C%87%E9%92%88/" rel="tag">算法_双指针</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E5%93%88%E5%B8%8C/" rel="tag">算法_哈希</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E5%9B%BE%E8%AE%BA/" rel="tag">算法_图论</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag">算法_字符串</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E5%AE%9E%E7%8E%B0/" rel="tag">算法_实现</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">算法_并查集</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%90%9C%E7%B4%A2/" rel="tag">算法_搜索</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%95%B0%E5%AD%A6/" rel="tag">算法_数学</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">算法_数据结构</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%95%B0%E8%AE%BA/" rel="tag">算法_数论</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%9A%B4%E5%8A%9B/" rel="tag">算法_暴力</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%9C%80%E7%9F%AD%E8%B7%AF/" rel="tag">算法_最短路</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%9E%84%E9%80%A0/" rel="tag">算法_构造</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%A6%82%E7%8E%87%E6%9C%9F%E6%9C%9B/" rel="tag">算法_概率期望</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/" rel="tag">算法_组合数学</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E8%B4%AA%E5%BF%83/" rel="tag">算法_贪心</a><span class="tag-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/Network/" style="font-size: 13.2px;">Network</a> <a href="/tags/%E7%AC%94%E8%AE%B0-%E6%A8%A1%E6%9D%BF/" style="font-size: 13px;">笔记_模板</a> <a href="/tags/%E7%AE%97%E6%B3%95-DP/" style="font-size: 14px;">算法_DP</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E4%BA%8C%E5%88%86/" style="font-size: 13px;">算法_二分</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E4%BD%8D%E8%BF%90%E7%AE%97/" style="font-size: 13.4px;">算法_位运算</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E5%80%8D%E5%A2%9E/" style="font-size: 13px;">算法_倍增</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E5%8D%9A%E5%BC%88/" style="font-size: 13.4px;">算法_博弈</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E5%8F%8C%E6%8C%87%E9%92%88/" style="font-size: 13px;">算法_双指针</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E5%93%88%E5%B8%8C/" style="font-size: 13px;">算法_哈希</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E5%9B%BE%E8%AE%BA/" style="font-size: 13.4px;">算法_图论</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E5%AD%97%E7%AC%A6%E4%B8%B2/" style="font-size: 13.2px;">算法_字符串</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E5%AE%9E%E7%8E%B0/" style="font-size: 13.2px;">算法_实现</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 13.2px;">算法_并查集</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%90%9C%E7%B4%A2/" style="font-size: 13px;">算法_搜索</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%95%B0%E5%AD%A6/" style="font-size: 13.2px;">算法_数学</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 13.4px;">算法_数据结构</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%95%B0%E8%AE%BA/" style="font-size: 13.6px;">算法_数论</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%9A%B4%E5%8A%9B/" style="font-size: 13.4px;">算法_暴力</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%9C%80%E7%9F%AD%E8%B7%AF/" style="font-size: 13.8px;">算法_最短路</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%9E%84%E9%80%A0/" style="font-size: 14px;">算法_构造</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%A6%82%E7%8E%87%E6%9C%9F%E6%9C%9B/" style="font-size: 13px;">算法_概率期望</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/" style="font-size: 13.2px;">算法_组合数学</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E8%B4%AA%E5%BF%83/" style="font-size: 13.6px;">算法_贪心</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">十一月 2022</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">十月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E6%97%A5%E5%B8%B8/">日常</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/02/22/%E5%91%A8%E8%AE%B0%20-%202023%2002.20-02.26/" class="title">周记 - 2023 02.20-02.26</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-02-21T16:00:00.000Z" itemprop="datePublished">2023-02-22</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E6%97%A5%E5%B8%B8/">日常</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/02/19/%E5%91%A8%E8%AE%B0%20-%202023%2002.13-02.19/" class="title">周记 - 2023 02.13-02.19</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-02-18T16:00:00.000Z" itemprop="datePublished">2023-02-19</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E6%97%A5%E5%B8%B8/">日常</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/02/16/%E4%BA%8B%E8%AE%B0%20-%202022%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BF%9D%E7%A0%94%E5%9B%9E%E5%BF%86%E5%BD%95/" class="title">事记 - 2022计算机保研回忆录</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-02-15T16:00:00.000Z" itemprop="datePublished">2023-02-16</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Linux/">Linux</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/02/14/Linux%20-%20WSL2%20%E4%B8%8B%E4%BD%BF%E7%94%A8%E5%AE%BF%E4%B8%BB%E6%9C%BA%E4%BB%A3%E7%90%86/" class="title">Linux - WSL2 下使用宿主机代理</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-02-13T16:00:00.000Z" itemprop="datePublished">2023-02-14</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E6%97%A5%E5%B8%B8/">日常</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/02/14/%E5%91%A8%E8%AE%B0%20-%202023%2002.06-02.12/" class="title">周记 - 2023 02.06-02.12</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-02-13T16:00:00.000Z" itemprop="datePublished">2023-02-14</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-事记 - 2022计算机保研回忆录" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      事记 - 2022计算机保研回忆录
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2023/02/16/%E4%BA%8B%E8%AE%B0%20-%202022%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BF%9D%E7%A0%94%E5%9B%9E%E5%BF%86%E5%BD%95/" class="article-date">
+	  <time datetime="2023-02-15T16:00:00.000Z" itemprop="datePublished">2023-02-16</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E6%97%A5%E5%B8%B8/">日常</a>
+  </span>
+
+        
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2023/02/16/%E4%BA%8B%E8%AE%B0%20-%202022%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BF%9D%E7%A0%94%E5%9B%9E%E5%BF%86%E5%BD%95/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="事记-2022计算机保研回忆录"><a href="#事记-2022计算机保研回忆录" class="headerlink" title="事记 - 2022计算机保研回忆录"></a>事记 - 2022计算机保研回忆录</h1><blockquote>
+<p>术语:<br>CS: 计算机科学<br>SE: 软件工程</p>
+</blockquote>
+<h2 id="个人情况"><a href="#个人情况" class="headerlink" title="个人情况"></a>个人情况</h2><ul>
+<li><strong>本科院校</strong>: 湖南大学</li>
+<li><strong>专业</strong>: 计算机科学与技术</li>
+<li><strong>排名情况</strong>: 14/225(夏令营), 13/221(预推免)</li>
+<li><strong>外语水平</strong>: 四级629, 六级598. 自认为口语能过关.</li>
+<li><strong>获奖及竞赛</strong>: 详见 <a target="_blank" rel="noopener" href="https://lcj2021.github.io/about/">&lt;关于博主&gt;</a> 页面</li>
+<li><strong>科研项目</strong>: CCF A类会议挂名一篇, 复旦大学大数据学院一学期的实习经历</li>
+<li><strong>最终去向</strong>: 复旦大学大数据学院</li>
+</ul>
+<h2 id="院校选择"><a href="#院校选择" class="headerlink" title="院校选择"></a>院校选择</h2><ul>
+<li><strong>学校</strong>：北上广的高校(中山, 北航, 同济, 华东师, 华工 etc.) + 华五人(理想: 交&gt;复&gt;南&gt;浙&gt;科&gt;人)<br>  个人不太倾向研究所, 考虑到将来的选择, 可能更加注重title &amp;&amp; 身为广州人, 也更倾向于回家读书.</li>
+<li><strong>硕/博</strong>：硕士博士都行, 但是优先硕士. 如果科研顺利可以转博.</li>
+<li><strong>导师</strong>：人品 &gt; push程度 &gt; 学术能力<br>  人品rk first</li>
+</ul>
+<h2 id="夏令营"><a href="#夏令营" class="headerlink" title="夏令营"></a>夏令营</h2><table>
+<thead>
+<tr>
+<th>学院</th>
+<th>入营</th>
+<th>优营</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>人大信院</td>
+<td>❌</td>
+<td>-</td>
+</tr>
+<tr>
+<td>复旦大数据</td>
+<td>✔️</td>
+<td>候补</td>
+</tr>
+<tr>
+<td>南大CS</td>
+<td>候补</td>
+<td>放弃</td>
+</tr>
+<tr>
+<td>南大SE</td>
+<td>候补</td>
+<td>放弃</td>
+</tr>
+<tr>
+<td>科大大数据</td>
+<td>候补</td>
+<td>放弃</td>
+</tr>
+<tr>
+<td>上交电院</td>
+<td>❌</td>
+<td>-</td>
+</tr>
+<tr>
+<td>同济SE</td>
+<td>❌</td>
+<td>-</td>
+</tr>
+<tr>
+<td>计算所</td>
+<td>✔️</td>
+<td>放弃</td>
+</tr>
+<tr>
+<td>天大智算</td>
+<td>✔️</td>
+<td>放弃</td>
+</tr>
+<tr>
+<td>自动化所</td>
+<td>❌</td>
+<td>-</td>
+</tr>
+<tr>
+<td>北航CS</td>
+<td>✔️</td>
+<td>✔️</td>
+</tr>
+<tr>
+<td>华东师SE</td>
+<td>✔️</td>
+<td>✔️</td>
+</tr>
+<tr>
+<td>中山CS</td>
+<td>❌</td>
+<td>-</td>
+</tr>
+<tr>
+<td>华工CS</td>
+<td>❌</td>
+<td>-</td>
+</tr>
+<tr>
+<td>哈深CS</td>
+<td>❌</td>
+<td>-</td>
+</tr>
+<tr>
+<td>武大CS</td>
+<td>❌</td>
+<td>-</td>
+</tr>
+<tr>
+<td>华科CS</td>
+<td>❌</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>P.S.</p>
+<p>中山大学: 由于个人操作疏忽, 在报名时, 忘记将最重要的盖了校章的资料上传了. 导致尽管有一群海王放弃, 开放第二波入营, 我也没能入营. 可以说是彻底无缘了.</p>
+<p>南京大学CS &amp;&amp; SE: 并不是一批次入营, 而是在第二批入营的. 可是和华东师大的最终面试汇报冲突了, 权衡风险利弊(南大408大概率成为炮灰, 华东师范当时已经通过了笔试和导师面试)后还是选择了放弃.</p>
+<p>科大大数据: 大概率是由于rk过低, 只能候补入营. 最后也没后补上.</p>
+</blockquote>
+<h3 id="华东师范大学-SE"><a href="#华东师范大学-SE" class="headerlink" title="华东师范大学 SE"></a>华东师范大学 SE</h3><p>ECNU的系统可以填报2个志愿, 所以我CS和SE都填了. 可是令我意外的是居然入了SE的夏令营, 听说ECNU有oq机制, 没想到居然放我入了SE. 具体考核的话, 分为机试 + 导师面试(包括看论文) + 个人汇报, 过程还是十分繁琐的, 这也算是筛除海王的一种方式吧. </p>
+<h4 id="Stage1-机试"><a href="#Stage1-机试" class="headerlink" title="Stage1: 机试"></a>Stage1: 机试</h4><p>ECNU的机试是出了名的难. 这次我算是亲身体会到了. 总共3题. T1就按照题意模拟, 但我找不出BUG. T2感觉像是树形dp, 不过保守估计难度对应于codeforces 2000+分. T3是感觉像是删边最短路, 直接打扰, 不配看题. </p>
+<p>还好是IOI赛制, 最后T1 WA了一个点85pt, T2瞎搞DP, 骗了30pt. T3爆零. 85+30+0=115pt. 有一说一T3直接暴力二进制枚举所有边, 可能还是可以骗些分的. 总体来说感觉还行. </p>
+<h4 id="Stage2-导师单面"><a href="#Stage2-导师单面" class="headerlink" title="Stage2: 导师单面"></a>Stage2: 导师单面</h4><h4 id="Stage3-最终汇报"><a href="#Stage3-最终汇报" class="headerlink" title="Stage3: 最终汇报"></a>Stage3: 最终汇报</h4><h3 id="北京航空航天大学-CS"><a href="#北京航空航天大学-CS" class="headerlink" title="北京航空航天大学 CS"></a>北京航空航天大学 CS</h3><p>北航没有因为我过低的rank就把我筛掉, 估计是看在我那一丢丢算法竞赛经历的面子上才放我入营的. 知遇之恩, 由是感激.</p>
+<p>北航考核方式是<strong>机试+面试</strong>. </p>
+<h4 id="Stage1-机试-1"><a href="#Stage1-机试-1" class="headerlink" title="Stage1: 机试"></a>Stage1: 机试</h4><p>北航的机试一直都是以码农题著称, 我看了下往年的机试题, 感觉是难度还能接受的两道大模拟(低于CSP T3), 没想到今年的模拟这么逆天…</p>
+<p>赛制是恶心的OI赛制. 可以用CSP的成绩来抵, 并且语言限定C++. 不过我CSP分数实在过低过于感人, 所以我还是来考机试了.</p>
+<p>T1是字符串处理 + 结构体排序. 由于是线上机试, 所以拥有东道主优势(doge). 其实是自己的键盘快捷键ide自己比较熟悉啦. T1应该拿满60了, 因为我T2实在是没办法, 所以自己造了几组数据梭哈T1.</p>
+<p>T2是关于编译原理的应用的巨大模拟之依托答辩, 实在难以模拟, 写不出来就输出样例想骗一下分. 不过这次机试好像并没有筛人.</p>
+<p>赛后在腾讯会议看到了自己的高中同学, 西电acm知名选手et3_tsy. 我俩刚好在同一个房间, 祝福他能取得优异的成绩. 赛后我俩交流才发现T2连他这种巨佬都没干过, 区分度属实有点过于低了.</p>
+<h4 id="Stage2-导师群面"><a href="#Stage2-导师群面" class="headerlink" title="Stage2: 导师群面"></a>Stage2: 导师群面</h4><p>面试是压力面, 内容包括<strong>政治+408+数学+英语</strong>, 面试问题汇总如下：</p>
+<ul>
+<li>如今正处百年未有之大变局, 我们身为青年应该作为</li>
+<li>函数极限的定义, 用\epsilon-N语言来描述</li>
+<li>同时抛两个硬币, 其中一个是正面, 问另一个是正面的概率</li>
+<li>一个随机生成的01串, 口述一个算法能够统计其中的最长连续1的子串长度.</li>
+<li>续上述问题, 长度为10000, 最长的连续1的子串长度期望大概是多少.</li>
+<li>为什么要创建网络层</li>
+<li>电话号码 IP相关? (记不清了)</li>
+</ul>
+<p>之前在知乎经验贴上看到北航的面试很硬核. やはりや, 北航的夏令营确实是一种压力面, 就是那种几个老师会一起怼你的那种, 丝毫不会放松进攻节奏. 问到T4时我直接脱口而出dp, dp[i]表示以第i个字符作为结尾的1子串最大长度, 从dp[i-1]到dp[i]分为00, 01, 10, 11四种转移. 复杂度O(n). しかし, 接下来的T5我直接就傻了. 概率期望类的题我一向不擅长, 我仔细想了想状态设计. 可能是我误解了老师的问题, 老师打断我说大概给出一个数字. 我就瞎蒙了个10+给他们. 到此为止, 可以看得出老师们对于我以上的回答都是挺满意的.</p>
+<p>然鹅接下来的问题直接就拉低了我的分数. 一位老师直接开始问计网相关的问题… “哦豁~完蛋!” 要知道咱的计网可是hsr教的呀(保研成绩单上扫一眼, 计网分数显著低的同学肯定是咱78班的. doge).</p>
+<p>最终在我等复旦候补的时候, 打电话问我确认意向, 得知录到了计算机学院的0835 软件工程, 感觉已经很不错了.</p>
+<p>北航最终认可了我, 再加上我的队友zwling也最终去北航了, 因此北航在我心目中第好感度和地位直接排进前3.</p>
+<h3 id="计算所"><a href="#计算所" class="headerlink" title="计算所"></a>计算所</h3><p>计算所我报名的是”网络数据科学与技术重点实验室”, 其实是实在很难找到方向匹配的导师, 这个已经是找的相对匹配些的了. 入营邮件是群发的, 一看其他邮件的二级域名, pku, tongji, 实在是打扰了. 虽然最后也没想着参加机试, 但还是先回复了:”lcj+确认参加”. 结果最后还是没去参加机试. </p>
+<h2 id="预推免"><a href="#预推免" class="headerlink" title="预推免"></a>预推免</h2><p>夏令营拿到了北航CS和华师SE的offer可以作为保底, 同时争取下复旦的候补, 此时我已经身心俱疲, 于是开摆. 只报了南大的CS, 估计是被拉黑了, 没能入营(虽然我知道就算入营了也不可能卷过408大关, 拿到0812学硕).</p>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>回忆于: 02.15日晚19点30分</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/2023/02/16/%E4%BA%8B%E8%AE%B0%20-%202022%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BF%9D%E7%A0%94%E5%9B%9E%E5%BF%86%E5%BD%95/" title="事记 - 2022计算机保研回忆录" target="_blank" rel="external">http://example.com/2023/02/16/事记 - 2022计算机保研回忆录/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/lcj2021" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/lcj2021" target="_blank"><span class="text-dark">Liucj2021</span><small class="ml-1x">Graph &amp; Competitive Programming</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2023/02/19/%E5%91%A8%E8%AE%B0%20-%202023%2002.13-02.19/" title="周记 - 2023 02.13-02.19"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2023/02/14/Linux%20-%20WSL2%20%E4%B8%8B%E4%BD%BF%E7%94%A8%E5%AE%BF%E4%B8%BB%E6%9C%BA%E4%BB%A3%E7%90%86/" title="Linux - WSL2 下使用宿主机代理"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+
+
+
+
+
+
+</body>
+</html>
