@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Docker | Liucj&#39;s Harbour</title>
+  <meta name="description" content="报错: Cannot connect to the Docker daemon at unix:&#x2F;&#x2F;&#x2F;var&#x2F;run&#x2F;docker.sock. Is the docker daemon running?(1) 关闭docker(2) 启动docker daemon(3) 验证docker是否激活 123service docker stopsystemctl start dockersystemc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker">
+<meta property="og:url" content="http://example.com/2023/04/06/%E7%AC%94%E8%AE%B0%20-%20Docker/index.html">
+<meta property="og:site_name" content="Liucj&#39;s Harbour">
+<meta property="og:description" content="报错: Cannot connect to the Docker daemon at unix:&#x2F;&#x2F;&#x2F;var&#x2F;run&#x2F;docker.sock. Is the docker daemon running?(1) 关闭docker(2) 启动docker daemon(3) 验证docker是否激活 123service docker stopsystemctl start dockersystemc">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-04-05T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-04-09T04:27:27.037Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Docker">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://example.com/2023/04/06/%E7%AC%94%E8%AE%B0%20-%20Docker/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Liucj&#39;s Harbour" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/lcj2021" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">Liucj2021</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Graph &amp; Competitive Programming</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Guangzhou, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8/">日常</a><span class="category-list-count">15</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9A%8F%E6%83%B3/">随想</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%A2%98%E8%A7%A3/">题解</a><span class="category-list-count">21</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C-C/" rel="tag">C/C++</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cheatsheet/" rel="tag">Cheatsheet</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hadoop/" rel="tag">Hadoop</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/" rel="tag">Network</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark/" rel="tag">Spark</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AC%94%E8%AE%B0-%E6%A8%A1%E6%9D%BF/" rel="tag">笔记_模板</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-DP/" rel="tag">算法_DP</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E4%BA%8C%E5%88%86/" rel="tag">算法_二分</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E4%BD%8D%E8%BF%90%E7%AE%97/" rel="tag">算法_位运算</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E5%80%8D%E5%A2%9E/" rel="tag">算法_倍增</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E5%8D%9A%E5%BC%88/" rel="tag">算法_博弈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E5%8F%8C%E6%8C%87%E9%92%88/" rel="tag">算法_双指针</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E5%93%88%E5%B8%8C/" rel="tag">算法_哈希</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E5%9B%BE%E8%AE%BA/" rel="tag">算法_图论</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag">算法_字符串</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E5%AE%9E%E7%8E%B0/" rel="tag">算法_实现</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">算法_并查集</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%90%9C%E7%B4%A2/" rel="tag">算法_搜索</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%95%B0%E5%AD%A6/" rel="tag">算法_数学</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">算法_数据结构</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%95%B0%E8%AE%BA/" rel="tag">算法_数论</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%9A%B4%E5%8A%9B/" rel="tag">算法_暴力</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%9C%80%E7%9F%AD%E8%B7%AF/" rel="tag">算法_最短路</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%9E%84%E9%80%A0/" rel="tag">算法_构造</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E6%A6%82%E7%8E%87%E6%9C%9F%E6%9C%9B/" rel="tag">算法_概率期望</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/" rel="tag">算法_组合数学</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-%E8%B4%AA%E5%BF%83/" rel="tag">算法_贪心</a><span class="tag-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/C-C/" style="font-size: 13px;">C/C++</a> <a href="/tags/Cheatsheet/" style="font-size: 13px;">Cheatsheet</a> <a href="/tags/Docker/" style="font-size: 13px;">Docker</a> <a href="/tags/Hadoop/" style="font-size: 13px;">Hadoop</a> <a href="/tags/Network/" style="font-size: 13.2px;">Network</a> <a href="/tags/Spark/" style="font-size: 13px;">Spark</a> <a href="/tags/%E7%AC%94%E8%AE%B0-%E6%A8%A1%E6%9D%BF/" style="font-size: 13px;">笔记_模板</a> <a href="/tags/%E7%AE%97%E6%B3%95-DP/" style="font-size: 14px;">算法_DP</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E4%BA%8C%E5%88%86/" style="font-size: 13px;">算法_二分</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E4%BD%8D%E8%BF%90%E7%AE%97/" style="font-size: 13.4px;">算法_位运算</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E5%80%8D%E5%A2%9E/" style="font-size: 13px;">算法_倍增</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E5%8D%9A%E5%BC%88/" style="font-size: 13.4px;">算法_博弈</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E5%8F%8C%E6%8C%87%E9%92%88/" style="font-size: 13px;">算法_双指针</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E5%93%88%E5%B8%8C/" style="font-size: 13px;">算法_哈希</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E5%9B%BE%E8%AE%BA/" style="font-size: 13.4px;">算法_图论</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E5%AD%97%E7%AC%A6%E4%B8%B2/" style="font-size: 13.2px;">算法_字符串</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E5%AE%9E%E7%8E%B0/" style="font-size: 13.2px;">算法_实现</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 13.2px;">算法_并查集</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%90%9C%E7%B4%A2/" style="font-size: 13px;">算法_搜索</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%95%B0%E5%AD%A6/" style="font-size: 13.2px;">算法_数学</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 13.4px;">算法_数据结构</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%95%B0%E8%AE%BA/" style="font-size: 13.6px;">算法_数论</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%9A%B4%E5%8A%9B/" style="font-size: 13.4px;">算法_暴力</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%9C%80%E7%9F%AD%E8%B7%AF/" style="font-size: 13.8px;">算法_最短路</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%9E%84%E9%80%A0/" style="font-size: 14px;">算法_构造</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E6%A6%82%E7%8E%87%E6%9C%9F%E6%9C%9B/" style="font-size: 13px;">算法_概率期望</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/" style="font-size: 13.2px;">算法_组合数学</a> <a href="/tags/%E7%AE%97%E6%B3%95-%E8%B4%AA%E5%BF%83/" style="font-size: 13.6px;">算法_贪心</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">四月 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">三月 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">十一月 2022</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">十月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Linux/">Linux</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/04/10/Linux%20-%20Linux%20cheatsheet/" class="title">Linux - Linux Cheatsheet</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-04-09T16:00:00.000Z" itemprop="datePublished">2023-04-10</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/04/09/%E7%AC%94%E8%AE%B0%20-%20Spark%20&%20Hadoop/" class="title">Spark &amp; Hadoop</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-04-08T16:00:00.000Z" itemprop="datePublished">2023-04-09</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/04/06/%E7%AC%94%E8%AE%B0%20-%20Docker/" class="title">Docker</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-04-05T16:00:00.000Z" itemprop="datePublished">2023-04-06</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E6%97%A5%E5%B8%B8/">日常</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/04/03/%E5%91%A8%E8%AE%B0%20-%202023%2004.03-04.09/" class="title">周记 - 2023 04.03-04.09</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-04-02T16:00:00.000Z" itemprop="datePublished">2023-04-03</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E9%9A%8F%E6%83%B3/">随想</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/04/03/%E9%9A%8F%E6%83%B3%20-%20%E7%BD%95%E8%A7%81%E7%97%85%E6%82%A3%E8%80%85%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84%E3%80%8A%E5%9B%9B%E6%9C%88%E6%98%AF%E4%BD%A0%E7%9A%84%E8%B0%8E%E8%A8%80%E3%80%8B/" class="title">番评 - 罕见病患者视角下的《四月是你的谎言》</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-04-02T16:00:00.000Z" itemprop="datePublished">2023-04-03</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-笔记 - Docker" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Docker
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2023/04/06/%E7%AC%94%E8%AE%B0%20-%20Docker/" class="article-date">
+	  <time datetime="2023-04-05T16:00:00.000Z" itemprop="datePublished">2023-04-06</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/Docker/" rel="tag">Docker</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2023/04/06/%E7%AC%94%E8%AE%B0%20-%20Docker/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h2 id="报错-Cannot-connect-to-the-Docker-daemon-at-unix-var-run-docker-sock-Is-the-docker-daemon-running"><a href="#报错-Cannot-connect-to-the-Docker-daemon-at-unix-var-run-docker-sock-Is-the-docker-daemon-running" class="headerlink" title="报错: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?"></a>报错: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?</h2><p>(1) 关闭docker<br>(2) 启动docker daemon<br>(3) 验证docker是否激活</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">service docker stop</span><br><span class="line">systemctl start docker</span><br><span class="line">systemctl status docker</span><br></pre></td></tr></table></figure>
+
+<h2 id="坑点-Docker-执行entrypoint-sh后自行exit"><a href="#坑点-Docker-执行entrypoint-sh后自行exit" class="headerlink" title="坑点: Docker 执行entrypoint.sh后自行exit"></a>坑点: Docker 执行entrypoint.sh后自行exit</h2><p>Docker不是虚拟机, 容器中的应用都应该以前台执行, 而不是像虚拟机、物理机里面那样, 用 systemd 去启动后台服务, 容器内没有后台服务的概念. </p>
+<p>我在dockerfile里</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">COPY</span><span class="language-bash"> entrypoint.sh /sbin</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">chmod</span> 777 /sbin/entrypoint.sh</span></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="language-bash"> [<span class="string">&quot;/sbin/entrypoint.sh&quot;</span>]</span></span><br></pre></td></tr></table></figure>
+
+<p>其中entrypoint.sh</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line">service ssh start</span><br></pre></td></tr></table></figure>
+
+<p>然后发现容器执行后就立即退出了. 这就是因为没有搞明白前台, 后台的概念, 没有区分容器和虚拟机的差异, 依旧在以传统虚拟机的角度去理解容器. </p>
+<p>对于容器而言, 其启动程序就是容器应用进程, 容器就是为了主进程而存在的, 主进程退出, 容器就失去了存在的意义, 从而退出, 其它辅助进程不是它需要关心的东西. </p>
+<p>通过上面的介绍, 我们应该知道上面那个问题的原因了, 一句话：在Docker daemon模式下, 无论是使用ENTRYPOINT, 还是CMD, 最后的命令, 一定要<strong>使当前进程也就是容器的主进程一直运行下去</strong>, 这样才能够防容器退出, 否则主进程退出了, 容器就没有意义了, 就会跟着退出. </p>
+<p>下面一些也是无效的启动方式</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CMD</span><span class="language-bash"> [<span class="string">&quot;/usr/local/tomcat.sh&quot;</span>,<span class="string">&quot;start&quot;</span>] </span></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="language-bash"> [<span class="string">&quot;/usr/local/tomcat.sh&quot;</span>] </span></span><br><span class="line"><span class="keyword">CMD</span><span class="language-bash"> [<span class="string">&quot;start&quot;</span>]</span></span><br></pre></td></tr></table></figure>
+
+<p>下面这样写才有效, 但是前提是容器的环境中要有sshd这个终端服务器命令. </p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##SSH终端服务器作为后台运行 </span></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="language-bash"> /usr/local/tomcat.sh start &amp;&amp; /usr/sbin/sshd -D</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><p>将当前用户添加到docker用户组<br>为了避免每次使用docker命令都需要加上sudo权限, 可以将当前用户加入安装中自动创建的docker用户组(可以参考官方文档)：</p>
+<p><code>sudo usermod -aG docker $USER</code><br>执行完此操作后, 需要退出服务器, 再重新登录回来, 才可以省去sudo权限. </p>
+<p>镜像（images）</p>
+<p><code>docker pull ubuntu:20.04</code>: 拉取一个镜像</p>
+<p><code>docker images</code>: 列出本地所有镜像</p>
+<p><code>docker image rm ubuntu:20.04 或 docker rmi ubuntu:20.04</code>: 删除镜像ubuntu:20.04</p>
+<p><code>docker [container] commit CONTAINER IMAGE_NAME:TAG</code>: 创建某个container的镜像</p>
+<p><code>docker save -o ubuntu_20_04.tar ubuntu:20.04</code>: 将镜像ubuntu:20.04导出到本地文件ubuntu_20_04.tar中</p>
+<p><code>docker load -i ubuntu_20_04.tar</code>: 将镜像ubuntu:20.04从本地文件ubuntu_20_04.tar中加载出来<br>容器(container)</p>
+<p><code>docker [container] create -it ubuntu:20.04</code>: 利用镜像ubuntu:20.04创建一个容器. </p>
+<p><code>docker ps -a</code>: 查看本地的所有容器</p>
+<p><code>docker [container] start CONTAINER</code>: 启动容器</p>
+<p><code>docker [container] stop CONTAINER</code>: 停止容器</p>
+<p><code>docker [container] restart CONTAINER</code>: 重启容器</p>
+<p><code>docker [contaienr] run -itd ubuntu:20.04</code>: 创建并启动一个容器</p>
+<p><code>docker [container] attach CONTAINER</code>: 进入容器<br>先按Ctrl-p, 再按Ctrl-q可以挂起容器</p>
+<p><code>docker [container] exec CONTAINER COMMAND</code>: 在容器中执行命令</p>
+<p><code>docker [container] rm CONTAINER</code>: 删除容器</p>
+<p><code>docker container prune</code>: 删除所有已停止的容器</p>
+<p><code>docker export -o xxx.tar CONTAINER</code>: 将容器CONTAINER导出到本地文件xxx.tar中</p>
+<p><code>docker import xxx.tar image_name:tag</code>: 将本地文件xxx.tar导入成镜像, 并将镜像命名为image_name:tag</p>
+<p><code>docker export/import</code>与<code>docker save/load</code>的区别: </p>
+<p>export/import会丢弃历史记录和元数据信息, 仅保存容器当时的快照状态<br>save/load会保存完整记录, 体积更大</p>
+<p><code>docker top CONTAINER</code>: 查看某个容器内的所有进程</p>
+<p><code>docker stats</code>: 查看所有容器的统计信息, 包括CPU、内存、存储、网络等信息</p>
+<p><code>docker cp xxx CONTAINER:xxx 或 docker cp CONTAINER:xxx xxx</code>: 在本地和容器间复制文件</p>
+<p><code>docker rename CONTAINER1 CONTAINER2</code>: 重命名容器</p>
+<p><code>docker update CONTAINER --memory 500MB</code>: 修改容器限制</p>
+<p>实战</p>
+<p>进入AC Terminal, 然后：</p>
+<p>scp /var/lib/acwing/docker/images/docker_lesson_1_0.tar server_name:  # 将镜像上传到自己租的云端服务器<br>ssh server_name  # 登录自己的云端服务器</p>
+<p>docker load -i docker_lesson_1_0.tar  # 将镜像加载到本地<br>docker run -p 20000:22 –name my_docker_server -itd docker_lesson:1.0  # 创建并运行docker_lesson:1.0镜像</p>
+<p>docker attach my_docker_server  # 进入创建的docker容器<br>passwd  # 设置root密码</p>
+<p>去云平台控制台中修改安全组配置, 放行端口20000. </p>
+<p>返回AC Terminal, 即可通过ssh登录自己的docker容器：</p>
+<p>ssh <a href="mailto:&#x72;&#x6f;&#x6f;&#x74;&#x40;&#120;&#x78;&#x78;&#x2e;&#120;&#120;&#x78;&#x2e;&#x78;&#x78;&#120;&#46;&#120;&#120;&#120;">&#x72;&#x6f;&#x6f;&#x74;&#x40;&#120;&#x78;&#x78;&#x2e;&#120;&#120;&#x78;&#x2e;&#x78;&#x78;&#120;&#46;&#120;&#120;&#120;</a> -p 20000  # 将xxx.xxx.xxx.xxx替换成自己租的服务器的IP地址<br>然后, 可以仿照上节课内容, 创建工作账户acs. </p>
+<p>最后, 可以参考4. ssh——ssh登录配置docker容器的别名和免密登录. </p>
+<p>小Tips</p>
+<p>如果apt-get下载软件速度较慢, 可以参考清华大学开源软件镜像站中的内容, 修改软件源. </p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/2023/04/06/%E7%AC%94%E8%AE%B0%20-%20Docker/" title="Docker" target="_blank" rel="external">http://example.com/2023/04/06/笔记 - Docker/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/lcj2021" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/lcj2021" target="_blank"><span class="text-dark">Liucj2021</span><small class="ml-1x">Graph &amp; Competitive Programming</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2023/04/09/%E7%AC%94%E8%AE%B0%20-%20Spark%20&%20Hadoop/" title="Spark &amp; Hadoop"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2023/04/03/%E5%91%A8%E8%AE%B0%20-%202023%2004.03-04.09/" title="周记 - 2023 04.03-04.09"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+
+
+
+
+
+
+</body>
+</html>
