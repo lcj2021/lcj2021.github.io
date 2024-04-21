@@ -16,15 +16,15 @@
   <meta name="author" content="Channing Lau">
   <meta name="keywords" content="">
   
-    <meta name="description" content="常量指针 (指向常量的指针) 为啥可以delete?  123void HStackInvertedLists::release_ids(size_t, const idx_t* ids) const &#123;    delete[] ids;&#125;    const idx_t* ids 表示 ids 是一个指向常量的指针, ids自己是一个变量, 也就是说, 通过 ids 不能修改">
+    <meta name="description" content="(1) 常量指针 (指向常量的指针) 为啥可以delete? 123void HStackInvertedLists::release_ids(size_t, const idx_t* ids) const &#123;    delete[] ids;&#125;    const idx_t* ids 表示 ids 是一个指向常量的指针, ids自己是一个变量, 也就是说, 通过 ids 不能">
 <meta property="og:type" content="article">
 <meta property="og:title" content="笔记 - C++踩坑记录">
 <meta property="og:url" content="https://lcj2021.github.io/2023/09/05/%E7%AC%94%E8%AE%B0%20-%20C++%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/index.html">
 <meta property="og:site_name" content="ChanningLau&#39;s harbour">
-<meta property="og:description" content="常量指针 (指向常量的指针) 为啥可以delete?  123void HStackInvertedLists::release_ids(size_t, const idx_t* ids) const &#123;    delete[] ids;&#125;    const idx_t* ids 表示 ids 是一个指向常量的指针, ids自己是一个变量, 也就是说, 通过 ids 不能修改">
+<meta property="og:description" content="(1) 常量指针 (指向常量的指针) 为啥可以delete? 123void HStackInvertedLists::release_ids(size_t, const idx_t* ids) const &#123;    delete[] ids;&#125;    const idx_t* ids 表示 ids 是一个指向常量的指针, ids自己是一个变量, 也就是说, 通过 ids 不能">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-09-04T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-02-29T01:51:59.788Z">
+<meta property="article:modified_time" content="2024-04-21T07:53:17.606Z">
 <meta property="article:author" content="Channing Lau">
 <meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary_large_image">
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          395 字
+          398 字
         
       </span>
     
@@ -273,21 +273,15 @@
             
               <div class="markdown-body">
                 
-                <ol>
-<li>常量指针 (指向常量的指针) 为啥可以delete?</li>
-</ol>
+                <p>(1) 常量指针 (指向常量的指针) 为啥可以delete?</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">HStackInvertedLists::release_ids</span><span class="hljs-params">(<span class="hljs-type">size_t</span>, <span class="hljs-type">const</span> <span class="hljs-type">idx_t</span>* ids)</span> <span class="hljs-type">const</span> </span>&#123;<br>    <span class="hljs-keyword">delete</span>[] ids;<br>&#125; <br></code></pre></td></tr></table></figure>
 
 <blockquote>
 <p><code>const idx_t* ids</code> 表示 ids 是一个指向常量的指针, ids自己是一个变量, 也就是说, 通过 ids 不能修改所指向的数据, 但可以修改指针本身指向不同的内存地址. 这种声明方式常用于表明函数不会修改通过指针传递的数据. 如果要表示指针本身是常量, 不可以修改指针指向的地址, 应该使用 <code>idx_t* const ids</code>, 这表示 ids 是一个指向 idx_t 类型的常指针, 不能被重新赋值指向其他地址, 但可以通过 ids 修改所指向地址的数据</p>
 <p>delete[] 操作并不直接与变量的 const 修饰符有关, 而是与内存分配方式和所有权相关. 在这段代码中, delete[] 用于释放一个动态分配的数组, 不管变量是否声明为 const.<br>需要注意的是, 虽然函数参数声明为 const 表示函数不会修改传递给它的数据, 但它并不意味着函数不能释放内存. 在这种情况下, 函数只是释放了动态分配内存的所有权, 但并没有修改数据本身. 可以释放任何指针指向的动态分配内存, 不管指针本身是否被声明为 const.</p>
 </blockquote>
-<ol start="2">
-<li><p>命名空间和struct 相同点 &amp; 不同点?</p>
-</li>
-<li><p>multiset&lt;int&gt; v.s. map&lt;int, int&gt;计数?</p>
-</li>
-</ol>
+<p>(2) 命名空间和struct 相同点 &amp; 不同点?</p>
+<p>(3) multiset&lt;int&gt; v.s. map&lt;int, int&gt;计数?</p>
 <blockquote>
 <p>1e5数据量下, 用map计数的方式比multiset快.<br><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1926/problem/D">D. Vlad and Division</a></p>
 </blockquote>

@@ -24,7 +24,7 @@
 <meta property="og:description" content="应用情景我的graph partitioning工作的最后环节需要用到集群, 8台机器命名为slave0~7.其中slave0作为master节点, 由于slave0的磁盘只有1T. 因此需要利用另外几台slave的磁盘.一个比较好的办法就是用NFS把slave3的dataset目录挂载到slave0对应的dataset3上. 服务端 (slave3)安装 NFS 服务器: centos: yum">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-06-05T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-03-17T08:39:13.369Z">
+<meta property="article:modified_time" content="2024-04-21T08:15:38.772Z">
 <meta property="article:author" content="Channing Lau">
 <meta property="article:tag" content="Cheatsheet">
 <meta property="article:tag" content="Network">
@@ -221,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          498 字
+          501 字
         
       </span>
     
@@ -286,15 +286,11 @@
 <h2 id="客户端-slave0"><a href="#客户端-slave0" class="headerlink" title="客户端 (slave0)"></a>客户端 (slave0)</h2><p>把slave3的dataset挂载到slave0的dataset3上:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo mount -t nfs slave3:/home/lcj_graph_partitioning/dataset/ /home/lcj_graph_partitioning/dataset3/<br></code></pre></td></tr></table></figure>
 
-<h2 id="QA"><a href="#QA" class="headerlink" title="QA"></a>QA</h2><ol>
-<li>slave3挂载到slave0后, slave0的磁盘会不会被占用?</li>
-</ol>
+<h2 id="QA"><a href="#QA" class="headerlink" title="QA"></a>QA</h2><p>(1) slave3挂载到slave0后, slave0的磁盘会不会被占用?</p>
 <blockquote>
 <p>当你在 slave0 上将 slave3 的目录挂载到本地后, slave0 上会出现一个新的目录, 其中包含了 slave3 上的文件.<br>这并不会占用 slave0 硬盘的额外空间, 因为实际的文件数据仍然存储在 slave3 上.<br>换句话说, 挂载后的目录是一个虚拟的视图, 它显示了远程主机上的文件系统, 但实际数据并没有复制到本地磁盘上.<br>如果你在 slave0 上进行读取或写入操作, 实际上是通过网络访问 slave3 上的文件.<br>这也是 NFS （Network File System）的基本原理之一, 它允许你在网络上共享文件系统, 使得远程主机可以像访问本地文件系统一样访问远程文件系统.</p>
 </blockquote>
-<ol start="2">
-<li>客户端mount -t nfs master:&#x2F;… &#x2F;…后报错:<br>mount.nfs: access denied by server while mounting master:&#x2F;dk&#x2F;lcj_graph_partitioning&#x2F;dataset&#x2F;</li>
-</ol>
+<p>(2) 客户端mount -t nfs master:&#x2F;… &#x2F;…后报错:<br>   mount.nfs: access denied by server while mounting master:&#x2F;dk&#x2F;lcj_graph_partitioning&#x2F;dataset&#x2F;</p>
 <blockquote>
 <p><code>code /var/log/syslog</code> 查看服务端的日志. 发现<code>refused mount request from 10.28.2.138 for /dk/lcj_graph_partitioning/dataset/ (/): not exported</code>.<br>即服务端没有导出该目录. 发现服务端要导出的路径名输错了…<br>其实是<code>/dk/lcj_graph_partition/dataset/</code></p>
 </blockquote>
