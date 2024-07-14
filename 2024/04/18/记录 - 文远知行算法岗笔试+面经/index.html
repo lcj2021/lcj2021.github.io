@@ -1,0 +1,709 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Channing Lau">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="一面（视频会议）04-01 50min(1) 自我介绍 (2) 聊项目，问简历上的。 面试官对我的VLDB很感兴趣，于是就让我详细展开。 (3) 算法题。 第一题：给定一个长度为n的double数组，求最大连乘之积。[1, 2, 0, 2.5, 4, 0 -2, 3, -2] &#x3D;&gt; 12 我思索1分钟：  可以根据0的位置进行分段，然后在每一个段内进行dp，需要考虑负数的个数  面">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记录 - 文远知行算法岗笔试+面经">
+<meta property="og:url" content="https://lcj2021.github.io/2024/04/18/%E8%AE%B0%E5%BD%95%20-%20%E6%96%87%E8%BF%9C%E7%9F%A5%E8%A1%8C%E7%AE%97%E6%B3%95%E5%B2%97%E7%AC%94%E8%AF%95+%E9%9D%A2%E7%BB%8F/index.html">
+<meta property="og:site_name" content="ChanningLau&#39;s harbour">
+<meta property="og:description" content="一面（视频会议）04-01 50min(1) 自我介绍 (2) 聊项目，问简历上的。 面试官对我的VLDB很感兴趣，于是就让我详细展开。 (3) 算法题。 第一题：给定一个长度为n的double数组，求最大连乘之积。[1, 2, 0, 2.5, 4, 0 -2, 3, -2] &#x3D;&gt; 12 我思索1分钟：  可以根据0的位置进行分段，然后在每一个段内进行dp，需要考虑负数的个数  面">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-04-17T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-07-06T11:44:32.399Z">
+<meta property="article:author" content="Channing Lau">
+<meta property="article:tag" content="求职">
+<meta property="article:tag" content="面经">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>记录 - 文远知行算法岗笔试+面经 - ChanningLau&#39;s harbour</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lcj2021.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>ChanningLau&#39;s harbour</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="记录 - 文远知行算法岗笔试+面经"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-04-18 00:00" pubdate>
+          2024年4月18日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          13 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">记录 - 文远知行算法岗笔试+面经</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="一面（视频会议）04-01-50min"><a href="#一面（视频会议）04-01-50min" class="headerlink" title="一面（视频会议）04-01 50min"></a>一面（视频会议）04-01 50min</h2><p>(1) 自我介绍</p>
+<p>(2) 聊项目，问简历上的。</p>
+<p>面试官对我的VLDB很感兴趣，于是就让我详细展开。</p>
+<p>(3) 算法题。</p>
+<p>第一题：给定一个长度为n的double数组，求最大连乘之积。<br>[1, 2, 0, 2.5, 4, 0 -2, 3, -2] &#x3D;&gt; 12</p>
+<p>我思索1分钟：</p>
+<blockquote>
+<p>可以根据0的位置进行分段，然后在每一个段内进行dp，需要考虑负数的个数</p>
+</blockquote>
+<p>面试官：</p>
+<blockquote>
+<p>有点复杂，能不能直接dp？</p>
+</blockquote>
+<p>我思考5分钟：</p>
+<blockquote>
+<p><code>dp[N][2]</code>表示以第i个数结尾的，所有连续子数组的最大乘积。其中第二维[0, 1]表示对应的子数组内负数的个数。<br>（突然意识到应该是“连续子数组的最大乘积的<strong>绝对值</strong>”）于是赶紧纠正<br>如果a[i]是负数，选上<code>a[i]</code>，<code>dp[i][b]</code>就得从<code>dp[i - 1][b ^ 1]</code>转移。如果不跟a[i - 1]连接的话，那就直接是<code>dp[i][1] = a[i]</code><br>如果a[i]是正数，同理。只不过不需要考虑b的翻转。</p>
+<p>最后答案就是所有<code>dp[i][0]</code>和<code>-dp[i][1]</code>的最大值。</p>
+</blockquote>
+<p>面试官思索了一会：</p>
+<blockquote>
+<p>听上去好像没问题，挺好的。</p>
+</blockquote>
+<p>第二题：给定一个二维<code>n * m</code>网格，网格上有一些障碍，障碍无法通过，同时给k把铲子，每把铲子可以铲掉一个障碍物。求从左上角到右下角的最短路径。</p>
+<p>我思索了1分钟：</p>
+<blockquote>
+<p>如果<code>n * m * k</code>不大的话，比如在1e7之内，就可以直接暴力dp了。<br><code>dp[i][j][k]</code>表示从起点到(i, j)的最短路径长度，k表示当前用了的铲子数量。<br>如果(i, j)是障碍物，那么<code>dp[i][j][k] = min(dp[i - 1][j][k - 1], dp[i][j - 1][k - 1]) + 1</code>。<br>如果(i, j)不是障碍物，那么<code>dp[i][j][k] = min(dp[i - 1][j][k], dp[i][j - 1][k]) + 1</code></p>
+<p>答案就是<code>dp[n - 1][m - 1][0~k]</code></p>
+</blockquote>
+<p>面试官：</p>
+<blockquote>
+<p>不错，挺熟练的。</p>
+</blockquote>
+<p>(4) 反问环节。</p>
+<p>如果我能通过这次一面，是不是还有二面？如果能二面我需要准备些什么知识呢？</p>
+<blockquote>
+<p>是的。需要着重准备一下MDP的相关知识，你统计学专业应该也有学吧。我说目前我还没学到，不过我会去学习一下的。</p>
+</blockquote>
+<h2 id="二面（视频会议）04-15-50min"><a href="#二面（视频会议）04-15-50min" class="headerlink" title="二面（视频会议）04-15 50min"></a>二面（视频会议）04-15 50min</h2><p>(1)(2) 自我介绍 + 聊项目。同一面</p>
+<p>(3) 算法题。</p>
+<p>第一题：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">// 按从小到大对数组排序的最少元素交换次数</span><br><span class="hljs-comment">// 可以先不考虑存在重复元素</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;vector&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;algorithm&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">MinimalSwapNums</span><span class="hljs-params">(std::vector&lt;<span class="hljs-type">int</span>&gt; &amp;nums)</span></span>&#123;<br>  <span class="hljs-type">int</span> cnt = <span class="hljs-number">0</span>;<br>  <span class="hljs-comment">// 1 5 4 3 2</span><br>  <span class="hljs-comment">// 1 2 4 3 5</span><br>  <span class="hljs-comment">// 1 2 3 4 5</span><br>  <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">alls</span><span class="hljs-params">(nums)</span></span>;<br>  <span class="hljs-built_in">sort</span>(alls.<span class="hljs-built_in">begin</span>(), alls.<span class="hljs-built_in">end</span>());<br>  alls.<span class="hljs-built_in">erase</span>(<span class="hljs-built_in">unique</span>(alls.<span class="hljs-built_in">begin</span>(), alls.<span class="hljs-built_in">end</span>()), alls.<span class="hljs-built_in">end</span>());<br>  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> &amp;&amp;x : nums) &#123;<br>    x = <span class="hljs-built_in">lower_bound</span>(alls.<span class="hljs-built_in">begin</span>(), alls.<span class="hljs-built_in">end</span>(), x) - alls.<span class="hljs-built_in">begin</span>();<br>  &#125;<br><br>  <span class="hljs-type">int</span> n = nums.<span class="hljs-built_in">size</span>();<br>  <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">pos</span><span class="hljs-params">(n)</span></span>;<br>  <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; nums.<span class="hljs-built_in">size</span>(); ++i) &#123;<br>    pos[nums[i]] = i;<br>  &#125;<br>  <br>  <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">st</span><span class="hljs-params">(n)</span></span>;<br>  <span class="hljs-type">int</span> rings = <span class="hljs-number">0</span>;<br>  <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; ++i) &#123;<br>    <span class="hljs-keyword">if</span> (st[i]) &#123;<br>      <span class="hljs-keyword">continue</span>;<br>    &#125;<br>    <br>    <span class="hljs-type">int</span> c = nums[i];<br>    st[c] = <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">while</span> (c != i) &#123;<br>      c = nums[c];<br>      st[c] = <span class="hljs-number">1</span>;<br>    &#125;<br>    ++rings;<br>  &#125;<br>  cnt = n - rings;<br>  <span class="hljs-comment">//输入答案</span><br>  <span class="hljs-keyword">return</span> cnt;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>第二题：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">//打印出长度为2n的所有合法括号，比如n=3时答案有5个，分别为((())), (()()), (())(), ()(()), ()()()</span><br><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;vector&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;algorithm&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-keyword">using</span> ll = <span class="hljs-type">long</span> <span class="hljs-type">long</span>;<br><br><span class="hljs-comment">// </span><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>  <span class="hljs-type">int</span> n = <span class="hljs-number">6</span>;  <br>  <span class="hljs-keyword">auto</span> check = [&amp;](string s) -&gt; <span class="hljs-type">bool</span> &#123;<br>    <span class="hljs-type">int</span> cumu = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; s.<span class="hljs-built_in">size</span>(); ++i) &#123;<br>      <span class="hljs-keyword">if</span> (s[i] == <span class="hljs-string">&#x27;(&#x27;</span>) &#123;<br>        cumu++;<br>      &#125; <span class="hljs-keyword">else</span> &#123;<br>        cumu--;<br>      &#125;<br>      <span class="hljs-keyword">if</span> (cumu &lt; <span class="hljs-number">0</span>) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>      &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> (cumu == <span class="hljs-number">0</span>);<br>  &#125;;<br><br>  <span class="hljs-comment">// O(n 2^n)</span><br>  <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> val = <span class="hljs-number">0</span>; val &lt; (<span class="hljs-number">1ll</span> &lt;&lt; n); ++val) &#123;<br>    string s;<br>    <span class="hljs-comment">// O(n)</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> b = <span class="hljs-number">0</span>; b &lt; n; ++b) &#123;<br>      <span class="hljs-keyword">if</span> (val &gt;&gt; b &amp; <span class="hljs-number">1</span>) &#123;<br>        s += <span class="hljs-string">&quot;(&quot;</span>;<br>      &#125; <span class="hljs-keyword">else</span> &#123;<br>        s += <span class="hljs-string">&quot;)&quot;</span>;<br>      &#125;<br>    &#125;<br>    <span class="hljs-comment">// O(n)</span><br>    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">check</span>(s)) &#123;<br>      cout &lt;&lt; s &lt;&lt; endl;<br>    &#125;<br>  &#125;<br>  <span class="hljs-comment">// cout &lt;&lt; &quot;!!!\n&quot;;</span><br>  <br>  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>补充：可以用check函数的逻辑做dfs剪枝，效率是O(n)的。</p>
+<p>(4) 反问环节。</p>
+<p>如果我这面试通过了，还有三面吗？</p>
+<blockquote>
+<p>一般都是三面的。可以跟HR联系下，约三面的时间。</p>
+</blockquote>
+<p>实习待遇怎么样</p>
+<blockquote>
+<p>之前我来那会是400一天，但是现在据说好像降到300了。</p>
+</blockquote>
+<h2 id="三面（视频会议）04-18"><a href="#三面（视频会议）04-18" class="headerlink" title="三面（视频会议）04-18"></a>三面（视频会议）04-18</h2><p>(1) 自我介绍 + 聊项目。同一面</p>
+<p>(2) 算法题。</p>
+<p>第一题：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">/* </span><br><span class="hljs-comment">  你必须定义一个 `main()` 函数入口。</span><br><span class="hljs-comment">  you must define a `main()` function entry.</span><br><span class="hljs-comment"></span><br><span class="hljs-comment">  You are a stock trader want to know your maximum possible return rate during a certain period in the past, if you always make the optimal trade.</span><br><span class="hljs-comment">Several restrictions:</span><br><span class="hljs-comment">1. You can buy any portion of a stock, like 0.2 stock or 1/3 stock, but you cannot short(做空) a stock(you cannot benefit when stock price goes down).</span><br><span class="hljs-comment">2. The stock market use a special &quot;T+1&quot; rule, which means after you sell a stock at day T, you will receive the cash at T+1, which you can use to buy another stock</span><br><span class="hljs-comment">The input is N-day historical price of K stocks. We assume stock price does not change within a day.</span><br><span class="hljs-comment">The output is the maximum possible return rate of your portfolio. (To make it easier to understand, assume you start with 1 thousand dollars, output should be x thousand dollars which you end with)</span><br><span class="hljs-comment">Sample Input:</span><br><span class="hljs-comment">&#123;&#123;100, 200, 300, 400, 500, 600, 700&#125;,</span><br><span class="hljs-comment"> &#123;200, 200, 200, 200, 200, 400, 400&#125;&#125; (2 stocks 7 days)</span><br><span class="hljs-comment">Sample Output:</span><br><span class="hljs-comment">8.0 (Buy s1 at d1, sell s1 at d4, buy s2 at d5, sell s2 at d7, (400/100)*(400/200)=8.0)</span><br><span class="hljs-comment">Sample Input:</span><br><span class="hljs-comment">&#123;&#123;100, 200, 150, 100, 200&#125;&#125; (1 stock 5 days)</span><br><span class="hljs-comment">Sample Output:</span><br><span class="hljs-comment">4.0</span><br><span class="hljs-comment"></span><br><span class="hljs-comment">*/</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;vector&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>  <span class="hljs-comment">// 100 400 300 400</span><br>  <span class="hljs-comment">// 100 200 300 600</span><br>  <span class="hljs-comment">// 4 * 2</span><br>  <span class="hljs-comment">// 6</span><br>  <span class="hljs-comment">// dp[i][j][2]: 前i天, 当前持股j, 并且当前卖出 or 买入</span><br>  vector&lt;vector&lt;<span class="hljs-type">int</span>&gt;&gt; a = &#123;&#123;<span class="hljs-number">100</span>, <span class="hljs-number">200</span>, <span class="hljs-number">300</span>, <span class="hljs-number">400</span>, <span class="hljs-number">500</span>, <span class="hljs-number">600</span>, <span class="hljs-number">700</span>&#125;,<br> &#123;<span class="hljs-number">200</span>, <span class="hljs-number">200</span>, <span class="hljs-number">200</span>, <span class="hljs-number">200</span>, <span class="hljs-number">200</span>, <span class="hljs-number">400</span>, <span class="hljs-number">400</span>&#125;&#125;;<br>  <span class="hljs-comment">// a = &#123;&#123;100, 200, 150, 100, 200&#125;&#125;;</span><br>  a = &#123;&#123;<span class="hljs-number">100</span>, <span class="hljs-number">400</span>, <span class="hljs-number">300</span>, <span class="hljs-number">400</span>&#125;, &#123;<span class="hljs-number">100</span>, <span class="hljs-number">200</span>, <span class="hljs-number">300</span>, <span class="hljs-number">600</span>&#125;&#125;;<br>  <span class="hljs-type">int</span> K = a.<span class="hljs-built_in">size</span>(), n = a[<span class="hljs-number">0</span>].<span class="hljs-built_in">size</span>();<br>  vector&lt;vector&lt;vector&lt;<span class="hljs-type">int</span>&gt;&gt;&gt; <span class="hljs-built_in">dp</span>(n + <span class="hljs-number">1</span>, vector&lt;vector&lt;<span class="hljs-type">int</span>&gt;&gt;(K, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-type">int</span>&gt;(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>)));<br>  <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; ++i) &#123;<br>    <span class="hljs-type">int</span> mx = <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; K; ++j) &#123;<br>      <span class="hljs-keyword">if</span> (i - <span class="hljs-number">1</span> &gt;= <span class="hljs-number">0</span>) &#123;<br>         mx = <span class="hljs-built_in">max</span>(mx, dp[i - <span class="hljs-number">1</span>][j][<span class="hljs-number">0</span>]);<br>      &#125;<br>    &#125;<br>    <br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; K; ++j) &#123;<br>      dp[i][j][<span class="hljs-number">1</span>] = mx;<br>      dp[i][j][<span class="hljs-number">0</span>] = mx;<br>    &#125;<br>    <br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; K; ++j) &#123;<br>      <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> k = <span class="hljs-number">0</span>; k &lt; i; ++k) &#123;<br>        <span class="hljs-comment">// cout &lt;&lt; a[j][i] / a[j][k] &lt;&lt; endl;</span><br>        dp[i][j][<span class="hljs-number">0</span>] = <span class="hljs-built_in">max</span>(dp[i][j][<span class="hljs-number">0</span>], dp[k][j][<span class="hljs-number">1</span>] * a[j][i] / a[j][k]);<br>      &#125;<br>    &#125;<br>  &#125;<br><br>  <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; K; ++j) &#123;<br>    cout &lt;&lt; <span class="hljs-built_in">max</span>(dp[n - <span class="hljs-number">1</span>][j][<span class="hljs-number">0</span>], dp[n - <span class="hljs-number">1</span>][j][<span class="hljs-number">0</span>]) &lt;&lt; endl;<br>  &#125;<br>  <br>  cout &lt;&lt; <span class="hljs-string">&quot;Talk is cheap. Show me the code.&quot;</span> &lt;&lt; endl;<br>  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>我的评价：这题一开始就看的不是很明白。dp也只是过了2个他给的样例 + 自己的1个样例而已。dp貌似最后一维<code>[2]</code>可以省去。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%B0%E5%BD%95/" class="category-chain-item">记录</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%B1%82%E8%81%8C/" class="print-no-link">#求职</a>
+      
+        <a href="/tags/%E9%9D%A2%E7%BB%8F/" class="print-no-link">#面经</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>记录 - 文远知行算法岗笔试+面经</div>
+      <div>https://lcj2021.github.io/2024/04/18/记录 - 文远知行算法岗笔试+面经/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Channing Lau</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年4月18日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/04/21/%E5%91%A8%E8%AE%B0%20-%202024%2004.15-04.21/" title="周记 - 2024 04.15-04.21">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">周记 - 2024 04.15-04.21</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/04/18/%E8%AE%B0%E5%BD%95%20-%20%E9%98%BF%E9%87%8C%E4%BA%91%E7%AE%97%E6%B3%95%E5%B2%97%E7%AC%94%E8%AF%95+%E9%9D%A2%E7%BB%8F/" title="记录 - 阿里云算法岗笔试+面经">
+                        <span class="hidden-mobile">记录 - 阿里云算法岗笔试+面经</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

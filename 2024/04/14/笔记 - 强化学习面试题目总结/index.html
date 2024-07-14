@@ -1,0 +1,954 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Channing Lau">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="(1) 什么是强化学习？  强化学习（Reinforcement Learning, RL），又称增强学习，是机器学习的范式和方法论之一。RL由环境、动作和奖励组成，强化学习的目标是使得作出的一系列决策得到的总的奖励的期望最大化。  (2) 强化学习和监督学习、无监督学习的区别是什么？  监督学习一般有标签信息，而且是单步决策问题，比如分类问题。监督学习的样本一般是独立同分布的。无监督学习没有任何">
+<meta property="og:type" content="article">
+<meta property="og:title" content="笔记 - 强化学习面试题目总结">
+<meta property="og:url" content="https://lcj2021.github.io/2024/04/14/%E7%AC%94%E8%AE%B0%20-%20%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="ChanningLau&#39;s harbour">
+<meta property="og:description" content="(1) 什么是强化学习？  强化学习（Reinforcement Learning, RL），又称增强学习，是机器学习的范式和方法论之一。RL由环境、动作和奖励组成，强化学习的目标是使得作出的一系列决策得到的总的奖励的期望最大化。  (2) 强化学习和监督学习、无监督学习的区别是什么？  监督学习一般有标签信息，而且是单步决策问题，比如分类问题。监督学习的样本一般是独立同分布的。无监督学习没有任何">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.picgo.net/2024/04/15/interview-14c8a9d0f9f4df71a5.png">
+<meta property="og:image" content="https://github.com/roanhope/DeepRL/tree/master/DRL-Interviews/assets/interview-21-1.png">
+<meta property="og:image" content="https://github.com/roanhope/DeepRL/tree/master/DRL-Interviews/assets/interview-21-2.png">
+<meta property="og:image" content="https://github.com/roanhope/DeepRL/tree/master/DRL-Interviews/assets/interview-21-3.png">
+<meta property="og:image" content="https://github.com/roanhope/DeepRL/tree/master/DRL-Interviews/assets/interview-25.png">
+<meta property="og:image" content="https://img.picgo.net/2024/04/15/2017110809035022984e772c0b6d628de.jpeg">
+<meta property="og:image" content="https://github.com/NeuronDance/DeepRL/blob/master/DRL-Interviews/drl-interview.assets/equation.svg">
+<meta property="og:image" content="https://github.com/NeuronDance/DeepRL/blob/master/DRL-Interviews/drl-interview.assets/equation-1584541764589.svg">
+<meta property="article:published_time" content="2024-04-13T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-07-13T09:21:04.597Z">
+<meta property="article:author" content="Channing Lau">
+<meta property="article:tag" content="Cheatsheet">
+<meta property="article:tag" content="强化学习">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://img.picgo.net/2024/04/15/interview-14c8a9d0f9f4df71a5.png">
+  
+  
+  
+  <title>笔记 - 强化学习面试题目总结 - ChanningLau&#39;s harbour</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lcj2021.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>ChanningLau&#39;s harbour</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="笔记 - 强化学习面试题目总结"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-04-14 00:00" pubdate>
+          2024年4月14日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          51 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">笔记 - 强化学习面试题目总结</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>(1) 什么是强化学习？</p>
+<blockquote>
+<p>强化学习（Reinforcement Learning, RL），又称增强学习，是机器学习的范式和方法论之一。<br>RL由<strong>环境、动作和奖励</strong>组成，强化学习的目标是使得作出的一系列决策得到的总的奖励的期望最大化。</p>
+</blockquote>
+<p>(2) 强化学习和监督学习、无监督学习的区别是什么？</p>
+<blockquote>
+<p>监督学习一般有标签信息，而且是单步决策问题，比如分类问题。<br>监督学习的样本一般是独立同分布的。无监督学习没有任何标签信息，一般对应的是聚类问题。<br>强化学习介于监督和无监督学习之间，每一步决策之后会有一个标量的反馈信号，即回报。通过最大化回报以获得一个最优策略。因此强化学习一般是多步决策，并且样本之间有强的相关性。</p>
+</blockquote>
+<p>(3) 强化学习适合解决什么样子的问题？</p>
+<blockquote>
+<p>强化学习适合于解决模型未知，且当前决策会影响环境状态的（序列）决策问题。Bandit问题可以看成是一种特殊的强化学习问题，序列长度为1，单步决策后就完事了，所以动作不影响状态。当然也有影响的bandit问题，叫做contextual bandit问题。</p>
+</blockquote>
+<p>(4) 强化学习的损失函数（loss function）是什么？和深度学习的损失函数有何关系？</p>
+<blockquote>
+<p>累积回报。依赖于不同的问题设定，累积回报具有不同的形式。比如对于有限长度的MDP问题直接用回报和作为优化目标。对于无限长的问题，为了保证求和是有意义的，需要使用折扣累积回报或者平均回报。深度学习的损失函数一般是多个独立同分布样本预测值和标签值的误差，需要最小化。强化学习 的损失函数是轨迹上的累积和，需要最大化。</p>
+</blockquote>
+<p>(5) POMDP是什么？马尔科夫过程是什么？马尔科夫决策过程是什么？里面的“马尔科夫”体现了什么性质？</p>
+<blockquote>
+<p>POMDP是部分可观测马尔科夫决策问题。<br>马尔科夫过程表示一个状态序列，每一个状态是一个随机变量，变量之间满足马尔科夫性，表示为<br>一个元组&lt;S, P&gt;，S是状态，P表示转移概率。<br>MDP表示为一个五元组&lt;S, A, P, R, $\gamma$&gt;，S是状态集合，A是动作集合，P表示转移概率，即模型，<br>R是回报函数，$\gamma$表示折扣因子。<br>马尔科夫体现了无后效性，也就是说未来的决策之和当前的状态有关，和历史状态无关。</p>
+</blockquote>
+<p>(6) 贝尔曼方程的具体数学表达式是什么？</p>
+<blockquote>
+<p>对于状态值函数V(s)的贝尔曼方程：<br>$V(s) &#x3D; \sum_{a \in A} \pi(a|s) \sum_{s’ \in S} P(s’|s, a) [R(s, a) + \gamma V(s’)]$</p>
+<p>对于动作值函数Q(s, a)的贝尔曼方程：<br>$Q(s, a) &#x3D; \sum_{s’ \in S} P(s’|s, a) [R(s, a) + \gamma \sum_{a’}\pi(a’|s’) Q(s’, a’)]$</p>
+</blockquote>
+<p>(7) 最优值函数和最优策略为什么等价？</p>
+<blockquote>
+<p>最优值函数唯一的确定了状态s &#x2F; (s, a)相对比他s &#x2F; (s, a)对的利好。<br>可以依赖这个值唯一的确定当前的动作，他们是对应的，所以等价。</p>
+</blockquote>
+<p>(8) 值迭代和策略迭代的区别?</p>
+<blockquote>
+<p>值迭代算法则是一步到位，直接估计最优值函数，因此没有策略提升环节。</p>
+<p>策略迭代。它每一次迭代都有两个循环：先计算当前值函数（根据当前策略计算），在进行策略评估（根据当前值函数选取最优动作作为策略）</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">value_iteration</span>(<span class="hljs-params">self, env</span>):<br>    <span class="hljs-string">&quot;&quot;&quot; VALUE iteration. &quot;&quot;&quot;</span><br>    values = &#123;s:<span class="hljs-number">0.0</span> <span class="hljs-keyword">for</span> s <span class="hljs-keyword">in</span> env.legel_states&#125;<br>    policy = &#123;s:<span class="hljs-literal">None</span> <span class="hljs-keyword">for</span> s <span class="hljs-keyword">in</span> env.legel_states&#125;<br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">argmax</span>(<span class="hljs-params">state</span>):<br>        max_val = -<span class="hljs-number">1e9</span><br>        max_idx = -<span class="hljs-number">1</span><br>        <span class="hljs-keyword">for</span> idx, action <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(env.legal_actions(state)):<br>            res = env.transition(state, action)[<span class="hljs-number">0</span>]<br>            reward = res[<span class="hljs-number">2</span>]<br>            <span class="hljs-comment"># 在同一层的values上计算下一层new_values的分数</span><br>            <span class="hljs-comment"># 类似背包的dp[i][] &lt;- dp[i-1][]</span><br>            next_val = values[res[<span class="hljs-number">1</span>]]<br>            prob = res[<span class="hljs-number">3</span>]<br>            score = reward + self.gamma * next_val * prob<br>            <span class="hljs-keyword">if</span> score &gt; max_val:<br>                max_val = score<br>                max_idx = idx<br><br>        <span class="hljs-keyword">return</span> max_val, env.legal_actions(state)[max_idx]<br><br>    self.iteration_number = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>        difference = <span class="hljs-number">.0</span><br>        self.iteration_number += <span class="hljs-number">1</span><br>        new_vals = &#123;s:<span class="hljs-number">0.0</span> <span class="hljs-keyword">for</span> s <span class="hljs-keyword">in</span> env.legel_states&#125;<br><br>        <span class="hljs-keyword">for</span> state <span class="hljs-keyword">in</span> env.legel_states:<br>            new_vals[state], policy[state] = argmax(state)<br>            difference += <span class="hljs-built_in">abs</span>(new_vals[state] - values[state])<br>        <br>        <span class="hljs-keyword">if</span> difference &lt; <span class="hljs-number">1e-4</span>: <span class="hljs-keyword">break</span><br>        <span class="hljs-keyword">else</span>: <br>            values = new_vals<br><br>    <span class="hljs-keyword">return</span> values, policy<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">policy_evaluation</span>(<span class="hljs-params">self, env, values, policy</span>):<br>    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>        new_values = &#123;s:<span class="hljs-number">0.0</span> <span class="hljs-keyword">for</span> s <span class="hljs-keyword">in</span> env.legel_states&#125;<br>        difference = <span class="hljs-number">.0</span><br>        <span class="hljs-keyword">for</span> state <span class="hljs-keyword">in</span> env.legel_states:<br>            res = env.transition(state, policy[state])[<span class="hljs-number">0</span>]   <span class="hljs-comment"># [(1.0, next_state, reward, done)]</span><br>            reward = res[<span class="hljs-number">2</span>]<br>            prob = res[<span class="hljs-number">3</span>]<br>            new_values[state] = reward + self.gamma * values[res[<span class="hljs-number">1</span>]] * prob<br>            difference += (new_values[state] - values[state])<br>        <br>        <span class="hljs-keyword">if</span> difference &lt; <span class="hljs-number">1e-4</span>: <span class="hljs-keyword">break</span><br>        <span class="hljs-keyword">else</span>: <br>            values = new_values<br>    <br>    <span class="hljs-keyword">return</span> new_values    <br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">policy_iteration</span>(<span class="hljs-params">self, env</span>):<br>    <span class="hljs-string">&quot;&quot;&quot; POLICY iteration. &quot;&quot;&quot;</span><br>    values = &#123;s:<span class="hljs-number">0.0</span> <span class="hljs-keyword">for</span> s <span class="hljs-keyword">in</span> env.legel_states&#125;<br>    policy = &#123;s:random.choice(env.ACTIONS) <span class="hljs-keyword">for</span> s <span class="hljs-keyword">in</span> env.legel_states&#125;<br><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">argmax</span>(<span class="hljs-params">s,values</span>):<br>        max_val = -<span class="hljs-number">1e5</span><br>        max_idx = -<span class="hljs-number">1</span><br>        <span class="hljs-keyword">for</span> idx, action <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(env.legal_actions(s)):<br>            res = env.transition(s, action)   <span class="hljs-comment"># [(1.0, next_state, reward, done)]</span><br>            score = values[res[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>]]<br>            <span class="hljs-keyword">if</span> score &gt; max_val:<br>                max_val = score<br>                max_idx = idx<br>        <span class="hljs-keyword">return</span> env.legal_actions(s)[max_idx]<br><br>    self.iteration_number = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>        new_policy = &#123;s:<span class="hljs-literal">None</span> <span class="hljs-keyword">for</span> s <span class="hljs-keyword">in</span> env.legel_states&#125;<br>        self.iteration_number += <span class="hljs-number">1</span><br><br>        new_values = self.policy_evaluation(env, values, policy)<br>        unchanged = <span class="hljs-literal">True</span><br>        <span class="hljs-keyword">for</span> s <span class="hljs-keyword">in</span> env.legel_states:<br>            new_policy[s] = argmax(s,new_values)<br>            <span class="hljs-keyword">if</span> new_policy[s] != policy[s]:<br>                unchanged = <span class="hljs-literal">False</span><br>        <span class="hljs-keyword">if</span> unchanged == <span class="hljs-literal">True</span>:<br>            values = new_values<br>            <span class="hljs-keyword">break</span><br>        <span class="hljs-keyword">else</span>:<br>            policy = new_policy<br>            values = new_values<br><br>    <span class="hljs-keyword">return</span> values, policy<br></code></pre></td></tr></table></figure>
+
+<p>(9) 如果不满足马尔科夫性怎么办？当前时刻的状态和它之前很多很多个状态都有关之间关系？</p>
+<blockquote>
+<p>如果不满足马尔科夫性，强行只用当前的状态来决策，势必导致决策的片面性，得到不好的策略。<br>为了解决这个问题，可以利用RNN对历史信息建模，获得包含历史信息的状态表征。表征过程可以<br>使用注意力机制等手段。最后在表征状态空间求解MDP问题。</p>
+</blockquote>
+<p>(10) 求解马尔科夫决策过程都有哪些方法？何时用这些方法？动态规划是怎么回事？</p>
+<blockquote>
+<p>方法有：动态规划DP，时序差分TD，蒙特卡洛MC。<br>有模型使用DP方法。<br>无模型使用TD, MC方法。<br>动态规划是指：将一个问题拆分成几个子问题，分别求解这些子问题，然后获得原问题的解。<br>贝尔曼方程中为了求解一个状态的值函数，利用了其他状态的值函数。</p>
+</blockquote>
+<p>(11) 简述动态规划(DP)算法？</p>
+<blockquote>
+<p>为了解决MDP问题的DP算法就是利用最优贝尔曼方程来更新值函数以求解策略的方法。最优贝尔曼方程如下：</p>
+</blockquote>
+<p>(12) 简述蒙特卡罗估计值函数(MC)算法。</p>
+<blockquote>
+<p>蒙特卡洛就死采样仿真，蒙特卡洛估计值函数就是根据采集的数据，利用值函数的定义来更新<br>值函数。这里假设是基于表格的问题，步骤如下：</p>
+<p>初始化，这里为每一个状态初始化了一个 Return(s) 的列表。可以想象列表中每一个元素就是一次累积回报。</p>
+<p>根据策略pi生成轨迹tau</p>
+<p>利用轨迹，统计每个状态对应的后续累积回报，并将这个值加入对应状态的Return(s)列表</p>
+<p>重复若干次，每次都会往对应出现的状态回报列表中加入新的值。最后根据定义，每个状态回报列表中数字的均值<br>就是他的值估计</p>
+<p>参考<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/55487868">MC值估计</a></p>
+</blockquote>
+<p>(13) 简述时间差分(TD)算法。</p>
+<blockquote>
+<p>TD,MC和DP算法都使用广义策略迭代来求解策略，区别仅仅在于值函数估计的方法不同。<br>DP使用的是贝尔曼方程，MC使用的是采样法，而TD方法的核心是使用自举（bootstrapping），即值函数的更新为：<br>$V(s_t) &#x3D; V(s_t) + \alpha (r_t + \gamma V(s_{t + 1}) - V(s_t))$，使用了下一个状态的值函数来估计当前状态的值。</p>
+</blockquote>
+<p>(14) 简述动态规划、蒙特卡洛和时间差分的对比（共同点和不同点）</p>
+<p>形象图解：<br><img src="https://img.picgo.net/2024/04/15/interview-14c8a9d0f9f4df71a5.png" srcset="/img/loading.gif" lazyload alt="interview-14c8a9d0f9f4df71a5.png"></p>
+<blockquote>
+<p>共同点：核心都是价值函数的计算，所有方法都是基于对未来事件的展望来计算一个回溯值。</p>
+<p>不同点：</p>
+<ol>
+<li>DP算法是model-based，MC和TD都是model-free</li>
+<li>DP是期望更新，MC和TD是采样更新</li>
+<li>DP是planning，MC和TD是Learning</li>
+<li>DP显示了所有的单步转移，MC是完整的一幕，TD采样不采集完整的一幕</li>
+<li>MC是最小化训练集上均方误差的估计，批量TD是找出完全<strong>符合马尔可夫模型</strong>的最大似然参数</li>
+<li>MC通过采样求均值求解；DP已知模型，直接计算期望，不用采样，仍然使用了自举；TD结合了采样和自举</li>
+</ol>
+</blockquote>
+<p>(15) MC和TD分别是无偏估计吗？</p>
+<blockquote>
+<p>MC是无偏的，TD是有偏的</p>
+</blockquote>
+<p>(16) MC、TD谁的方差大，为什么？</p>
+<blockquote>
+<p>MC的方差大。<br>TD因为使用了自举，实现一种类似于平滑的效果，所以估计的值函数方差小。</p>
+</blockquote>
+<p>(17) 简述on-policy和off-policy的区别</p>
+<blockquote>
+<p>on-policy:行为策略和要优化的策略是一个策略，更新了策略后，就用该策略的最新版本采样数据。</p>
+<p>off-policy：使用任意的一个行为策略来收集收据，利用收集的数据更新目标策略。</p>
+</blockquote>
+<p>(18) 简述Q-Learning，写出其Q(s,a)更新公式。它是on-policy还是off-policy，为什么？</p>
+<blockquote>
+<p>Q学习是通过计算最优动作值函数来求策略的一种算法，更新公式为：</p>
+<p>$Q(s_t, a_t) &#x3D; Q(s_t, a_t) + \alpha [R_{t+1} + \gamma \max_a Q(s_{t+1}, a) - Q(s_t, a_t)]$</p>
+<p>离策略，由于是值更新使用了下一个时刻的$argmax_a Q$，所以我们只关心哪个动作使得 $Q(s_{t+1}, a)$ 取得最大值，<br>而实际到底采取了哪个动作（行为策略），并不关心。<br>这表明优化策略并没有用到行为策略的数据，所以说它是离策略（off-policy）的。</p>
+</blockquote>
+<p>(19) 写出用第m步的值函数更新当前值函数的公式（1-step，2-step，m-step的意思）。当m的取值变大时，期望和方差分别变大、变小？</p>
+<blockquote>
+<p>m-step的更新目标：<br>m-step TD for SARSA: $y_t &#x3D; \sum^{m - 1}<em>{i &#x3D; 0}\gamma^i*r</em>{t+i} + \gamma^m<em>Q_{\pi}(s_{t+m}, a_{t+m})$<br>m-step TD for Q-Learning: $y_t &#x3D; \sum^{m - 1}_{i &#x3D; 0}\gamma^i</em>r_{t+i} + \gamma^m* \max_{a} Q^{*}(s_{t+m}, a)$<br>利用更细目标更新当前值函数，趋近于目标：</p>
+<p>当<strong>m越大</strong>时，<strong>越接近于MC</strong>方法，因此方差越大，期望越接近于真实值，偏差越小。</p>
+</blockquote>
+<p>(20) TD($\lambda$)方法：当$\lambda &#x3D; 0$时实际上与哪种方法等价，$\lambda &#x3D; 1$呢？</p>
+<blockquote>
+<p>$\lambda &#x3D; 0$等价于TD(0)<br>$\lambda &#x3D; 1$等价于折扣形式的MC方法。参考<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/72587762">文章</a>。</p>
+</blockquote>
+<p>(21) 写出蒙特卡洛、TD和TD（$\lambda$）这三种方法更新值函数的公式？</p>
+<blockquote>
+<p>MC更新公式参考问题14附图（左图公式），如果是单步的TD方法，更新公式参考问题14附图（中），<br>m步的更新参考问题19。TD(lambda)用lambda-return更新值函数，lambda-return是m-step<br>return的加权和，m-step回报的系数为\lmabda^{n-1}，所以lambda-return等于：</p>
+<p><img src="https://github.com/roanhope/DeepRL/tree/master/DRL-Interviews/assets/interview-21-1.png" srcset="/img/loading.gif" lazyload></p>
+<p>所以TD(lambda)的更新公式只需要把问题19的更新公式中的G_{t:t+n}换成上图的G_t^lambda就行。<br>当然这种更新叫做前向视角，是离线的，因为要计算G_t^n，为了在线更新，需要用到资格迹。定义资格迹为：</p>
+<p><img src="https://github.com/roanhope/DeepRL/tree/master/DRL-Interviews/assets/interview-21-2.png" srcset="/img/loading.gif" lazyload></p>
+<p>利用资格迹后，值函数可以在线更新为：</p>
+<p><img src="https://github.com/roanhope/DeepRL/tree/master/DRL-Interviews/assets/interview-21-3.png" srcset="/img/loading.gif" lazyload></p>
+<p>更多的关于TD(lambda)细节参考<a target="_blank" rel="noopener" href="https://amreis.github.io/ml/reinf-learn/2017/11/02/reinforcement-learning-eligibility-traces.html">文章</a></p>
+</blockquote>
+<p>(22) value-based和policy-based的区别是什么？</p>
+<blockquote>
+<p>value-based通过求解最优值函数<strong>间接地求解最优策略</strong>，典型算法是DQN（$Q(s, a; w)$输入当前状态s输出所有动作a的Q值）；<br>policy-based的方法直接将策略参数化$\pi(a | s; \theta)$，通过策略搜索，策略梯度policy gradient或者进化方法来更新策略的参数以最大化回报。</p>
+<ol>
+<li>处理的action space不同：value-based适合处理的action space低维离散的，policy-based适合处理连续的action space。</li>
+<li>针对action的价值输出不同：value-based计算出每个action的价值，policy-based一般情况下只给出较价值较高的actions。</li>
+<li>更新频率不同：value-based每个action执行都可以更新，policy-based 每个episode完成之后才能更新一次。</li>
+</ol>
+</blockquote>
+<p>(23) DQN的两个关键trick分别是什么？</p>
+<blockquote>
+<p>使用目标网络(target network)来缓解训练不稳定的问题；经验回放</p>
+</blockquote>
+<p>(24) 阐述目标网络和experience replay的作用？</p>
+<blockquote>
+<p>在DQN中某个动作值函数的更新依赖于其他动作值函数（自举）。如果我们一直更新值网络的参数，会导致更新目标不断变化，也就是我们在追逐一个不断变化的目标，这样势必会不太稳定。<br>引入目标网络就是把更新目标中不断变化的值先稳定一段时间，更新参数，然后再更新目标网络。即：<br>目标网络的参数$\theta^-$，每隔C步才和普通网络的参数$\theta^-$同步一次。<br>这样在一定的阶段内目标是固定的，训练也更稳定。</p>
+<p><code>Experience Replay</code>将系统探索环境得到的数据储存起来，然后随机采样样本更新深度神经网络的参数。通常用一个buffer存储1e5~1e6条$(s_t, a_t, r_t, s_{t+1}, a_{t+1})$<br>主要作用是克服经验数据的相关性和非平稳分布问题。它的做法是从以往的状态转移中随机采样进行训练。优点：</p>
+<ol>
+<li>数据利用率高，因为一个样本被多次使用。</li>
+<li>连续样本的相关性会使参数更新的方差比较大，该机制可减少这种相关性。</li>
+</ol>
+</blockquote>
+<p>(25) 手工推导策略梯度过程？</p>
+<blockquote>
+<p><img src="https://github.com/roanhope/DeepRL/tree/master/DRL-Interviews/assets/interview-25.png" srcset="/img/loading.gif" lazyload></p>
+</blockquote>
+<p>参考<a target="_blank" rel="noopener" href="https://spinningup.openai.com/en/latest/spinningup/rl_intro3.html">文章</a></p>
+<p>(26) 描述随机策略和确定性策略的特点？</p>
+<blockquote>
+<p>随机策略：$\pi_{\theta}(a_t|s_t) &#x3D; P(a|s, \theta)$。P是概率函数<br>在某个状态s下动作a取值的分布。</p>
+<p>确定性策略：$a &#x3D; \mu_{\theta}(s)$。$\mu$是一个确定的函数映射。<br>在每个状态只有一个确定的动作可以选。</p>
+<p>从熵的角度来说，确定性策略的熵为0，没有任何随机性。</p>
+<p>随机策略有利于我们进行适度的探索，确定性策略的探索问题更为严峻。</p>
+</blockquote>
+<p>(27) 不打破数据相关性，神经网络的训练效果为什么就不好？</p>
+<blockquote>
+<p>在神经网络中通常使用随机梯度下降法。随机的意思是我们随机选择一些样本来增量式的估计梯度，比如常用的采用batch训练。<br>如果样本是相关的，那就意味着前后两个batch的很可能也是相关的，那么估计的梯度也会呈现出某种相关性。如果不幸的情况下，后面的梯度估计可能会抵消掉前面的梯度量。从而使得训练难以收敛。</p>
+</blockquote>
+<p>(28) 画出DQN玩Flappy Bird的流程图。在这个游戏中，状态是什么，状态是怎么转移的？奖赏函数如何设计，有没有奖赏延迟问题？</p>
+<p>(29) DQN都有哪些变种？引入状态奖励的是哪种？</p>
+<blockquote>
+<p>Double DQN, 优先经验回放， Dueling-DQN</p>
+</blockquote>
+<p>(30) 简述double DQN原理？</p>
+<blockquote>
+<p>DQN由于总是选择当前值函数最大的动作值函数来更新当前的动作值函数，因此存在着过估计问题（估计的值函数大于真实的值函数）。<br>为了解耦这两个过程，double DQN 使用了两个值网络，一个网络用来执行动作选择，然后用另一个值函数对一个的动作值更新当前网络。<br>比如要更新Q1， 在下一个状态使得Q1取得最大值的动作为a<em>，那么Q1的更新为 r + gamma Q2(s_, a</em>).二者交替训练。</p>
+</blockquote>
+<p>(31) 策略梯度（Policy Gradient）方法中基线baseline如何确定？</p>
+<blockquote>
+<p>基线只要不是动作a的函数就可以，常用的选择可以是状态值函数v(s)</p>
+</blockquote>
+<p>(32) 画出DDPG框架结构图？</p>
+<p><img src="https://img.picgo.net/2024/04/15/2017110809035022984e772c0b6d628de.jpeg" srcset="/img/loading.gif" lazyload alt="ddpg_total_arch"></p>
+<p>(33) Actor-Critic两者的区别是什么？</p>
+<blockquote>
+<p>Actor是策略模块，输出动作a；<br>critic是判别器，用来计算(s, a)对应的效用函数。</p>
+</blockquote>
+<p>(34) actor-critic框架中的critic起了什么作用？</p>
+<blockquote>
+<p>critic表示了对于当前决策好坏的衡量。<br>结合策略模块，当critic判别某个动作的选择时有益的，策略就更新参数以增大该动作出现的概率，反之降低动作出现的概率。</p>
+</blockquote>
+<p>(35) DDPG是on-policy还是off-policy，为什么？</p>
+<blockquote>
+<p>off-policy。因为在DDPG为了保证一定的探索，对于输出动作加了一定的噪音，也就是说行为策略不再是优化的策略。</p>
+</blockquote>
+<p>(36) 是否了解过D4PG算法？简述其过程</p>
+<blockquote>
+<p><strong>Distributed Distributional DDPG (D4PG)</strong> 分布的分布式DDPG, 主要改进:</p>
+<ol>
+<li><strong>分布式 critic:</strong> 不再只估计Q值的期望值，而是去估计期望Q值的分布, 即将期望Q值作为一个随机变量来进行估计。</li>
+<li><strong>N步累计回报:</strong> 当计算TD误差时，D4PG计算的是N步的TD目标值而不仅仅只有一步，这样就可以考虑未来更多步骤的回报。</li>
+<li><strong>多个分布式并行演员：</strong>D4PG使用K个独立的演员并行收集训练样本并存储到同一个回访缓冲中。</li>
+<li><strong>优先经验回放</strong>（<strong>Prioritized Experience Replay</strong>，<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1511.05952"><strong>PER</strong></a>）：最后一个改进是使用一个非均匀的概率 $\pi$ 从一个大小为 RR 的回放缓冲中进行采样。</li>
+</ol>
+<p>详见：<a target="_blank" rel="noopener" href="https://lilianweng.github.io/lil-log/2018/04/08/policy-gradient-algorithms.html#d4pg">Lil’Log</a></p>
+</blockquote>
+<p>(37) 简述A3C算法？A3C是on-policy还是off-policy，为什么？</p>
+<blockquote>
+<p><strong>异步优势演员-评论家方法</strong>: 评论家学习值函数，同时有多个演员并行训练并且不时与全局参数同步。A3C旨在用于并行训练。</p>
+<p><strong>actor-critic类算法都属于on-policy</strong>.</p>
+</blockquote>
+<p>(38) A3C算法是如何异步更新的？是否能够阐述GA3C和A3C的区别？</p>
+<blockquote>
+<p>下面是算法大纲：</p>
+<ol>
+<li><p>定义全局参数 $\theta$ 和 $w$ 以及特定线程参数 $θ′$ 和 $w′$。</p>
+</li>
+<li><p>初始化时间步 $t&#x3D;1$。</p>
+</li>
+<li><p>当 $T&lt;&#x3D;T_{max}$：</p>
+<ol>
+<li><p>重置梯度：$dθ&#x3D;0$ 并且 $dw&#x3D;0$。</p>
+</li>
+<li><p>将特定于线程的参数与全局参数同步：$θ′&#x3D;θ$ 以及 $w′&#x3D;w$。</p>
+</li>
+<li><p>令 $t_{start} &#x3D;t$ 并且随机采样一个初始状态 $s_t$。</p>
+</li>
+<li><p>当 （$s_t!&#x3D;$ 终止状态）并$t−t_{start}&lt;&#x3D;t_{max}$：</p>
+<ol>
+<li>根据当前线程的策略选择当前执行的动作 $a_t∼π_{θ′}(a_t|s_t)$，执行动作后接收回报$r_t$然后转移到下一个状态st+1。</li>
+<li>更新 t 以及 T：t&#x3D;t+1 并且 T&#x3D;T+1。</li>
+</ol>
+</li>
+<li><p>初始化保存累积回报估计值的变量：r&#x3D;{0Vw′(st) 如果 st 是终止状态 否则r&#x3D;{0 如果 st 是终止状态Vw′(st) 否则</p>
+</li>
+<li><p>对于 i&#x3D;t−1,…,tstarti&#x3D;t−1,…,tstart：</p>
+<ol>
+<li><p>r←γr+rir←γr+ri；这里 rr 是 GiGi 的蒙特卡洛估计。</p>
+</li>
+<li><p>累积关于参数 θ′θ′ 的梯度：dθ←dθ+∇θ′logπθ′(ai|si)(r−Vw′(si))dθ←dθ+∇θ′log⁡πθ′(ai|si)(r−Vw′(si))；</p>
+<p>累积关于参数 w′w′ 的梯度：dw←dw+2(r−Vw′(si))∇w′(r−Vw′(si))dw←dw+2(r−Vw′(si))∇w′(r−Vw′(si))。</p>
+</li>
+</ol>
+</li>
+<li><p>分别使用 dθdθ 以及 dwdw异步更新 θθ 以及 ww。</p>
+</li>
+</ol>
+</li>
+</ol>
+</blockquote>
+<p>(39) 简述A3C的优势函数？</p>
+<blockquote>
+<p>A(s,a)&#x3D;Q(s,a)-V(s)</p>
+<p>是为了解决value-based方法具有高变异性。它代表着与该状态下采取的平均行动相比所取得的进步</p>
+<p>如果 A(s,a)&gt;0: 梯度被推向了该方向</p>
+<p>如果 A(s,a)&lt;0: (我们的action比该state下的平均值还差) 梯度被推向了反方向</p>
+<p>但是这样就需要两套 value function</p>
+<p>所以可以使用TD error 做估计：$A(s,a)&#x3D;r+\gamma V(s’)-V(s)$</p>
+</blockquote>
+<p>(40) 什么是重要性采样？</p>
+<blockquote>
+<p>期望：$E|f|&#x3D;\int_{x} p(x) f(x) d x&#x3D;\frac{1}{N} \sum_{i&#x3D;1}^{N} f\left(x_{i}\right)$ 按照 p(x)的分布来产生随机数进行采样</p>
+<p>在采样分布未知的情况下，引入新的已知分布q(x)，将期望修正为</p>
+<p>$E|f|&#x3D;\int_{x} q(x)\left(\frac{p(x)}{q(x)} f(x)\right) d x$</p>
+<p>这样就可以针对q(x)来对 p(x)&#x2F;q(x)*f(x)进行采样了</p>
+<p>$E|f|&#x3D;\frac{1}{N} \sum_{i&#x3D;1}^{N} \frac{p\left(x_{i}^{\prime}\right)}{q\left(x_{i}^{\prime}\right)} f\left(x_{i}^{\prime}\right)$</p>
+<p>即为重要性采样。</p>
+</blockquote>
+<p>(41) 为什么TRPO能保证新策略的回报函数单调不减？</p>
+<blockquote>
+<p>在每次迭代时对策略更新的幅度强制施加KL散度约束来避免更新一步就使得策略发生剧烈变化.</p>
+<p>将新策略所对应的回报函数分解成旧的策略所对应的回报函数+其他项</p>
+<p>$\eta(\tilde{\pi})&#x3D;\eta(\pi)+E_{s_{0}, a_{0}, \cdots \tilde{\pi}}\left[\sum_{t&#x3D;0}^{\infty} \gamma^{t} A_{\pi}\left(s_{t}, a_{t}\right)\right]$</p>
+<p>如果这个其他项大于等于0，那么就可以保证。</p>
+</blockquote>
+<p>(42) TRPO是如何通过优化方法使每个局部点找到让损失函数非增的最优步长来解决学习率的问题；</p>
+<p>(43) 如何理解利用平均KL散度代替最大KL散度？</p>
+<p>(44) 简述PPO算法？与TRPO算法有何关系？</p>
+<blockquote>
+<p>思想与TRPO相同，都是为了避免过大的策略更新, PPO把约束转换到loss函数中</p>
+<p><img src="https://github.com/NeuronDance/DeepRL/blob/master/DRL-Interviews/drl-interview.assets/equation.svg" srcset="/img/loading.gif" lazyload alt="公式"></p>
+<p><img src="https://github.com/NeuronDance/DeepRL/blob/master/DRL-Interviews/drl-interview.assets/equation-1584541764589.svg" srcset="/img/loading.gif" lazyload alt="公式"></p>
+</blockquote>
+<p>(45) 简述DPPO和PPO的关系？</p>
+<blockquote>
+<p>Deepmind在OpenAI的PPO基础上做的多线程版</p>
+</blockquote>
+<p>(46) 强化学习如何用在推荐系统中？</p>
+<blockquote>
+<p>可以把用户过去的点击购买的商品作为 State, 把推荐的商品作为 Action</p>
+</blockquote>
+<p>(47) 推荐场景中奖赏函数如何设计？</p>
+<blockquote>
+<p>点击率和下单率</p>
+<p>$r &#x3D; w_c * \sum I_{click} + w_p * \sum I_{pay}$</p>
+</blockquote>
+<p>(48) 自动驾驶和机器人的场景如何建模成强化学习问题？MDP各元素对应真实场景中的哪些变量？</p>
+<blockquote>
+<p>状态（State）：状态是描述系统或环境的特征或条件。在自动驾驶中，状态可以包括车辆的位置、速度、方向、周围车辆的位置和行为，以及交通信号灯状态等。在机器人中，状态可以包括机器人的位置、姿态、周围物体的位置和状态等。<br>动作（Action）：动作是智能体或控制器可以执行的操作或决策。在自动驾驶中，动作可以是加速、刹车、转向等。在机器人中，动作可以是移动、旋转、抓取等。<br>奖励（Reward）：奖励是反映系统目标的信号，用于评估智能体行为的好坏。在自动驾驶中，奖励可以根据驾驶行为的安全性、效率或乘客舒适度来定义。在机器人中，奖励可以根据任务完成情况、与环境的交互效果或资源利用效率来定义。<br>状态转移概率（State Transition Probability）：状态转移概率描述在给定状态和执行动作后，从一个状态转移到另一个状态的概率分布。在自动驾驶中，状态转移概率可以基于车辆动力学、环境条件和其他车辆行为进行建模。在机器人中，状态转移概率可以基于机器人的运动模型和环境的物理特性进行建模。<br>折扣因子（Discount Factor）：折扣因子是用于平衡即时奖励和未来奖励的重要参数。它表示在计算累积奖励时对未来奖励的折扣程度。较高的折扣因子意味着更关注未来的奖励，而较低的折扣因子则更加重视即时奖励。在自动驾驶和机器人中，折扣因子可以根据任务的长期目标和时间尺度来确定。</p>
+</blockquote>
+<p>(49) 强化学习需要大量数据，如何生成或采集到这些数据？</p>
+<blockquote>
+<p>Simulator是个好东西，mujoco对真实环境模拟</p>
+</blockquote>
+<p>(50) 是否用某种DRL算法玩过Torcs游戏？具体怎么解决？</p>
+<p>(51) 是否了解过奖励函数的设置(reward shaping)？</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/56425081">强化学习奖励函数塑形简介（The reward shaping of RL）</a></p>
+</blockquote>
+<h3 id="贡献致谢列表"><a href="#贡献致谢列表" class="headerlink" title="贡献致谢列表"></a>贡献致谢列表</h3><p>@<a target="_blank" rel="noopener" href="https://github.com/huiwenzhang">huiwenzhang</a></p>
+<p>@<a target="_blank" rel="noopener" href="https://github.com/skylark0924">skylark0924</a></p>
+<h4 id="参考及引用链接"><a href="#参考及引用链接" class="headerlink" title="参考及引用链接"></a>参考及引用链接</h4><p>[1]<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/33133828">https://zhuanlan.zhihu.com/p/33133828</a><br>[2]<a target="_blank" rel="noopener" href="https://aemah.github.io/2018/11/07/RL_interview/">https://aemah.github.io/2018/11/07/RL_interview/</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%AC%94%E8%AE%B0/" class="category-chain-item">笔记</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Cheatsheet/" class="print-no-link">#Cheatsheet</a>
+      
+        <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" class="print-no-link">#强化学习</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>笔记 - 强化学习面试题目总结</div>
+      <div>https://lcj2021.github.io/2024/04/14/笔记 - 强化学习面试题目总结/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Channing Lau</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年4月14日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/04/14/%E7%AC%94%E8%AE%B0%20-%20%E9%80%9A%E7%94%A8%E9%9D%A2%E8%AF%95%E6%89%8B%E7%A8%BF/" title="笔记 - 通用面试手稿">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">笔记 - 通用面试手稿</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/04/13/%E8%AE%B0%E5%BD%95%20-%202024-04-13%20%E6%B1%82%E8%81%8C%E7%BB%8F%E9%AA%8C%E4%BA%A4%E6%B5%81%E4%BC%9A/" title="记录 - 2024-04-13 求职经验交流会">
+                        <span class="hidden-mobile">记录 - 2024-04-13 求职经验交流会</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

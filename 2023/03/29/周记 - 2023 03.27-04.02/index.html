@@ -1,0 +1,818 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Channing Lau">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="03.27 周一 小雨早上10点和郑老师讨论了下进度, 主要就是我目前的实验都是在爪机的WSL2上跑的小数据集, 最大也只能到orkut这种; 另外就是我简要汇报了下上周调研的路径规划的俩算法CCH和CRP, 然后4.9之前要写完个计划书之类的. 开完会我在昨天向蔡YZ学长要的服务器上, 装了boost, gflags和glog. 然后下午我又开摆了, 下午搜了下研究性实习的相关岗位. 晚上也摆,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="周记 - 2023 03.27-04.02">
+<meta property="og:url" content="https://lcj2021.github.io/2023/03/29/%E5%91%A8%E8%AE%B0%20-%202023%2003.27-04.02/index.html">
+<meta property="og:site_name" content="ChanningLau&#39;s harbour">
+<meta property="og:description" content="03.27 周一 小雨早上10点和郑老师讨论了下进度, 主要就是我目前的实验都是在爪机的WSL2上跑的小数据集, 最大也只能到orkut这种; 另外就是我简要汇报了下上周调研的路径规划的俩算法CCH和CRP, 然后4.9之前要写完个计划书之类的. 开完会我在昨天向蔡YZ学长要的服务器上, 装了boost, gflags和glog. 然后下午我又开摆了, 下午搜了下研究性实习的相关岗位. 晚上也摆,">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-03-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-04-21T07:57:02.440Z">
+<meta property="article:author" content="Channing Lau">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>周记 - 2023 03.27-04.02 - ChanningLau&#39;s harbour</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lcj2021.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>ChanningLau&#39;s harbour</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="周记 - 2023 03.27-04.02"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-03-29 00:00" pubdate>
+          2023年3月29日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          28 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">周记 - 2023 03.27-04.02</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="03-27-周一-小雨"><a href="#03-27-周一-小雨" class="headerlink" title="03.27 周一 小雨"></a>03.27 周一 小雨</h2><p>早上10点和郑老师讨论了下进度, 主要就是我目前的实验都是在爪机的WSL2上跑的小数据集, 最大也只能到orkut这种; 另外就是我简要汇报了下上周调研的路径规划的俩算法CCH和CRP, 然后4.9之前要写完个计划书之类的.</p>
+<p>开完会我在昨天向蔡YZ学长要的服务器上, 装了boost, gflags和glog.</p>
+<p>然后下午我又开摆了, 下午搜了下研究性实习的相关岗位.</p>
+<p>晚上也摆, 看OIerDB看得津津有味. 睡前又稍稍看了看近期的CP比赛, 但是又不想思考, 做不动题, 颓废的一…</p>
+<h2 id="03-28-周二-小雨"><a href="#03-28-周二-小雨" class="headerlink" title="03.28 周二 小雨"></a>03.28 周二 小雨</h2><p>主要任务还是毕设, 其实就是把之前写挫了的算法改改.</p>
+<blockquote>
+<p>把选块顺序从p-1, p-2…0, 改成了0, 1, 2…p-1. 这样有个好处就是最后double_expand的时候可以直接从FLAGS_p往后添加块了.</p>
+</blockquote>
+<p>然后写着写着突然想看看学学Effective C++和Effective STL了. 于是去网上瞎逛, 又浪费了一个上午…</p>
+<h2 id="03-29-周三-阴"><a href="#03-29-周三-阴" class="headerlink" title="03.29 周三 阴"></a>03.29 周三 阴</h2><p>今天一整天基本都在搞毕设. 忙活一整天下来, 总结一下就是搞了以下几个东西:</p>
+<ol>
+<li>追踪了每条边的分配, one of 正确性验证</li>
+<li>加入了边平衡性的检查, one of 正确性验证</li>
+<li>加入了合并时分区间是否有交集的检查, one of 正确性验证</li>
+</ol>
+<p>然而等全部写完, 并且收集完实验数据之后, 才发现边平衡性原来出了问题… 想了想, 哦, 原来合并的时候只能俩俩合并, 不能说有些桶里只有一个块, 有些桶三个块, 感觉上是真的寄了啊. 于是赶紧把代码注释掉一行, 重新跑了全部实验. 好在效果差的不太多, 该差的还是很差hhh.</p>
+<p>今天吃饭的时候都看了<code>Charlotte</code>, 看到有宇的妹妹因为被小混混威胁 + 自身崩坏的能力挂了, 有宇就直接黑化一蹶不振. 最后被奈绪救回来. 奈绪带男主去听演唱会, 男主突然找到缺失的一部分记忆. 从此决定去找找哥哥隼</p>
+<p>晚上实在是想摆了, 但是啥都不想看, 啥都不想玩. 只能打开<code>Limbo</code>来刷刷全成就, 对着B站的攻略刷了半个小时, 刷完隐藏关卡之后才发现成就进度11&#x2F;13. 点进去未完成成就, 竟然有个成就是5条命内通关全部, 完成的人只有0.1%. 果断把游戏给卸了hh.</p>
+<p>到10点多, 我又开始对着实验结果发愁, 光按照这个指标来说, 我感觉在实际任务上超过NE和HEP的几率不是很大… 仔细想了想我又觉得点平衡性参数里更加重要的是max &#x2F; avg, 毕竟每一个iteration的时长应该都取决最慢的那个分区. 所以变异系数感觉对于任务效果的表现力应该不如max &#x2F; avg那么大. 好烦好烦啊啊啊. 于是向郑老师求助了一波, 老师也答应明早10点讨论下.</p>
+<h2 id="03-30-周四-晴"><a href="#03-30-周四-晴" class="headerlink" title="03.30 周四 晴"></a>03.30 周四 晴</h2><p>早上九点下床, 十点开始跟老师讨论实验进度和接下来的对策. 目前主要遇到的问题就是: 点平衡性的max &#x2F; avg下不来… 对策的话总结下来就是以下几点:</p>
+<ol>
+<li>尝试把一些点在分区之间转移. 即把点数大的块分一些点到小的块上. 但是会损失边平衡性</li>
+<li>把k调大, 因为目前最后split阶段, k默认&#x3D;2. 我的直觉告诉我这会造成复制因子的暴增</li>
+<li>大体框架沿(chao)用(xi)HEP. 即对高度数点和低度数点用HDRF和NE进行划分. NE部分换成现在的尝试5</li>
+</ol>
+<p>中午吃饭看了<code>Charlotte</code>第10话, 男主找到了他拥有穿越时空能力的哥哥隼, 然后有宇掠夺了隼的能力, 穿越回妹妹步未回学校前一天, 把妹妹的崩坏能力掠夺了, 然后又在小混混手下救下了妹妹.</p>
+<p>中午睡醒起来又得去院楼毕设打卡, 不过还好天气还不错, 下午走在路上也感觉没那么冷了. 回来的时候去荫马塘做了10*双杠臂屈伸 + 10个引体向上. 想再来做第二组, 发现已经没剩下啥力气了… 第二组只能做4个双杠臂屈伸, 是真的难顶hh.</p>
+<p>回来看了看空空如也的邮箱, 心里是真的难受, 我就想去实习下, 都是申请的那种研究岗位, 可是没有一封回复信hhh. 发呆了一会就干饭了.</p>
+<p>晚饭直接把<code>Charlotte</code>第11~13话都看完了. 主要就是说隼翼组织的司机受到反派威胁, 把友利和熊耳(就那个浑身湿透能追踪能力者的人)抓起来了, 然后有宇只身前往, 结果熊耳寄了. 有宇在友利的建议下选择跑遍全世界, 把所有能力者的能力都吸收掉, 以此来保护他们. 到后面周游世界, 吸收了一堆能力之后是真的挺尬的hhh, 就挺像火影疾风传第二次忍界大战那会一样, 有一种战力崩坏的美. 总的来说还算是Good Ending 8. 评分的话我给9.7. 打算明天再把<code>Charlotte</code>的SP看完, 后天就到4月了, 可以看&lt;四谎&gt;了</p>
+<p>晚上我照着对策2改了改代码, 其实挺容易改. 跑了下结果. 芜湖! 感觉还行诶. 大概就是以下这样:</p>
+<table>
+<thead>
+<tr>
+<th>点平衡 &#x2F; 复制因子</th>
+<th>尝试5 -k 2</th>
+<th>尝试5 -k 3</th>
+<th>尝试5 -k 4</th>
+<th>HEP-1</th>
+<th>HEP-10</th>
+<th>HEP-100</th>
+<th>NE</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Flickr(-round 0, 1.25)</td>
+<td>2.9481 &#x2F; 0.502106 &#x2F; 1.67129</td>
+<td>2.01713 &#x2F; 0.310466 &#x2F; 1.75087</td>
+<td>1.64356 &#x2F; 0.238927 &#x2F; 1.78978</td>
+<td>1.34667 &#x2F; 0.18103 &#x2F; 1.99497</td>
+<td>2.84698 &#x2F;  0.58959 &#x2F;  1.86156</td>
+<td>4.36106 &#x2F; 0.78329 &#x2F; 1.71191</td>
+<td>5.75499 &#x2F; 0.983405 &#x2F; 1.58445</td>
+</tr>
+<tr>
+<td>pokec</td>
+<td>1.19651 &#x2F; 0.107321 &#x2F; 2.5574</td>
+<td></td>
+<td></td>
+<td>1.18711 &#x2F; 0.104949 &#x2F; 4.09252</td>
+<td>1.45267 &#x2F; 0.193644 &#x2F; 2.37787</td>
+<td>1.44878 &#x2F; 0.200215 &#x2F; 2.32288</td>
+<td>1.51142 &#x2F; 0.204164 &#x2F; 2.32316</td>
+</tr>
+<tr>
+<td>friendster_mini</td>
+<td>2.10636 &#x2F; 0.404421 &#x2F; 1.38031</td>
+<td>1.51315 &#x2F; 0.215674 &#x2F; 1.42383</td>
+<td>1.29898 &#x2F; 0.127499 &#x2F; 1.46265</td>
+<td>1.48519 &#x2F; 0.153918 &#x2F; 1.88687</td>
+<td>2.37839 &#x2F; 0.391628 &#x2F; 1.50684</td>
+<td>3.99433 &#x2F; 0.786431 &#x2F; 1.30828</td>
+<td>4.00521 &#x2F; 0.786431 &#x2F; 1.30592</td>
+</tr>
+<tr>
+<td>LiveJournal</td>
+<td>1.1505 &#x2F; 0.0730565 &#x2F; 1.66522</td>
+<td></td>
+<td></td>
+<td></td>
+<td>1.28244 &#x2F; 0.28525 &#x2F; 1.72622</td>
+<td>1.31918 &#x2F; 0.29089   &#x2F; 1.56135</td>
+<td>1.32731 &#x2F; 0.299748 &#x2F; 1.57191</td>
+</tr>
+<tr>
+<td>orkut(-round 3, 1.25)</td>
+<td>1.15136 &#x2F; 0.07300 &#x2F; 2.68283</td>
+<td></td>
+<td></td>
+<td></td>
+<td>1.22523 &#x2F; 0.16664 &#x2F; 2.87311</td>
+<td>1.31264 &#x2F; 0.1844 &#x2F; 2.50675</td>
+<td>1.30823 &#x2F; 0.17113 &#x2F; 2.51108</td>
+</tr>
+<tr>
+<td>orkut big(跟HEP论文不是同一个数据集)</td>
+<td></td>
+<td>2.44573 &#x2F; 0.328861 &#x2F; 2.87441</td>
+<td></td>
+<td>1.37673 &#x2F; 0.128226 &#x2F; 3.49912</td>
+<td>2.30367 &#x2F; 0.411939 &#x2F; 2.93919</td>
+<td>5.44129 &#x2F; 0.955494 &#x2F; 2.22548</td>
+<td>5.41935 &#x2F; 0.948575 &#x2F; 2.23474</td>
+</tr>
+<tr>
+<td>Wikipedia</td>
+<td>1.14254 &#x2F; 0.082909 &#x2F; 1.61386</td>
+<td></td>
+<td></td>
+<td>1.16362 &#x2F; 0.145142 &#x2F; 2.20316</td>
+<td>1.48398 &#x2F; 0.29177 &#x2F; 1.58819</td>
+<td>1.43262 &#x2F; 0.26002 &#x2F; 1.5015</td>
+<td>1.39854 &#x2F; 0.254808 &#x2F; 1.4999</td>
+</tr>
+<tr>
+<td>twitter</td>
+<td>3.08953 &#x2F; 0.415019 &#x2F; 1.61932</td>
+<td>2.41878 &#x2F; 0.288194 &#x2F; 1.64963</td>
+<td>1.98601 &#x2F; 0.220865 &#x2F; 1.68786</td>
+<td>1.27907 &#x2F; 0.162753 &#x2F; 1.95498</td>
+<td>2.6003 &#x2F; 0.374952 &#x2F; 1.68446</td>
+<td>2.24783 &#x2F; 0.361768 &#x2F; 1.53564</td>
+<td>5.37025 &#x2F; 0.826788 &#x2F; 1.48832</td>
+</tr>
+<tr>
+<td>it-2004(-round 5, 1.25)</td>
+<td>1.85107 &#x2F; 0.22373 &#x2F; 1.0787</td>
+<td>1.33886 &#x2F; 0.136391 &#x2F; 1.06624</td>
+<td>1.17596 &#x2F; 0.0752637 &#x2F; 1.11086 (edge balance: 1.02442)</td>
+<td>1.27731 &#x2F; 0.19878 &#x2F; 1.2172</td>
+<td>1.71589 &#x2F; 0.38784 &#x2F; 1.09575</td>
+<td>2.37903 &#x2F; 0.428073 &#x2F; 1.06285</td>
+<td>3.245 &#x2F; 0.568176 &#x2F; 1.04482</td>
+</tr>
+<tr>
+<td>sinaweibo(-round 5, 1.25)</td>
+<td>1.59702 &#x2F; 0.3188 &#x2F; 1.06843</td>
+<td>1.17168 &#x2F; 0.101349 &#x2F; 1.07115</td>
+<td></td>
+<td>1.71819 &#x2F; 0.263641 &#x2F; 1.14221</td>
+<td>2.8689 &#x2F; 0.651315 &#x2F; 1.10154</td>
+<td>3.06843 &#x2F; 0.699459 &#x2F; 1.0565</td>
+<td>2.96213 &#x2F; 0.721086 &#x2F; 1.04583</td>
+</tr>
+</tbody></table>
+<p>向郑老师汇报了之后, 我明确表达了自己对于正确性的怀疑, 打算明天搞个大检查看看hh.</p>
+<h2 id="03-31-周五-晴"><a href="#03-31-周五-晴" class="headerlink" title="03.31 周五 晴"></a>03.31 周五 晴</h2><p>中午吃饭看<code>Charlotte</code> SP的P14.</p>
+<p>下午在研究到底选哪个图计算框架来跑任务, 我看到的有好多的说: giraph(不知道是不是这么拼的), Gemini(thu大佬写的), powergraph(MPI), graphx(spark). 4篇论文里两篇是powergraph, 两篇是graphx. yysy我挺反感spark, hadoop生态的, 其实是因为我之前学过没学懂, 而且他们都是Java写的, 我对Java实在是没啥好感hhh. 说到Java, 我就想起&lt;编程新技术实务&gt;这门课, 我基本全称都是copy的github上的项目, Java可以说是只会一个”sout”.</p>
+<p>先是想试试graphx, 然后spark不会, start-all启动失败, 寄.</p>
+<p>然后晚上我查了查powergraph, 用mpi的可能好弄些. 但是hostname 好像一样是要多个ip, 寄</p>
+<p>好像可以用docker来实现类似伪分布式之类的, 但是不会, 寄.</p>
+<h2 id="04-01-周六-晴"><a href="#04-01-周六-晴" class="headerlink" title="04.01 周六 晴"></a>04.01 周六 晴</h2><p>四月终于来了, 今天气温感觉又回升了些了. 早上还是在查能不能用一台机器, 用docker来搞类似伪分布式的环境. 但是我docker完全不会. 哎, 这些基本功都没咋学过, 感觉是时候集中精力冲一波大电了.</p>
+<p>早上想去搞一个真正的twitter-2010数据集, 之前下载的貌似不是完整版. 然后我去webgraph他们网站, 发现得安装他们的webgraph包. 无语了, java的东西, 整个上午都在搞这个包.</p>
+<p>下午睡醒, 下床对着电脑网页发呆, 突然又想找找IT2004”偏斜度”的指标, 或者说目前算法能优化点平衡性的前提. 想起来webgraph网站上对于数据集有一些图表描述, 于是就打开了IT-2004和livejournal的对比了下. 发现</p>
+<h2 id="04-02-周日-晴"><a href="#04-02-周日-晴" class="headerlink" title="04.02 周日 晴"></a>04.02 周日 晴</h2><p>早上一起来, 就发现昨晚睡前跑的uk-2007-05崩溃了… 重新跑了下, 发现光是载入全图, 内存就用了80+G. 好像得优化下算法了, 由于目前NE会对原edges进行修改, 所以我目前多加了个edges_backup, 导致内存占用差不多翻了一倍.</p>
+<p>验证了下(vector) a &#x3D; b 会不会把b.capacity也赋给a, 还是说只会把b.size给a, 验证代码如下:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">solve</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">a</span><span class="hljs-params">(<span class="hljs-number">10000</span>)</span>, <span class="hljs-title">b</span><span class="hljs-params">(<span class="hljs-number">10000</span>)</span></span>;<br>    cerr &lt;&lt; a.<span class="hljs-built_in">size</span>() &lt;&lt; <span class="hljs-string">&#x27; &#x27;</span> &lt;&lt; a.<span class="hljs-built_in">capacity</span>() &lt;&lt; <span class="hljs-string">&#x27;\n&#x27;</span>;<br>    cerr &lt;&lt; b.<span class="hljs-built_in">size</span>() &lt;&lt; <span class="hljs-string">&#x27; &#x27;</span> &lt;&lt; b.<span class="hljs-built_in">capacity</span>() &lt;&lt; <span class="hljs-string">&#x27;\n&#x27;</span>;<br>    <span class="hljs-keyword">while</span> (a.<span class="hljs-built_in">size</span>() &gt; <span class="hljs-number">1000</span>) a.<span class="hljs-built_in">pop_back</span>();<br>    a.<span class="hljs-built_in">shrink_to_fit</span>();<br>    cerr &lt;&lt; a.<span class="hljs-built_in">size</span>() &lt;&lt; <span class="hljs-string">&#x27; &#x27;</span> &lt;&lt; a.<span class="hljs-built_in">capacity</span>() &lt;&lt; <span class="hljs-string">&#x27;\n&#x27;</span>;<br>    b = a;<br>    cerr &lt;&lt; b.<span class="hljs-built_in">size</span>() &lt;&lt; <span class="hljs-string">&#x27; &#x27;</span> &lt;&lt; b.<span class="hljs-built_in">capacity</span>() &lt;&lt; <span class="hljs-string">&#x27;\n&#x27;</span>;<br>    b.<span class="hljs-built_in">shrink_to_fit</span>();<br>    cerr &lt;&lt; b.<span class="hljs-built_in">size</span>() &lt;&lt; <span class="hljs-string">&#x27; &#x27;</span> &lt;&lt; b.<span class="hljs-built_in">capacity</span>() &lt;&lt; <span class="hljs-string">&#x27;\n&#x27;</span>;<br>&#125;<br><span class="hljs-comment">// 10000 10000</span><br><span class="hljs-comment">// 10000 10000</span><br><span class="hljs-comment">// 1000 1000</span><br><span class="hljs-comment">// 1000 10000</span><br><span class="hljs-comment">// 1000 1000</span><br></code></pre></td></tr></table></figure>
+
+<p>结果还真是只把size给了a, 看来还得加上个shrink_to_fit()才行啊hh.</p>
+<p>下午晚上都在思考如何才能减少内存使用量. 下午想到的首先是把edges和edges_backup两个占内存大头的vector<edge_t>删掉其中一个, 然后再通过在struct edge_t里补充一个bool来做边的标记, 这样就可以通过一个struct来完成任务.</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">edge_t</span> &#123;<br>    <span class="hljs-type">bool</span> valid;<br>    <span class="hljs-type">uint32_t</span> first, second;<br>&#125; __attributed__((pakced)) ;<br><br></code></pre></td></tr></table></figure>
+
+<p>考虑到内存对齐的reserved bit会导致内存占用变大, 所以加上了__attributed__((pakced)), 然而这样可能又会对性能有很大影响… 再三思考下, 决定舍弃原本(1 &lt;&lt; 32) - 1的数据范围, 留出1 &lt;&lt; 31的数据范围用作valid标识. 效果如下:</p>
+<p>Memory Overhead(it-2004)</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>原版本</th>
+<th>4.2优化</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>it-2004</td>
+<td>43.982g</td>
+<td>23.713g</td>
+</tr>
+</tbody></table>
+<p>终于可以愉快地跑uk-2007-05了, 毕竟webgraph上的统计特征显示这张图也是有大批度数相近的高度数节点的, 挺期待效果的hhh.</p>
+<p>晚上和rcpd病友王xh打了电话, 我从电话中得知她之前打过一针, 并且似乎没打准, 打到声带了. 上个月她又去了次, 打完后起初有效, 可是前几天又不会打了. 我们讨论到了窦教授和Bastian打针手段的不同点, 由于窦教授是通过超声定位, 从脖子注射的; 而Bastian是直接通过喉镜注射, 确实从精度上来看可能会没那么好. 她跟我谈到了去米国找Bastian打针, 我表示我将来的最终治疗是将环咽肌切开. 她似乎也正在经历我中学到大二那8年的痛苦, 于是我说至少现在已经清楚了病因和治疗方案, rcpd也会逐渐被普及, 接下来交给时间就好了.</p>
+<p>令我倍感欣慰的是, 我得知我的经历和帖子给她和其他十几位病友带来了福音. 我也再次为自己的这段经历感到自豪, 毕竟此生最大的成就, 或者说给世界最大的贡献就是作为国内第一人接收了治疗, 并且传播了这个治疗方法.</p>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>回忆于：03.29日22点30分 &amp;&amp; 03.30日晚22点30分<br>BGM: &lt;四月是你的谎言&gt; OP &amp;&amp; ED &amp;&amp; OST</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%97%A5%E5%B8%B8/" class="category-chain-item">日常</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>周记 - 2023 03.27-04.02</div>
+      <div>https://lcj2021.github.io/2023/03/29/周记 - 2023 03.27-04.02/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Channing Lau</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年3月29日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/04/03/%E5%91%A8%E8%AE%B0%20-%202023%2004.03-04.09/" title="周记 - 2023 04.03-04.09">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">周记 - 2023 04.03-04.09</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/03/22/%E5%91%A8%E8%AE%B0%20-%202023%2003.20-03.26/" title="周记 - 2023 03.20-03.26">
+                        <span class="hidden-mobile">周记 - 2023 03.20-03.26</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

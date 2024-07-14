@@ -1,0 +1,694 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Channing Lau">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="C题意一个$r \times c (r, c\in [1, 9])$二维平面S. 元素S[i][j]是’#’或者’.’, 找出这个平面上所有四个顶点都是’#’的正方形数. 如 123456789##.......##.......................#......#...........#......#....................  具有顶点 (1,1)、(1,2)、(2,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="题解 - AtCoder Beginner Contest 275 A-F">
+<meta property="og:url" content="https://lcj2021.github.io/2022/11/04/%E9%A2%98%E8%A7%A3%20-%20AtCoder%20Beginner%20Contest%20275%20A-F/index.html">
+<meta property="og:site_name" content="ChanningLau&#39;s harbour">
+<meta property="og:description" content="C题意一个$r \times c (r, c\in [1, 9])$二维平面S. 元素S[i][j]是’#’或者’.’, 找出这个平面上所有四个顶点都是’#’的正方形数. 如 123456789##.......##.......................#......#...........#......#....................  具有顶点 (1,1)、(1,2)、(2,">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-11-03T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-04-21T08:24:57.417Z">
+<meta property="article:author" content="Channing Lau">
+<meta property="article:tag" content="算法_DP">
+<meta property="article:tag" content="算法_实现">
+<meta property="article:tag" content="算法_搜索">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>题解 - AtCoder Beginner Contest 275 A-F - ChanningLau&#39;s harbour</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lcj2021.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>ChanningLau&#39;s harbour</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="题解 - AtCoder Beginner Contest 275 A-F"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-11-04 00:00" pubdate>
+          2022年11月4日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          14 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">题解 - AtCoder Beginner Contest 275 A-F</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="C"><a href="#C" class="headerlink" title="C"></a>C</h2><h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><p>一个$r \times c (r, c\in [1, 9])$二维平面S. 元素<code>S[i][j]</code>是’#’或者’.’, 找出这个平面上所有四个顶点都是’#’的正方形数.</p>
+<p>如</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs txt">##.......<br>##.......<br>.........<br>.......#.<br>.....#...<br>........#<br>......#..<br>.........<br>.........<br></code></pre></td></tr></table></figure>
+
+<p>具有顶点 (1,1)、(1,2)、(2,2) 和 (2,1) 的正方形在所有四个顶点都放置了棋子.</p>
+<p>具有顶点 (4,8)、(5,6)、(7,7) 和 (6,9) 的正方形也有放置在所有四个顶点的棋子.</p>
+<p>因此, 答案是 2.</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>枚举正方形两个顶点, 确定一条向量. 再通过旋转这条向量, 得到其他两个点的坐标.</p>
+<p>向量<code>[x, y]</code>顺时针旋转90°: <code>[y, -x]</code></p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">rot</span><span class="hljs-params">(array&lt;<span class="hljs-type">int</span>, <span class="hljs-number">2</span>&gt; &amp; v)</span> </span>&#123;<br>    <span class="hljs-keyword">auto</span> [x, y] = v;<br>    v = &#123;y, -x&#125;;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">check</span><span class="hljs-params">(<span class="hljs-type">int</span> x, <span class="hljs-type">int</span> y)</span> </span>&#123;<br>    <span class="hljs-keyword">return</span> x &gt;= <span class="hljs-number">1</span> &amp;&amp; x &lt;= <span class="hljs-number">9</span> &amp;&amp; y &gt;= <span class="hljs-number">1</span> &amp;&amp; y &lt;= <span class="hljs-number">9</span>;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">solve</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt;= <span class="hljs-number">9</span>; ++ i)<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = <span class="hljs-number">1</span>; j &lt;= <span class="hljs-number">9</span>; ++ j) <br>            cin &gt;&gt; g[i][j];<br><br>    cerr &lt;&lt; g[<span class="hljs-number">5</span>][<span class="hljs-number">5</span>] &lt;&lt; endl;<br>    cerr &lt;&lt; g[<span class="hljs-number">5</span>][<span class="hljs-number">7</span>] &lt;&lt; endl;<br><br>    set&lt;set&lt;array&lt;<span class="hljs-type">int</span>, 2&gt;&gt;&gt; S;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> ci = <span class="hljs-number">1</span>; ci &lt;= <span class="hljs-number">9</span>; ++ ci) <br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> cj = <span class="hljs-number">1</span>; cj &lt;= <span class="hljs-number">9</span>; ++ cj) &#123;<br>            <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> ni = <span class="hljs-number">1</span>; ni &lt;= <span class="hljs-number">9</span>; ++ ni) &#123;<br>                <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> nj = <span class="hljs-number">1</span>; nj &lt;= <span class="hljs-number">9</span>; ++ nj) <br>                    <span class="hljs-keyword">if</span> (!(ni == ci &amp;&amp; nj == cj) &amp;&amp; g[ci][cj] == <span class="hljs-string">&#x27;#&#x27;</span> &amp;&amp; g[ni][nj] == <span class="hljs-string">&#x27;#&#x27;</span>) &#123;<br>                        array&lt;<span class="hljs-type">int</span>, 2&gt; v = &#123;ni - ci, nj - cj&#125;;<br>                        <span class="hljs-built_in">rot</span>(v);<br>                        <span class="hljs-type">int</span> i3 = ni + v[<span class="hljs-number">0</span>], j3 = nj + v[<span class="hljs-number">1</span>];<br>                        <span class="hljs-built_in">rot</span>(v);<br>                        <span class="hljs-type">int</span> i4 = i3 + v[<span class="hljs-number">0</span>], j4 = j3 + v[<span class="hljs-number">1</span>];<br>                        <span class="hljs-comment">// if (ci == 5 &amp;&amp; cj == 5 &amp;&amp; ni == 5 &amp;&amp; nj == 7)   cerr &lt;&lt; &quot;!!!&quot; &lt;&lt; endl;</span><br>                        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">check</span>(i3, j3) &amp;&amp; <span class="hljs-built_in">check</span>(i4, j4)<br>                        &amp;&amp; g[i3][j3] == <span class="hljs-string">&#x27;#&#x27;</span> &amp;&amp; g[i4][j4] == <span class="hljs-string">&#x27;#&#x27;</span>) &#123;<br>                            <span class="hljs-comment">// cerr &lt;&lt; ci &lt;&lt; &#x27; &#x27; &lt;&lt; cj &lt;&lt; &#x27; &#x27; &lt;&lt; ni &lt;&lt; &#x27; &#x27; &lt;&lt; nj &lt;&lt; &#x27; &#x27; &lt;&lt; i3 &lt;&lt; &#x27; &#x27; &lt;&lt; j3 &lt;&lt; endl;</span><br>                            set&lt;array&lt;<span class="hljs-type">int</span>, 2&gt;&gt; s;<br>                            s.<span class="hljs-built_in">insert</span>(&#123;ci, cj&#125;);<br>                            s.<span class="hljs-built_in">insert</span>(&#123;ni, nj&#125;);<br>                            s.<span class="hljs-built_in">insert</span>(&#123;i3, j3&#125;);<br>                            s.<span class="hljs-built_in">insert</span>(&#123;i4, j4&#125;);<br>                            S.<span class="hljs-built_in">insert</span>(s);<br>                        &#125;<br>                    &#125;   <br>            &#125;<br>        &#125;<br>    cerr &lt;&lt; S.<span class="hljs-built_in">size</span>() &lt;&lt; endl;<br>    cout &lt;&lt; S.<span class="hljs-built_in">size</span>() &lt;&lt; endl;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="D"><a href="#D" class="headerlink" title="D"></a>D</h2><h3 id="题意-1"><a href="#题意-1" class="headerlink" title="题意"></a>题意</h3><p>为非负整数 x 定义的函数 f(x) 满足以下条件：</p>
+<ul>
+<li><p>$f(0) &#x3D; 1$</p>
+</li>
+<li><p>$f(k) &#x3D; f(\lfloor \frac{k}{2}\rfloor) + f(\lfloor \frac{k}{3}\rfloor)$ 对于任何正整数 k</p>
+</li>
+</ul>
+<p>然后找到 $f(N), N\in[0, 1^{18}]$.</p>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>最多需要$log_2n \times log_3n$这么多个数的f值. 标准记搜</p>
+<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-type">int</span> n;<br><br>unordered_map&lt;<span class="hljs-type">int</span>, <span class="hljs-type">int</span>&gt; dp;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">dfs</span><span class="hljs-params">(<span class="hljs-type">int</span> u)</span> </span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">if</span> (dp.<span class="hljs-built_in">count</span>(u))    <span class="hljs-keyword">return</span> dp[u];<br>    <span class="hljs-keyword">return</span> dp[u] = <span class="hljs-built_in">dfs</span>(u / <span class="hljs-number">2</span>) + <span class="hljs-built_in">dfs</span>(u / <span class="hljs-number">3</span>);<br>&#125;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">solve</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    cin &gt;&gt; n;<br>    dp[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>;<br>    cout &lt;&lt; <span class="hljs-built_in">dfs</span>(n) &lt;&lt; endl;<br>    cerr &lt;&lt; dp.<span class="hljs-built_in">size</span>() &lt;&lt; endl;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="E"><a href="#E" class="headerlink" title="E"></a>E</h2><h3 id="题意-2"><a href="#题意-2" class="headerlink" title="题意"></a>题意</h3><p>一个一维的棋盘上有 N + 1 个格子, 下标从 0 到 N , 玩家要从 0 这个点出发, 前往 N 这个点. 每个回合玩家都要扔一个 M 面的骰子, 每个骰面上都有不同的数字, 值域是 $[1, M]$ , 扔出每个面的概率都是 $\frac{1}{M}$ . 玩家需要根据要出来的骰面前进, 如果预计前进之后走出了棋盘, 就需要退回多走出的步数, 如果在终点停了下来, 游戏就胜利了, 不能再扔骰子. 问 K 回合后, 玩家胜利的概率. 将结果对 998244353 取模.</p>
+<p>$0 \le M \le N \le 1000, M \in [1, 10], K \in [1, 1000]$ .</p>
+<h2 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h2><p>令 <code>dp[i][j]</code> 为扔第 j 次骰子后, 玩家到达下标为 i 的格子的概率.</p>
+<p>对于每一个 <code>dp[i][j]</code>  $dp[next_i][j + 1] &#x3D; dp[i][j] \times \frac{1}{M}$. 注意如果走出了棋盘, 要特殊讨论停下来的下标.</p>
+<p>已经到达终点n的状态<code>[n][j]</code>不用再向<code>[next_i][j + 1]</code>转移了</p>
+<h3 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-type">const</span> <span class="hljs-type">int</span> N = <span class="hljs-number">1000</span> + <span class="hljs-number">10</span>, mod = <span class="hljs-number">998244353</span>;<br><span class="hljs-type">int</span> n, m, k;<br><span class="hljs-type">int</span> dp[N][N];       <span class="hljs-comment">// 到达第i格, 共走了j步的所有情况之和</span><br><span class="hljs-comment">// 已经到达n的情况: dp[n][j] 要分开算, += dp[n][j-1]</span><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">qmi</span><span class="hljs-params">(<span class="hljs-type">int</span> a, <span class="hljs-type">int</span> k)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-type">int</span> res = <span class="hljs-number">1</span> % mod;<br>    <span class="hljs-keyword">while</span> (k) &#123;<br>        <span class="hljs-keyword">if</span> (k &amp; <span class="hljs-number">1</span>) res = res * a % mod;<br>        a = a * a % mod;<br>        k &gt;&gt;= <span class="hljs-number">1</span>;<br>    &#125;<br>    <span class="hljs-keyword">return</span> res;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">solve</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    cin &gt;&gt; n &gt;&gt; m &gt;&gt; k;<br>    dp[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>;<br>    <span class="hljs-type">int</span> m_1 = <span class="hljs-built_in">qmi</span>(m , mod - <span class="hljs-number">2</span>);<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; k; ++ j) &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; ++ i) &#123;<br>            <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> len = <span class="hljs-number">1</span>; len &lt;= m; ++ len) &#123;<br>                <span class="hljs-type">int</span> ni = i + len;<br>                <span class="hljs-keyword">if</span> (ni &gt; n) &#123;<br>                    ni = n - (ni - n);<br>                &#125;<br>                <span class="hljs-comment">// if (next_i &lt;= i) &#123;</span><br>                <span class="hljs-comment">//     cerr &lt;&lt; i &lt;&lt; &#x27; &#x27; &lt;&lt; len &lt;&lt; &#x27; &#x27; &lt;&lt; next_i &lt;&lt; endl;</span><br>                <span class="hljs-comment">// &#125;</span><br>                dp[ni][j + <span class="hljs-number">1</span>] += (dp[i][j] * m_1) % mod;<br>                dp[ni][j + <span class="hljs-number">1</span>] %= mod;<br><br>            &#125;<br>        &#125;<br>        dp[n][j + <span class="hljs-number">1</span>] += dp[n][j];<br>        dp[n][j + <span class="hljs-number">1</span>] %= mod;<br>    &#125;<br>    cerr &lt;&lt; dp[n][k] &lt;&lt; endl;<br>    cout &lt;&lt; dp[n][k] &lt;&lt; endl;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="F"><a href="#F" class="headerlink" title="F"></a>F</h2><h3 id="题意-3"><a href="#题意-3" class="headerlink" title="题意"></a>题意</h3><p>给定一个数组 A , 定义一次操作的内容是, 删除 A 中一段连续的序列.</p>
+<p>问对于 1, 2, …, M 中的每个数 s , 分别至少要操作多少次,  才能使得 A 中剩下的数和为 s , 如果不可能就输出 -1 .</p>
+<p>$0 \le N \le M \le 3000,  1 \le a_i \le 3000$</p>
+<h3 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h3><p>数组分段式的DP, 用一个维度表示当前元素是否在分段中</p>
+<p><code>dp[N][N][2]</code>: 前i个数, 构成总和为j, 且第i个数是否在总和中</p>
+<p>如果a[i]不计入总和: <code>dp[i][j][0] = min(&#123;dp[i][j][0], dp[i - 1][j][0], dp[i - 1][j][1] + 1&#125;);</code></p>
+<p>如果a[i]计入总和: <code>dp[i][j][1] = min(&#123;dp[i][j][1], dp[i - 1][j - a[i]][0], dp[i - 1][j - a[i]][1]&#125;);</code></p>
+<h3 id="代码-3"><a href="#代码-3" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-type">const</span> <span class="hljs-type">int</span> N = <span class="hljs-number">3e3</span> + <span class="hljs-number">10</span>;<br><span class="hljs-type">int</span> n, m;<br><span class="hljs-type">int</span> a[N];<br><span class="hljs-type">int</span> dp[N][N][<span class="hljs-number">2</span>];            <span class="hljs-comment">// 前i个数, 构成总和为j, 且第i个数是否在总和中</span><br><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">solve</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    cin &gt;&gt; n &gt;&gt; m;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; ++ i)   cin &gt;&gt; a[i];<br><br>    <span class="hljs-built_in">memset</span>(dp, <span class="hljs-number">0x3f</span>, <span class="hljs-keyword">sizeof</span> dp);<br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; ++ i)   dp[i][<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>;<br>    dp[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>][<span class="hljs-number">1</span>] = <span class="hljs-number">0</span>;<br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; ++ i) &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = <span class="hljs-number">1</span>; j &lt;= m; ++ j) &#123;<br>            dp[i][j][<span class="hljs-number">0</span>] = <span class="hljs-built_in">min</span>(&#123;dp[i][j][<span class="hljs-number">0</span>], dp[i - <span class="hljs-number">1</span>][j][<span class="hljs-number">0</span>], dp[i - <span class="hljs-number">1</span>][j][<span class="hljs-number">1</span>] + <span class="hljs-number">1</span>&#125;);<br>            <span class="hljs-keyword">if</span> (j - a[i] &gt;= <span class="hljs-number">0</span>) &#123;<br>                dp[i][j][<span class="hljs-number">1</span>] = <span class="hljs-built_in">min</span>(&#123;dp[i][j][<span class="hljs-number">1</span>], dp[i - <span class="hljs-number">1</span>][j - a[i]][<span class="hljs-number">0</span>], dp[i - <span class="hljs-number">1</span>][j - a[i]][<span class="hljs-number">1</span>]&#125;);<br>            &#125;<br>        &#125;<br>    &#125;<br>    <span class="hljs-comment">// cerr &lt;&lt; dp[n][2][0] &lt;&lt; &#x27; &#x27; &lt;&lt; dp[n][2][1] &lt;&lt; endl;</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = <span class="hljs-number">1</span>; j &lt;= m; ++ j) &#123;<br>        <span class="hljs-type">int</span> ans = <span class="hljs-built_in">min</span>(&#123;dp[n][j][<span class="hljs-number">0</span>], dp[n][j][<span class="hljs-number">1</span>]&#125;);<br>        <span class="hljs-keyword">if</span> (ans &gt; <span class="hljs-number">0x3f3f3f3f3f3f3f3f</span> / <span class="hljs-number">2</span>)   ans = <span class="hljs-number">-1</span>;<br>        cout &lt;&lt; ans &lt;&lt; endl;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="评价"><a href="#评价" class="headerlink" title="评价"></a>评价</h2><p>这次题目总体比较简单, 但是由于概率dp的短板, 导致赛时只做出了A-D, Rank 1600+. 事实上我认为F作为蓝题DP也是比较简单的</p>
+<p>C 模拟 + 向量旋转</p>
+<p>D 记忆化搜索</p>
+<p>E 概率DP</p>
+<p>F DP + 数组划分 &#x2F; 选取子段</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E9%A2%98%E8%A7%A3/" class="category-chain-item">题解</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E7%AE%97%E6%B3%95-DP/" class="print-no-link">#算法_DP</a>
+      
+        <a href="/tags/%E7%AE%97%E6%B3%95-%E5%AE%9E%E7%8E%B0/" class="print-no-link">#算法_实现</a>
+      
+        <a href="/tags/%E7%AE%97%E6%B3%95-%E6%90%9C%E7%B4%A2/" class="print-no-link">#算法_搜索</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>题解 - AtCoder Beginner Contest 275 A-F</div>
+      <div>https://lcj2021.github.io/2022/11/04/题解 - AtCoder Beginner Contest 275 A-F/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Channing Lau</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年11月4日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/11/06/%E5%91%A8%E8%AE%B0%20-%202022%2010.31-11.06%20(XCPC%E6%9C%80%E9%81%97%E6%86%BE%E7%9A%84%E4%B8%80%E9%9B%86)/" title="周记 - 2022 10.31-11.06 (XCPC最遗憾的一集)">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">周记 - 2022 10.31-11.06 (XCPC最遗憾的一集)</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/11/03/%E9%A2%98%E8%A7%A3%20-%20AtCoder%20Beginner%20Contest%20192%20D-F/" title="题解 - AtCoder Beginner Contest 192 D-F">
+                        <span class="hidden-mobile">题解 - AtCoder Beginner Contest 192 D-F</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

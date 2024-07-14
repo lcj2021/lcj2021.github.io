@@ -1,0 +1,986 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Channing Lau">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="07.14Done：  [[笔记 - IR &amp; ODQA Wiki#SearchQA]] train+val的gt查询  [[笔记 - IR &amp; ODQA Wiki#WikiHop]] -train+val的gt查询  [[笔记 - IR &amp; ODQA Wiki#FreeBaseQA]] -train+val的gt查询  [[笔记 - IR &amp; ODQA Wiki#">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记录 - 混合检索框架探索">
+<meta property="og:url" content="https://lcj2021.github.io/2024/07/14/%E8%AE%B0%E5%BD%95%20-%20%E6%B7%B7%E5%90%88%E6%A3%80%E7%B4%A2%E6%A1%86%E6%9E%B6%E6%8E%A2%E7%B4%A2/index.html">
+<meta property="og:site_name" content="ChanningLau&#39;s harbour">
+<meta property="og:description" content="07.14Done：  [[笔记 - IR &amp; ODQA Wiki#SearchQA]] train+val的gt查询  [[笔记 - IR &amp; ODQA Wiki#WikiHop]] -train+val的gt查询  [[笔记 - IR &amp; ODQA Wiki#FreeBaseQA]] -train+val的gt查询  [[笔记 - IR &amp; ODQA Wiki#">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.picgo.net/2024/07/14/AdversarialQA-Val-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.128x64.lr-1e-36ba8e080efc37de6.png">
+<meta property="og:image" content="https://img.picgo.net/2024/07/14/AdversarialQA-Val-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.256x64.lr-1e-33413de33887b910c.png">
+<meta property="og:image" content="https://img.picgo.net/2024/07/14/AdversarialQA-Val-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.512x64.lr-1e-38a6c742b0e52100a.png">
+<meta property="og:image" content="https://img.picgo.net/2024/07/14/CuratedQA-Test-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.128x64.lr-1e-3227d95ffb4ed1cc6.png">
+<meta property="og:image" content="https://img.picgo.net/2024/07/14/CuratedQA-Test-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.256x64.lr-1e-36ad90251d3e45f17.png">
+<meta property="og:image" content="https://img.picgo.net/2024/07/14/CuratedQA-Test-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.512x64.lr-1e-3ddd4e461584e12bd.png">
+<meta property="og:image" content="https://img.picgo.net/2024/07/14/DROP-Val-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.128x64.lr-1e-39cf48530b01208ad.png">
+<meta property="og:image" content="https://img.picgo.net/2024/07/14/DROP-Val-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.256x64.lr-1e-3356c726058bf5111.png">
+<meta property="og:image" content="https://img.picgo.net/2024/07/14/DROP-Val-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.512x64.lr-1e-3f11af4db0a8a5d2d.png">
+<meta property="og:image" content="https://img.picgo.net/2024/07/14/FreeBaseQA-Eval-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.128x64.lr-1e-3f8a4f14ba2e091b7.png">
+<meta property="og:image" content="https://img.picgo.net/2024/07/14/FreeBaseQA-Eval-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.256x64.lr-1e-3c482a8a3389afdb0.png">
+<meta property="og:image" content="https://img.picgo.net/2024/07/14/FreeBaseQA-Eval-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.512x64.lr-1e-33b60172fbf8ccf61.png">
+<meta property="og:image" content="https://img.picgo.net/2024/07/14/NaturalQ-Test-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.128x64.lr-1e-31823fba1b7f82b7b.png">
+<meta property="og:image" content="https://img.picgo.net/2024/07/14/NaturalQ-Test-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.256x64.lr-1e-3a74563e5aa316399.png">
+<meta property="og:image" content="https://img.picgo.net/2024/07/14/NaturalQ-Test-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.512x64.lr-1e-36ac41230ca02a8e7.png">
+<meta property="og:image" content="https://img.picgo.net/2024/07/14/SearchQA-Val-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.128x64.lr-1e-3b7d4568bfa75c453.png">
+<meta property="og:image" content="https://img.picgo.net/2024/07/14/SearchQA-Val-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.256x64.lr-1e-3312dd6052879e0f0.png">
+<meta property="og:image" content="https://img.picgo.net/2024/07/14/SearchQA-Val-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.512x64.lr-1e-322cf4e0d3bd8c882.png">
+<meta property="og:image" content="https://img.picgo.net/2024/07/14/SQuAD-Test-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.128x64.lr-1e-36cf238fca387fdde.png">
+<meta property="og:image" content="https://img.picgo.net/2024/07/14/SQuAD-Test-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.256x64.lr-1e-395e98554c56d926c.png">
+<meta property="og:image" content="https://img.picgo.net/2024/07/14/SQuAD-Test-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.512x64.lr-1e-3413d8c8988e7248f.png">
+<meta property="og:image" content="https://img.picgo.net/2024/07/14/TriviaQA-Test-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.128x64.lr-1e-38887cbb4bec97453.png">
+<meta property="og:image" content="https://img.picgo.net/2024/07/14/TriviaQA-Test-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.256x64.lr-1e-3b2376a2cfd2b3e12.png">
+<meta property="og:image" content="https://img.picgo.net/2024/07/14/TriviaQA-Test-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.512x64.lr-1e-36a5fba8ee7b248f1.png">
+<meta property="og:image" content="https://img.picgo.net/2024/07/14/WebQ-Test-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.128x64.lr-1e-3f7bdce41935a2625.png">
+<meta property="og:image" content="https://img.picgo.net/2024/07/14/WebQ-Test-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.256x64.lr-1e-3486ab2bbaffa0f3b.png">
+<meta property="og:image" content="https://img.picgo.net/2024/07/14/WebQ-Test-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.512x64.lr-1e-33af7b13a0507de32.png">
+<meta property="og:image" content="https://img.picgo.net/2024/07/14/WikiHop-Val-100r-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.128x64.lr-1e-3189740bf005b3a71.png">
+<meta property="og:image" content="https://img.picgo.net/2024/07/14/WikiHop-Val-100r-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.256x64.lr-1e-30f5c1b60030fcc09.png">
+<meta property="og:image" content="https://img.picgo.net/2024/07/14/WikiHop-Val-100r-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.512x64.lr-1e-3f193d836bddc47ce.png">
+<meta property="og:image" content="https://img.picgo.net/2024/07/07/squad.mlp.128x64.hotpot-dev1586575697771996.png">
+<meta property="og:image" content="https://img.picgo.net/2024/07/07/squad.mlp.128x64.naturalq-testb9631681cfc63f4f.png">
+<meta property="og:image" content="https://img.picgo.net/2024/07/07/squad.mlp.128x64.squad-testebe0103ba626024d.png">
+<meta property="og:image" content="https://img.picgo.net/2024/07/07/squad.mlp.128x64.webq-test4fb2214d34367571.png">
+<meta property="article:published_time" content="2024-07-13T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-07-14T14:12:41.854Z">
+<meta property="article:author" content="Channing Lau">
+<meta property="article:tag" content="BERT">
+<meta property="article:tag" content="检索">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://img.picgo.net/2024/07/14/AdversarialQA-Val-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.128x64.lr-1e-36ba8e080efc37de6.png">
+  
+  
+  
+  <title>记录 - 混合检索框架探索 - ChanningLau&#39;s harbour</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lcj2021.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>ChanningLau&#39;s harbour</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="记录 - 混合检索框架探索"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-07-14 00:00" pubdate>
+          2024年7月14日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          17 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">记录 - 混合检索框架探索</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="07-14"><a href="#07-14" class="headerlink" title="07.14"></a>07.14</h2><p>Done：</p>
+<ul>
+<li><p>[[笔记 - IR &amp; ODQA Wiki#SearchQA]] train+val的gt查询</p>
+</li>
+<li><p>[[笔记 - IR &amp; ODQA Wiki#WikiHop]] -train+val的gt查询</p>
+</li>
+<li><p>[[笔记 - IR &amp; ODQA Wiki#FreeBaseQA]] -train+val的gt查询</p>
+</li>
+<li><p>[[笔记 - IR &amp; ODQA Wiki#AdversarialQA]] -train+val的gt查询</p>
+</li>
+<li><p>将SearchQA-train加入分类器训练，验证多个数据集上的性能（包括跨数据集泛化实验）。<strong>当前训练数据：SQuAD + SearchQA</strong></p>
+</li>
+<li><p>将HotpotQA train+dev的yes &#x2F; no question删除，重新加入分类器训练并在dev验证效果。仍然烂</p>
+</li>
+<li><p>尝试隐藏层更大的MLP</p>
+<ul>
+<li>从128x64改到256x64，效果提升</li>
+<li>再改到512x64，提升不明显</li>
+<li>可能原因：<ol>
+<li>不同模型绘制的样本点数不一样，比如TriviaQA 512x64画了289个点；256x64：292；128x64：389</li>
+<li>现在的模型太小欠拟合？</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>多个数据集初步验证Recall@100。所有数据集汇总：[[笔记 - IR &amp; ODQA Wiki#Wikipedia上的抽取式问答]]</p>
+<p>  数据集选取原则：</p>
+<ol>
+<li>bonus足够高</li>
+<li>uplift能在足够低的budget下达到</li>
+<li>与corpus（Wikipedia的21M个passage）能够对齐的数据集x2 + 对齐较差的数据集x2</li>
+<li>领域数据集：BioASQ + WikiMovies（前提：效果能接受）</li>
+</ol>
+</li>
+</ul>
+<p>Perf：</p>
+<blockquote>
+<p>省流</p>
+<ol>
+<li>AdversarialQA、SQuAD、SearchQA、FreeBase均能以60%的cost，达到99.5%纯RRF召回率</li>
+<li>DROP表现最差，WikiHop次之。这两者都跟我们选用的Corpus对的不齐。它们的100% rrf召回率都只有69.26%和65.24%。WikiHop上甚至有很多BM25检索结果数不够100条。再者，它们rrf-sparse-bonus不高，也可能是一个原因。</li>
+</ol>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Data</th>
+<th>128x64</th>
+<th>256x64</th>
+<th>512x64</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>AdversarialQA</td>
+<td><img src="https://img.picgo.net/2024/07/14/AdversarialQA-Val-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.128x64.lr-1e-36ba8e080efc37de6.png" srcset="/img/loading.gif" lazyload alt="AdversarialQA Val mlp.squad search.q2q ddist q2d sdist.k 100.128x64.lr 1e 3"></td>
+<td><img src="https://img.picgo.net/2024/07/14/AdversarialQA-Val-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.256x64.lr-1e-33413de33887b910c.png" srcset="/img/loading.gif" lazyload alt="AdversarialQA Val mlp.squad search.q2q ddist q2d sdist.k 100.256x64.lr 1e 3"></td>
+<td><img src="https://img.picgo.net/2024/07/14/AdversarialQA-Val-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.512x64.lr-1e-38a6c742b0e52100a.png" srcset="/img/loading.gif" lazyload alt="AdversarialQA Val mlp.squad search.q2q ddist q2d sdist.k 100.512x64.lr 1e 3"></td>
+</tr>
+<tr>
+<td>CuratedQA</td>
+<td><img src="https://img.picgo.net/2024/07/14/CuratedQA-Test-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.128x64.lr-1e-3227d95ffb4ed1cc6.png" srcset="/img/loading.gif" lazyload alt="CuratedQA Test mlp.squad search.q2q ddist q2d sdist.k 100.128x64.lr 1e 3"></td>
+<td><img src="https://img.picgo.net/2024/07/14/CuratedQA-Test-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.256x64.lr-1e-36ad90251d3e45f17.png" srcset="/img/loading.gif" lazyload alt="CuratedQA Test mlp.squad search.q2q ddist q2d sdist.k 100.256x64.lr 1e 3"></td>
+<td><img src="https://img.picgo.net/2024/07/14/CuratedQA-Test-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.512x64.lr-1e-3ddd4e461584e12bd.png" srcset="/img/loading.gif" lazyload alt="CuratedQA Test mlp.squad search.q2q ddist q2d sdist.k 100.512x64.lr 1e 3"></td>
+</tr>
+<tr>
+<td>DROP</td>
+<td><img src="https://img.picgo.net/2024/07/14/DROP-Val-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.128x64.lr-1e-39cf48530b01208ad.png" srcset="/img/loading.gif" lazyload alt="DROP Val mlp.squad search.q2q ddist q2d sdist.k 100.128x64.lr 1e 3"></td>
+<td><img src="https://img.picgo.net/2024/07/14/DROP-Val-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.256x64.lr-1e-3356c726058bf5111.png" srcset="/img/loading.gif" lazyload alt="DROP Val mlp.squad search.q2q ddist q2d sdist.k 100.256x64.lr 1e 3"></td>
+<td><img src="https://img.picgo.net/2024/07/14/DROP-Val-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.512x64.lr-1e-3f11af4db0a8a5d2d.png" srcset="/img/loading.gif" lazyload alt="DROP Val mlp.squad search.q2q ddist q2d sdist.k 100.512x64.lr 1e 3"></td>
+</tr>
+<tr>
+<td>FreeBase</td>
+<td><img src="https://img.picgo.net/2024/07/14/FreeBaseQA-Eval-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.128x64.lr-1e-3f8a4f14ba2e091b7.png" srcset="/img/loading.gif" lazyload alt="FreeBaseQA Eval mlp.squad search.q2q ddist q2d sdist.k 100.128x64.lr 1e 3"></td>
+<td><img src="https://img.picgo.net/2024/07/14/FreeBaseQA-Eval-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.256x64.lr-1e-3c482a8a3389afdb0.png" srcset="/img/loading.gif" lazyload alt="FreeBaseQA Eval mlp.squad search.q2q ddist q2d sdist.k 100.256x64.lr 1e 3"></td>
+<td><img src="https://img.picgo.net/2024/07/14/FreeBaseQA-Eval-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.512x64.lr-1e-33b60172fbf8ccf61.png" srcset="/img/loading.gif" lazyload alt="FreeBaseQA Eval mlp.squad search.q2q ddist q2d sdist.k 100.512x64.lr 1e 3"></td>
+</tr>
+<tr>
+<td>NaturalQ</td>
+<td><img src="https://img.picgo.net/2024/07/14/NaturalQ-Test-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.128x64.lr-1e-31823fba1b7f82b7b.png" srcset="/img/loading.gif" lazyload alt="NaturalQ Test mlp.squad search.q2q ddist q2d sdist.k 100.128x64.lr 1e 3"></td>
+<td><img src="https://img.picgo.net/2024/07/14/NaturalQ-Test-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.256x64.lr-1e-3a74563e5aa316399.png" srcset="/img/loading.gif" lazyload alt="NaturalQ Test mlp.squad search.q2q ddist q2d sdist.k 100.256x64.lr 1e 3"></td>
+<td><img src="https://img.picgo.net/2024/07/14/NaturalQ-Test-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.512x64.lr-1e-36ac41230ca02a8e7.png" srcset="/img/loading.gif" lazyload alt="NaturalQ Test mlp.squad search.q2q ddist q2d sdist.k 100.512x64.lr 1e 3"></td>
+</tr>
+<tr>
+<td>SearchQA</td>
+<td><img src="https://img.picgo.net/2024/07/14/SearchQA-Val-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.128x64.lr-1e-3b7d4568bfa75c453.png" srcset="/img/loading.gif" lazyload alt="SearchQA Val mlp.squad search.q2q ddist q2d sdist.k 100.128x64.lr 1e 3"></td>
+<td><img src="https://img.picgo.net/2024/07/14/SearchQA-Val-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.256x64.lr-1e-3312dd6052879e0f0.png" srcset="/img/loading.gif" lazyload alt="SearchQA Val mlp.squad search.q2q ddist q2d sdist.k 100.256x64.lr 1e 3"></td>
+<td><img src="https://img.picgo.net/2024/07/14/SearchQA-Val-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.512x64.lr-1e-322cf4e0d3bd8c882.png" srcset="/img/loading.gif" lazyload alt="SearchQA Val mlp.squad search.q2q ddist q2d sdist.k 100.512x64.lr 1e 3"></td>
+</tr>
+<tr>
+<td>SQuAD</td>
+<td><img src="https://img.picgo.net/2024/07/14/SQuAD-Test-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.128x64.lr-1e-36cf238fca387fdde.png" srcset="/img/loading.gif" lazyload alt="SQuAD Test mlp.squad search.q2q ddist q2d sdist.k 100.128x64.lr 1e 3"></td>
+<td><img src="https://img.picgo.net/2024/07/14/SQuAD-Test-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.256x64.lr-1e-395e98554c56d926c.png" srcset="/img/loading.gif" lazyload alt="SQuAD Test mlp.squad search.q2q ddist q2d sdist.k 100.256x64.lr 1e 3"></td>
+<td><img src="https://img.picgo.net/2024/07/14/SQuAD-Test-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.512x64.lr-1e-3413d8c8988e7248f.png" srcset="/img/loading.gif" lazyload alt="SQuAD Test mlp.squad search.q2q ddist q2d sdist.k 100.512x64.lr 1e 3"></td>
+</tr>
+<tr>
+<td>TriviaQA</td>
+<td><img src="https://img.picgo.net/2024/07/14/TriviaQA-Test-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.128x64.lr-1e-38887cbb4bec97453.png" srcset="/img/loading.gif" lazyload alt="TriviaQA Test mlp.squad search.q2q ddist q2d sdist.k 100.128x64.lr 1e 3"></td>
+<td><img src="https://img.picgo.net/2024/07/14/TriviaQA-Test-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.256x64.lr-1e-3b2376a2cfd2b3e12.png" srcset="/img/loading.gif" lazyload alt="TriviaQA Test mlp.squad search.q2q ddist q2d sdist.k 100.256x64.lr 1e 3"></td>
+<td><img src="https://img.picgo.net/2024/07/14/TriviaQA-Test-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.512x64.lr-1e-36a5fba8ee7b248f1.png" srcset="/img/loading.gif" lazyload alt="TriviaQA Test mlp.squad search.q2q ddist q2d sdist.k 100.512x64.lr 1e 3"></td>
+</tr>
+<tr>
+<td>WebQ</td>
+<td><img src="https://img.picgo.net/2024/07/14/WebQ-Test-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.128x64.lr-1e-3f7bdce41935a2625.png" srcset="/img/loading.gif" lazyload alt="WebQ Test mlp.squad search.q2q ddist q2d sdist.k 100.128x64.lr 1e 3"></td>
+<td><img src="https://img.picgo.net/2024/07/14/WebQ-Test-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.256x64.lr-1e-3486ab2bbaffa0f3b.png" srcset="/img/loading.gif" lazyload alt="WebQ Test mlp.squad search.q2q ddist q2d sdist.k 100.256x64.lr 1e 3"></td>
+<td><img src="https://img.picgo.net/2024/07/14/WebQ-Test-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.512x64.lr-1e-33af7b13a0507de32.png" srcset="/img/loading.gif" lazyload alt="WebQ Test mlp.squad search.q2q ddist q2d sdist.k 100.512x64.lr 1e 3"></td>
+</tr>
+<tr>
+<td>WikiHop</td>
+<td><img src="https://img.picgo.net/2024/07/14/WikiHop-Val-100r-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.128x64.lr-1e-3189740bf005b3a71.png" srcset="/img/loading.gif" lazyload alt="WikiHop Val 100r mlp.squad search.q2q ddist q2d sdist.k 100.128x64.lr 1e 3"></td>
+<td><img src="https://img.picgo.net/2024/07/14/WikiHop-Val-100r-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.256x64.lr-1e-30f5c1b60030fcc09.png" srcset="/img/loading.gif" lazyload alt="WikiHop Val 100r mlp.squad search.q2q ddist q2d sdist.k 100.256x64.lr 1e 3"></td>
+<td><img src="https://img.picgo.net/2024/07/14/WikiHop-Val-100r-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.512x64.lr-1e-3f193d836bddc47ce.png" srcset="/img/loading.gif" lazyload alt="WikiHop Val 100r mlp.squad search.q2q ddist q2d sdist.k 100.512x64.lr 1e 3"></td>
+</tr>
+</tbody></table>
+<p>框架流程图：</p>
+<p>q2q_ddist + q2d_sdist 双特征分类器：</p>
+<pre><code class=" mermaid">graph TD 
+A[拿到查询] --&gt; B[使用BM25在corpus中检索,得到q2d_sdist] 
+B --&gt; C[DPR encode] 
+C --&gt; E[将q2d_sdist和q2q_ddist送入分类器] 
+
+E --&gt;|不需要混合检索| F[返回BM25的结果] 
+E --&gt;|需要混合检索| G[在corpus中搜索得到q2d_ddist] 
+G --&gt; H[拿q2d_ddist和q2d_sdist做rrf排名] 
+H --&gt; I[返回结果]
+</code></pre>
+
+<p>q2d_sdist 单特征分类器：</p>
+<pre><code class=" mermaid">graph TD 
+A[拿到查询] --&gt; B[使用BM25在Corpus中检索,得到q2d_sdist] 
+B --&gt; C[将q2d_sdist送入分类器] 
+
+C --&gt;|不需要混合检索| E[返回BM25的结果] 
+C --&gt;|需要混合检索| F[DPR encode] 
+F --&gt; G[在corpus中搜索得到q2d_ddist]
+G --&gt; H[拿q2d_ddist和q2d_sdist做rrf排名] 
+H --&gt; I[返回结果]
+</code></pre>
+
+<p>TODO：</p>
+<ul>
+<li>改进分类模型<ul>
+<li>加入特征交叉[[#^d4c52f]]：</li>
+<li><input disabled="" type="checkbox"> $x_1 * w * x2$的形式</li>
+<li><input disabled="" type="checkbox"> attention机制</li>
+<li>尝试使用consup替换交叉熵</li>
+<li>去掉q2q_ddist特征，验证只用q2d_sdist的分类效果</li>
+</ul>
+</li>
+<li>增加端到端实验，或等效的效率测试实验。直接的E2E实验很困难，因为BM25检索需要“预热”，预热速度和正常速度差距巨大，会极大拖累平均时间。比较好的办法是</li>
+</ul>
+<p>IDEA：</p>
+<ul>
+<li>特征交叉：比如top-1 dist和top-100 dist的交叉：top-1 dist非常近，但top-100却非常远，和top-1 dist 约等于 top-100 dist，这两种情况能反映的问题是不一样的 ^d4c52f</li>
+<li>“时序” &#x2F; 局部特征：分数可能在top-10&#x2F;20&#x2F;50处下降幅度明显，也应该被作为局部特征捕获</li>
+<li>预先使用attention训练得到每个特征对应分数的权重，用加权距离做kNN分类（如果可以用ANNS就更好了）</li>
+<li></li>
+</ul>
+<p>讨论：</p>
+<ul>
+<li>本质可以建模成一个uplift问题（有待深入了解）：我们需要对每个查询的处理策略进行决策。<ul>
+<li>默认策略：BM25检索，计作SR</li>
+<li>“处理”：将一个查询从SR 转变为RRF（计作HR，即BM25 + DPR + RRF）</li>
+<li>“Uplift”：HR相对于SR在召回率上的提升。</li>
+<li>打分排序？or 设置分数阈值？</li>
+</ul>
+</li>
+<li>指标选取问题[[记录 - 混合检索框架探索#^ed6867]]：可以把AUUC（area under uplift curve）作为指标</li>
+<li>需不需要汇报Recall@20？</li>
+<li>是否需要剔除BM25无返回结果的qa？[[_posts&#x2F;笔记 - IR &amp; ODQA Wiki#BM25空结果情况]]</li>
+<li>E2E实验形式？单线程（embed慢） or 多线程？</li>
+<li>加入数据集作为二分类器训练数据后，效果反而下降？比如加入SearchQA的不如纯SQuAD。可能和数据集正负样本比例有关？</li>
+</ul>
+<p>OLD-TODO：</p>
+<ul>
+<li>更换不同的参数验证half-top merge算法的效果</li>
+<li>计算二分类模型下，oracle对应的召回率</li>
+<li>复现CIKM2021的BERT-based分类方法作为baseline</li>
+</ul>
+<h2 id="07-07"><a href="#07-07" class="headerlink" title="07.07"></a>07.07</h2><p>Done：</p>
+<ul>
+<li><p>在hugging-face上搜罗了合适的数据集。<br>  合适：目前的doc语料库是wikipedia的500+（待确认？）篇文章。而QA数据集很多都无法在这些corpus上找到包含answer的passage。</p>
+<p>  目前觉得比较合适的数据集有：HotpotQA、SearchQA、WikiQA、NarrativeQA、<a target="_blank" rel="noopener" href="https://hf-mirror.com/datasets/lmqg/qa_harvesting_from_wikipedia">HarvestWikiQA</a>、<a target="_blank" rel="noopener" href="https://hf-mirror.com/datasets/UCLNLP/adversarial_qa">AdversarialQA</a>、<a target="_blank" rel="noopener" href="https://hf-mirror.com/datasets/ibm/duorc">duorc</a></p>
+</li>
+<li><p>HotpotQA 数据集-train（90447 qas）查询groundtruth完毕，分类器训练ready</p>
+</li>
+<li><p>HotpotQA 数据集-dev（7405 qas）查询groundtruth完毕</p>
+</li>
+<li><p>改善pyserini查询gt时log输出的io，稍微加快gt查询</p>
+</li>
+<li><p>尝试128x64的MLP，在训练数据（SQuAD）上做二分类，效果普遍优于Lightgbm</p>
+</li>
+<li><p>初步分析了HotpotQA-train、SQuAD-train和SearchQA-train-slim（前1000条）数据集上dense、hybrid和sparse三者能力上的重合度（jacard相似度）[[#^b8894a]]</p>
+</li>
+<li><p>尝试使用in-DPR的数据集（NaturalQ、WebQ、TriviaQA和CutatedTrec）作为分类器，效果很烂</p>
+</li>
+</ul>
+<p>Perf：</p>
+<table>
+<thead>
+<tr>
+<th><img src="https://img.picgo.net/2024/07/07/squad.mlp.128x64.hotpot-dev1586575697771996.png" srcset="/img/loading.gif" lazyload alt="squad.mlp.128x64.hotpot dev"></th>
+<th><img src="https://img.picgo.net/2024/07/07/squad.mlp.128x64.naturalq-testb9631681cfc63f4f.png" srcset="/img/loading.gif" lazyload alt="squad.mlp.128x64.naturalq test"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="https://img.picgo.net/2024/07/07/squad.mlp.128x64.squad-testebe0103ba626024d.png" srcset="/img/loading.gif" lazyload alt="squad.mlp.128x64.squad test"></td>
+<td><img src="https://img.picgo.net/2024/07/07/squad.mlp.128x64.webq-test4fb2214d34367571.png" srcset="/img/loading.gif" lazyload alt="squad.mlp.128x64.webq test"></td>
+</tr>
+</tbody></table>
+<p>baseline是random，但没有实际对query进行随机选取加入到budget来计算recall。仅仅为理论值</p>
+<p>HotpotQA上表现不佳，在高budget (budget)下效果不如random</p>
+<p>在cost&#x3D;0.9附近能取得最高的recall</p>
+<p>即便不能超过100%rrf，也能以较少的cost达到100%rrf的recall</p>
+<p>难点：</p>
+<blockquote>
+<p>[[笔记 - IR &amp; ODQA Wiki#HotpotQA]]</p>
+<p>[[笔记 - IR &amp; ODQA Wiki#yes &#x2F; no 问题对分类器的影响]]</p>
+</blockquote>
+<ul>
+<li>HotpotQA问题较难，属于multi-hop查询，且train与dev上的难度分布不一样</li>
+<li>HotpotQA的问题类型包含6%的<code>yes / no question</code>，导致retriever难以得分</li>
+</ul>
+<p>讨论：</p>
+<ul>
+<li><p>能否将recall-cost曲线的AUC作为检索策略的指标？有没有更好的指标？ ^ed6867</p>
+</li>
+<li><p>HotpotQA的qas中，dense、hybrid和sparse能回答的问题的重合度较高。是否为训练数据好坏的指标？是否会影响分类器训练？<br>  SQuAD-train<br>  jacard hybrid vs sparse: 0.9184879764719451<br>  jacard dense vs sparse: 0.70026646147708<br>  jacard dense vs hybrid: 0.7697610961130947</p>
+<p>  HotpotQA-train<br>  jacard hybrid vs sparse: 0.9374225526641884<br>  jacard dense vs sparse: 0.7616772386522778<br>  jacard dense vs hybrid: 0.8116730865851616</p>
+<p>  search<br>  jacard hybrid vs sparse: 0.9469525959367946<br>  jacard dense vs sparse: 0.8815642458100559<br>  jacard dense vs hybrid: 0.9270482603815937<br>  ^b8894a</p>
+</li>
+<li><p>实验需要几个not-in-DPR的数据集？目前只有一个SQuAD</p>
+</li>
+<li><p>实验需要用多个不同的dense retriever来验证检索策略吗？目前只有开源的DPR模型，练其他DR需要大量的算力</p>
+</li>
+<li><p>为何in-DPR作为训练数据的效果很烂？为何使用out- DPR作为训练数据能提高效果？<br> CIKM2021只在MSMarco上进行了实验，因此他们的分类器是in-retriever的。<br> 我认为用out-retriever的训练数据更能提高检索框架的性能</p>
+</li>
+<li><p>实际检索时间开销存疑，<strong>冲击顶会可能需要进行端到端的检索实验验证效率</strong></p>
+</li>
+</ul>
+<p>问题：</p>
+<ul>
+<li>当前查询gt仍然过慢，HotpotQA <code>(train+dev) * (dense+sparse+hybrid)</code>得2+天</li>
+<li>使用更复杂的模型不一定会更好，目前使用208的CPU进行简单的MLP训练</li>
+<li>加入更多的训练数据（目前只有SQuAD）效果也不一定会更好。</li>
+</ul>
+<p>TODO：</p>
+<ul>
+<li><del>[[笔记 - IR &amp; ODQA Wiki#SearchQA]] 数据集-train（117,384 qas）+val（16,980 qas）的gt查询</del></li>
+<li><del>将SearchQA-train加入分类器训练，验证val上的性能</del></li>
+<li><del>将HotpotQA train+dev的<code>yes / no question</code>删除，重新加入分类器训练并在dev验证效果</del></li>
+<li>复现CIKM2021的BERT-based分类方法作为baseline</li>
+<li>加入更多训练数据<ul>
+<li>NarrativeQA</li>
+<li>AdversarialQA</li>
+<li>WikiQA</li>
+<li>Harvest</li>
+<li>DuoRC（SelfRC）</li>
+</ul>
+</li>
+</ul>
+<p>OLD-TODO：</p>
+<ul>
+<li>更换不同的参数验证half-top merge算法的效果</li>
+<li>计算二分类模型下，oracle对应的召回率</li>
+</ul>
+<h2 id="06-30"><a href="#06-30" class="headerlink" title="06.30"></a>06.30</h2><p>更新内容：</p>
+<ul>
+<li>之前的label策略是站在dense retriever的角度。对于一条query，预测它能否被dense检索。分类器有点类似于dense retriever的向导，知道dense retriever的知识和<br>能力，从而能够预测query是否会被检索到。</li>
+<li>现在改成了sparse retriever的角度。对于一条query，预测它能否被sparse检索到。策略是把所有sparse检索不到的query且能被hybrid或dense检索到的，都标记为正样本。</li>
+</ul>
+<p>Done：</p>
+<ul>
+<li>SQuAD 数据集-train（80599 qas）查询groundtruth完毕，分类器训练ready</li>
+<li>在SQuAD-train上使用Lightgbm训练了分类器</li>
+<li>特征选取只选了q2d_sdist + q2q_ddist</li>
+</ul>
+<p>TODO：</p>
+<ul>
+<li>更换不同的参数验证half-top merge算法的效果</li>
+<li>计算二分类模型下，oracle对应的召回率</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%B0%E5%BD%95/" class="category-chain-item">记录</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E8%AE%B0%E5%BD%95/python/" class="category-chain-item">python</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/BERT/" class="print-no-link">#BERT</a>
+      
+        <a href="/tags/%E6%A3%80%E7%B4%A2/" class="print-no-link">#检索</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>记录 - 混合检索框架探索</div>
+      <div>https://lcj2021.github.io/2024/07/14/记录 - 混合检索框架探索/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Channing Lau</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年7月14日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/07/14/%E7%AC%94%E8%AE%B0%20-%20IR%20&amp;%20ODQA%20Wiki/" title="笔记 - IR &amp; ODQA Wiki">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">笔记 - IR &amp; ODQA Wiki</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/07/13/hello-world/" title="Hello World">
+                        <span class="hidden-mobile">Hello World</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  <script>
+  Fluid.utils.createScript('https://lib.baomitu.com/mermaid/8.14.0/mermaid.min.js', function() {
+    mermaid.initialize({"theme":"default"});
+
+    Fluid.utils.listenDOMLoaded(function() {
+      Fluid.events.registerRefreshCallback(function() {
+        if ('mermaid' in window) {
+          mermaid.init();
+        }
+      });
+    });
+  });
+</script>
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

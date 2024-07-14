@@ -1,0 +1,694 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Channing Lau">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="C题洗澡的时候想了挺久, 还是想出正解了. 并且D题属于一眼Trie, 但是不太会倒映射. 6号中午做了一下B, 是那种讨论题. 虽说只有1200分, 但我还是WA了2发, 并且花了半个小时. 是真的难顶. B. Stand-up Comedian题意Stand-up Comedian: 单口相声演员 有四种类型的笑话：  第一种: 使AB的情绪都 +1 第二种: 使A的情绪 +1, B的情绪-1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="题解 - Educational Round 142 (Div. 2) A-D">
+<meta property="og:url" content="https://lcj2021.github.io/2023/02/02/%E9%A2%98%E8%A7%A3%20-%20Educational%20Round%20142%20(Div.%202)%20A-D/index.html">
+<meta property="og:site_name" content="ChanningLau&#39;s harbour">
+<meta property="og:description" content="C题洗澡的时候想了挺久, 还是想出正解了. 并且D题属于一眼Trie, 但是不太会倒映射. 6号中午做了一下B, 是那种讨论题. 虽说只有1200分, 但我还是WA了2发, 并且花了半个小时. 是真的难顶. B. Stand-up Comedian题意Stand-up Comedian: 单口相声演员 有四种类型的笑话：  第一种: 使AB的情绪都 +1 第二种: 使A的情绪 +1, B的情绪-1">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-02-01T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-04-21T08:34:09.741Z">
+<meta property="article:author" content="Channing Lau">
+<meta property="article:tag" content="算法_数据结构">
+<meta property="article:tag" content="算法_字符串">
+<meta property="article:tag" content="算法_构造">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>题解 - Educational Round 142 (Div. 2) A-D - ChanningLau&#39;s harbour</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lcj2021.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>ChanningLau&#39;s harbour</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="题解 - Educational Round 142 (Div. 2) A-D"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-02-02 00:00" pubdate>
+          2023年2月2日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          10 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">题解 - Educational Round 142 (Div. 2) A-D</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>C题洗澡的时候想了挺久, 还是想出正解了. 并且D题属于一眼Trie, 但是不太会倒映射.</p>
+<p>6号中午做了一下B, 是那种讨论题. 虽说只有1200分, 但我还是WA了2发, 并且花了半个小时. 是真的难顶.</p>
+<h2 id="B-Stand-up-Comedian"><a href="#B-Stand-up-Comedian" class="headerlink" title="B. Stand-up Comedian"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1792/problem/B">B. Stand-up Comedian</a></h2><h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><p>Stand-up Comedian: 单口相声演员</p>
+<p>有四种类型的笑话：</p>
+<blockquote>
+<p>第一种: 使AB的情绪都 +1</p>
+<p>第二种: 使A的情绪 +1, B的情绪-1</p>
+<p>第三种: 使A的情绪 -1, B的情绪+1</p>
+<p>第四种会使AB的情绪都-1</p>
+</blockquote>
+<p>两人的情绪初始为0. 求在AB中某一人情绪降至0时可以讲的最大笑话数</p>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>又犯了经典错误之 <code>b -= min(b, c);   c -= min(b, c);</code>.</p>
+<p>第一种类型直接加上</p>
+<p>所以 ans +&#x3D; a</p>
+<p>第二种类型和第三种类型交替使用.</p>
+<p>所以 ans +&#x3D; min(b, c)</p>
+<p>最后时刻, 最后一类和剩下的第二第三类地位等价.</p>
+<p>所以 ans +&#x3D; min(a + 1, b + c + d)</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">solve</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-type">int</span> a, b, c, d; cin &gt;&gt; a &gt;&gt; b &gt;&gt; c &gt;&gt; d;<br>    <span class="hljs-type">int</span> ans = a;<br>    <span class="hljs-keyword">if</span> (a) &#123;<br>        <span class="hljs-type">int</span> dec = <span class="hljs-built_in">min</span>(b, c);<br>        ans += dec * <span class="hljs-number">2</span>;<br>        <span class="hljs-comment">// b -= min(b, c);</span><br>        <span class="hljs-comment">// c -= min(b, c);</span><br>        b -= dec;<br>        c -= dec;<br>    &#125;<br>    <span class="hljs-built_in">LOG</span>(a, b, c, d)<br>    <span class="hljs-comment">// 此时 bc与d的地位等价</span><br>    ans += <span class="hljs-built_in">min</span>(a + <span class="hljs-number">1</span>, b + c + d);<br>    cout &lt;&lt; ans &lt;&lt; endl;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="C-Min-Max-Sort"><a href="#C-Min-Max-Sort" class="headerlink" title="C. Min Max Sort"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1792/problem/C">C. Min Max Sort</a></h2><h3 id="题意-1"><a href="#题意-1" class="headerlink" title="题意"></a>题意</h3><p>一个排列p, 每次可以选两个数x和y, 将两者较小的移到开头, 较大的移到</p>
+<p>最后时刻, 最后一类和剩下的第二第三类地位等价结尾..</p>
+<p>问排成增序所需最小操作次数.</p>
+<h3 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h3><p>首先可以确定操作次数上限是n&#x2F;2, 即(n&#x2F;2, n&#x2F;2+1)…(1, n).</p>
+<p>接下来再看怎么样能少操作几次.</p>
+<p>例子: 1 6 3 4 2 5. (3, 4)一开始就挨在一起了, 并且是(3, 4)而不是(4, 3), 所以可以省略掉这一步, 直接考虑(2, 5). 发现(2, 5)并不分别位于(2, 3)的左右两侧. 所以这一步是必不可少的操作</p>
+<p>如果情况是 1 2 3 4 6 5, 那么(3, 4)和(2, 5)都可以省略了. 只需要做一次(1, 6)操作就行.</p>
+<p>结论就是 (n&#x2F;2, n&#x2F;2+1) 在最中间, 然后n&#x2F;2-1, n&#x2F;2+2分别位于(n&#x2F;2, n&#x2F;2+1)左右两侧, 如果某对逆序了, 或者没有位于两侧, 那么接下来的操作都不能省略.</p>
+<p>用pos记下每个数的位置, l, r记录上一对数对的位置(注意n为奇数的情况, 此时中间只有一个数, 所以l &#x3D; r) 然后从中间开始枚举, 依次判断数对的相对位置就行.</p>
+<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">solve</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-type">int</span> n;  cin &gt;&gt; n;<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">a</span><span class="hljs-params">(n)</span></span>;<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">pos</span><span class="hljs-params">(n)</span></span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; ++ i) &#123;<br>        cin &gt;&gt; a[i];   a[i] --;<br>        pos[a[i]] = i;<br>    &#125;<br>    <span class="hljs-built_in">LOG</span>(a)<br><br>    <span class="hljs-comment">// 4: </span><br>    <span class="hljs-comment">// 0 1 2 3</span><br>    <span class="hljs-comment">// 5: 2</span><br>    <span class="hljs-comment">// 0 1 2 3 4</span><br>    <span class="hljs-type">int</span> ans = n / <span class="hljs-number">2</span>;<br>    <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>;<br>    <span class="hljs-type">int</span> l = pos[n / <span class="hljs-number">2</span>], r = pos[n / <span class="hljs-number">2</span>];<br>    <span class="hljs-keyword">for</span> (; i &lt; n / <span class="hljs-number">2</span>; ++ i) &#123;<br>        <span class="hljs-type">int</span> v1 = (n - <span class="hljs-number">2</span>) / <span class="hljs-number">2</span> - i, v2 = n - <span class="hljs-number">1</span> - v1;<br>        <span class="hljs-built_in">LOG</span>(v1, v2)<br>        <span class="hljs-type">int</span> p1 = pos[v1], p2 = pos[v2];<br>        <span class="hljs-keyword">if</span> (p1 &gt; p2 || !(p1 &lt;= l &amp;&amp; p2 &gt;= r)) &#123;<br>            <span class="hljs-keyword">break</span>;<br>        &#125;<br>        l = p1, r = p2;<br>    &#125;<br>    ans -= i;<br>    <span class="hljs-built_in">LOG</span>(ans)<br>    cout &lt;&lt; ans &lt;&lt; endl;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="D-Fixed-Prefix-Permutations"><a href="#D-Fixed-Prefix-Permutations" class="headerlink" title="D. Fixed Prefix Permutations"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1792/problem/D">D. Fixed Prefix Permutations</a></h2><h3 id="题意-2"><a href="#题意-2" class="headerlink" title="题意"></a>题意</h3><p>给定 n 个 1<del>m 的排列a[1</del>n].</p>
+<p>定义一个排列的分值为: 最大的满足 p1&#x3D;1,p2&#x3D;2,….,pk&#x3D;k 的 k .</p>
+<p>定义两个排列 p,q 的乘积 p×q&#x3D;r 为 r[j]&#x3D;q[p[j]].</p>
+<p>对于每个排列a[i], 求出它乘以所有这 n 个排列a[j]能得到的最大分值.</p>
+<p>最后时刻, 最后一类和剩下的第二第三类地位等价.</p>
+<h3 id="分析-2"><a href="#分析-2" class="headerlink" title="分析"></a>分析</h3><p>学习(偷)了日本大神maspy的Trie板子.</p>
+<p>固定的a[i], 记为p. a[j], 记为q. r[i] &#x3D; q[p[i]] &#x3D; i</p>
+<p>q[p[i]] &#x3D; i. 两边同时取q^-1, 也就是取pos_q.</p>
+<p>p[i] &#x3D; pos_q[i] &#x3D; i. 也就是找p[i]和所有pos_q[i]最长的公共前缀. 只需要把所有的pos_q建一个Trie. 然后每次查询p[i]时, 在pos_q中找最长公共前缀的长度就行.</p>
+<h3 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">solve</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-type">int</span> n, m;   cin &gt;&gt; n &gt;&gt; m;<br>    <span class="hljs-function">vector <span class="hljs-title">p</span><span class="hljs-params">(n, vector&lt;<span class="hljs-type">int</span>&gt;(m))</span></span>;<br>    <span class="hljs-function">vector <span class="hljs-title">pos</span><span class="hljs-params">(n, vector&lt;<span class="hljs-type">int</span>&gt;(m))</span></span>;<br>    Trie&lt;<span class="hljs-number">10</span>&gt; tr;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; ++ i) &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; m; ++ j) &#123;<br>            cin &gt;&gt; p[i][j];     p[i][j] --;<br>            pos[i][p[i][j]] = j;<br>        &#125;<br>        <br>        tr.add&lt;vector&lt;<span class="hljs-type">int</span>&gt;&gt;(pos[i], <span class="hljs-number">0</span>);<br>    &#125;<br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; ++ i) &#123;<br>        <span class="hljs-built_in">LOG</span>(pos[i])<br>        <span class="hljs-type">int</span> cv = <span class="hljs-number">0</span>, cnt = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; m; ++ j) &#123;<br>            cv = tr.TO[cv][p[i][j]];<br>            <span class="hljs-built_in">LOG</span>(cv)<br>            <span class="hljs-keyword">if</span> (cv == <span class="hljs-number">-1</span>)   <span class="hljs-keyword">break</span>;<br>            ++ cnt;<br>        &#125;<br>        cout &lt;&lt; cnt &lt;&lt; <span class="hljs-string">&quot; \n&quot;</span>[i == n - <span class="hljs-number">1</span>];<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="C-Min-Max-Sort-1"><a href="#C-Min-Max-Sort-1" class="headerlink" title="C. Min Max Sort"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1792/problem/C">C. Min Max Sort</a></h2><h3 id="题意-3"><a href="#题意-3" class="headerlink" title="题意"></a>题意</h3><h3 id="分析-3"><a href="#分析-3" class="headerlink" title="分析"></a>分析</h3><h3 id="代码-3"><a href="#代码-3" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E9%A2%98%E8%A7%A3/" class="category-chain-item">题解</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E7%AE%97%E6%B3%95-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="print-no-link">#算法_数据结构</a>
+      
+        <a href="/tags/%E7%AE%97%E6%B3%95-%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="print-no-link">#算法_字符串</a>
+      
+        <a href="/tags/%E7%AE%97%E6%B3%95-%E6%9E%84%E9%80%A0/" class="print-no-link">#算法_构造</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>题解 - Educational Round 142 (Div. 2) A-D</div>
+      <div>https://lcj2021.github.io/2023/02/02/题解 - Educational Round 142 (Div. 2) A-D/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Channing Lau</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年2月2日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/02/02/%E9%A2%98%E8%A7%A3%20-%20Codeforces%20Round%20848%20(Div.%202)%20A-D/" title="题解 - Codeforces Round 848 (Div. 2) A-D">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">题解 - Codeforces Round 848 (Div. 2) A-D</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/01/29/%E9%A2%98%E8%A7%A3%20-%20AtCoder%20Beginner%20Contest%20287%20A-F%20+%20Ex/" title="题解 - AtCoder Beginner Contest 287 A-F">
+                        <span class="hidden-mobile">题解 - AtCoder Beginner Contest 287 A-F</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

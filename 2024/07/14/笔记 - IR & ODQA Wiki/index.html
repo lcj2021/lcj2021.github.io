@@ -1,0 +1,1394 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Channing Lau">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="2024.05.09 17:18 入坑纪念 Information Retrieval ! A brand new start, but i still hope 能在这条路上走下去 留下一些足迹~  Pyserini使用指南初步安装首先创建python虚拟环境pyserini： conda create -n pyserini python&#x3D;3.8.18 然后激活虚拟环境： conda act">
+<meta property="og:type" content="article">
+<meta property="og:title" content="笔记 - IR &amp; ODQA Wiki">
+<meta property="og:url" content="https://lcj2021.github.io/2024/07/14/%E7%AC%94%E8%AE%B0%20-%20IR%20&%20ODQA%20Wiki/index.html">
+<meta property="og:site_name" content="ChanningLau&#39;s harbour">
+<meta property="og:description" content="2024.05.09 17:18 入坑纪念 Information Retrieval ! A brand new start, but i still hope 能在这条路上走下去 留下一些足迹~  Pyserini使用指南初步安装首先创建python虚拟环境pyserini： conda create -n pyserini python&#x3D;3.8.18 然后激活虚拟环境： conda act">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-07-13T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-07-14T11:57:52.193Z">
+<meta property="article:author" content="Channing Lau">
+<meta property="article:tag" content="检索">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>笔记 - IR &amp; ODQA Wiki - ChanningLau&#39;s harbour</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lcj2021.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>ChanningLau&#39;s harbour</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="笔记 - IR &amp; ODQA Wiki"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-07-14 00:00" pubdate>
+          2024年7月14日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          19 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">笔记 - IR &amp; ODQA Wiki</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <blockquote>
+<p>2024.05.09 17:18 入坑纪念</p>
+<p>Information Retrieval !</p>
+<p>A brand new start, but i still hope</p>
+<p>能在这条路上走下去</p>
+<p>留下一些足迹~</p>
+</blockquote>
+<h2 id="Pyserini使用指南"><a href="#Pyserini使用指南" class="headerlink" title="Pyserini使用指南"></a>Pyserini使用指南</h2><h3 id="初步安装"><a href="#初步安装" class="headerlink" title="初步安装"></a>初步安装</h3><p>首先创建python虚拟环境pyserini：</p>
+<p><code>conda create -n pyserini python=3.8.18</code></p>
+<p>然后激活虚拟环境：</p>
+<p><code>conda activate pyserini</code></p>
+<p>安装pyserini：</p>
+<p><code>pip install -r requirement</code></p>
+<p>安装faiss（用于dense retrieval）：</p>
+<p><code>pip install faiss-cpu==1.8.0</code></p>
+<p>注意这里只能安装cpu版本的faiss，无法安装gpu版本的。</p>
+<p>下载tools，并放到<code>pyserini-autofusion/pyserini/tools</code>下。</p>
+<p>接下来将分别测试sparse retrieval和dense retrieval。</p>
+<h3 id="测试sparse-retrieval"><a href="#测试sparse-retrieval" class="headerlink" title="测试sparse retrieval"></a>测试sparse retrieval</h3><p>由于anserini是基于java的，所以还需要jdk21：</p>
+<p>下载并解压：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">aria2c -s 16 -x 16 https://download.oracle.com/java/21/latest/jdk-21_linux-x64_bin.tar.gz<br>tar -zxvf jdk-21_linux-x64_bin.tar.gz<br></code></pre></td></tr></table></figure>
+
+<p>接下来下载anserini的jar包，并将anserini的jar包链接到项目的pyserini&#x2F;resources&#x2F;jars目录下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">wget https://repo1.maven.org/maven2/io/anserini/anserini/0.35.1/anserini-0.35.1-fatjar.jar<br>mv anserini/anserini-0.35.0-fatjar.jar pyserini-autofusion/pyserini/resources/jars/anserini-0.35.1-fatjar.jar<br></code></pre></td></tr></table></figure>
+
+<h3 id="测试dense-retrieval"><a href="#测试dense-retrieval" class="headerlink" title="测试dense retrieval"></a>测试dense retrieval</h3><p>新建jupyter notebook，在其中运行：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pyserini.search.faiss <span class="hljs-keyword">import</span> FaissSearcher, TctColBertQueryEncoder<br><br>encoder = TctColBertQueryEncoder(<span class="hljs-string">&#x27;castorini/tct_colbert-msmarco&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>报错：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell">timeout: timed out<br>...<br>    447 except EntryNotFoundError as e:<br>    448     if not _raise_exceptions_for_missing_entries:<br><br>OSError: We couldn&#x27;t connect to &#x27;https://huggingface.co&#x27; to load this file, couldn&#x27;t find it in the cached files and it looks like castorini/tct_colbert-msmarco is not the path to a directory containing a file named config.json.<br>Checkout your internet connection or see how to run the library in offline mode at &#x27;https://huggingface.co/docs/transformers/installation#offline-mode&#x27;.<br></code></pre></td></tr></table></figure>
+
+<p>这实际上是<code>pyserini/search/faiss/_search.py</code>中class TctColBertQueryEncoder(QueryEncoder)<br>的构造函数中，self.model &#x3D; BertModel.from_pretrained(encoder_dir)的问题。</p>
+<p>使用以下脚本下载模型：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> os<br><br>os.environ[<span class="hljs-string">&#x27;HF_ENDPOINT&#x27;</span>] = <span class="hljs-string">&#x27;https://hf-mirror.com&#x27;</span><br><br>model = <span class="hljs-string">&#x27;castorini/tct_colbert-msmarco&#x27;</span><br>local_dir = <span class="hljs-string">&#x27;/remote-home/share/lcj_pyserini/encoder/tct_colbert-msmarco&#x27;</span><br>os.system(<span class="hljs-string">f&#x27;huggingface-cli download --resume-download <span class="hljs-subst">&#123;model&#125;</span> --local-dir <span class="hljs-subst">&#123;local_dir&#125;</span>&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>此时再运行from_pretrained(encoder_dir)仍然报错：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">OSError: Error no file named pytorch_model.bin, tf_model.h5, model.ckpt.index or flax_model.msgpack found in directory /remote-home/share/lcj_pyserini/encoder/tct_colbert-msmarco/.<br></code></pre></td></tr></table></figure>
+
+<p>因此查看存放模型的目录：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell">(pyserini) root@303b7c05f88b:/remote-home/share/lcj_pyserini/encoder/tct_colbert-msmarco# ls -lh<br>total 236K<br>-rw-r--r-- 1 root root  446 Apr 24 15:34 README.md<br>-rw-r--r-- 1 root root  313 Apr 24 15:34 config.json<br>lrwxrwxrwx 1 root root  149 Apr 24 15:37 pytorch_model.bin -&gt; ../../../../root/.cache/huggingface/hub/models--castorini--tct_colbert-msmarco/blobs/938c6367f910ac55073b58413577da148f5f1104e247379e4241917282ad15a0<br>-rw-r--r-- 1 root root 227K Apr 24 15:34 vocab.txt<br></code></pre></td></tr></table></figure>
+
+<p>注意qas问题答案文件中，必须要确保问题、答案都<code>strip()</code>一次。</p>
+<h3 id="加入新的语料topics"><a href="#加入新的语料topics" class="headerlink" title="加入新的语料topics"></a>加入新的语料topics</h3><p>先下载qas文件，大概长这样：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">head topics.dpr.wq.train.txt <br>&#123;&quot;answer&quot;: [&quot;Jazmyn Bieber&quot;, &quot;Jaxon Bieber&quot;], &quot;question&quot;: &quot;what is the name of justin bieber brother?&quot;&#125;<br>&#123;&quot;answer&quot;: [&quot;Padm\u00e9 Amidala&quot;], &quot;question&quot;: &quot;what character did natalie portman play in star wars?&quot;&#125;<br>&#123;&quot;answer&quot;: [&quot;New York City&quot;], &quot;question&quot;: &quot;what state does selena gomez?&quot;&#125;<br></code></pre></td></tr></table></figure>
+
+<p>接下来需要让anserini读取到这个新qas文件的路径，修改<code>anserini/src/main/java/io/anserini/search/topicreader/Topics.java</code>：<br>添加这样一行<code>DPR_WQ_TRAIN(DprJsonlTopicReader.class, &quot;topics.dpr.wq.train.txt&quot;),</code><br>然后重新编译：<code>./bin/qbuild.sh</code><br>还需要把新的jar包加进pyserini的路径。</p>
+<p>在pyserini中，也需要在<code>pyserini-autofusion/pyserini/encoded_query_info.py</code>添加新语料对应的信息：<br>其中md5码要求的是qas生成的embedding的md5码。所以需要先生成embedding。</p>
+<p>还需要再<code>/root/miniconda3/envs/pyserini/lib/python3.10/site-packages/pyserini/search/_base.py</code>中添加一行：<br><code>&#39;dpr-wq-train&#39;: &#39;DPR_WQ_TRAIN&#39;,</code></p>
+<p>准备工作完成了。随后就是生成embedding：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> os<br>embedding_path = <span class="hljs-string">&#x27;/dk/pyserini-dataset/queries/query-embedding-dpr_multi-wq-train-20240504-9323ec&#x27;</span><br>os.makedirs(embedding_path, exist_ok=<span class="hljs-literal">True</span>)<br>cmd0 = <span class="hljs-string">f&#x27;python /dk/lcj_pyserini/pyserini-autofusion/scripts/dpr/encode_queries.py \</span><br><span class="hljs-string">      --encoder /dk/pyserini-dataset/encoder/dpr-question_encoder-multiset-base/ \</span><br><span class="hljs-string">      --input ~/.cache/anserini/topics-and-qrels/topics.dpr.wq.train.txt \</span><br><span class="hljs-string">      --format json \</span><br><span class="hljs-string">      --output <span class="hljs-subst">&#123;embedding_path&#125;</span>/embedding.pkl&#x27;</span><br>os.system(cmd0)<br><br><span class="hljs-comment"># row: [&#x27;&#123;&quot;question&quot;: &quot;what is the name of justin bieber brother?&quot;, &quot;answer&quot;: [&quot;Jazmyn Bieber&quot;, &quot;Jaxon Bieber&quot;]&#125;&#x27;]</span><br><span class="hljs-comment"># use --format json instead</span><br></code></pre></td></tr></table></figure>
+
+<p>生成md5码并改名：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> os<br>command = <span class="hljs-string">&#x27;md5sum &#x27;</span> + embedding_path + <span class="hljs-string">&#x27;/embedding.pkl&#x27;</span><br><br>output = os.popen(command).read()<br>md5sum = output.split()[<span class="hljs-number">0</span>]<br><br>os.system(<span class="hljs-string">f&#x27;mv <span class="hljs-subst">&#123;embedding_path&#125;</span> <span class="hljs-subst">&#123;embedding_path&#125;</span>.<span class="hljs-subst">&#123;md5sum&#125;</span>&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>同时把新的md5码加进<code>pyserini-autofusion/pyserini/encoded_query_info.py</code></p>
+<h3 id="踩坑"><a href="#踩坑" class="headerlink" title="踩坑"></a>踩坑</h3><p>执行BM25检索的时候报错：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs txt">resultPath: /root/.cache/pyserini/topics-and-qrels/topics.dpr.adversarial.val.txt<br><br>Traceback (most recent call last): File &quot;/root/miniconda3/envs/pyserini/lib/python3.10/runpy.py&quot;, line 196, in _run_module_as_main return _run_code(code, main_globals, None, File &quot;/root/miniconda3/envs/pyserini/lib/python3.10/runpy.py&quot;, line 86, in _run_code exec(code, run_globals) File &quot;/root/miniconda3/envs/pyserini/lib/python3.10/site-packages/pyserini/search/lucene/__main__.py&quot;, line 148, in &lt;module&gt; query_iterator = get_query_iterator(args.topics, TopicsFormat(args.topics_format)) File &quot;/root/miniconda3/envs/pyserini/lib/python3.10/site-packages/pyserini/query_iterator.py&quot;, line 187, in get_query_iterator return mapping[topics_format].from_topics(topics_path) File &quot;/root/miniconda3/envs/pyserini/lib/python3.10/site-packages/pyserini/query_iterator.py&quot;, line 104, in from_topics topics = get_topics(topics_path) File &quot;/root/miniconda3/envs/pyserini/lib/python3.10/site-packages/pyserini/search/_base.py&quot;, line 598, in get_topics topics = JTopicReader.getTopicsWithStringIds(topics_mapping[collection_name]) File &quot;jnius/jnius_export_class.pxi&quot;, line 876, in jnius.JavaMethod.__call__ File &quot;jnius/jnius_export_class.pxi&quot;, line 1042, in jnius.JavaMethod.call_staticmethod File &quot;jnius/jnius_utils.pxi&quot;, line 79, in jnius.check_exception jnius.JavaException: JVM exception occurred: Unable to read topics: DPR_ADVERSARIAL_VAL java.io.IOException<br></code></pre></td></tr></table></figure>
+
+<p>原因：准备的数据集格式出错了，可能的错误有：<code>&#123;&quot;question&quot;: &quot;Which actors are honorary freemen?&quot;, &quot;answers&quot;: [&quot;the Royal Shakespeare Company&quot;]&#125;</code>中的<code>answers</code>应该为<code>answer</code>，即多了个<code>s</code>。</p>
+<h2 id="QA数据集"><a href="#QA数据集" class="headerlink" title="QA数据集"></a>QA数据集</h2><h3 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h3><table>
+<thead>
+<tr>
+<th align="center">Data</th>
+<th align="center">In-DPR?</th>
+<th># Train QAs</th>
+<th># Test QAs</th>
+<th># Val QAs</th>
+<th># Eval QAs</th>
+<th># Dev QAs</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">AdversarialQA</td>
+<td align="center">No</td>
+<td>30,000</td>
+<td></td>
+<td>3,000</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">AmbigQA</td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td>2,002</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">ComQA</td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">CuratedTrec</td>
+<td align="center">Yes</td>
+<td>1,121</td>
+<td>694</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">DROP</td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td>9,535</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">DuoRC</td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">FreeBase</td>
+<td align="center"></td>
+<td>20,358</td>
+<td></td>
+<td></td>
+<td>3,996</td>
+<td></td>
+</tr>
+<tr>
+<td align="center">HarvestQA</td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">HotpotQA</td>
+<td align="center">No</td>
+<td>90,447</td>
+<td></td>
+<td></td>
+<td></td>
+<td>7405</td>
+</tr>
+<tr>
+<td align="center">SearchQA</td>
+<td align="center">No</td>
+<td>117,384</td>
+<td></td>
+<td>16,980</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">SQuAD</td>
+<td align="center">No</td>
+<td>87,599</td>
+<td>10,570</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">NarrativeQA</td>
+<td align="center">No</td>
+<td>32,747</td>
+<td>10,557</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">NaturalQ</td>
+<td align="center">Yes</td>
+<td>79,168</td>
+<td>3,610</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">WebQ</td>
+<td align="center">Yes</td>
+<td>3,778</td>
+<td>2,032</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">TriviaQA</td>
+<td align="center">Yes</td>
+<td>78,785</td>
+<td>11,313</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">WikiHop-100r</td>
+<td align="center"></td>
+<td>39,348</td>
+<td></td>
+<td>4,641</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">WikiQA</td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="AdversarialQA"><a href="#AdversarialQA" class="headerlink" title="AdversarialQA"></a>AdversarialQA</h3><p>下载链接：<a target="_blank" rel="noopener" href="https://hf-mirror.com/datasets/UCLNLP/adversarial_qa">hugging-face</a></p>
+<p>论文原文：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2002.00293">Beat the AI: Investigating Adversarial Human Annotation for Reading Comprehension</a></p>
+<h3 id="AmbigQA"><a href="#AmbigQA" class="headerlink" title="AmbigQA"></a>AmbigQA</h3><p>下载链接：<a target="_blank" rel="noopener" href="https://hf-mirror.com/datasets/sewon/ambig_qa">hugging-face</a></p>
+<p>论文原文：<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2004.10645.pdf">AmbigQA: Answering Ambiguous Open-domain Questions</a></p>
+<p>模糊性是开放域问答所固有的;尤其是在探索新话题时，很难提出一个只有一个明确答案的问题。我们引入了一种新的开放域问答任务，它涉及预测一组问答对，其中每个合理的答案都与原始问题的消歧重写配对。</p>
+<p>为了研究这个任务，我们构建了AmbigNQ，这是一个数据集，涵盖了来自NQ-open的14042个问题，NQ-open是一个现有的开放域QA基准。我们发现NQ-open中超过一半的问题是模棱两可的。歧义的类型是多种多样的，有时是微妙的，其中许多只有在检查非常大的文本语料库提供的证据后才会明显。访问Data Explorer查看示例!</p>
+<h3 id="ComQA"><a href="#ComQA" class="headerlink" title="ComQA"></a>ComQA</h3><p>下载链接：<a target="_blank" rel="noopener" href="https://hf-mirror.com/datasets/iamrishiraj/com_qa">hugging-face</a></p>
+<p>论文原文：<a target="_blank" rel="noopener" href="https://aclanthology.org/N19-1027/">ComQA: A Community-sourced Dataset for Complex Factoid Question Answering with Paraphrase Clusters</a></p>
+<p>answer大部分都只给出了Wikipedia对应的链接，而没有给explicit的答案。</p>
+<h3 id="DROP"><a href="#DROP" class="headerlink" title="DROP"></a>DROP</h3><p>下载链接：<a target="_blank" rel="noopener" href="https://hf-mirror.com/datasets/ucinlp/drop">hugging-face</a></p>
+<p>论文原文：<a target="_blank" rel="noopener" href="https://aclanthology.org/N19-1246.pdf">DROP: A Reading Comprehension Benchmark Requiring Discrete Reasoning Over Paragraphs</a></p>
+<h3 id="DuoRC"><a href="#DuoRC" class="headerlink" title="DuoRC"></a>DuoRC</h3><p>下载链接：<a target="_blank" rel="noopener" href="https://hf-mirror.com/datasets/ibm/duorc">hugging-face</a></p>
+<p>论文原文：<a target="_blank" rel="noopener" href="https://aclanthology.org/P18-1156/">DuoRC: Towards Complex Language Understanding with Paraphrased Reading Comprehension</a></p>
+<p>SelfRC：</p>
+<p>ParaPhraseRC：</p>
+<h3 id="FreeBaseQA"><a href="#FreeBaseQA" class="headerlink" title="FreeBaseQA"></a>FreeBaseQA</h3><p>下载链接：<a target="_blank" rel="noopener" href="https://hf-mirror.com/datasets/KelvinJiang/freebase_qa">hugging-face</a></p>
+<p>论文原文：<a target="_blank" rel="noopener" href="https://aclanthology.org/N19-1028.pdf">FreebaseQA: A New Factoid QA Data Set Matching Trivia-Style Question-Answer Pairs with Freebase</a></p>
+<p>例子：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span>&#x27;Parses&#x27;<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>     &#x27;Answers&#x27;<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>            <span class="hljs-punctuation">&#123;</span><br>         &#x27;AnswersMid&#x27;<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>&#x27;m<span class="hljs-number">.01</span>npcx&#x27;<span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><br>         &#x27;AnswersName&#x27;<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">[</span>&#x27;goldeneye&#x27;<span class="hljs-punctuation">]</span><span class="hljs-punctuation">]</span><br>            <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>            <span class="hljs-punctuation">&#123;</span><br>		&#x27;AnswersMid&#x27;<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>&#x27;m<span class="hljs-number">.01</span>npcx&#x27;<span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span> <br>		&#x27;AnswersName&#x27;<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">[</span>&#x27;goldeneye&#x27;<span class="hljs-punctuation">]</span><span class="hljs-punctuation">]</span><br>            <span class="hljs-punctuation">&#125;</span><br>	<span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span> <br>	&#x27;InferentialChain&#x27;<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>&#x27;film.film_character.portrayed_in_films..film.performance.film&#x27;<span class="hljs-punctuation">,</span> &#x27;film.actor.film..film.performance.film&#x27;<br>        <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span> &#x27;Parse-Id&#x27;<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>&#x27;FreebaseQA-train<span class="hljs-number">-0.</span>P0&#x27;<span class="hljs-punctuation">,</span> &#x27;FreebaseQA-train<span class="hljs-number">-0.</span>P1&#x27;<br>        <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span> &#x27;PotentialTopicEntityMention&#x27;<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>&#x27;<span class="hljs-number">007</span>&#x27;<span class="hljs-punctuation">,</span> &#x27;pierce brosnan&#x27;<br>        <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span> &#x27;TopicEntityMid&#x27;<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>&#x27;m<span class="hljs-number">.0</span>clpml&#x27;<span class="hljs-punctuation">,</span> &#x27;m<span class="hljs-number">.018</span>p4y&#x27;<br>        <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span> &#x27;TopicEntityName&#x27;<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>&#x27;james bond&#x27;<span class="hljs-punctuation">,</span> &#x27;pierce brosnan&#x27;<br>        <span class="hljs-punctuation">]</span><br>    <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span> <br>    &#x27;ProcessedQuestion&#x27;<span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;what was pierce brosnan&#x27;s first outing as 007&quot;</span><span class="hljs-punctuation">,</span> <br>    &#x27;Question-ID&#x27;<span class="hljs-punctuation">:</span> &#x27;FreebaseQA-train<span class="hljs-number">-0</span>&#x27;<span class="hljs-punctuation">,</span> <br>    &#x27;RawQuestion&#x27;<span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;What was Pierce Brosnan&#x27;s first outing as 007?&quot;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+
+<h3 id="Harvest-QA-Harvesting-From-Wikipedia"><a href="#Harvest-QA-Harvesting-From-Wikipedia" class="headerlink" title="Harvest (QA Harvesting From Wikipedia)"></a>Harvest (QA Harvesting From Wikipedia)</h3><p>下载链接：<a target="_blank" rel="noopener" href="https://hf-mirror.com/datasets/lmqg/qa_harvesting_from_wikipedia">hugging-face</a></p>
+<p>论文原文：<a target="_blank" rel="noopener" href="https://aclanthology.org/P18-1177">Harvesting Paragraph-level Question-Answer Pairs from Wikipedia</a></p>
+<h3 id="HotpotQA"><a href="#HotpotQA" class="headerlink" title="HotpotQA"></a>HotpotQA</h3><p>处理和基准设置：</p>
+<table>
+<thead>
+<tr>
+<th>Split</th>
+<th>Desc.</th>
+<th>Usage</th>
+<th># Examples</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>train-easy</td>
+<td>single-hop</td>
+<td>train</td>
+<td>18,089</td>
+</tr>
+<tr>
+<td>train-medium</td>
+<td>multi-hop</td>
+<td>train</td>
+<td>56,814</td>
+</tr>
+<tr>
+<td>train-hard</td>
+<td>hard multi-hop</td>
+<td>train</td>
+<td>15,661</td>
+</tr>
+<tr>
+<td>dev</td>
+<td>hard multi-hop</td>
+<td>dev</td>
+<td>7,405</td>
+</tr>
+<tr>
+<td>test-distractor</td>
+<td>hard multi-hop</td>
+<td>test</td>
+<td>7,405</td>
+</tr>
+<tr>
+<td>test-fullwiki</td>
+<td>hard multi-hop</td>
+<td>test</td>
+<td>7,405</td>
+</tr>
+<tr>
+<td>Total</td>
+<td></td>
+<td></td>
+<td>112,779</td>
+</tr>
+</tbody></table>
+<p>把单跳问题列入train-easy，基准模型可以正确回答的列入train-medium，无法正确回答的列入train-hard等4类中。</p>
+<p>其中test-distractor挑战模型存在噪声时找到真实支持事实，test-fullwiki通过要求它回答所有维基百科文章的第一段没有指定黄金段落的问题，来充分测试模型找到相关事实以及推理相关事实的能力。</p>
+<h3 id="NaturalQ"><a href="#NaturalQ" class="headerlink" title="NaturalQ"></a>NaturalQ</h3><h3 id="SearchQA"><a href="#SearchQA" class="headerlink" title="SearchQA"></a>SearchQA</h3><p>下载链接：<a target="_blank" rel="noopener" href="https://hf-mirror.com/datasets/lucadiliello/searchqa">hugging-face</a></p>
+<p>论文原文：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1704.05179">SearchQA: A New Q&amp;A Dataset Augmented with Context from a Search Engine</a></p>
+<h3 id="SQuAD"><a href="#SQuAD" class="headerlink" title="SQuAD"></a>SQuAD</h3><h3 id="WikiHop"><a href="#WikiHop" class="headerlink" title="WikiHop"></a>WikiHop</h3><p>下载链接：<a target="_blank" rel="noopener" href="https://hf-mirror.com/datasets/MoE-UNC/wikihop">hugging-face</a></p>
+<p>论文原文：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1710.06481">Constructing Datasets for Multi-hop Reading Comprehension Across Documents</a></p>
+<h3 id="WikiQA"><a href="#WikiQA" class="headerlink" title="WikiQA"></a>WikiQA</h3><p>下载链接：<a target="_blank" rel="noopener" href="https://hf-mirror.com/datasets/microsoft/wiki_qa">hugging-face</a></p>
+<p>论文原文：<a target="_blank" rel="noopener" href="https://aclanthology.org/D15-1237.pdf">WikiQA: A Challenge Dataset for Open-Domain Question Answering</a>]</p>
+<table>
+<thead>
+<tr>
+<th>question_id</th>
+<th>question</th>
+<th>document_title</th>
+<th>answer</th>
+<th>label</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Q1</td>
+<td>how are glacier caves formed?</td>
+<td>Glacier cave</td>
+<td>A partly submerged glacier cave on Perito Moreno Glacier .</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Q1</td>
+<td>how are glacier caves formed?</td>
+<td>Glacier cave</td>
+<td>The ice facade is approximately 60 m high</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Q1</td>
+<td>how are glacier caves formed?</td>
+<td>Glacier cave</td>
+<td>Ice formations in the Titlis glacier cave</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Q1</td>
+<td>how are glacier caves formed?</td>
+<td>Glacier cave</td>
+<td>A glacier cave is a cave formed within the ice of a glacier .</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Q1</td>
+<td>how are glacier caves formed?</td>
+<td>Glacier cave</td>
+<td>Glacier caves are often called ice caves , but this term is properly used to describe bedrock caves that contain year-round ice.</td>
+<td>0</td>
+</tr>
+</tbody></table>
+<h3 id="BM25空结果情况"><a href="#BM25空结果情况" class="headerlink" title="BM25空结果情况"></a>BM25空结果情况</h3><table>
+<thead>
+<tr>
+<th>Data</th>
+<th>Split</th>
+<th># qas</th>
+<th># result&lt;1</th>
+<th># result&lt;20</th>
+<th># result&lt;100</th>
+<th># min result</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>AdversarialQA</td>
+<td>train</td>
+<td>30000</td>
+<td>1</td>
+<td>1</td>
+<td>6</td>
+<td>61</td>
+</tr>
+<tr>
+<td></td>
+<td>val</td>
+<td>3000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>DROP</td>
+<td>train-slim</td>
+<td>1000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>FreeBase</td>
+<td>eval</td>
+<td>3996</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>Harvest</td>
+<td>train-slim</td>
+<td>1000</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>HotpotQA</td>
+<td>dev</td>
+<td>7405</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>NarrativeQA</td>
+<td>test</td>
+<td>10557</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>SearchQA</td>
+<td>dev</td>
+<td>16980</td>
+<td>7</td>
+<td>10</td>
+<td>19</td>
+<td>2</td>
+</tr>
+<tr>
+<td>SelfRC</td>
+<td>train-slim</td>
+<td>986</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>SQuAD</td>
+<td>test</td>
+<td>10570</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>WikiHop</td>
+<td>train</td>
+<td>43738</td>
+<td>282</td>
+<td>2584</td>
+<td>4390</td>
+<td>1</td>
+</tr>
+<tr>
+<td></td>
+<td>train-slim</td>
+<td>1000</td>
+<td>6</td>
+<td>53</td>
+<td>90</td>
+<td>1</td>
+</tr>
+<tr>
+<td></td>
+<td>val</td>
+<td>5129</td>
+<td>34</td>
+<td>313</td>
+<td>488</td>
+<td>1</td>
+</tr>
+<tr>
+<td>WikiQA</td>
+<td>test</td>
+<td>633</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1000</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="yes-no-问题占比"><a href="#yes-no-问题占比" class="headerlink" title="yes &#x2F; no 问题占比"></a>yes &#x2F; no 问题占比</h3><table>
+<thead>
+<tr>
+<th align="center">Data</th>
+<th>Split</th>
+<th># yes</th>
+<th># no</th>
+<th># Total</th>
+<th># Ratio</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">HotpotQA</td>
+<td>train</td>
+<td>2748</td>
+<td>2733</td>
+<td>5481</td>
+<td>5481&#x2F;90,447</td>
+</tr>
+<tr>
+<td align="center">HotpotQA</td>
+<td>dev</td>
+<td>225</td>
+<td>233</td>
+<td>458</td>
+<td>458&#x2F;7,405</td>
+</tr>
+<tr>
+<td align="center">SearchQA</td>
+<td>train</td>
+<td>3</td>
+<td>5</td>
+<td>8</td>
+<td>8&#x2F;117,384</td>
+</tr>
+<tr>
+<td align="center">SearchQA</td>
+<td>val</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1&#x2F;16,980</td>
+</tr>
+<tr>
+<td align="center">NaturalQ</td>
+<td>train</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>2&#x2F;79,168</td>
+</tr>
+<tr>
+<td align="center">NaturalQ</td>
+<td>test</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1&#x2F;3,610</td>
+</tr>
+</tbody></table>
+<h3 id="Wikipedia上的抽取式问答"><a href="#Wikipedia上的抽取式问答" class="headerlink" title="Wikipedia上的抽取式问答"></a>Wikipedia上的抽取式问答</h3><table>
+<thead>
+<tr>
+<th>Dataset</th>
+<th>Split</th>
+<th># qas</th>
+<th>SR R@100</th>
+<th>DR R@100</th>
+<th>HR R@100</th>
+<th>bonus</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>AdversarialQA</td>
+<td>val</td>
+<td>3000</td>
+<td>0.5933</td>
+<td>0.506</td>
+<td>0.6213</td>
+<td></td>
+</tr>
+<tr>
+<td>Ambig</td>
+<td>val</td>
+<td>2002</td>
+<td>0.7617</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>BioASQ</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>DROP</td>
+<td>val</td>
+<td>9535</td>
+<td>0.6853</td>
+<td>0.6258</td>
+<td>0.6926</td>
+<td></td>
+</tr>
+<tr>
+<td>FreeBase</td>
+<td>train-slim</td>
+<td>1000</td>
+<td>0.9520（WFT？）</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>eval</td>
+<td>3996</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Harvest</td>
+<td>train-slim</td>
+<td>1000</td>
+<td>0.6000</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>NarrativeQA</td>
+<td>train</td>
+<td>32747</td>
+<td></td>
+<td></td>
+<td>0.3973</td>
+<td></td>
+</tr>
+<tr>
+<td>&#x3D;&#x3D;SearchQA&#x3D;&#x3D;</td>
+<td>val</td>
+<td>16980</td>
+<td>0.8100</td>
+<td>0.8067</td>
+<td>0.8518</td>
+<td></td>
+</tr>
+<tr>
+<td>SelfRC</td>
+<td>train-slim</td>
+<td>986</td>
+<td>0.4533</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>WikiHop</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>train-slim (去除#result&lt;1)</td>
+<td>994</td>
+<td>0.6469</td>
+<td>0.5785</td>
+<td>0.6881</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>val</td>
+<td>5125</td>
+<td>0.6126</td>
+<td>0.5286</td>
+<td>0.6510</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>val-100r (去除#result&lt;100)</td>
+<td>4641</td>
+<td>0.6100</td>
+<td>0.5538</td>
+<td>0.6524</td>
+<td></td>
+</tr>
+<tr>
+<td>WikiMovies</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>WikiQA</td>
+<td>test</td>
+<td>633</td>
+<td>0.2401</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="常见术语"><a href="#常见术语" class="headerlink" title="常见术语"></a>常见术语</h2><p>DR：Dense Retriever，即密集检索器。常见的Dense Retriever包括DPR、ANCE。</p>
+<p>SR：Sparse Retriever，即稀疏检索器。最常用的SR是BM25、SPLADE。</p>
+<p>HR：Hybrid Retriever，即混合检索器。通常由一个稀疏检索器+一个稠密检索器构成，对两个召回通道做<strong>RRF &#x2F; 分数加权</strong>得到最终结果。在目前的实验版本中，HR是BM25 + DPR + RRF</p>
+<p>gt：ground truth，在本文context下指的是一条query的正确答案，为若干个字符串。检索器返回的所有候选doc中至少需要有1个doc包含gt，才能算命中hit</p>
+<p>RRF：Reciprocal Rank Fusion，倒数平均聚合。<br>来自论文<a target="_blank" rel="noopener" href="https://doi.org/10.1145/1571941.1572114"># Reciprocal rank fusion outperforms condorcet and individual rank learning methods</a></p>
+<p>ODQA：Open-Domain Question Answering，即开放域问答。ODQA系统的目标是从庞大的语料库中检索并提取出能够回答给定问题的信息。为了实现这一目标，系统通常需要执行以下步骤：</p>
+<ol>
+<li><strong>信息检索</strong>：从语料库中找出可能包含答案的文档或段落。</li>
+<li><strong>阅读理解</strong>：对检索到的文档进行深入分析，理解其内容，以定位具体答案。</li>
+<li><strong>答案生成</strong>：根据理解的内容生成或抽取答案。</li>
+</ol>
+<p>corpus：即ODQA任务中的语料库，通常包含大量的文档，这些文档可以是网页、书籍、文章、维基百科条目等各种来源的文本数据。</p>
+<p>doc：document，即corpus中的文档。在ODQA任务中，语料库</p>
+<p>R@10、R@100：Recall at 10、100的简称。含义为检索系统在前10个或前100个检索结果中找到至少一个相关文档的能力的指标。<br>这个指标关注的是检索结果的“召回率”方面，却并<strong>不考虑检索结果的排序</strong>，也就是说，只要在前10或前100的文档中有至少一个相关文档，该指标就算作成功。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%AC%94%E8%AE%B0/" class="category-chain-item">笔记</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%A3%80%E7%B4%A2/" class="print-no-link">#检索</a>
+      
+        <a href="/tags/python/" class="print-no-link">#python</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>笔记 - IR &amp; ODQA Wiki</div>
+      <div>https://lcj2021.github.io/2024/07/14/笔记 - IR &amp; ODQA Wiki/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Channing Lau</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年7月14日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/07/14/%E8%AE%B0%E5%BD%95%20-%20%E6%B7%B7%E5%90%88%E6%A3%80%E7%B4%A2%E6%A1%86%E6%9E%B6%E6%8E%A2%E7%B4%A2/" title="记录 - 混合检索框架探索">
+                        <span class="hidden-mobile">记录 - 混合检索框架探索</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

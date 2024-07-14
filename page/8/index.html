@@ -1,0 +1,962 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Channing Lau">
+  <meta name="keywords" content="">
+  
+    <meta property="og:type" content="website">
+<meta property="og:title" content="ChanningLau&#39;s harbour">
+<meta property="og:url" content="https://lcj2021.github.io/page/8/index.html">
+<meta property="og:site_name" content="ChanningLau&#39;s harbour">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Channing Lau">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>ChanningLau&#39;s harbour</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lcj2021.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 100vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>ChanningLau&#39;s harbour</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/nagi-no-asukara-9.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="ChanningLau&#39;s Harbour"></span>
+          
+        </div>
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      <div class="container nopadding-x-md">
+        <div id="board"
+          style="margin-top: 0">
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/01/11/%E9%A2%98%E8%A7%A3%20-%20Codeforces%20Round%20685%20(Div.%202)%20A-E/" target="_self">
+          题解 - Codeforces Round 685 (Div. 2) A-E
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/01/11/%E9%A2%98%E8%A7%A3%20-%20Codeforces%20Round%20685%20(Div.%202)%20A-E/" target="_self">
+        <div>
+          做这套题主要是因为我搜”模仿棋”, 搜到了这场的D题, 顺便把其他题也做了 C. String Equality题意给两个字符串a和b, 问a能不能通过无限次操作到b. 第一种操作, 相邻交换字符: 第二种操作, 选取区间长度为k的子串,而且子串中的字母都 &lt;’z’, 每一个字母都加一（比如S0&#x3D;’a’ 操作后,S0&#x3D;’b’) 分析代码1  D. Circle Game题
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-01-11 00:00" pubdate>
+              2023-01-11
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E9%A2%98%E8%A7%A3/" class="category-chain-item">题解</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%AE%97%E6%B3%95-%E8%B4%AA%E5%BF%83/">#算法_贪心</a>
+            
+              <a href="/tags/%E7%AE%97%E6%B3%95-%E6%9E%84%E9%80%A0/">#算法_构造</a>
+            
+              <a href="/tags/%E7%AE%97%E6%B3%95-%E5%8D%9A%E5%BC%88/">#算法_博弈</a>
+            
+              <a href="/tags/%E7%AE%97%E6%B3%95-%E4%BD%8D%E8%BF%90%E7%AE%97/">#算法_位运算</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/01/11/%E9%A2%98%E8%A7%A3%20-%20Codeforces%20Round%20843%20(Div.%202)%20A-E/" target="_self">
+          题解 - Codeforces Round 843 (Div. 2) A-E
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/01/11/%E9%A2%98%E8%A7%A3%20-%20Codeforces%20Round%20843%20(Div.%202)%20A-E/" target="_self">
+        <div>
+          次日上午vp写了依托答辩, B一开始没想到. 写C对拍了几次, 花了一个多小时.不过rk2000左右, 比上次vp卡B构造一小时rk6000好多了. 补题: C有用lowbit的简单做法. D利用最小质因子作为交换机的交换机式建图套路题 A. Gardener and the Capybaras题意将仅包含a和b的字符串s分成三部分s&#x3D;s1+s2+s3, 使得s2是这三个部分的一个最值（
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-01-11 00:00" pubdate>
+              2023-01-11
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E9%A2%98%E8%A7%A3/" class="category-chain-item">题解</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%AE%97%E6%B3%95-%E6%9C%80%E7%9F%AD%E8%B7%AF/">#算法_最短路</a>
+            
+              <a href="/tags/%E7%AE%97%E6%B3%95-%E6%95%B0%E8%AE%BA/">#算法_数论</a>
+            
+              <a href="/tags/%E7%AE%97%E6%B3%95-%E8%B4%AA%E5%BF%83/">#算法_贪心</a>
+            
+              <a href="/tags/%E7%AE%97%E6%B3%95-%E6%9E%84%E9%80%A0/">#算法_构造</a>
+            
+              <a href="/tags/%E7%AE%97%E6%B3%95-%E4%BD%8D%E8%BF%90%E7%AE%97/">#算法_位运算</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/01/09/%E9%A2%98%E8%A7%A3%20-%20%E7%89%9B%E5%AE%A2%E5%B0%8F%E7%99%BD%E6%9C%88%E8%B5%9B65%20A-F/" target="_self">
+          题解 - 牛客小白月赛65 A-F
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/01/09/%E9%A2%98%E8%A7%A3%20-%20%E7%89%9B%E5%AE%A2%E5%B0%8F%E7%99%BD%E6%9C%88%E8%B5%9B65%20A-F/" target="_self">
+        <div>
+          B - 牛牛写情书题意 + 分析判断模式串T是否是给定串S的子串.瞎写双指针      XKMP &#x2F; 双哈希            V5e3: 直接substr暴力$n^2$ 代码12345678910111213141516171819void solve() &#123;    int n, m;   cin &gt;&gt; n &gt;&gt; m;    string os,
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-01-09 00:00" pubdate>
+              2023-01-09
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E9%A2%98%E8%A7%A3/" class="category-chain-item">题解</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%AE%97%E6%B3%95-DP/">#算法_DP</a>
+            
+              <a href="/tags/%E7%AE%97%E6%B3%95-%E6%9E%84%E9%80%A0/">#算法_构造</a>
+            
+              <a href="/tags/%E7%AE%97%E6%B3%95-%E5%8D%9A%E5%BC%88/">#算法_博弈</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2022/12/29/%E5%91%A8%E8%AE%B0%20-%202022%2012.19-12.25%20(%E5%96%89%E5%92%99%E6%9C%80%E7%97%9B%E7%9A%84%E4%B8%80%E9%9B%86)/" target="_self">
+          周记 - 2022 12.19-12.25 (喉咙最痛的一集)
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/12/29/%E5%91%A8%E8%AE%B0%20-%202022%2012.19-12.25%20(%E5%96%89%E5%92%99%E6%9C%80%E7%97%9B%E7%9A%84%E4%B8%80%E9%9B%86)/" target="_self">
+        <div>
+          12.19 周一  晴今天得早起赶早上9点的高铁, 于是我7点整就起床了, 在宿舍吃完早餐7:30出门, 想到要面对满大街满车的小阳人, 我就换上了N95. 坐地铁到南站认证了学生资质后, 大概还剩下15分钟. 我的座位在高铁车厢左上方靠窗的位置. 上了车我就直接睡到站. 到南站后, 我不记得以往出站口是哪了, 毕竟前两次回家都是坐火车回的, 所以这次老爸兜了一圈才找到我. 虽然知道家里人都已经阳
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-12-29 00:00" pubdate>
+              2022-12-29
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%97%A5%E5%B8%B8/" class="category-chain-item">日常</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2022/12/20/%E5%91%A8%E8%AE%B0%20-%202022%2012.12-12.18%20(%E5%9C%86%E6%A2%A6XCPC)/" target="_self">
+          周记 - 2022 12.12-12.18 (圆梦XCPC)
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/12/20/%E5%91%A8%E8%AE%B0%20-%202022%2012.12-12.18%20(%E5%9C%86%E6%A2%A6XCPC)/" target="_self">
+        <div>
+          12.12 周一  晴早上刷题. 下午和zzm在综楼二楼教员休息室下番《冰菓》《中二病也要谈恋爱》《路人女主的养成方法》, 同时刷题. 主要是《D. Range &#x3D; √Sum》这题, R1800的构造题, 只能想出偶数的构造方法, 奇数情况还是过于抽象了. 晚上吃师生缘的煎饼果子, 看完了《剃须. 然后捡到高中生》. 个人认为这番其实还算治愈番, 但是事实上知乎B站上许多评论都抓着女主公
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-12-20 00:00" pubdate>
+              2022-12-20
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%97%A5%E5%B8%B8/" class="category-chain-item">日常</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2022/11/07/%E9%A2%98%E8%A7%A3%20-%20%E7%89%9B%E5%AE%A2%E7%BB%83%E4%B9%A0%E8%B5%9B105%20D/" target="_self">
+          题解 - 牛客小白月赛59 D-F
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/11/07/%E9%A2%98%E8%A7%A3%20-%20%E7%89%9B%E5%AE%A2%E7%BB%83%E4%B9%A0%E8%B5%9B105%20D/" target="_self">
+        <div>
+          比赛链接 Dijkstra 松弛的理解“松弛”的概念来自对最短路径的估计与不为压缩而设计的螺旋拉伸弹簧的长度之间的类比. 最初, 最短路径的成本被高估了, 就像延伸的弹簧一样. 当找到更短的路径时, 估计的成本会降低, 弹簧会放松. 最终, 找到了最短的路径（如果存在）, 并且弹簧已经松弛到其静止长度. D - 点分治分点题意G&lt;n, m&gt;, 且$n, m \leq 1e5$, 定义一
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-11-07 00:00" pubdate>
+              2022-11-07
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E9%A2%98%E8%A7%A3/" class="category-chain-item">题解</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%AE%97%E6%B3%95-%E6%9C%80%E7%9F%AD%E8%B7%AF/">#算法_最短路</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2022/11/07/%E9%A2%98%E8%A7%A3%20-%20%E7%AC%AC%E5%85%AB%E5%B1%8A%E2%80%9C%E5%9B%BE%E7%81%B5%E6%9D%AF%E2%80%9D%E4%B8%AA%E4%BA%BA%E8%B5%9B/" target="_self">
+          题解 - 第八届“图灵杯”个人赛
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/11/07/%E9%A2%98%E8%A7%A3%20-%20%E7%AC%AC%E5%85%AB%E5%B1%8A%E2%80%9C%E5%9B%BE%E7%81%B5%E6%9D%AF%E2%80%9D%E4%B8%AA%E4%BA%BA%E8%B5%9B/" target="_self">
+        <div>
+          比赛链接 贪吃的派蒙题意在每一次的排队中, 编号为i的角色领取上限为Ai, 这意味着他可以领取的甜甜花酿鸡在$[1-Ai]$范围内. 当一个角色领完本次的甜甜花酿鸡, 他&#x2F;她就会回到队列的末尾, 直到所有甜甜花酿鸡都被吃完为止. 当轮到一个角色领取时, 如果所有的甜甜花酿鸡都被领完, 那么他&#x2F;她就要帮大家刷盘子. 贪吃的派蒙每次都吃固定的Ax个甜甜花酿鸡(如果剩下的甜甜花酿鸡的
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-11-07 00:00" pubdate>
+              2022-11-07
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E9%A2%98%E8%A7%A3/" class="category-chain-item">题解</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%AE%97%E6%B3%95-%E6%9C%80%E7%9F%AD%E8%B7%AF/">#算法_最短路</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2022/11/06/%E5%91%A8%E8%AE%B0%20-%202022%2010.31-11.06%20(XCPC%E6%9C%80%E9%81%97%E6%86%BE%E7%9A%84%E4%B8%80%E9%9B%86)/" target="_self">
+          周记 - 2022 10.31-11.06 (XCPC最遗憾的一集)
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/11/06/%E5%91%A8%E8%AE%B0%20-%202022%2010.31-11.06%20(XCPC%E6%9C%80%E9%81%97%E6%86%BE%E7%9A%84%E4%B8%80%E9%9B%86)/" target="_self">
+        <div>
+          11.3 周四 晴今天一早起来就看到知乎推送《多地核酸开始自费》, 又了解到大舅那边前几天已经开始自费了, 收费是4元&#x2F;次. 不禁联想到昨天还吐槽核酸检测人员的高收入. 早十有《高性能计算》, 依旧是平平无奇地上半节课签到, 课间从复邻舍401后门溜回宿舍. 不过今天罗HZ老师提到了签到的问题, 在课上指出了缺课达3次需要补卡. 我想起上上周自己因为没看课表, 直接漏掉了一次签到. 不料
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-11-06 00:00" pubdate>
+              2022-11-06
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%97%A5%E5%B8%B8/" class="category-chain-item">日常</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2022/11/04/%E9%A2%98%E8%A7%A3%20-%20AtCoder%20Beginner%20Contest%20275%20A-F/" target="_self">
+          题解 - AtCoder Beginner Contest 275 A-F
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/11/04/%E9%A2%98%E8%A7%A3%20-%20AtCoder%20Beginner%20Contest%20275%20A-F/" target="_self">
+        <div>
+          C题意一个$r \times c (r, c\in [1, 9])$二维平面S. 元素S[i][j]是’#’或者’.’, 找出这个平面上所有四个顶点都是’#’的正方形数. 如 123456789##.......##.......................#......#...........#......#....................  具有顶点 (1,1)、(1,2)、(2,
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-11-04 00:00" pubdate>
+              2022-11-04
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E9%A2%98%E8%A7%A3/" class="category-chain-item">题解</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%AE%97%E6%B3%95-DP/">#算法_DP</a>
+            
+              <a href="/tags/%E7%AE%97%E6%B3%95-%E5%AE%9E%E7%8E%B0/">#算法_实现</a>
+            
+              <a href="/tags/%E7%AE%97%E6%B3%95-%E6%90%9C%E7%B4%A2/">#算法_搜索</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2022/11/03/%E9%A2%98%E8%A7%A3%20-%20AtCoder%20Beginner%20Contest%20192%20D-F/" target="_self">
+          题解 - AtCoder Beginner Contest 192 D-F
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/11/03/%E9%A2%98%E8%A7%A3%20-%20AtCoder%20Beginner%20Contest%20192%20D-F/" target="_self">
+        <div>
+          D题意给定整数 $X, X \in [1, 10^{60}]$和 $M, M \in [1, 10^{18}]$, 设 $d$ 是 $X$ 最大的一位数.  求对于所有的 $a&gt;d,a \in \mathbb{Z}$, $ a $ 进制数 $ X $ 所代表的数的个数, 同时 $ X _a\le M$.  分析首先, 对于所有 $len (X) &gt;1$ 的情况, $ a $ 的个数与题
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-11-03 00:00" pubdate>
+              2022-11-03
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E9%A2%98%E8%A7%A3/" class="category-chain-item">题解</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%AE%97%E6%B3%95-DP/">#算法_DP</a>
+            
+              <a href="/tags/%E7%AE%97%E6%B3%95-%E4%BA%8C%E5%88%86/">#算法_二分</a>
+            
+              <a href="/tags/%E7%AE%97%E6%B3%95-%E6%9C%80%E7%9F%AD%E8%B7%AF/">#算法_最短路</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <a class="extend prev" rel="prev" href="/page/7/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/#board">6</a><a class="page-number" href="/page/7/#board">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/#board">9</a><a class="extend next" rel="next" href="/page/9/#board"><i class="iconfont icon-arrowright"></i></a>
+    </span>
+  </nav>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
