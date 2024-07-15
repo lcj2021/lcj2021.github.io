@@ -24,7 +24,7 @@
 <meta property="og:description" content="更改Notebook文件名会kill掉进行的python进程wikihop_val_bm25.ipynb &#x3D;&gt; wikihop_val_100r_bm25.ipynb会造成在跑的wikihop_val_bm25.ipynb实验被kill。 VSCode服务器上使用Jupyter显示请选择内核源请在VSCode的扩展栏中检查Jupyter插件，出现这个问题，此时Jupyter的图标大">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-07-14T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-07-15T01:05:00.927Z">
+<meta property="article:modified_time" content="2024-07-15T12:30:22.118Z">
 <meta property="article:author" content="Channing Lau">
 <meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary_large_image">
@@ -275,7 +275,7 @@
                 
                 <h2 id="更改Notebook文件名会kill掉进行的python进程"><a href="#更改Notebook文件名会kill掉进行的python进程" class="headerlink" title="更改Notebook文件名会kill掉进行的python进程"></a>更改Notebook文件名会kill掉进行的python进程</h2><p><code>wikihop_val_bm25.ipynb</code> &#x3D;&gt; <code>wikihop_val_100r_bm25.ipynb</code>会造成在跑的<code>wikihop_val_bm25.ipynb</code>实验被kill。</p>
 <h2 id="VSCode服务器上使用Jupyter显示请选择内核源"><a href="#VSCode服务器上使用Jupyter显示请选择内核源" class="headerlink" title="VSCode服务器上使用Jupyter显示请选择内核源"></a>VSCode服务器上使用Jupyter显示请选择内核源</h2><p>请在VSCode的扩展栏中检查Jupyter插件，出现这个问题，此时Jupyter的图标大概率已经变灰了。可以通过更新版本 or 切换回预览版解决。</p>
-<h2 id="nohup-jupyter-execute实现挂机"><a href="#nohup-jupyter-execute实现挂机" class="headerlink" title="nohup + jupyter-execute实现挂机"></a>nohup + jupyter-execute实现挂机</h2><p>在screen的session里面，conda activate进到虚拟环境，然后执行<code>nohup jupyter-execute a.ipynb &gt; a.log &amp;</code>就可以了。<br>你说得对但是<code>jupyter-execute command not </code>。apt install jupyter-execute说找不到这个东西。<br>应该先conda activate 到一个虚拟环境，然后再<code>pip install jupyter</code></p>
+<h2 id="nohup-jupyter-execute实现挂机"><a href="#nohup-jupyter-execute实现挂机" class="headerlink" title="nohup + jupyter-execute实现挂机"></a>nohup + jupyter-execute实现挂机</h2><p>在screen的session里面，conda activate进到虚拟环境，然后执行<code>nohup jupyter-execute a.ipynb &gt; a.log &amp;</code>就可以了。<br>你说得对但是<code>jupyter-execute command not found</code>。<code>apt install jupyter-execute</code>说找不到这个东西。<br>应该先conda activate 到一个虚拟环境，然后再<code>pip install jupyter</code></p>
 
                 
               </div>
@@ -365,6 +365,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2024/07/15/%E5%91%A8%E8%AE%B0%20-%202024%2007.15-07.21/" title="周记 - 2024 07.15-07.21">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">周记 - 2024 07.15-07.21</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
