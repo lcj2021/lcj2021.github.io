@@ -1,0 +1,659 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Channing Lau">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="原文链接：arXiv:2109.10739代码链接：Retrieval-Strategy-Selection Abstract在过去的几年里，上下文化预训练的Transformer模型，如BERT，在信息检索任务上通过在嵌入空间中微调查询和文档的密集低维上下文化表示，提供了实质性的改进。另一方面，传统的稀疏检索方法，如BM25，依赖于高维、稀疏、词袋式的查询表示来检索文档。尽管密集检索器在检索效果">
+<meta property="og:type" content="article">
+<meta property="og:title" content="笔记 - CIKM2021 Predicting Efficiency Effectiveness Trade-offs for  Dense vs. Sparse Retrieval Strategy Selection">
+<meta property="og:url" content="https://lcj2021.github.io/2024/07/15/%E7%AC%94%E8%AE%B0%20-%20CIKM2021%20Predicting%20Efficiency%20Effectiveness%20Trade-offs%20for%20%20Dense%20vs.%20Sparse%20Retrieval%20Strategy%20Selection/index.html">
+<meta property="og:site_name" content="ChanningLau&#39;s harbour">
+<meta property="og:description" content="原文链接：arXiv:2109.10739代码链接：Retrieval-Strategy-Selection Abstract在过去的几年里，上下文化预训练的Transformer模型，如BERT，在信息检索任务上通过在嵌入空间中微调查询和文档的密集低维上下文化表示，提供了实质性的改进。另一方面，传统的稀疏检索方法，如BM25，依赖于高维、稀疏、词袋式的查询表示来检索文档。尽管密集检索器在检索效果">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-07-14T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-07-16T15:32:16.214Z">
+<meta property="article:author" content="Channing Lau">
+<meta property="article:tag" content="BERT">
+<meta property="article:tag" content="Information-Retrieval">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>笔记 - CIKM2021 Predicting Efficiency Effectiveness Trade-offs for  Dense vs. Sparse Retrieval Strategy Selection - ChanningLau&#39;s harbour</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lcj2021.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>ChanningLau&#39;s harbour</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="笔记 - CIKM2021 Predicting Efficiency Effectiveness Trade-offs for  Dense vs. Sparse Retrieval Strategy Selection"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-07-15 00:00" pubdate>
+          2024年7月15日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          39 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">笔记 - CIKM2021 Predicting Efficiency Effectiveness Trade-offs for  Dense vs. Sparse Retrieval Strategy Selection</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>原文链接：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2109.10739">arXiv:2109.10739</a><br>代码链接：<a target="_blank" rel="noopener" href="https://github.com/Narabzad/Retrieval-Strategy-Selection">Retrieval-Strategy-Selection</a></p>
+<h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>在过去的几年里，上下文化预训练的Transformer模型，如BERT，在信息检索任务上通过在嵌入空间中微调查询和文档的密集低维上下文化表示，提供了实质性的改进。另一方面，传统的稀疏检索方法，如BM25，依赖于高维、稀疏、词袋式的查询表示来检索文档。尽管密集检索器在检索效果上与稀疏检索器相比有显著提升，但它们计算密集，需要大量的GPU资源，且密集检索器在时间和资源消耗上更为昂贵。此外，稀疏检索器已被证明能检索到相对于密集检索器的互补信息，这导致了混合检索器的提议。这些混合检索器利用低成本、基于精确匹配的稀疏检索器以及密集检索器来弥合查询与文档之间的语义差距。在这项工作中，我们通过提出一个分类器来选择适合的检索策略（即，稀疏、密集或混合）来解决稀疏与密集检索器的成本与效用之间的权衡问题，针对每个查询进行选择。对于可以通过稀疏检索器回答的查询，利用稀疏检索器可以减少调用GPU的次数。因此，虽然效用得以保持，查询延迟却减少了。尽管我们使用了更少的计算资源和时间，但我们仍然取得了改进的表现。我们的分类器可以根据查询本身选择稀疏或密集检索策略。我们在MS MARCO段落数据集上进行了实验，展示了纯稀疏、纯密集或混合检索策略之间效率&#x2F;效果权衡的改善范围，允许根据目标延迟和资源预算选择合适的策略。</p>
+<h2 id="1-INTRODUCTION"><a href="#1-INTRODUCTION" class="headerlink" title="1 INTRODUCTION"></a>1 INTRODUCTION</h2><p>信息检索（IR）系统已被神经排名方法彻底改变。几年前，最先进的排名堆栈（ranking stack）会采用第一阶段的稀疏检索器，如BM25，它依赖于确切的词条匹配来检索初始的项目池，供后续阶段重新排序[10, 14, 22]。倒排索引使整个语料库能够被高效扫描，延迟极低。这种类型的第一阶段检索器自最早的商业和学术系统以来一直是IR的标准配置。</p>
+<p>最近的进展提供了一种基于经典倒排索引的第一阶段检索器的替代方案。上下文预训练的转换器模型，例如BERT [2]，使得一种新型的第一阶段检索器能够将查询和文档映射到低维密集向量，并利用最大内积搜索方法来查找与查询向量最相似的文档向量[4、11、24、26]。虽然这些检索器与传统方法相比具有显着的检索效果改进，但它们仍然存在缺点，包括增加的GPU资源和潜在的更高延迟。虽然这些密集检索器在检索效果上平均优于传统的稀疏检索器，但仍然存在查询，稀疏检索器提供更优秀的性能。没有一种单一的检索方法可以有效和高效地回答所有查询，选择合适的检索策略是维护系统效率和效果之间的平衡的关键问题。传统的初始检索器，例如BM25 [10]，在信息检索中有着悠久的历史。在现代排名堆栈中，BM25通常与WAND查询处理策略配对，以最大化第一阶段检索的效率[1]。这些第一阶段排名器可以称为“稀疏检索器”，因为它们主要利用稀疏的高维度词袋表示。 在给定查询时，检索器使用评分函数对文档进行排序。由于稀疏检索器通过查询和文档术语之间的精确匹配进行操作，因此当查询和语料库语言之间存在语义差距时，它们不足以解决词汇不匹配问题。然而，它们非常具有成本效益并且易于扩展，即使在廉价硬件上也是如此。大多数第一阶段稀疏检索器的更稀疏排名方法通常使用BM25作为多级排名堆栈的第一阶段[5、6、18 20]。排名阶段的后续阶段使用更高成本的基于神经网络的重新排名器来重新排名初始低成本的稀疏检索器检索到的文档。虽然这种初始稀疏检索步骤与多个重新排名步骤的组合已经表现出优异的性能，但通过用密集检索器替换初始检索步骤可以进一步提高性能。这些密集检索器使用上下文化的预训练变压器模型将查询和文档映射到嵌入空间[4、11、12、24、26]。在这个密集的低维嵌入空间中，查询和文档之间的关联（例如点积）提供了相关性得分。通过用密集检索器替换稀疏检索器所做的改进已经在许多核心检索任务和排行榜上得到了证明，例如MS MARCO。MS MARCO是一个大规模的集合，重点是为信息检索的深度学习方法提供应用。提供相对较大的训练数据使MS MARCO成为比较SOTA检索方法的合适测试平台。</p>
+<p>在撰写本文时，MS MARCO段落检索排行榜上的最高得分者是RocketQA [3]，它是一种密集检索器，使用双编码器（dual encoder）和交叉编码器（cross encoder）架构来学习查询和段落的密集表示。同样，文档检索排行榜上表现最好的模型是ANCE [24]，它是一种学习机制，可以在孪生神经网络（siamese network）中学习查询和文档表示，并使用点积来排名文档。文档可以离线编码以节省时间，而查找与查询最相似的文档是密集检索器（Dense Retriever）中一个耗时的阶段，应该在查询到达时即时完成。最近，最近邻搜索算法（如FAISS）支持这些密集检索器，在毫秒级别内扫描数百万个候选项[9]。但即使使用最有效的最近邻算法，密集检索器的延迟仍可能无法与稀疏检索器相比（本人的试验结果可不是这样的<code>(^_^;)</code>）。<br>此外，需要大量GPU资源使得密集检索器运行成本高昂，并可能限制它们在高容量、实际应用中的使用，资源限制始终是一个关键问题。因此，相对于稀疏检索器，密集检索器可能会产生更高的成本和影响延迟。此外，密集检索器无法产生token-level的匹配信号，这对于需要精确匹配的命名实体和其他术语可能是至关重要的。一些研究人员提出了“混合检索器”，将稀疏和密集检索器结合起来，希望获得两种方法的一些优势。一些最近的方法在训练过程中利用稀疏检索器的词汇信息。例如，Gao等人[4]通过语义级信息训练密集检索器来补充稀疏检索器。其他研究人员通过插值（interpolating，但是我觉得Reciprocal Rank Fusion好些）来组合稀疏和密集检索器的排名[4, 13, 15, 16]。然而，据我们所知，目前还没有针对个别查询选择适当检索策略的工作。</p>
+<p>在本文中，我们研究了基于查询选择第一阶段检索策略的策略。选择适当的策略提供了效率和效果之间的权衡。我们从三种可能的策略中选择：1）仅稀疏，2）仅密集，和3）混合，其中稀疏和密集检索器都在运行，并将它们的结果合并成一个单一的池进行重新排序。通过在每个查询基础上选择适当的策略，我们可以利用稀疏和密集检索器的优点。对于某些查询，使用密集检索器可能避免词汇不匹配问题。对于其他查询，使用稀疏检索器可能提供必要的精确术语匹配。对于某些查询，两者都可能是理想的。当一个查询可以用更低成本、更低延迟的稀疏检索器单独回答时，通过避免使用密集检索方法可以降低成本。我们利用上下文预训练嵌入查询的表示来训练交叉编码器架构中的分类器，目的是选择可以最好回答查询的检索器。此外，我们在MS MARCO段落集上进行实验，训练两个分类器，即在每个查询基础上选择“稀疏 vs. 密集”或“稀疏 vs. 混合”。我们的实验提供了一个设置，可以根据查询延迟和资源限制选择最佳的检索策略。</p>
+<h2 id="2-METHOD"><a href="#2-METHOD" class="headerlink" title="2 METHOD"></a>2 METHOD</h2><p>在选择检索策略时，我们旨在利用稀疏检索器的效率和简洁性，尽可能地优先选择它，而不是密集检索器。然而，如果我们的分类器预测稀疏检索器在查询𝑞上的表现相对较差，我们会更倾向于利用更强大和资源密集的密集检索策略。对于某些查询，我们还考虑采用混合方法，通过运行两个检索器并将稀疏和密集检索器检索到的项目池合并为单个池进行重新排序。在这种混合策略下，我们始终运行稀疏检索器，然后根据结果决定是否运行密集检索器。我们研究了这种检索策略选择过程对MS MARCO段落集合[17]的影响。该集合包括880万个段落，配有超过500k个查询和判断相关段落的对于训练目的。对于每个查询𝑞，都有一组相关的判断段落𝑅𝑞，其中对于超过90％的查询|𝑅𝑞|&#x3D;1，即每个查询都有一个判断相关段落。此外，还有6980个开发和验证查询（“MS MARCO开发集”）。最后，还有一个私有相关性判断的测试集，我们无法获得。在我们的实验中，我们使用许多顶级重新排序堆栈[7、8、19]中广泛使用的BM25作为我们的稀疏检索器，该算法由滑铁卢大学的开源Anserini系统[25]实现，提供了最先进的稀疏检索器性能。作为我们的密集检索器，我们采用了ANCE，它是目前从效率和效果两方面来看都是最先进的第一阶段密集检索器。ANCE已经显示比其他密集检索器快100倍以上[24]。此外，我们还用其他代表性的DR重复了我们的实验，例如RepBERT [26]和ColBERT [12]。对于我们的混合型检索器，我们简单地通过稀疏（BM25）和密集（ANCE）两种方式检索文档，并将它们合并成一个池。接下来，我们将讨论如何训练我们提出的分类器，以在每个查询基础上决定“稀疏 vs. 密集”或“稀疏 vs. 混合”作为检索策略。</p>
+<h2 id="3-EXPERIMENTS"><a href="#3-EXPERIMENTS" class="headerlink" title="3 EXPERIMENTS"></a>3 EXPERIMENTS</h2><h3 id="3-1-Experimental-Setup"><a href="#3-1-Experimental-Setup" class="headerlink" title="3.1 Experimental Setup"></a>3.1 Experimental Setup</h3><p>为了训练分类器，我们遵循第2.1和2.2节中描述的标注方案。我们为训练集中的查询分配标签。对于稀疏与密集分类器，我们使用批量大小为8的BERT基础模型进行1个时期的微调。在RTX 2080 GPU上训练不到1小时。对于稀疏与混合分类器，我们使用相同的预训练模型，使用稀疏检索器检索的查询和顶部文档进行微调。我们输入查询，后跟分隔符令牌、第一个检索到的文档和分配的类别，使用相同的实验设置微调BERT基础模型。我们代码公开在 <a target="_blank" rel="noopener" href="https://github.com/Narabzad/Retrieval-Strategy-Selection">https://github.com/Narabzad/Retrieval-Strategy-Selection</a> </p>
+<h3 id="3-2-Results-and-Findings"><a href="#3-2-Results-and-Findings" class="headerlink" title="3.2 Results and Findings"></a>3.2 Results and Findings</h3><p>如图1所示，分类器产生每个类别的查询概率。为了指定策略，我们选择0.0到1.0之间的阈值。通过选择不同的阈值，我们可以在稀疏策略的效率和资源节约以及密集和混合策略的改进效果之间进行权衡。为了衡量效果，我们报告召回率@1000，但在其他召回水平上的整体结果类似。我们使用召回率，因为第一阶段检索的输出将被额外的阶段重新排序。第一阶段的目标是构建包含相关段落的池，而后续阶段的目标是将这些相关段落置于排名的顶部。 图2显示了稀疏与密集检索器之间的权衡。随着阈值从0.0到1.0的变化，越来越多的查询选择密集检索策略。x轴显示了在MS MARCO开发集的所有6980个查询中分配密集检索器的查询分数。我们可以将此分数视为分配给密集检索策略的“预算”，我们将其分配以提高效果。对于预算为0的情况，始终使用稀疏检索器。对于预算为1的情况，始终使用另一种（密集或混合）检索器。在左下角，两个蓝色曲线相交的地方，密集检索器预算为0，这意味着所有查询都使用了稀疏检索器。在右上角的蓝色点处，蓝色曲线再次相交，显示了密集检索器预算为1时的性能，这意味着所有查询都使用了密集检索器。作为基线，我们随机分配检索器，其速率由预算给出，如虚线所示。两个分类器都显著优于此基线。例如，在密集检索器预算为0.5时，当50％的查询（3490个查询）使用密集检索器时，其余的查询使用其他检索器。 这些查询（3490个查询）使用了稀疏检索器（蓝线），随机检索策略选择器获得了0.91的召回率，而我们的分类器获得了0.95的召回率，召回率提高了0.04。</p>
+<p>第二个分类器，稀疏与混合，的表现如图2所示，用实心粉色线表示。左下角的点显示了在使用稀疏检索器执行所有6980个MS MARCO开发集中的查询时的性能，而右上角的粉色点则说明了在使用混合检索器（即稀疏和密集检索器）执行所有查询时的性能。我们还展示了将一部分查询随机分配给混合检索器的性能，用虚线粉色线表示。例如，在混合预算为50％的情况下，我们只能使用混合策略执行50％的查询时，随机基线获得了0.91的召回率，而我们的分类器获得了0.96的召回率，召回率提高了0.05以上。在这个50％的水平上，稀疏与混合策略的召回率超过了100％水平的密集检索策略，同时仅使用密集检索器处理一半的查询。图2还说明了完整的密集策略和完整的混合策略之间的差距。为了达到0.98的召回率@1000，必须使用两个检索器。虽然密集检索器优于传统的稀疏检索，但它仍然会错过稀疏检索器发现的相关段落。虽然BM25已经被证明是最先进的稀疏检索方法，但我们可以使用其他密集检索器作为密集检索器。为了测试我们结果的鲁棒性，我们使用其他最先进的密集检索器Repbert（基于表示的密集检索器）[26]和Colbert（基于后期交互的密集检索器）[12]重复实验。图3显示了我们使用这三个密集检索器的稀疏与密集检索策略的结果。如图所示，密集检索器的类型不会影响我们的结论，我们的检索策略对密集检索器的类型具有鲁棒性。最后，我们考虑使用我们的检索策略的效果。 在端到端检索框架中的选择器。在Lin等人的[15]中，将BM25作为稀疏检索器和ANCE作为密集检索器在MS MARCO段落集合上报告查询延迟时间为55ms和103ms。当我们将预算从0％到100％转移到密集检索时，我们的提议方法可以优先考虑需要使用密集检索器检索的查询。图4显示了随着预算变化而出现的延迟和效果之间的权衡。随着延迟和召回率的增加，Pareto前沿在检索策略之间转移。例如，稀疏与密集策略提供了召回率超过0.94且延迟低于80ms，而稀疏与混合策略提供了召回率超过0.96且延迟低于106ms。</p>
+<h2 id="4-Conclusion"><a href="#4-Conclusion" class="headerlink" title="4 Conclusion"></a>4 Conclusion</h2><p>密集型检索器与传统的稀疏型检索器（如BM25）相比，提供了显著的性能改进。然而，密集型检索器引入了性能和资源成本，这些成本与稀疏型检索器不相关，包括对大量GPU资源的需求。此外，密集型检索器仍可能错过稀疏型检索器发现的相关项目。考虑到效率与效果之间的权衡，我们提出了一种基于每个查询选择适当检索策略的方法，将密集型检索器分配给最有可能受益的查询。利用我们提出的检索策略选择，即使在计算资源或时间限制下，也可以实现改进的性能。利用先前报告的性能特征，我们说明了策略之间的权衡，首选策略取决于延迟。其他性能特征将产生不同的权衡。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%AC%94%E8%AE%B0/" class="category-chain-item">笔记</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/BERT/" class="print-no-link">#BERT</a>
+      
+        <a href="/tags/Information-Retrieval/" class="print-no-link">#Information-Retrieval</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>笔记 - CIKM2021 Predicting Efficiency Effectiveness Trade-offs for  Dense vs. Sparse Retrieval Strategy Selection</div>
+      <div>https://lcj2021.github.io/2024/07/15/笔记 - CIKM2021 Predicting Efficiency Effectiveness Trade-offs for  Dense vs. Sparse Retrieval Strategy Selection/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Channing Lau</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年7月15日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/07/15/%E7%AC%94%E8%AE%B0%20-%20ACL2023%20A%20Study%20on%20the%20Efficiency%20and%20Generalization%20of%20Light%20Hybrid%20Retrievers/" title="笔记 - ACL2023 A Study on the Efficiency and Generalization of Light Hybrid Retrievers">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">笔记 - ACL2023 A Study on the Efficiency and Generalization of Light Hybrid Retrievers</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/07/15/%E7%AC%94%E8%AE%B0%20-%20CIKM2023%20Neural%20Disentanglement%20of%20Query%20Difficulty%20and%20Semantics/" title="笔记 - CIKM2023 Neural Disentanglement of Query Difficulty and Semantics">
+                        <span class="hidden-mobile">笔记 - CIKM2023 Neural Disentanglement of Query Difficulty and Semantics</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

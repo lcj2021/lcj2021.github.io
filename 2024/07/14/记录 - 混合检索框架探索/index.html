@@ -16,12 +16,12 @@
   <meta name="author" content="Channing Lau">
   <meta name="keywords" content="">
   
-    <meta name="description" content="07.21在小红书上看到一张关于广告发放uplift模型的有趣的图，大概长这样：     uplift✅ uplift❌    🎯✅  SR、HR均可🎯   🎯❌ 只能由DR🎯    这里先存一下，以备之后之需。     07.14Done：  [[笔记 - IR &amp; ODQA Wiki#SearchQA]] train+val的gt查询  [[笔记 - IR &amp; ODQA">
+    <meta name="description" content="07.21Speed Perf： 省流：寄了。07-16的实验中，BM25速度远低于 DPR+HNSW。这与[[笔记 - CIKM2021 Predicting Efficiency Effectiveness Trade-offs for  Dense vs. Sparse Retrieval Strategy Selection]]中BM25在msmarco上 55ms &#x2F; quer">
 <meta property="og:type" content="article">
 <meta property="og:title" content="记录 - 混合检索框架探索">
 <meta property="og:url" content="https://lcj2021.github.io/2024/07/14/%E8%AE%B0%E5%BD%95%20-%20%E6%B7%B7%E5%90%88%E6%A3%80%E7%B4%A2%E6%A1%86%E6%9E%B6%E6%8E%A2%E7%B4%A2/index.html">
 <meta property="og:site_name" content="ChanningLau&#39;s harbour">
-<meta property="og:description" content="07.21在小红书上看到一张关于广告发放uplift模型的有趣的图，大概长这样：     uplift✅ uplift❌    🎯✅  SR、HR均可🎯   🎯❌ 只能由DR🎯    这里先存一下，以备之后之需。     07.14Done：  [[笔记 - IR &amp; ODQA Wiki#SearchQA]] train+val的gt查询  [[笔记 - IR &amp; ODQA">
+<meta property="og:description" content="07.21Speed Perf： 省流：寄了。07-16的实验中，BM25速度远低于 DPR+HNSW。这与[[笔记 - CIKM2021 Predicting Efficiency Effectiveness Trade-offs for  Dense vs. Sparse Retrieval Strategy Selection]]中BM25在msmarco上 55ms &#x2F; quer">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://img.picgo.net/2024/07/14/AdversarialQA-Val-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.128x64.lr-1e-36ba8e080efc37de6.png">
 <meta property="og:image" content="https://img.picgo.net/2024/07/14/AdversarialQA-Val-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.256x64.lr-1e-33413de33887b910c.png">
@@ -58,10 +58,10 @@
 <meta property="og:image" content="https://img.picgo.net/2024/07/07/squad.mlp.128x64.squad-testebe0103ba626024d.png">
 <meta property="og:image" content="https://img.picgo.net/2024/07/07/squad.mlp.128x64.webq-test4fb2214d34367571.png">
 <meta property="article:published_time" content="2024-07-13T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-07-15T12:30:22.151Z">
+<meta property="article:modified_time" content="2024-07-16T15:32:16.289Z">
 <meta property="article:author" content="Channing Lau">
 <meta property="article:tag" content="BERT">
-<meta property="article:tag" content="检索">
+<meta property="article:tag" content="Information-Retrieval">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://img.picgo.net/2024/07/14/AdversarialQA-Val-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.128x64.lr-1e-36ba8e080efc37de6.png">
   
@@ -256,7 +256,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.1k 字
+          2.3k 字
         
       </span>
     
@@ -267,7 +267,7 @@
         
         
         
-          18 分钟
+          20 分钟
         
       </span>
     
@@ -309,7 +309,122 @@
             
               <div class="markdown-body">
                 
-                <h2 id="07-21"><a href="#07-21" class="headerlink" title="07.21"></a>07.21</h2><p>在小红书上看到一张关于广告发放uplift模型的有趣的图，大概长这样：</p>
+                <h2 id="07-21"><a href="#07-21" class="headerlink" title="07.21"></a>07.21</h2><h3 id="Speed-Perf："><a href="#Speed-Perf：" class="headerlink" title="Speed Perf："></a>Speed Perf：</h3><blockquote>
+<p>省流：寄了。07-16的实验中，<strong>BM25速度远低于 DPR+HNSW</strong>。<br>这与[[笔记 - CIKM2021 Predicting Efficiency Effectiveness Trade-offs for  Dense vs. Sparse Retrieval Strategy Selection]]中BM25在msmarco上 55ms &#x2F; query的性能差太多了。</p>
+</blockquote>
+<h4 id="1-thread"><a href="#1-thread" class="headerlink" title="1-thread"></a>1-thread</h4><table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>latency (ms&#x2F;query)</th>
+<th>device</th>
+<th>Data-Split</th>
+<th># qas</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>BM25 (java8)</td>
+<td>190.0</td>
+<td>1-thread</td>
+<td>AdversarialQA-Val</td>
+<td>3000</td>
+</tr>
+<tr>
+<td>BM25 (java21)</td>
+<td>158.67</td>
+<td>1-thread</td>
+<td>AdversarialQA-Val</td>
+<td>3000</td>
+</tr>
+<tr>
+<td>BERT query encoder</td>
+<td>16.31</td>
+<td>2080ti</td>
+<td>TriviaQA-Train</td>
+<td>78785</td>
+</tr>
+<tr>
+<td>ANNS-HNSW</td>
+<td>38.67</td>
+<td>1-thread</td>
+<td>AdversarialQA-Val</td>
+<td>3000</td>
+</tr>
+<tr>
+<td>Reciprocal Rank Fusion</td>
+<td>22.63</td>
+<td>1-thread</td>
+<td>AdversarialQA-Val</td>
+<td>3000</td>
+</tr>
+</tbody></table>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python">bm25_java8 = <span class="hljs-number">190.0</span><br>bm25_java21 = <span class="hljs-number">158.67</span><br>bert_encoder = <span class="hljs-number">16.31</span><br>anns_hnsw = <span class="hljs-number">38.67</span><br>rrf = <span class="hljs-number">22.63</span><br><br><span class="hljs-comment"># latency</span><br>latency_rrf = bm25_java21 + bert_encoder + anns_hnsw + rrf<br>latency_60_cost = bm25_java8 + bert_encoder + <span class="hljs-number">0.6</span> * (anns_hnsw + rrf)<br>latency_50_cost = bm25_java8 + bert_encoder + <span class="hljs-number">0.5</span> * (anns_hnsw + rrf)<br><span class="hljs-comment"># ratio</span><br>ratio_60_cost = latency_60_cost / latency_rrf<br>ratio_50_cost = latency_50_cost / latency_rrf<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;latency_rrf = <span class="hljs-subst">&#123;latency_rrf&#125;</span>\n&#x27;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;latency_60%-cost = <span class="hljs-subst">&#123;latency_60_cost&#125;</span>\n&#x27;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;latency_50%-cost = <span class="hljs-subst">&#123;latency_50_cost&#125;</span>\n&#x27;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;ratio_60%-cost = <span class="hljs-subst">&#123;ratio_60_cost&#125;</span>\n&#x27;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;ratio_50%-cost = <span class="hljs-subst">&#123;ratio_50_cost&#125;</span>\n&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>Java8：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs txt">latency_rrf = 267.61<br>latency_60%-cost = 243.09<br>latency_50%-cost = 236.96<br>ratio_60%-cost = 0.9083741265274092<br>ratio_50%-cost = 0.8854676581592617<br></code></pre></td></tr></table></figure>
+
+<p>Java21：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs txt">latency_rrf = 236.27999999999997<br>latency_60%-cost = 211.76<br>latency_50%-cost = 205.63<br>ratio_60%-cost = 0.8962248180125276<br>ratio_50%-cost = 0.8702810225156594<br></code></pre></td></tr></table></figure>
+
+<h4 id="4-thread"><a href="#4-thread" class="headerlink" title="4-thread"></a>4-thread</h4><table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>latency (ms&#x2F;query)</th>
+<th>device</th>
+<th>Data-Split</th>
+<th># qas</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>BM25 (java8)</td>
+<td></td>
+<td>4-thread</td>
+<td>AdversarialQA-Val</td>
+<td>3000</td>
+</tr>
+<tr>
+<td>BM25 (java21)</td>
+<td>39.33</td>
+<td>4-thread</td>
+<td>AdversarialQA-Val</td>
+<td>3000</td>
+</tr>
+<tr>
+<td>BERT query encoder</td>
+<td>16.31</td>
+<td>2080ti</td>
+<td>TriviaQA-Train</td>
+<td>78785</td>
+</tr>
+<tr>
+<td>ANNS-HNSW</td>
+<td>22.33</td>
+<td>4-thread</td>
+<td>AdversarialQA-Val</td>
+<td>3000</td>
+</tr>
+<tr>
+<td>Reciprocal Rank Fusion</td>
+<td>11.61</td>
+<td>4-thread</td>
+<td>AdversarialQA-Val</td>
+<td>3000</td>
+</tr>
+</tbody></table>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">bm25_java21 = <span class="hljs-number">39.33</span><br>bert_encoder = <span class="hljs-number">16.31</span><br>anns_hnsw = <span class="hljs-number">22.33</span><br>rrf = <span class="hljs-number">11.61</span><br></code></pre></td></tr></table></figure>
+
+<p>Java21：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs txt">latency_rrf = 89.58<br>latency_60%-cost = 76.00399999999999<br>latency_50%-cost = 72.61<br>ratio_60%-cost = 0.848448314355883<br>ratio_50%-cost = 0.8105603929448538<br></code></pre></td></tr></table></figure>
+
+<h3 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h3><blockquote>
+<p>尽可能拖慢DR、RRF的检索速度，并且提高SR的检索速度。</p>
+</blockquote>
+<ul>
+<li>尝试IVFPQ</li>
+<li></li>
+</ul>
+<h3 id="Misc"><a href="#Misc" class="headerlink" title="Misc."></a>Misc.</h3><p>在小红书上看到一张关于广告发放uplift模型的有趣的图，大概长这样：</p>
 <table>
 <thead>
 <tr>
@@ -334,43 +449,33 @@
 <td></td>
 </tr>
 </tbody></table>
-<h2 id="07-14"><a href="#07-14" class="headerlink" title="07.14"></a>07.14</h2><p>Done：</p>
-<ul>
-<li><p>[[笔记 - IR &amp; ODQA Wiki#SearchQA]] train+val的gt查询</p>
-</li>
-<li><p>[[笔记 - IR &amp; ODQA Wiki#WikiHop]] -train+val的gt查询</p>
-</li>
-<li><p>[[笔记 - IR &amp; ODQA Wiki#FreeBaseQA]] -train+val的gt查询</p>
-</li>
-<li><p>[[笔记 - IR &amp; ODQA Wiki#AdversarialQA]] -train+val的gt查询</p>
-</li>
-<li><p>将SearchQA-train加入分类器训练，验证多个数据集上的性能（包括跨数据集泛化实验）。<strong>当前训练数据：SQuAD + SearchQA</strong></p>
-</li>
-<li><p>将HotpotQA train+dev的yes &#x2F; no question删除，重新加入分类器训练并在dev验证效果。仍然烂</p>
-</li>
-<li><p>尝试隐藏层更大的MLP</p>
-<ul>
+<h2 id="07-14"><a href="#07-14" class="headerlink" title="07.14"></a>07.14</h2><h3 id="Done"><a href="#Done" class="headerlink" title="Done"></a>Done</h3><ul>
+<li>[[笔记 - IR &amp; ODQA Wiki#SearchQA]] train+val的gt查询</li>
+<li>[[笔记 - IR &amp; ODQA Wiki#WikiHop]] -train+val的gt查询</li>
+<li>[[笔记 - IR &amp; ODQA Wiki#FreeBaseQA]] -train+val的gt查询</li>
+<li>[[笔记 - IR &amp; ODQA Wiki#AdversarialQA]] -train+val的gt查询</li>
+<li>将SearchQA-train加入分类器训练，验证多个数据集上的性能（包括跨数据集泛化实验）。<strong>当前训练数据：SQuAD + SearchQA</strong></li>
+<li>将HotpotQA train+dev的yes &#x2F; no question删除，重新加入分类器训练并在dev验证效果。仍然烂</li>
+<li>尝试隐藏层更大的MLP<ul>
 <li>从128x64改到256x64，效果提升</li>
 <li>再改到512x64，提升不明显</li>
-<li>可能原因：<ol>
+<li>可能原因：</li>
+</ul>
+<ol>
 <li>不同模型绘制的样本点数不一样，比如TriviaQA 512x64画了289个点；256x64：292；128x64：389</li>
 <li>现在的模型太小欠拟合？</li>
 </ol>
 </li>
+<li>多个数据集初步验证Recall@100。所有数据集汇总：[[笔记 - IR &amp; ODQA Wiki#Wikipedia上的抽取式问答]]</li>
 </ul>
-</li>
-<li><p>多个数据集初步验证Recall@100。所有数据集汇总：[[笔记 - IR &amp; ODQA Wiki#Wikipedia上的抽取式问答]]</p>
-<p>  数据集选取原则：</p>
+<p> 数据集选取原则：</p>
 <ol>
 <li>bonus足够高</li>
 <li>uplift能在足够低的budget下达到</li>
 <li>与corpus（Wikipedia的21M个passage）能够对齐的数据集x2 + 对齐较差的数据集x2</li>
 <li>领域数据集：BioASQ + WikiMovies（前提：效果能接受）</li>
 </ol>
-</li>
-</ul>
-<p>Perf：</p>
-<blockquote>
+<h3 id="Perf"><a href="#Perf" class="headerlink" title="Perf"></a>Perf</h3><blockquote>
 <p>省流</p>
 <ol>
 <li>AdversarialQA、SQuAD、SearchQA、FreeBase均能以60%的cost，达到99.5%纯RRF召回率</li>
@@ -472,8 +577,7 @@ G --&gt; H[拿q2d_ddist和q2d_sdist做rrf排名]
 H --&gt; I[返回结果]
 </code></pre>
 
-<p>TODO：</p>
-<ul>
+<h3 id="TODO-1"><a href="#TODO-1" class="headerlink" title="TODO"></a>TODO</h3><ul>
 <li>改进分类模型<ul>
 <li>加入特征交叉[[#^d4c52f]]：</li>
 <li><input disabled="" type="checkbox"> $x_1 * w * x2$的形式</li>
@@ -484,15 +588,12 @@ H --&gt; I[返回结果]
 </li>
 <li>增加端到端实验，或等效的效率测试实验。直接的E2E实验很困难，因为BM25检索需要“预热”，预热速度和正常速度差距巨大，会极大拖累平均时间。比较好的办法是用很大一个batch测试得到每个查询对应BM25、encode和ANNS的平均时间。用这个平均时间x查询数量，结合uplift模型的决策作为总时间。</li>
 </ul>
-<p>IDEA：</p>
-<ul>
+<h3 id="IDEA"><a href="#IDEA" class="headerlink" title="IDEA"></a>IDEA</h3><ul>
 <li>特征交叉：比如top-1 dist和top-100 dist的交叉：top-1 dist非常近，但top-100却非常远，和top-1 dist 约等于 top-100 dist，这两种情况能反映的问题是不一样的 ^d4c52f</li>
 <li>“时序” &#x2F; 局部特征：分数可能在top-10&#x2F;20&#x2F;50处下降幅度明显，也应该被作为局部特征捕获</li>
 <li>预先使用attention训练得到每个特征对应分数的权重，用加权距离做kNN分类（如果可以用ANNS就更好了）</li>
-<li></li>
 </ul>
-<p>讨论：</p>
-<ul>
+<h3 id="讨论"><a href="#讨论" class="headerlink" title="讨论"></a>讨论</h3><ul>
 <li>本质可以建模成一个uplift问题（有待深入了解）：我们需要对每个查询的处理策略进行决策。<ul>
 <li>默认策略：BM25检索，计作SR</li>
 <li>“处理”：将一个查询从SR 转变为RRF（计作HR，即BM25 + DPR + RRF）</li>
@@ -506,14 +607,12 @@ H --&gt; I[返回结果]
 <li>E2E实验形式？单线程（embed慢） or 多线程？</li>
 <li>加入数据集作为二分类器训练数据后，效果反而下降？比如加入SearchQA的不如纯SQuAD。可能和数据集正负样本比例有关？</li>
 </ul>
-<p>OLD-TODO：</p>
-<ul>
+<h3 id="OLD-TODO"><a href="#OLD-TODO" class="headerlink" title="OLD-TODO"></a>OLD-TODO</h3><ul>
 <li>更换不同的参数验证half-top merge算法的效果</li>
 <li>计算二分类模型下，oracle对应的召回率</li>
 <li>复现CIKM2021的BERT-based分类方法作为baseline</li>
 </ul>
-<h2 id="07-07"><a href="#07-07" class="headerlink" title="07.07"></a>07.07</h2><p>Done：</p>
-<ul>
+<h2 id="07-07"><a href="#07-07" class="headerlink" title="07.07"></a>07.07</h2><h3 id="Done-1"><a href="#Done-1" class="headerlink" title="Done"></a>Done</h3><ul>
 <li><p>在hugging-face上搜罗了合适的数据集。<br>  合适：目前的doc语料库是wikipedia的500+（待确认？）篇文章。而QA数据集很多都无法在这些corpus上找到包含answer的passage。</p>
 <p>  目前觉得比较合适的数据集有：HotpotQA、SearchQA、WikiQA、NarrativeQA、<a target="_blank" rel="noopener" href="https://hf-mirror.com/datasets/lmqg/qa_harvesting_from_wikipedia">HarvestWikiQA</a>、<a target="_blank" rel="noopener" href="https://hf-mirror.com/datasets/UCLNLP/adversarial_qa">AdversarialQA</a>、<a target="_blank" rel="noopener" href="https://hf-mirror.com/datasets/ibm/duorc">duorc</a></p>
 </li>
@@ -530,8 +629,7 @@ H --&gt; I[返回结果]
 <li><p>尝试使用in-DPR的数据集（NaturalQ、WebQ、TriviaQA和CutatedTrec）作为分类器，效果很烂</p>
 </li>
 </ul>
-<p>Perf：</p>
-<table>
+<h3 id="Perf-1"><a href="#Perf-1" class="headerlink" title="Perf"></a>Perf</h3><table>
 <thead>
 <tr>
 <th><img src="https://img.picgo.net/2024/07/07/squad.mlp.128x64.hotpot-dev1586575697771996.png" srcset="/img/loading.gif" lazyload alt="squad.mlp.128x64.hotpot dev"></th>
@@ -547,8 +645,7 @@ H --&gt; I[返回结果]
 <p>HotpotQA上表现不佳，在高budget (budget)下效果不如random</p>
 <p>在cost&#x3D;0.9附近能取得最高的recall</p>
 <p>即便不能超过100%rrf，也能以较少的cost达到100%rrf的recall</p>
-<p>难点：</p>
-<blockquote>
+<h3 id="难点"><a href="#难点" class="headerlink" title="难点"></a>难点</h3><blockquote>
 <p>[[笔记 - IR &amp; ODQA Wiki#HotpotQA]]</p>
 <p>[[笔记 - IR &amp; ODQA Wiki#yes &#x2F; no 问题对分类器的影响]]</p>
 </blockquote>
@@ -556,8 +653,7 @@ H --&gt; I[返回结果]
 <li>HotpotQA问题较难，属于multi-hop查询，且train与dev上的难度分布不一样</li>
 <li>HotpotQA的问题类型包含6%的<code>yes / no question</code>，导致retriever难以得分</li>
 </ul>
-<p>讨论：</p>
-<ul>
+<h3 id="讨论-1"><a href="#讨论-1" class="headerlink" title="讨论"></a>讨论</h3><ul>
 <li><p>能否将recall-cost曲线的AUC作为检索策略的指标？有没有更好的指标？ ^ed6867</p>
 </li>
 <li><p>HotpotQA的qas中，dense、hybrid和sparse能回答的问题的重合度较高。是否为训练数据好坏的指标？是否会影响分类器训练？<br>  SQuAD-train<br>  jacard hybrid vs sparse: 0.9184879764719451<br>  jacard dense vs sparse: 0.70026646147708<br>  jacard dense vs hybrid: 0.7697610961130947</p>
@@ -573,14 +669,12 @@ H --&gt; I[返回结果]
 <li><p>实际检索时间开销存疑，<strong>冲击顶会可能需要进行端到端的检索实验验证效率</strong></p>
 </li>
 </ul>
-<p>问题：</p>
-<ul>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><ul>
 <li>当前查询gt仍然过慢，HotpotQA <code>(train+dev) * (dense+sparse+hybrid)</code>得2+天</li>
 <li>使用更复杂的模型不一定会更好，目前使用208的CPU进行简单的MLP训练</li>
 <li>加入更多的训练数据（目前只有SQuAD）效果也不一定会更好。</li>
 </ul>
-<p>TODO：</p>
-<ul>
+<h3 id="TODO-2"><a href="#TODO-2" class="headerlink" title="TODO"></a>TODO</h3><ul>
 <li><del>[[笔记 - IR &amp; ODQA Wiki#SearchQA]] 数据集-train（117,384 qas）+val（16,980 qas）的gt查询</del></li>
 <li><del>将SearchQA-train加入分类器训练，验证val上的性能</del></li>
 <li><del>将HotpotQA train+dev的<code>yes / no question</code>删除，重新加入分类器训练并在dev验证效果</del></li>
@@ -594,24 +688,20 @@ H --&gt; I[返回结果]
 </ul>
 </li>
 </ul>
-<p>OLD-TODO：</p>
-<ul>
+<h3 id="OLD-TODO-1"><a href="#OLD-TODO-1" class="headerlink" title="OLD-TODO"></a>OLD-TODO</h3><ul>
 <li>更换不同的参数验证half-top merge算法的效果</li>
 <li>计算二分类模型下，oracle对应的召回率</li>
 </ul>
-<h2 id="06-30"><a href="#06-30" class="headerlink" title="06.30"></a>06.30</h2><p>更新内容：</p>
-<ul>
+<h2 id="06-30"><a href="#06-30" class="headerlink" title="06.30"></a>06.30</h2><h3 id="更新内容"><a href="#更新内容" class="headerlink" title="更新内容"></a>更新内容</h3><ul>
 <li>之前的label策略是站在dense retriever的角度。对于一条query，预测它能否被dense检索。分类器有点类似于dense retriever的向导，知道dense retriever的知识和<br>能力，从而能够预测query是否会被检索到。</li>
 <li>现在改成了sparse retriever的角度。对于一条query，预测它能否被sparse检索到。策略是把所有sparse检索不到的query且能被hybrid或dense检索到的，都标记为正样本。</li>
 </ul>
-<p>Done：</p>
-<ul>
+<h3 id="Done-2"><a href="#Done-2" class="headerlink" title="Done"></a>Done</h3><ul>
 <li>SQuAD 数据集-train（80599 qas）查询groundtruth完毕，分类器训练ready</li>
 <li>在SQuAD-train上使用Lightgbm训练了分类器</li>
 <li>特征选取只选了q2d_sdist + q2q_ddist</li>
 </ul>
-<p>TODO：</p>
-<ul>
+<h3 id="TODO-3"><a href="#TODO-3" class="headerlink" title="TODO"></a>TODO</h3><ul>
 <li>更换不同的参数验证half-top merge算法的效果</li>
 <li>计算二分类模型下，oracle对应的召回率</li>
 </ul>
@@ -657,7 +747,7 @@ H --&gt; I[返回结果]
       
         <a href="/tags/BERT/" class="print-no-link">#BERT</a>
       
-        <a href="/tags/%E6%A3%80%E7%B4%A2/" class="print-no-link">#检索</a>
+        <a href="/tags/Information-Retrieval/" class="print-no-link">#Information-Retrieval</a>
       
     </div>
   
