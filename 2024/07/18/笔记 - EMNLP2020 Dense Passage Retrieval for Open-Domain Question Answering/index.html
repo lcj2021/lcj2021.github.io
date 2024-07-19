@@ -16,22 +16,23 @@
   <meta name="author" content="Channing Lau">
   <meta name="keywords" content="">
   
-    <meta name="description" content="简历善于利用数字展示成果 银行：学历 荣誉 技能算法：学历 论文 泛体制内：（1）实习对口：实习为了了解更多的领域，发掘自己兴趣与擅长（2）兴趣爱好：体育、乐器爱好 投递渠道：利用学校平台，比如宣讲会 注意泛体制内的专业代码限制 考核算法笔试（所有公司基本上都有，多数2小时）  形式：客观选择题、填空题、算法题 内容：数学、机器学习、神经网络、数据结构、力扣算法题 备考建议：《机器学习》（西瓜书）">
+    <meta name="description" content="原文链接：  arxiv EMNLP代码链接：提出算法：DPR   陈丹琦力作，DR之父，万恶之源（bushi）。接下来很长一段时间都要靠它吃饭了🙏  Abstract3.2 TrainingPositive and negative passages 通常情况下正面的例子是明确可用的，而负面的例子需要从一个极大的池子中选择。例如，与问题相关的段落可能在QA数据集中给出，或者可以使用答案找到（c">
 <meta property="og:type" content="article">
-<meta property="og:title" content="记录 - 2024-04-13 求职经验交流会">
-<meta property="og:url" content="https://lcj2021.github.io/2024/04/13/%E8%AE%B0%E5%BD%95%20-%202024-04-13%20%E6%B1%82%E8%81%8C%E7%BB%8F%E9%AA%8C%E4%BA%A4%E6%B5%81%E4%BC%9A/index.html">
+<meta property="og:title" content="笔记 - EMNLP2020 Dense Passage Retrieval for Open-Domain Question Answering">
+<meta property="og:url" content="https://lcj2021.github.io/2024/07/18/%E7%AC%94%E8%AE%B0%20-%20EMNLP2020%20Dense%20Passage%20Retrieval%20for%20Open-Domain%20Question%20Answering/index.html">
 <meta property="og:site_name" content="ChanningLau&#39;s harbour">
-<meta property="og:description" content="简历善于利用数字展示成果 银行：学历 荣誉 技能算法：学历 论文 泛体制内：（1）实习对口：实习为了了解更多的领域，发掘自己兴趣与擅长（2）兴趣爱好：体育、乐器爱好 投递渠道：利用学校平台，比如宣讲会 注意泛体制内的专业代码限制 考核算法笔试（所有公司基本上都有，多数2小时）  形式：客观选择题、填空题、算法题 内容：数学、机器学习、神经网络、数据结构、力扣算法题 备考建议：《机器学习》（西瓜书）">
+<meta property="og:description" content="原文链接：  arxiv EMNLP代码链接：提出算法：DPR   陈丹琦力作，DR之父，万恶之源（bushi）。接下来很长一段时间都要靠它吃饭了🙏  Abstract3.2 TrainingPositive and negative passages 通常情况下正面的例子是明确可用的，而负面的例子需要从一个极大的池子中选择。例如，与问题相关的段落可能在QA数据集中给出，或者可以使用答案找到（c">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-04-12T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-07-07T14:52:27.067Z">
+<meta property="article:published_time" content="2024-07-17T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-07-18T11:13:53.077Z">
 <meta property="article:author" content="Channing Lau">
-<meta property="article:tag" content="求职">
+<meta property="article:tag" content="BERT">
+<meta property="article:tag" content="Information-Retrieval">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>记录 - 2024-04-13 求职经验交流会 - ChanningLau&#39;s harbour</title>
+  <title>笔记 - EMNLP2020 Dense Passage Retrieval for Open-Domain Question Answering - ChanningLau&#39;s harbour</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -197,7 +198,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="记录 - 2024-04-13 求职经验交流会"></span>
+            <span id="subtitle" data-typed-text="笔记 - EMNLP2020 Dense Passage Retrieval for Open-Domain Question Answering"></span>
           
         </div>
 
@@ -208,8 +209,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-04-13 00:00" pubdate>
-          2024年4月13日 凌晨
+        <time datetime="2024-07-18 00:00" pubdate>
+          2024年7月18日 凌晨
         </time>
       </span>
     
@@ -220,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          560 字
+          814 字
         
       </span>
     
@@ -231,7 +232,7 @@
         
         
         
-          5 分钟
+          7 分钟
         
       </span>
     
@@ -268,43 +269,25 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">记录 - 2024-04-13 求职经验交流会</h1>
+            <h1 id="seo-header">笔记 - EMNLP2020 Dense Passage Retrieval for Open-Domain Question Answering</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="简历"><a href="#简历" class="headerlink" title="简历"></a>简历</h2><p>善于<strong>利用数字展示成果</strong></p>
-<p>银行：学历 荣誉 技能<br>算法：学历 论文</p>
-<p>泛体制内：<br>（1）实习对口：实习为了了解更多的领域，发掘自己兴趣与擅长<br>（2）兴趣爱好：体育、乐器爱好</p>
-<h2 id="投递"><a href="#投递" class="headerlink" title="投递"></a>投递</h2><p>渠道：利用学校平台，比如宣讲会</p>
-<p>注意泛体制内的专业代码限制</p>
-<h2 id="考核"><a href="#考核" class="headerlink" title="考核"></a>考核</h2><h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><p>笔试（所有公司基本上都有，多数2小时）</p>
-<ul>
-<li>形式：客观选择题、填空题、算法题</li>
-<li>内容：数学、机器学习、神经网络、数据结构、力扣算法题</li>
-<li>备考建议：《机器学习》（西瓜书）《神经网络与深度学习》、反复刷力扣题（至少剑指Offer）</li>
-</ul>
-<p>面试（2-3轮技术面分钟小时）</p>
-<ul>
-<li>一面：mentor  二面：leader</li>
-<li>考核内容：简历中的算法论文、算法实习、算法比赛等+算法基础知识+力扣题现答（1-2道）</li>
-<li>备考建议：（1）熟悉简历中重点相关内容，提前准备Q&amp;A以备应答（2）复习专业知识（机器学习、深度学习、前沿技术Transformer、BERT以及各个衍生语言模型和ChatGPT等生成模型）</li>
-</ul>
-<h3 id="银行"><a href="#银行" class="headerlink" title="银行"></a>银行</h3><p>笔试（所有公司基本上都有，多数1-3小时）</p>
-<ul>
-<li>形式：客观选择题、填空题、编程题</li>
-<li>内容：综合知识、图形测试、认知能力测试、性格测试、职业能力测试(EPI)、开发知识、计算机协议、<br>力扣算法题（兴业银行）、可能还有英语（中行、中信）和申论（中信）</li>
-<li>备考建议：刷一点行测题</li>
-</ul>
-<p>面试（2-3轮5分钟~20分钟）</p>
-<ul>
-<li>考核内容：简历中的任何内容+开放性问题</li>
-<li>备考建议：（1）熟悉简历中重点相关内容，提前准备Q&amp;A以备应答（2）开放性问题准备（3）注重面试礼仪（4）注意说话的思维逻辑，回答切题，有时候自信很重要</li>
-</ul>
-<p>总行 &gt; 分行 &gt; 支行  <strong>FinTech管培</strong> &gt; 技术岗</p>
-<h2 id="面试技巧"><a href="#面试技巧" class="headerlink" title="面试技巧"></a>面试技巧</h2><p>引导面试官问自己熟悉的问题</p>
-<p>有更高工资的offer，可以和之前签订的HR凹价。</p>
-<p>常见开放性问题：<br>（1）为什么来我们公司<br>（2）有几个offer</p>
+                <p>原文链接：</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2004.04906">arxiv</a></li>
+<li><a target="_blank" rel="noopener" href="https://aclanthology.org/2020.emnlp-main.550/">EMNLP</a><br>代码链接：<br>提出算法：DPR</li>
+</ol>
+<blockquote>
+<p>陈丹琦力作，DR之父，万恶之源（bushi）。接下来很长一段时间都要靠它吃饭了🙏</p>
+</blockquote>
+<h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><h3 id="3-2-Training"><a href="#3-2-Training" class="headerlink" title="3.2 Training"></a>3.2 Training</h3><p><strong>Positive and negative passages</strong></p>
+<p>通常情况下正面的例子是明确可用的，而负面的例子需要从一个极大的池子中选择。例如，与问题相关的段落可能在QA数据集中给出，或者可以使用答案找到（can be found using the answer）。集合中的所有其他段落，虽然没有明确指定，但默认情况下可以视为不相关的。在实践中，如何选择负面例子经常被忽视，但可能对学习高质量的编码器至关重要。我们考虑三种不同类型的负面例子：<br>（1）随机：从语料库中选择任意随机段落；<br>（2）BM25：由BM25返回的顶部段落，它们不包含答案，但匹配问题的大多数tokens（match most question tokens）；<br>（3）Gold：与训练集中出现的其他问题配对的正面段落。<br>我们将在第5.2节讨论不同类型的负面例子和训练方案的影响。我们的最佳模型使用来自同一小批次的金牌段落和一个BM25负面段落。特别地，重复使用来自同一批次的金牌段落作为负面例子可以使计算效率高并实现出色的性能。我们在下面讨论这种方法。</p>
+<p><strong>In-batch negatives</strong></p>
+<p>假设我们有一个大小为B的小批量中的B个问题，每个问题都与一个相关的段落相关联。令Q和P为问题和段落嵌入的(B×d)矩阵，其中S &#x3D; QPT是一个(B×B)的相似度得分矩阵，其中每行对应于一个问题，与B个段落配对。通过这种方式，我们可以重复使用计算并在每个批次中有效地训练B2(qi，pj)个问题&#x2F;段落对。当i &#x3D; j时，任何(qi，pj)对都是正例，否则为负例。这在每个批次中创建了B个训练实例，其中每个问题有B-1个负段落。批内负例的技巧已经在全批次设置中使用（Yih等人，2011年），并且最近也用于小批量（Henderson等人，2017年；Gillick等人，2019年）。已经证明这是一种有效的策略，可以学习双编码器模型，从而提高训练示例的数量。</p>
+<h3 id="4-2-Question-Answering-Datasets"><a href="#4-2-Question-Answering-Datasets" class="headerlink" title="4.2 Question Answering Datasets"></a>4.2 Question Answering Datasets</h3><p><strong>Selection of positive passages</strong></p>
+<p>由于TREC、WebQuestions和TriviaQA6仅提供问题和答案对，因此我们使用包含答案的BM25排名最高的段落（the highest-ranked passage from BM25 that contains the answer）作为正面段落。如果前100个检索到的段落中没有答案，则该问题将被丢弃。对于SQuAD和NaturalQ，由于原始段落已经被分割并以不同于我们的候选段落池的方式进行处理，因此我们将每个黄金段落与候选池中相应的段落进行匹配和替换。当匹配失败时，由于不同的维基百科版本或预处理，我们将丢弃问题。表1显示了所有数据集的训练&#x2F;开发&#x2F;测试集中的问题数量以及用于训练检索器的实际问题。</p>
 
                 
               </div>
@@ -323,7 +306,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E8%AE%B0%E5%BD%95/" class="category-chain-item">记录</a>
+  <a href="/categories/%E7%AC%94%E8%AE%B0/" class="category-chain-item">笔记</a>
   
   
 
@@ -338,7 +321,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%B1%82%E8%81%8C/" class="print-no-link">#求职</a>
+        <a href="/tags/BERT/" class="print-no-link">#BERT</a>
+      
+        <a href="/tags/Information-Retrieval/" class="print-no-link">#Information-Retrieval</a>
       
     </div>
   
@@ -350,8 +335,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>记录 - 2024-04-13 求职经验交流会</div>
-      <div>https://lcj2021.github.io/2024/04/13/记录 - 2024-04-13 求职经验交流会/</div>
+      <div>笔记 - EMNLP2020 Dense Passage Retrieval for Open-Domain Question Answering</div>
+      <div>https://lcj2021.github.io/2024/07/18/笔记 - EMNLP2020 Dense Passage Retrieval for Open-Domain Question Answering/</div>
     </div>
     <div class="license-meta">
       
@@ -363,7 +348,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年4月13日</div>
+          <div>2024年7月18日</div>
         </div>
       
       
@@ -395,18 +380,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/04/14/%E7%AC%94%E8%AE%B0%20-%20%E9%80%9A%E7%94%A8%E9%9D%A2%E8%AF%95%E6%89%8B%E7%A8%BF/" title="笔记 - 通用面试手稿">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">笔记 - 通用面试手稿</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/04/05/%E9%A2%98%E8%A7%A3%20-%20%E7%89%9B%E5%AE%A2%E5%B0%8F%E7%99%BD%E6%9C%88%E8%B5%9B90%20C-F/" title="题解 - 牛客小白月赛90 C-F">
-                        <span class="hidden-mobile">题解 - 牛客小白月赛90 C-F</span>
+                      <a href="/2024/07/18/%E7%AC%94%E8%AE%B0%20-%20NIPS2022%20EHI%20End-to-end%20Learning%20of%20Hierarchical%20Index%20for%20Efficient%20Dense%20Retrieval/" title="笔记 - NIPS2022 EHI End-to-end Learning of Hierarchical Index for Efficient Dense Retrieval">
+                        <span class="hidden-mobile">笔记 - NIPS2022 EHI End-to-end Learning of Hierarchical Index for Efficient Dense Retrieval</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

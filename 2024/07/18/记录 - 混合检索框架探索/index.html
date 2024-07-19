@@ -16,12 +16,12 @@
   <meta name="author" content="Channing Lau">
   <meta name="keywords" content="">
   
-    <meta name="description" content="07.21Speed Perf： 省流：寄了。07-16的实验中，BM25速度远低于 DPR+HNSW。这与[[笔记 - CIKM2021 Predicting Efficiency Effectiveness Trade-offs for  Dense vs. Sparse Retrieval Strategy Selection]]中BM25在msmarco上 55ms &#x2F; quer">
+    <meta name="description" content="07.21思考 用多个embedding表征一个query？ref：推荐系统中的多兴趣召回 E2E检索。encoder、hard-negative样本采样、index全部端到端。甚至还可以包括搜索参数的预测，都可以端到端。  比较理想的模型是 ANCE + L2H index + 搜索参数预测。  根据损失函数之类的来评估某些查询学习成都的好坏：学得好，搜的块就少；学得差，就多搜 重新获取gt，目">
 <meta property="og:type" content="article">
 <meta property="og:title" content="记录 - 混合检索框架探索">
-<meta property="og:url" content="https://lcj2021.github.io/2024/07/14/%E8%AE%B0%E5%BD%95%20-%20%E6%B7%B7%E5%90%88%E6%A3%80%E7%B4%A2%E6%A1%86%E6%9E%B6%E6%8E%A2%E7%B4%A2/index.html">
+<meta property="og:url" content="https://lcj2021.github.io/2024/07/18/%E8%AE%B0%E5%BD%95%20-%20%E6%B7%B7%E5%90%88%E6%A3%80%E7%B4%A2%E6%A1%86%E6%9E%B6%E6%8E%A2%E7%B4%A2/index.html">
 <meta property="og:site_name" content="ChanningLau&#39;s harbour">
-<meta property="og:description" content="07.21Speed Perf： 省流：寄了。07-16的实验中，BM25速度远低于 DPR+HNSW。这与[[笔记 - CIKM2021 Predicting Efficiency Effectiveness Trade-offs for  Dense vs. Sparse Retrieval Strategy Selection]]中BM25在msmarco上 55ms &#x2F; quer">
+<meta property="og:description" content="07.21思考 用多个embedding表征一个query？ref：推荐系统中的多兴趣召回 E2E检索。encoder、hard-negative样本采样、index全部端到端。甚至还可以包括搜索参数的预测，都可以端到端。  比较理想的模型是 ANCE + L2H index + 搜索参数预测。  根据损失函数之类的来评估某些查询学习成都的好坏：学得好，搜的块就少；学得差，就多搜 重新获取gt，目">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://img.picgo.net/2024/07/14/AdversarialQA-Val-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.128x64.lr-1e-36ba8e080efc37de6.png">
 <meta property="og:image" content="https://img.picgo.net/2024/07/14/AdversarialQA-Val-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.256x64.lr-1e-33413de33887b910c.png">
@@ -57,8 +57,8 @@
 <meta property="og:image" content="https://img.picgo.net/2024/07/07/squad.mlp.128x64.naturalq-testb9631681cfc63f4f.png">
 <meta property="og:image" content="https://img.picgo.net/2024/07/07/squad.mlp.128x64.squad-testebe0103ba626024d.png">
 <meta property="og:image" content="https://img.picgo.net/2024/07/07/squad.mlp.128x64.webq-test4fb2214d34367571.png">
-<meta property="article:published_time" content="2024-07-13T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-07-16T15:32:16.289Z">
+<meta property="article:published_time" content="2024-07-17T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-07-19T00:35:56.041Z">
 <meta property="article:author" content="Channing Lau">
 <meta property="article:tag" content="BERT">
 <meta property="article:tag" content="Information-Retrieval">
@@ -244,8 +244,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-07-14 00:00" pubdate>
-          2024年7月14日 凌晨
+        <time datetime="2024-07-18 00:00" pubdate>
+          2024年7月18日 凌晨
         </time>
       </span>
     
@@ -256,7 +256,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.3k 字
+          2.8k 字
         
       </span>
     
@@ -267,7 +267,7 @@
         
         
         
-          20 分钟
+          23 分钟
         
       </span>
     
@@ -309,7 +309,20 @@
             
               <div class="markdown-body">
                 
-                <h2 id="07-21"><a href="#07-21" class="headerlink" title="07.21"></a>07.21</h2><h3 id="Speed-Perf："><a href="#Speed-Perf：" class="headerlink" title="Speed Perf："></a>Speed Perf：</h3><blockquote>
+                <h2 id="07-21"><a href="#07-21" class="headerlink" title="07.21"></a>07.21</h2><h3 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h3><ul>
+<li>用多个embedding表征一个query？ref：推荐系统中的多兴趣召回</li>
+<li>E2E检索。encoder、hard-negative样本采样、index全部端到端。甚至还可以包括搜索参数的预测，都可以端到端。<br>  比较理想的模型是 ANCE + L2H index + 搜索参数预测。<br>  根据损失函数之类的来评估某些查询学习成都的好坏：学得好，搜的块就少；学得差，就多搜</li>
+<li>重新获取gt，目前的gt_cache存在问题。IVFPQ、HNSW等近似算法，可能会搜出一些BruteForce没找到的，但包含gt的passage。</li>
+<li>tokenized query 的长度需不需要加入特征？</li>
+<li>如果模型升级了，可以尝试把DR only的类也加入分类</li>
+</ul>
+<h3 id="Done"><a href="#Done" class="headerlink" title="Done"></a>Done</h3><ul>
+<li>把uplift图改成：打分排序，取得分前top k%（0.5%为step）的query做uplift。这样能固定打点数量，便于比较AUUC</li>
+<li>接通HNSW索引</li>
+<li>测试E2E各环节平均时间，得到最终提速效果[[_posts&#x2F;记录 - 混合检索框架探索#^79735c|记录 - 混合检索框架探索]]</li>
+</ul>
+<h3 id="Speed-Perf："><a href="#Speed-Perf：" class="headerlink" title="Speed Perf："></a>Speed Perf：</h3><p>^79735c</p>
+<blockquote>
 <p>省流：寄了。07-16的实验中，<strong>BM25速度远低于 DPR+HNSW</strong>。<br>这与[[笔记 - CIKM2021 Predicting Efficiency Effectiveness Trade-offs for  Dense vs. Sparse Retrieval Strategy Selection]]中BM25在msmarco上 55ms &#x2F; query的性能差太多了。</p>
 </blockquote>
 <h4 id="1-thread"><a href="#1-thread" class="headerlink" title="1-thread"></a>1-thread</h4><table>
@@ -399,7 +412,7 @@
 </tr>
 <tr>
 <td>ANNS-HNSW</td>
-<td>22.33</td>
+<td>17.00</td>
 <td>4-thread</td>
 <td>AdversarialQA-Val</td>
 <td>3000</td>
@@ -412,17 +425,32 @@
 <td>3000</td>
 </tr>
 </tbody></table>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">bm25_java21 = <span class="hljs-number">39.33</span><br>bert_encoder = <span class="hljs-number">16.31</span><br>anns_hnsw = <span class="hljs-number">22.33</span><br>rrf = <span class="hljs-number">11.61</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">bm25_java21 = <span class="hljs-number">39.33</span><br>bert_encoder = <span class="hljs-number">16.31</span><br>anns_hnsw = <span class="hljs-number">17.00</span><br>rrf = <span class="hljs-number">11.61</span><br></code></pre></td></tr></table></figure>
 
 <p>Java21：</p>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs txt">latency_rrf = 89.58<br>latency_60%-cost = 76.00399999999999<br>latency_50%-cost = 72.61<br>ratio_60%-cost = 0.848448314355883<br>ratio_50%-cost = 0.8105603929448538<br></code></pre></td></tr></table></figure>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs txt">latency_rrf = 84.25<br>latency_60%-cost = 72.806<br>latency_50%-cost = 69.945<br>ratio_60%-cost = 0.8641661721068249<br>ratio_50%-cost = 0.8302077151335311<br></code></pre></td></tr></table></figure>
 
 <h3 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h3><blockquote>
-<p>尽可能拖慢DR、RRF的检索速度，并且提高SR的检索速度。</p>
+<p>尽可能拖慢DR、RRF的检索速度，并且提高SR的检索速度。（）</p>
 </blockquote>
 <ul>
-<li>尝试IVFPQ</li>
+<li>尝试不同ANNS索引。把召回率目标定在BF的99～99.5%。<ul>
+<li><input disabled="" type="checkbox"> IVFPQ</li>
+<li><input checked="" disabled="" type="checkbox"> HNSW（已初步接通）</li>
+<li><input checked="" disabled="" type="checkbox"> BruteForce</li>
+</ul>
+</li>
 <li></li>
+</ul>
+<h3 id="讨论"><a href="#讨论" class="headerlink" title="讨论"></a>讨论</h3><ul>
+<li>是否需要将对齐不佳的QA数据集AdversarialQA等加入？<br>  加入有利于说明uplift模型泛化能力。但是可能不利于后续工作。</li>
+<li>query encode时间开销和显卡有关，可以控制。<ul>
+<li>encode时间短，有利于当前工作，uplift模型的</li>
+<li>encode时间长，有利于后续工作，后续工作如果去掉dense特征，就可以省出一定比例的encode时间</li>
+</ul>
+</li>
+<li>uplift曲线的纵坐标应该是 召回率 or 相较于100%rrf的百分比？</li>
+<li>如何实现CIKM2021？CIKM2021 &#x3D; 文本作为特征 + BERT + label策略。label策略与我们不同，他是sparse前50 &#x2F; 100没检索到gt就当成正例，我们是100</li>
 </ul>
 <h3 id="Misc"><a href="#Misc" class="headerlink" title="Misc."></a>Misc.</h3><p>在小红书上看到一张关于广告发放uplift模型的有趣的图，大概长这样：</p>
 <table>
@@ -449,7 +477,7 @@
 <td></td>
 </tr>
 </tbody></table>
-<h2 id="07-14"><a href="#07-14" class="headerlink" title="07.14"></a>07.14</h2><h3 id="Done"><a href="#Done" class="headerlink" title="Done"></a>Done</h3><ul>
+<h2 id="07-14"><a href="#07-14" class="headerlink" title="07.14"></a>07.14</h2><h3 id="Done-1"><a href="#Done-1" class="headerlink" title="Done"></a>Done</h3><ul>
 <li>[[笔记 - IR &amp; ODQA Wiki#SearchQA]] train+val的gt查询</li>
 <li>[[笔记 - IR &amp; ODQA Wiki#WikiHop]] -train+val的gt查询</li>
 <li>[[笔记 - IR &amp; ODQA Wiki#FreeBaseQA]] -train+val的gt查询</li>
@@ -593,7 +621,7 @@ H --&gt; I[返回结果]
 <li>“时序” &#x2F; 局部特征：分数可能在top-10&#x2F;20&#x2F;50处下降幅度明显，也应该被作为局部特征捕获</li>
 <li>预先使用attention训练得到每个特征对应分数的权重，用加权距离做kNN分类（如果可以用ANNS就更好了）</li>
 </ul>
-<h3 id="讨论"><a href="#讨论" class="headerlink" title="讨论"></a>讨论</h3><ul>
+<h3 id="讨论-1"><a href="#讨论-1" class="headerlink" title="讨论"></a>讨论</h3><ul>
 <li>本质可以建模成一个uplift问题（有待深入了解）：我们需要对每个查询的处理策略进行决策。<ul>
 <li>默认策略：BM25检索，计作SR</li>
 <li>“处理”：将一个查询从SR 转变为RRF（计作HR，即BM25 + DPR + RRF）</li>
@@ -612,7 +640,7 @@ H --&gt; I[返回结果]
 <li>计算二分类模型下，oracle对应的召回率</li>
 <li>复现CIKM2021的BERT-based分类方法作为baseline</li>
 </ul>
-<h2 id="07-07"><a href="#07-07" class="headerlink" title="07.07"></a>07.07</h2><h3 id="Done-1"><a href="#Done-1" class="headerlink" title="Done"></a>Done</h3><ul>
+<h2 id="07-07"><a href="#07-07" class="headerlink" title="07.07"></a>07.07</h2><h3 id="Done-2"><a href="#Done-2" class="headerlink" title="Done"></a>Done</h3><ul>
 <li><p>在hugging-face上搜罗了合适的数据集。<br>  合适：目前的doc语料库是wikipedia的500+（待确认？）篇文章。而QA数据集很多都无法在这些corpus上找到包含answer的passage。</p>
 <p>  目前觉得比较合适的数据集有：HotpotQA、SearchQA、WikiQA、NarrativeQA、<a target="_blank" rel="noopener" href="https://hf-mirror.com/datasets/lmqg/qa_harvesting_from_wikipedia">HarvestWikiQA</a>、<a target="_blank" rel="noopener" href="https://hf-mirror.com/datasets/UCLNLP/adversarial_qa">AdversarialQA</a>、<a target="_blank" rel="noopener" href="https://hf-mirror.com/datasets/ibm/duorc">duorc</a></p>
 </li>
@@ -653,7 +681,7 @@ H --&gt; I[返回结果]
 <li>HotpotQA问题较难，属于multi-hop查询，且train与dev上的难度分布不一样</li>
 <li>HotpotQA的问题类型包含6%的<code>yes / no question</code>，导致retriever难以得分</li>
 </ul>
-<h3 id="讨论-1"><a href="#讨论-1" class="headerlink" title="讨论"></a>讨论</h3><ul>
+<h3 id="讨论-2"><a href="#讨论-2" class="headerlink" title="讨论"></a>讨论</h3><ul>
 <li><p>能否将recall-cost曲线的AUC作为检索策略的指标？有没有更好的指标？ ^ed6867</p>
 </li>
 <li><p>HotpotQA的qas中，dense、hybrid和sparse能回答的问题的重合度较高。是否为训练数据好坏的指标？是否会影响分类器训练？<br>  SQuAD-train<br>  jacard hybrid vs sparse: 0.9184879764719451<br>  jacard dense vs sparse: 0.70026646147708<br>  jacard dense vs hybrid: 0.7697610961130947</p>
@@ -696,7 +724,7 @@ H --&gt; I[返回结果]
 <li>之前的label策略是站在dense retriever的角度。对于一条query，预测它能否被dense检索。分类器有点类似于dense retriever的向导，知道dense retriever的知识和<br>能力，从而能够预测query是否会被检索到。</li>
 <li>现在改成了sparse retriever的角度。对于一条query，预测它能否被sparse检索到。策略是把所有sparse检索不到的query且能被hybrid或dense检索到的，都标记为正样本。</li>
 </ul>
-<h3 id="Done-2"><a href="#Done-2" class="headerlink" title="Done"></a>Done</h3><ul>
+<h3 id="Done-3"><a href="#Done-3" class="headerlink" title="Done"></a>Done</h3><ul>
 <li>SQuAD 数据集-train（80599 qas）查询groundtruth完毕，分类器训练ready</li>
 <li>在SQuAD-train上使用Lightgbm训练了分类器</li>
 <li>特征选取只选了q2d_sdist + q2q_ddist</li>
@@ -760,7 +788,7 @@ H --&gt; I[返回结果]
   <div class="license-box my-3">
     <div class="license-title">
       <div>记录 - 混合检索框架探索</div>
-      <div>https://lcj2021.github.io/2024/07/14/记录 - 混合检索框架探索/</div>
+      <div>https://lcj2021.github.io/2024/07/18/记录 - 混合检索框架探索/</div>
     </div>
     <div class="license-meta">
       
@@ -772,7 +800,7 @@ H --&gt; I[返回结果]
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年7月14日</div>
+          <div>2024年7月18日</div>
         </div>
       
       
@@ -804,9 +832,9 @@ H --&gt; I[返回结果]
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/07/14/%E7%AC%94%E8%AE%B0%20-%20IR%20&amp;%20ODQA%20Wiki/" title="笔记 - IR &amp; ODQA Wiki">
+                      <a href="/2024/07/18/%E7%AC%94%E8%AE%B0%20-%20NIPS2022%20EHI%20End-to-end%20Learning%20of%20Hierarchical%20Index%20for%20Efficient%20Dense%20Retrieval/" title="笔记 - NIPS2022 EHI End-to-end Learning of Hierarchical Index for Efficient Dense Retrieval">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">笔记 - IR &amp; ODQA Wiki</span>
+                        <span class="hidden-mobile">笔记 - NIPS2022 EHI End-to-end Learning of Hierarchical Index for Efficient Dense Retrieval</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -814,8 +842,8 @@ H --&gt; I[返回结果]
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/07/13/hello-world/" title="Hello World">
-                        <span class="hidden-mobile">Hello World</span>
+                      <a href="/2024/07/18/%E8%AE%B0%E5%BD%95%20-%20%E7%9C%8B%E7%95%AA%E8%AE%B0%E5%BD%95/" title="记录 - 看番记录">
+                        <span class="hidden-mobile">记录 - 看番记录</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
