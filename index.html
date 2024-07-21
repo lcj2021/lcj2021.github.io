@@ -358,7 +358,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2024/07/18/%E8%AE%B0%E5%BD%95%20-%20%E6%B7%B7%E5%90%88%E6%A3%80%E7%B4%A2%E6%A1%86%E6%9E%B6%E6%8E%A2%E7%B4%A2/" target="_self">
         <div>
-          07.21思考 用多个embedding表征一个query？ref：推荐系统中的多兴趣召回 E2E检索。encoder、hard-negative样本采样、index全部端到端。甚至还可以包括搜索参数的预测，都可以端到端。  比较理想的模型是 ANCE + L2H index + 搜索参数预测。  根据损失函数之类的来评估某些查询学习成都的好坏：学得好，搜的块就少；学得差，就多搜 重新获取gt，目
+          07.21Done 把uplift图改成：打分排序，取得分前top k%（0.5%为step）的query做uplift。这样能固定打点数量，便于比较AUUC 接通HNSW索引 测试E2E各环节平均时间，得到最终提速效果[[_posts&#x2F;记录 - 混合检索框架探索#^79735c|记录 - 混合检索框架探索]] 改进模型，迭代至DCN（特征交叉）  现状采用 DCN（Deep Cross
         </div>
       </a>
 
@@ -409,60 +409,6 @@
               <a href="/tags/Information-Retrieval/">#Information-Retrieval</a>
             
           </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2024/07/18/%E8%AE%B0%E5%BD%95%20-%20%E7%9C%8B%E7%95%AA%E8%AE%B0%E5%BD%95/" target="_self">
-          记录 - 看番记录
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/07/18/%E8%AE%B0%E5%BD%95%20-%20%E7%9C%8B%E7%95%AA%E8%AE%B0%E5%BD%95/" target="_self">
-        <div>
-          备注  A叔: Animenzzz 猪仔: 和音社-猪仔很忙 P大: Phyxinon T叔: Theishter  已看:star: 你的名字  OP &amp; ED: 梦灯笼 (黄昏之时) OST: sparkle火花 (A叔)、前前前世 (A叔)、三叶的主题曲  火影忍者TV版（Episode 720&#x2F;720）  OP: Sign、silhouette剪影 (A叔)  继母的拖油
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-07-18 00:00" pubdate>
-              2024-07-18
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E8%AE%B0%E5%BD%95/" class="category-chain-item">记录</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
         
       </div>
     </article>
@@ -526,6 +472,60 @@
               <a href="/tags/%E9%9D%A2%E7%BB%8F/">#面经</a>
             
           </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/07/18/%E8%AE%B0%E5%BD%95%20-%20%E7%9C%8B%E7%95%AA%E8%AE%B0%E5%BD%95/" target="_self">
+          记录 - 看番记录
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/07/18/%E8%AE%B0%E5%BD%95%20-%20%E7%9C%8B%E7%95%AA%E8%AE%B0%E5%BD%95/" target="_self">
+        <div>
+          备注  A叔: Animenzzz 猪仔: 和音社-猪仔很忙 P大: Phyxinon T叔: Theishter  已看:star: 你的名字  OP &amp; ED: 梦灯笼 (黄昏之时) OST: sparkle火花 (A叔)、前前前世 (A叔)、三叶的主题曲  火影忍者TV版（Episode 720&#x2F;720）  OP: Sign、silhouette剪影 (A叔)  继母的拖油
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-07-18 00:00" pubdate>
+              2024-07-18
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%B0%E5%BD%95/" class="category-chain-item">记录</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
         
       </div>
     </article>
@@ -661,13 +661,13 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2024/07/15/%E5%91%A8%E8%AE%B0%20-%202024%2007.15-07.21/" target="_self">
+        <a href="/2024/07/15/%E5%91%A8%E8%AE%B0%20-%202024%2007.15-07.21%EF%BC%88%E7%B2%89%E7%A2%8E%E4%BA%86LCJ3%E4%B8%AA%E6%9C%88%E5%8F%91%E6%96%87%E7%9A%84%E7%8B%82%E5%A6%84%E4%BC%81%E5%9B%BE%EF%BC%89/" target="_self">
           周记 - 2024 07.15-07.21
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/07/15/%E5%91%A8%E8%AE%B0%20-%202024%2007.15-07.21/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/07/15/%E5%91%A8%E8%AE%B0%20-%202024%2007.15-07.21%EF%BC%88%E7%B2%89%E7%A2%8E%E4%BA%86LCJ3%E4%B8%AA%E6%9C%88%E5%8F%91%E6%96%87%E7%9A%84%E7%8B%82%E5%A6%84%E4%BC%81%E5%9B%BE%EF%BC%89/" target="_self">
         <div>
           07.15 周一 晴昨晚比较晚才睡着，可能是想到今天一早又得上班就烦了。 早上起来又是满怀期待地开机，看看HNSW（M&#x3D;64）构建成功了没。结果肯定是不出意外地爆内存了。笑死，不知道多少次这样了：睡前挂进程，第二天一早爬起来看结果。哪次不是失败的，害…… 208只有125GB内存，209～211也都是125GB。那只能想办法在100上构建了，于是我把raw_embedding传到100上
         </div>
