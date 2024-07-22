@@ -24,7 +24,7 @@
 <meta property="og:description" content="07.15 周一 晴昨晚比较晚才睡着，可能是想到今天一早又得上班就烦了。 早上起来又是满怀期待地开机，看看HNSW（M&#x3D;64）构建成功了没。结果肯定是不出意外地爆内存了。笑死，不知道多少次这样了：睡前挂进程，第二天一早爬起来看结果。哪次不是失败的，害…… 208只有125GB内存，209～211也都是125GB。那只能想办法在100上构建了，于是我把raw_embedding传到100上">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-07-14T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-07-21T15:50:54.844Z">
+<meta property="article:modified_time" content="2024-07-22T00:41:16.998Z">
 <meta property="article:author" content="Channing Lau">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.9k 字
+          2.2k 字
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          17 分钟
+          19 分钟
         
       </span>
     
@@ -292,16 +292,17 @@
 <h2 id="07-18-周四-晴"><a href="#07-18-周四-晴" class="headerlink" title="07.18 周四 晴"></a>07.18 周四 晴</h2><p>从我昨天下午搬过去新工位到我昨天下班，周围两排都没人。今天可算来人了，不知道的还以为字节的强度很低（笑</p>
 <p>由于明天下午挂了华山医院的贫血号，今早8点半让李BW把明天下午的one2one改到今天下午了。</p>
 <h2 id="07-19-周五-晴"><a href="#07-19-周五-晴" class="headerlink" title="07.19 周五 晴"></a>07.19 周五 晴</h2><p>早上到公司，到12楼一出电梯，就看到茶水间摆了3张长桌子。看到旁边还摆了一堆大箱子，桌子上有个二维码，原来是Tiktok Swag，周年礼包哇。问了问旁边的工作人员小姐姐实习生能不能领，我靠她直接翻了个白眼说不可以……</p>
-<p>刚回工位不久我就收到飞书消息，说可以领Tiktok Swag礼包。</p>
+<p>刚回工位我就问同为实习生的孔LB，他说5月份发了个调查问卷，填衣服的尺寸，我没填就应该领不了。<br>可实际上不久我就收到飞书消息，说可以“感谢您这一年的付出”，说我领Tiktok Swag礼包。中午直接去1208现场登记颜色尺寸把礼包给领了，羊毛+1！</p>
 <p>早上在工位依旧是搞检索实验，用字节的GPT平台狂薅GPT4的羊毛。体验确实好，给我写Pytorch也是杠杠的。有GPT4的加持，今天就把 Deep Cross Network跑通了。<br>说到Pytorch，想到之前在知乎上刷到一条帖子<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/661322236/answer/3562764903">深度学习论文什么效果才能发论文?</a>。发CCFA连Pytorch都不需要会，直接全部丢给GPT就行，过于真实。</p>
 <p>中午在工位上坐了一会就赶着去去华山医院了。医生问我有没有做血常规，感觉我应该做过吧、hub毕业体检 + fdu入学体检这不都抽了两次血了吗？但是也没收到反馈啊，fdu甚至连体检结果都查不到……<br>我和医生说我只做了微量元素和维生素，她就给我开了硫酸亚铁 + 叶酸 + 复合维生素。还算满意，希望吃了有用吧。</p>
 <p>血常规确实还得做，打算9-10月份再来吧。按理来说铁缺20% + 叶酸缺33%大差不差会有点贫血。回去在地铁上刷xhs，好像刷到个说法，说这种入学体检、毕业体检主要看有没有传染病……</p>
-<h2 id="07-20-周六-晴"><a href="#07-20-周六-晴" class="headerlink" title="07.20 周六 晴"></a>07.20 周六 晴</h2><p>今天一个上午都在修DCN。</p>
+<h2 id="07-20-周六-晴（实验接连失败-注册Google-Scholar）"><a href="#07-20-周六-晴（实验接连失败-注册Google-Scholar）" class="headerlink" title="07.20 周六 晴（实验接连失败&amp;注册Google Scholar）"></a>07.20 周六 晴（实验接连失败&amp;注册Google Scholar）</h2><p>今天一个上午都在修DCN。</p>
 <p>下午到晚上一直都在调参，<strong>开启大炼丹时代！</strong></p>
 <p>睡前更新：大抵是寄了。根本打不过query文本直接作为特征的BERT。<br>想想看确实啊，文本包含的信息量明显比分数特征高啊。时间序列，股票价格这种肯定比NLP效果差得多。<br>可以遗憾地宣布：<strong>Channing又要开始沉淀了！</strong></p>
 <p><strong>这两次接连的实验失败，彻底粉碎了 LCJ 3个月零基础发检索顶会的狂妄企图</strong></p>
 <p><strong>史称 07-20 QA-Uplift事变</strong></p>
 <p>前5行还在说大炼丹时代，现在就粉碎狂妄企图了。着实令人难蚌，一周之内，一日之间，而気持不齐。</p>
+<p>晚上由于宿舍停电，被迫去工位了。上次去工位得是2个月前了。这次实验室又没人，舒服了。<br>在工位上把22号DDL的《算法导论》期末论文写了写，然后就开始摸鱼了。<br>刷到彭P老师的google scholar，发现MPC那篇论文具有有3篇引用了。于是我赶紧注册了一个google scholar账号，相当于注册成为英雄协会会员了，只不过是C级最后顺位的英雄（悲）。<br>不管接下来走不走学术的路线，2024-07-20这一天可以载入史册了。</p>
 <h2 id="07-21-周日-晴"><a href="#07-21-周日-晴" class="headerlink" title="07.21 周日 晴"></a>07.21 周日 晴</h2><p>早上又得向zwg交差，只能硬吹了。刘氏对比法，让他觉得我这个项目还能继续投资。<br>otherwise，我就又要掉进横向地狱了。</p>
 <p>中午翻看浏览器，发现之前打开的一个知乎页面还没关<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/683509519">CNN+Transformer:66.8%的二分类预测准确度</a>。<br>花了一个下午，用白嫖的gpt4把他复现了，并且和现在的实验框架接通了。效果甚至不如DCN……<br>主要训练成本还贼高，transformer encoder太耗显存了。双2080ti 数据并行，batch_size都只能开到2048。<br>这调参调起来是有多痛苦，我都不敢想。</p>
 <p>晚上风扇持续性地哀嚎了，我真的是*了。</p>
