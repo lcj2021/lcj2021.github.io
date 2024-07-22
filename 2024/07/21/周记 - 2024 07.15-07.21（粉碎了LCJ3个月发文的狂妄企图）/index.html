@@ -16,22 +16,21 @@
   <meta name="author" content="Channing Lau">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Error while fetching extensions : XHR failedVSCode安装插件时，显示XHR failed。 ping update.code.visualstudio.com此时大概率无法ping通。 找到host文件Win：C:\Windows\System32\drivers\etc\hostsMac&#x2F;Linux（sudo）：&#x2F;etc&#x2F;hosts 追加">
+    <meta name="description" content="07.15 周一 晴昨晚比较晚才睡着，可能是想到今天一早又得上班就烦了。 早上起来又是满怀期待地开机，看看HNSW（M&#x3D;64）构建成功了没。结果肯定是不出意外地爆内存了。笑死，不知道多少次这样了：睡前挂进程，第二天一早爬起来看结果。哪次不是失败的，害…… 208只有125GB内存，209～211也都是125GB。那只能想办法在100上构建了，于是我把raw_embedding传到100上">
 <meta property="og:type" content="article">
-<meta property="og:title" content="笔记 - VSCode &amp; Jupyter实验踩坑记录">
-<meta property="og:url" content="https://lcj2021.github.io/2024/07/15/%E7%AC%94%E8%AE%B0%20-%20VSCode%20&%20Jupyter%E5%AE%9E%E9%AA%8C%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/index.html">
+<meta property="og:title" content="周记 - 2024 07.15-07.21">
+<meta property="og:url" content="https://lcj2021.github.io/2024/07/21/%E5%91%A8%E8%AE%B0%20-%202024%2007.15-07.21%EF%BC%88%E7%B2%89%E7%A2%8E%E4%BA%86LCJ3%E4%B8%AA%E6%9C%88%E5%8F%91%E6%96%87%E7%9A%84%E7%8B%82%E5%A6%84%E4%BC%81%E5%9B%BE%EF%BC%89/index.html">
 <meta property="og:site_name" content="ChanningLau&#39;s harbour">
-<meta property="og:description" content="Error while fetching extensions : XHR failedVSCode安装插件时，显示XHR failed。 ping update.code.visualstudio.com此时大概率无法ping通。 找到host文件Win：C:\Windows\System32\drivers\etc\hostsMac&#x2F;Linux（sudo）：&#x2F;etc&#x2F;hosts 追加">
+<meta property="og:description" content="07.15 周一 晴昨晚比较晚才睡着，可能是想到今天一早又得上班就烦了。 早上起来又是满怀期待地开机，看看HNSW（M&#x3D;64）构建成功了没。结果肯定是不出意外地爆内存了。笑死，不知道多少次这样了：睡前挂进程，第二天一早爬起来看结果。哪次不是失败的，害…… 208只有125GB内存，209～211也都是125GB。那只能想办法在100上构建了，于是我把raw_embedding传到100上">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-07-14T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-07-21T08:01:51.869Z">
+<meta property="article:published_time" content="2024-07-20T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-07-22T00:57:40.742Z">
 <meta property="article:author" content="Channing Lau">
-<meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>笔记 - VSCode &amp; Jupyter实验踩坑记录 - ChanningLau&#39;s harbour</title>
+  <title>周记 - 2024 07.15-07.21 - ChanningLau&#39;s harbour</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -197,7 +196,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="笔记 - VSCode &amp; Jupyter实验踩坑记录"></span>
+            <span id="subtitle" data-typed-text="周记 - 2024 07.15-07.21"></span>
           
         </div>
 
@@ -208,8 +207,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-07-15 00:00" pubdate>
-          2024年7月15日 凌晨
+        <time datetime="2024-07-21 00:00" pubdate>
+          2024年7月21日 凌晨
         </time>
       </span>
     
@@ -220,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          619 字
+          2.2k 字
         
       </span>
     
@@ -231,7 +230,7 @@
         
         
         
-          6 分钟
+          19 分钟
         
       </span>
     
@@ -268,25 +267,48 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">笔记 - VSCode &amp; Jupyter实验踩坑记录</h1>
+            <h1 id="seo-header">周记 - 2024 07.15-07.21</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="Error-while-fetching-extensions-XHR-failed"><a href="#Error-while-fetching-extensions-XHR-failed" class="headerlink" title="Error while fetching extensions : XHR failed"></a>Error while fetching extensions : XHR failed</h2><p>VSCode安装插件时，显示XHR failed。</p>
-<p><code>ping update.code.visualstudio.com</code><br>此时大概率无法ping通。</p>
-<p>找到<code>host文件</code><br>Win：<code>C:\Windows\System32\drivers\etc\hosts</code><br>Mac&#x2F;Linux（sudo）：<code>/etc/hosts</code></p>
-<p>追加：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">VSCode</span><br>20.43.132.130  update.code.visualstudio.com   # Visual Studio Code download and update server<br>13.69.68.34  code.visualstudio.com   # Visual Studio Code documentation<br>104.119.90.120  go.microsoft.com    #  Microsoft link forwarding service<br>20.150.83.4  vscode.blob.core.windows.net    # Visual Studio Code blob storage, used for remote server<br>13.107.42.18 marketplace.visualstudio.com    # Visual Studio Marketplace<br>191.238.172.191 *.gallery.vsassets.io    # Visual Studio Marketplace<br>191.238.172.191 *.gallerycdn.vsassets.io     # Visual Studio Marketplace<br>40.70.164.17 rink.hockeyapp.net      # Crash reporting service<br>13.75.34.168 bingsettingssearch.trafficmanager.net   # In-product settings search<br>138.91.148.66 vscode.search.windows.net    # In-product settings search<br>raw.githubusercontent.com       # GitHub repository raw file access<br>50.17.211.206 vsmarketplacebadge.apphb.com    # Visual Studio Marketplace badge service<br>117.18.232.200 az764295.vo.msecnd.net    # Visual Studio Code download CDN<br>42.80.217.156 download.visualstudio.microsoft.com  # Visual Studio download server, provides dependencies for some VS Code extensions (C++, C#)<br>13.67.9.5 vscode-sync.trafficmanager.net     # Visual Studio Code Settings Sync service<br>13.69.68.64  vscode-sync-insiders.trafficmanager.net  # Visual Studio Code Settings Sync service (Insiders)<br>13.107.5.93 default.exp-tas.com     #  Visual Studio Code Experiment Service, used to provide experimental user experiences<br></code></pre></td></tr></table></figure>
-
-<p>保存并使其生效：<br>Win：<code>ipconfig /flushdns</code><br>Mac：<code>sudo killall -HUP mDNSResponder</code> <code>sudo dscacheutil -flushcache</code></p>
-<p>此时再次<code>ping update.code.visualstudio.com</code>，发现可以ping通。<br>再次安装插件，问题解决。</p>
-<h2 id="更改Notebook文件名会kill掉进行的python进程"><a href="#更改Notebook文件名会kill掉进行的python进程" class="headerlink" title="更改Notebook文件名会kill掉进行的python进程"></a>更改Notebook文件名会kill掉进行的python进程</h2><p><code>wikihop_val_bm25.ipynb</code> &#x3D;&gt; <code>wikihop_val_100r_bm25.ipynb</code>会造成在跑的<code>wikihop_val_bm25.ipynb</code>实验被kill。</p>
-<h2 id="VSCode服务器上使用Jupyter显示请选择内核源"><a href="#VSCode服务器上使用Jupyter显示请选择内核源" class="headerlink" title="VSCode服务器上使用Jupyter显示请选择内核源"></a>VSCode服务器上使用Jupyter显示请选择内核源</h2><p>请在VSCode的扩展栏中检查Jupyter插件，出现这个问题，此时Jupyter的图标大概率已经变灰了。可以通过更新版本 or 切换回预览版解决。</p>
-<h2 id="nohup-jupyter-execute实现挂机"><a href="#nohup-jupyter-execute实现挂机" class="headerlink" title="nohup + jupyter-execute实现挂机"></a>nohup + jupyter-execute实现挂机</h2><p>在screen的session里面，conda activate进到虚拟环境，然后执行<code>nohup jupyter-execute a.ipynb &gt; a.log &amp;</code>就可以了。<br>你说得对但是<code>jupyter-execute command not found</code>。<code>apt install jupyter-execute</code>说找不到这个东西。<br>应该先conda activate 到一个虚拟环境，然后再<code>pip install jupyter</code></p>
-<h2 id="Pytorch-Assertion-input-val-zero-input-val"><a href="#Pytorch-Assertion-input-val-zero-input-val" class="headerlink" title="[Pytorch] Assertion input_val &gt;= zero &amp;&amp; input_val &lt;= one failed."></a>[Pytorch] Assertion <code>input_val &gt;= zero &amp;&amp; input_val &lt;= one</code> failed.</h2><p>这个错误信息来源于PyTorch的CUDA后端，通常发生在使用某些损失函数（如二元交叉熵损失，<code>BCELoss</code> 或者 <code>BCEWithLogitsLoss</code>）时。错误信息中的断言 <code>input_val &gt;= zero &amp;&amp; input_val &lt;= one</code> 表明模型的输出（通常是最后一层的激活函数的输出）中有值超出了0到1的范围。</p>
-<p>在使用二元交叉熵损失时，模型的输出通常需要被视为概率，因此它们应该被限制在0和1之间。在实践中，这意味着最后一层的激活函数通常应该是sigmoid函数（对于二分类问题）或softmax函数（对于多分类问题），以确保输出满足这个条件。</p>
-<p>当你的模型输出包含小于0或大于1的值时，就会触发这个断言失败，因为这样的值在数学上没有意义，而且在计算二元交叉熵损失时可能会导致数值不稳定，例如产生NaN或无穷大。</p>
+                <h2 id="07-15-周一-晴"><a href="#07-15-周一-晴" class="headerlink" title="07.15 周一 晴"></a>07.15 周一 晴</h2><p>昨晚比较晚才睡着，可能是想到今天一早又得上班就烦了。</p>
+<p>早上起来又是满怀期待地开机，看看HNSW（M&#x3D;64）构建成功了没。结果肯定是不出意外地爆内存了。笑死，不知道多少次这样了：睡前挂进程，第二天一早爬起来看结果。哪次不是失败的，害……</p>
+<p>208只有125GB内存，209～211也都是125GB。那只能想办法在100上构建了，于是我把raw_embedding传到100上，构建了3个小时左右，这才算把这个21Mx768维的HNSW弄出来。</p>
+<p>9点35出宿舍，刚下楼想起没带Lightning的线，赶紧回去拿。一路走到财大门口，一辆小黄车都没，并且还发现Macbook的电源线又没带，这一路折腾到公司已经10点10分了。最近精神状态确实不是很好，科研和实习两边的压力确实得权衡一下了。</p>
+<p>晚上下班回到宿舍，打开电脑，发现显示器不亮了。经过一番排查，鉴定为笔记本的HDMI接口坏了。这下好了，看番看VSCode的体验直线下滑。服了，屁事是真的多。看看后天去附近找找修电脑的店吧。明天还得准备跟葛FS开one2one……</p>
+<p>考虑到这周就得把《算法导论》的期末论文给写完了，所以科研也得先放放了。</p>
+<p>晚上把《secret base》上传到了网易云云盘，人声版的也好听啊。</p>
+<h2 id="07-16-周二-晴（检索实验失败）"><a href="#07-16-周二-晴（检索实验失败）" class="headerlink" title="07.16 周二 晴（检索实验失败）"></a>07.16 周二 晴（检索实验失败）</h2><p>今天，我遭受了入坑Information-Retrieval以来的第二次失败，也是沉没成本最大的一次失败。虽然已经我早就料到不会这么顺利，毕竟5月初才正式入坑，但是一想到我这一个多月以来灌注的热血，很有可能因为今早的结果付之一炬，我就又不想干了。图个啥呢？我这些研究就算全发到CCF-A、CCF-B，真的就会对人类有贡献吗？或者退一步说，真的会有人引用吗？哎，失败总是贯穿人生的始终，想到我的处女座FSM虽然忝列VLDB的门墙，但也是属于那种充数的。我还能干啥呢？</p>
+<p>总是要面对E2E的实验数据的，上周日我就大感不妙，给郑老师画的饼好像大过头了……<br>今天结果出来，发现的确如此。归根结底，是BM25检索太慢了，比我想象中慢太多了。再然后就是HNSW确实太快了，这也没办法，70+G的内存换来的极致性能。</p>
+<p>晚上想到把HNSW换成IVFPQ试试，至少会比HNSW慢个几倍吧。如果还不行就开摆了。</p>
+<h2 id="07-17-周三-晴"><a href="#07-17-周三-晴" class="headerlink" title="07.17 周三 晴"></a>07.17 周三 晴</h2><blockquote>
+<p>发现有些emoji不会新建图片，好像是自带的。可以找个时间研究下这种通用的emoji，来丰富一下harbor。</p>
+</blockquote>
+<p>昨天下班忘记去北区驿站拿牛奶了，早上出门去拿。出门前发现校园卡不见了，这我很快就反应过来是昨晚洗澡忘记拔卡了……拿钥匙，又发现书包里钥匙🔑不见了。找遍了整个宿舍也没找到，不过很快就想起来昨天晚上在客厅的桌子上看到一串钥匙很像我的。一看确实是我的钥匙，已经有帕金森的迹象了……</p>
+<p>早上开冷启动周会，这已经是我第三次参加了，可是我还是一头雾水。雾水就雾水吧，直接开摆。把meego对应页面打开，上面显示我在看就行。</p>
+<p>最难蚌的是中午mentor李BW和我说我又得搬位置了，我真的服了。06-23入职以来，不到一个月时间，这<strong>已经是第4次搬位置了</strong>……</p>
+<p>从这周一开始我感觉自己明显比之前累、困了很多。这几天还连续忘记事情，哎真的只想天天家里蹲。<br>晚上挂了07-19下午华山医院 营养-血液科。</p>
+<h2 id="07-18-周四-晴"><a href="#07-18-周四-晴" class="headerlink" title="07.18 周四 晴"></a>07.18 周四 晴</h2><p>从我昨天下午搬过去新工位到我昨天下班，周围两排都没人。今天可算来人了，不知道的还以为字节的强度很低（笑</p>
+<p>由于明天下午挂了华山医院的贫血号，今早8点半让李BW把明天下午的one2one改到今天下午了。</p>
+<h2 id="07-19-周五-晴"><a href="#07-19-周五-晴" class="headerlink" title="07.19 周五 晴"></a>07.19 周五 晴</h2><p>早上到公司，到12楼一出电梯，就看到茶水间摆了3张长桌子。看到旁边还摆了一堆大箱子，桌子上有个二维码，原来是Tiktok Swag，周年礼包哇。问了问旁边的工作人员小姐姐实习生能不能领，我靠她直接翻了个白眼说不可以……</p>
+<p>刚回工位我就问同为实习生的孔LB，他说5月份发了个调查问卷，填衣服的尺寸，我没填就应该领不了。<br>可实际上不久我就收到飞书消息，说可以“感谢您这一年的付出”，说我领Tiktok Swag礼包。中午直接去1208现场登记颜色尺寸把礼包给领了，羊毛+1！</p>
+<p>早上在工位依旧是搞检索实验，用字节的GPT平台狂薅GPT4的羊毛。体验确实好，给我写Pytorch也是杠杠的。有GPT4的加持，今天就把 Deep Cross Network跑通了。<br>说到Pytorch，想到之前在知乎上刷到一条帖子<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/661322236/answer/3562764903">深度学习论文什么效果才能发论文?</a>。发CCFA连Pytorch都不需要会，直接全部丢给GPT就行，过于真实。</p>
+<p>中午在工位上坐了一会就赶着去去华山医院了。医生问我有没有做血常规，感觉我应该做过吧、hub毕业体检 + fdu入学体检这不都抽了两次血了吗？但是也没收到反馈啊，fdu甚至连体检结果都查不到……<br>我和医生说我只做了微量元素和维生素，她就给我开了硫酸亚铁 + 叶酸 + 复合维生素。还算满意，希望吃了有用吧。</p>
+<p>血常规确实还得做，打算9-10月份再来吧。按理来说铁缺20% + 叶酸缺33%大差不差会有点贫血。回去在地铁上刷xhs，好像刷到个说法，说这种入学体检、毕业体检主要看有没有传染病……</p>
+<h2 id="07-20-周六-晴（实验接连失败-注册Google-Scholar）"><a href="#07-20-周六-晴（实验接连失败-注册Google-Scholar）" class="headerlink" title="07.20 周六 晴（实验接连失败&amp;注册Google Scholar）"></a>07.20 周六 晴（实验接连失败&amp;注册Google Scholar）</h2><p>今天一个上午都在修DCN。</p>
+<p>下午到晚上一直都在调参，<strong>开启大炼丹时代！</strong></p>
+<p>睡前更新：大抵是寄了。根本打不过query文本直接作为特征的BERT。<br>想想看确实啊，文本包含的信息量明显比分数特征高啊。时间序列，股票价格这种肯定比NLP效果差得多。<br>可以遗憾地宣布：<strong>Channing又要开始沉淀了！</strong></p>
+<p><strong>这两次接连的实验失败，彻底粉碎了 LCJ 3个月零基础发检索顶会的狂妄企图</strong></p>
+<p><strong>史称 07-20 QA-Uplift事变</strong></p>
+<p>前5行还在说大炼丹时代，现在就粉碎狂妄企图了。着实令人难蚌，一周之内，一日之间，而気持不齐。</p>
+<p>晚上由于宿舍停电，被迫去工位了。上次去工位得是2个月前了。这次实验室又没人，舒服了。<br>在工位上把22号DDL的《算法导论》期末论文写了写，然后就开始摸鱼了。<br>刷到彭P老师的google scholar，发现MPC那篇论文具有有3篇引用了。于是我赶紧注册了一个google scholar账号，相当于注册成为英雄协会会员了，只不过是C级最后顺位的英雄（悲）。<br>不管接下来走不走学术的路线，2024-07-20这一天可以载入史册了。</p>
+<h2 id="07-21-周日-晴"><a href="#07-21-周日-晴" class="headerlink" title="07.21 周日 晴"></a>07.21 周日 晴</h2><p>早上又得向zwg交差，只能硬吹了。刘氏对比法，让他觉得我这个项目还能继续投资。<br>otherwise，我就又要掉进横向地狱了。</p>
+<p>中午翻看浏览器，发现之前打开的一个知乎页面还没关<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/683509519">CNN+Transformer:66.8%的二分类预测准确度</a>。<br>花了一个下午，用白嫖的gpt4把他复现了，并且和现在的实验框架接通了。效果甚至不如DCN……<br>主要训练成本还贼高，transformer encoder太耗显存了。双2080ti 数据并行，batch_size都只能开到2048。<br>这调参调起来是有多痛苦，我都不敢想。</p>
+<p>晚上风扇持续性地哀嚎了，我真的是*了。</p>
+<blockquote>
+<p>本周的周度音乐是《secret base》<br>歌词太应景了，“<strong>10年后的8月</strong>”。马上就是十年前的“10年后的8月”了。</p>
+</blockquote>
 
                 
               </div>
@@ -305,7 +327,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E7%AC%94%E8%AE%B0/" class="category-chain-item">笔记</a>
+  <a href="/categories/%E6%97%A5%E5%B8%B8/" class="category-chain-item">日常</a>
   
   
 
@@ -317,13 +339,6 @@
     </div>
   
   
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/python/" class="print-no-link">#python</a>
-      
-    </div>
-  
 </div>
 
 
@@ -332,8 +347,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>笔记 - VSCode &amp; Jupyter实验踩坑记录</div>
-      <div>https://lcj2021.github.io/2024/07/15/笔记 - VSCode &amp; Jupyter实验踩坑记录/</div>
+      <div>周记 - 2024 07.15-07.21</div>
+      <div>https://lcj2021.github.io/2024/07/21/周记 - 2024 07.15-07.21（粉碎了LCJ3个月发文的狂妄企图）/</div>
     </div>
     <div class="license-meta">
       
@@ -345,7 +360,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年7月15日</div>
+          <div>2024年7月21日</div>
         </div>
       
       
@@ -377,9 +392,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/07/15/%E7%AC%94%E8%AE%B0%20-%20CIKM2023%20Neural%20Disentanglement%20of%20Query%20Difficulty%20and%20Semantics/" title="笔记 - CIKM2023 Neural Disentanglement of Query Difficulty and Semantics">
+                      <a href="/2024/07/22/%E8%AE%B0%E5%BD%95%20-%20%E7%9C%8B%E7%95%AA%E8%AE%B0%E5%BD%95/" title="记录 - 看番记录">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">笔记 - CIKM2023 Neural Disentanglement of Query Difficulty and Semantics</span>
+                        <span class="hidden-mobile">记录 - 看番记录</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -387,8 +402,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/07/14/%E5%91%A8%E8%AE%B0%20-%202024%2007.08-07.14/" title="周记 - 2024 07.08-07.14">
-                        <span class="hidden-mobile">周记 - 2024 07.08-07.14</span>
+                      <a href="/2024/07/18/%E7%AC%94%E8%AE%B0%20-%20EMNLP2020%20Dense%20Passage%20Retrieval%20for%20Open-Domain%20Question%20Answering/" title="笔记 - EMNLP2020 Dense Passage Retrieval for Open-Domain Question Answering">
+                        <span class="hidden-mobile">笔记 - EMNLP2020 Dense Passage Retrieval for Open-Domain Question Answering</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
