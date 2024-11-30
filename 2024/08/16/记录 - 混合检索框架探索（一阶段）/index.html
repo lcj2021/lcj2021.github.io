@@ -16,13 +16,14 @@
   <meta name="author" content="Channing Lau">
   <meta name="keywords" content="">
   
-    <meta name="description" content="07.28思考能否做成实验性、结论性的论文？就像之前看到TOIS2023上的关于插值融合 vs 倒数平均融合的比对论文一样。能做的实验包括：  不同DR，不同DR分数带来的影响 不同数据集，Corpus对齐良好和欠佳两类数据集 不同的资源下，uplift模型的效果 不同线程 不同ANNS索引   不同uplift模型下（BERT、树模型、MLP），AUUC、Cost @99.5%RRF等各种指标">
+    <meta name="description" content="08.18このたび、私わAAAIの論文（ろんぶん）提出（ていしゅつ）を一生（isshou）懸命（けんめ）に完成（かんせい）しました　ー０８１６ 今後（こんご）の計画（けいかく）PINおBERTに融合（ゆうごう）します 信（しんん）じて、効果ありますよ 08.11ODR和IDR选用的模型参数是否要一致？ 大進展（だいしんてん）加入了position encoding，効果（こうか）アップ（appu）">
 <meta property="og:type" content="article">
 <meta property="og:title" content="记录 - 混合检索框架探索">
-<meta property="og:url" content="https://lcj2021.github.io/2024/07/22/%E8%AE%B0%E5%BD%95%20-%20%E6%B7%B7%E5%90%88%E6%A3%80%E7%B4%A2%E6%A1%86%E6%9E%B6%E6%8E%A2%E7%B4%A2/index.html">
+<meta property="og:url" content="https://lcj2021.github.io/2024/08/16/%E8%AE%B0%E5%BD%95%20-%20%E6%B7%B7%E5%90%88%E6%A3%80%E7%B4%A2%E6%A1%86%E6%9E%B6%E6%8E%A2%E7%B4%A2%EF%BC%88%E4%B8%80%E9%98%B6%E6%AE%B5%EF%BC%89/index.html">
 <meta property="og:site_name" content="ChanningLau&#39;s harbour">
-<meta property="og:description" content="07.28思考能否做成实验性、结论性的论文？就像之前看到TOIS2023上的关于插值融合 vs 倒数平均融合的比对论文一样。能做的实验包括：  不同DR，不同DR分数带来的影响 不同数据集，Corpus对齐良好和欠佳两类数据集 不同的资源下，uplift模型的效果 不同线程 不同ANNS索引   不同uplift模型下（BERT、树模型、MLP），AUUC、Cost @99.5%RRF等各种指标">
+<meta property="og:description" content="08.18このたび、私わAAAIの論文（ろんぶん）提出（ていしゅつ）を一生（isshou）懸命（けんめ）に完成（かんせい）しました　ー０８１６ 今後（こんご）の計画（けいかく）PINおBERTに融合（ゆうごう）します 信（しんん）じて、効果ありますよ 08.11ODR和IDR选用的模型参数是否要一致？ 大進展（だいしんてん）加入了position encoding，効果（こうか）アップ（appu）">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.picgo.net/2024/08/04/correlation_heatmap_signal1004c08acc6c0babf3c.png">
 <meta property="og:image" content="https://img.picgo.net/2024/07/21/AdversarialQA-Val-SR_DR.squad_search_freebase.bert-base-uncased.epoch-2.batch-32a7e947612ae101a7.png">
 <meta property="og:image" content="https://img.picgo.net/2024/07/21/Adversarial-Val-DCN.squad_search_freebase.q2q_ddist_q2d_sdist.k-100.cl-5.dh-256-256.lr-1e-35298c5569f429e3c.png">
 <meta property="og:image" content="https://img.picgo.net/2024/07/21/AdversarialQA-Val-mlp.squad_search_freebase.q2q_ddist_q2d_sdist.k-100.512x64.lr-1e-360a9948f89df5b21.png">
@@ -35,6 +36,7 @@
 <meta property="og:image" content="https://img.picgo.net/2024/07/21/SQuAD-Test-SR_DR.squad_search_freebase.bert-base-uncased.epoch-2.batch-32955de3140509c1bb.png">
 <meta property="og:image" content="https://img.picgo.net/2024/07/21/SQuAD-Test-DCN.squad_search_freebase.q2q_ddist_q2d_sdist.k-100.cl-5.dh-256-256.lr-1e-35c31093ad6e78968.png">
 <meta property="og:image" content="https://img.picgo.net/2024/07/21/SQuAD-Test-mlp.squad_search_freebase.q2q_ddist_q2d_sdist.k-100.512x64.lr-1e-390a2456fc11a2909.png">
+<meta property="og:image" content="https://liuzaoqi.com/assets/images/uplift_2024-01-31-15-27-31-f97950ed9f17569a53f7f0910f55af7e.png">
 <meta property="og:image" content="https://img.picgo.net/2024/07/14/AdversarialQA-Val-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.128x64.lr-1e-36ba8e080efc37de6.png">
 <meta property="og:image" content="https://img.picgo.net/2024/07/14/AdversarialQA-Val-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.256x64.lr-1e-33413de33887b910c.png">
 <meta property="og:image" content="https://img.picgo.net/2024/07/14/AdversarialQA-Val-mlp.squad_search.q2q_ddist_q2d_sdist.k-100.512x64.lr-1e-38a6c742b0e52100a.png">
@@ -69,13 +71,13 @@
 <meta property="og:image" content="https://img.picgo.net/2024/07/07/squad.mlp.128x64.naturalq-testb9631681cfc63f4f.png">
 <meta property="og:image" content="https://img.picgo.net/2024/07/07/squad.mlp.128x64.squad-testebe0103ba626024d.png">
 <meta property="og:image" content="https://img.picgo.net/2024/07/07/squad.mlp.128x64.webq-test4fb2214d34367571.png">
-<meta property="article:published_time" content="2024-07-21T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-07-22T00:58:45.490Z">
+<meta property="article:published_time" content="2024-08-15T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-11-30T09:42:40.996Z">
 <meta property="article:author" content="Channing Lau">
 <meta property="article:tag" content="BERT">
 <meta property="article:tag" content="Information-Retrieval">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://img.picgo.net/2024/07/21/AdversarialQA-Val-SR_DR.squad_search_freebase.bert-base-uncased.epoch-2.batch-32a7e947612ae101a7.png">
+<meta name="twitter:image" content="https://img.picgo.net/2024/08/04/correlation_heatmap_signal1004c08acc6c0babf3c.png">
   
   
   
@@ -256,8 +258,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-07-22 00:00" pubdate>
-          2024年7月22日 凌晨
+        <time datetime="2024-08-16 00:00" pubdate>
+          2024年8月16日 凌晨
         </time>
       </span>
     
@@ -268,7 +270,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.1k 字
+          5.6k 字
         
       </span>
     
@@ -279,7 +281,7 @@
         
         
         
-          26 分钟
+          47 分钟
         
       </span>
     
@@ -321,26 +323,323 @@
             
               <div class="markdown-body">
                 
-                <h2 id="07-28"><a href="#07-28" class="headerlink" title="07.28"></a>07.28</h2><h3 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h3><p>能否做成实验性、结论性的论文？就像之前看到TOIS2023上的关于插值融合 vs 倒数平均融合的比对论文一样。<br>能做的实验包括：</p>
+                <h2 id="08-18"><a href="#08-18" class="headerlink" title="08.18"></a>08.18</h2><p>このたび、私わAAAIの論文（ろんぶん）提出（ていしゅつ）を一生（isshou）懸命（けんめ）に完成（かんせい）しました　<br>ー０８１６</p>
+<h3 id="今後（こんご）の計画（けいかく）"><a href="#今後（こんご）の計画（けいかく）" class="headerlink" title="今後（こんご）の計画（けいかく）"></a>今後（こんご）の計画（けいかく）</h3><p>PINおBERTに融合（ゆうごう）します</p>
+<p>信（しんん）じて、効果ありますよ</p>
+<h2 id="08-11"><a href="#08-11" class="headerlink" title="08.11"></a>08.11</h2><p>ODR和IDR选用的模型参数是否要一致？</p>
+<h3 id="大進展（だいしんてん）"><a href="#大進展（だいしんてん）" class="headerlink" title="大進展（だいしんてん）"></a>大進展（だいしんてん）</h3><p>加入了position encoding，効果（こうか）アップ（appu）です<br>消融实验が必要（ひつよう）です</p>
+<h2 id="08-04"><a href="#08-04" class="headerlink" title="08.04"></a>08.04</h2><h3 id="动机部分"><a href="#动机部分" class="headerlink" title="动机部分"></a>动机部分</h3><p>讲故事、统计指标、方法无关、现象</p>
+<p>当前问题：</p>
+<p>DCN显著有效，但是手动交叉探索了一整周没有找到满意的交叉方法</p>
 <ul>
-<li>不同DR，不同DR分数带来的影响</li>
-<li>不同数据集，Corpus对齐良好和欠佳两类数据集</li>
-<li>不同的资源下，uplift模型的效果<ul>
-<li>不同线程</li>
-<li>不同ANNS索引</li>
+<li><del>手动做的2阶、3阶、4阶、5阶交叉 + raw特征 塞MLP没有效果。</del></li>
+<li>先对100个信号做相关性分析得到相关矩阵，然后获取$C_{2}^{100}&#x3D;4950$个signal_pairs代表两两之间的相关度。取其中相关度最低的100个pairs，求几何平均，得到100个二阶交叉的特征。</li>
+<li>甚至可以以此类推做三阶的交叉。</li>
+</ul>
+<p><img src="https://img.picgo.net/2024/08/04/correlation_heatmap_signal1004c08acc6c0babf3c.png" srcset="/img/loading.gif" lazyload alt="correlation heatmap signal100"></p>
+<p>是否需要一些理论分析？</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> 相关性热力图（如上图所示）</li>
+<li><input checked="" disabled="" type="checkbox"> 特征重要性（烂）</li>
+<li><input disabled="" type="checkbox"> SHAP值</li>
+</ul>
+<p>如何做验证？raw100 + cross100 vs raw100<br>用什么指标评估？二分类的AUC - ROC还是直接把实验部分的指标拿来用（相当于直接在测试集上调参）？</p>
+<h3 id="论文题目"><a href="#论文题目" class="headerlink" title="论文题目"></a>论文题目</h3><ul>
+<li><input disabled="" type="checkbox"> FLiQ: A Lightweight Retriever Feedback-Driven Strategy for Query Retrieval</li>
+<li><input disabled="" type="checkbox"> LiRQ: Leveraging Lightweight Retriever Feedback for Enhanced Query Retrieval</li>
+<li><input disabled="" type="checkbox"> Towards Lightweight Query Retrieval: A Retriever Feedback-Driven Approach</li>
+<li><input disabled="" type="checkbox"> Harnessing Retriever Feedback for a Lightweight Query Retrieval Framework</li>
+<li><input checked="" disabled="" type="checkbox"> Harnessing Crossed Signals from Retrievers for a Lightweight Query Retrieval Framework<br>Features改称Signals<br>Lightweight既体现在框架的简洁，又体现在预测模型的轻量。</li>
+</ul>
+<h3 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h3><p>训练集：in-DR vs out-DR？</p>
+<blockquote>
+<p>使用DR没见过的数据集训练QA分类器。<br>使用DR训练数据来训练QA分类器。</p>
+<p>实验表明使用DR没见过的数据集效果普遍更好，尤其是BERT，提升明显</p>
+<p>不打算在本次投稿中涉及，<strong>本次投稿in-DR</strong></p>
+</blockquote>
+<p>label标记策略</p>
+<blockquote>
+<p>我们的方法：SRmiss_DRHRhit。若一条query的sparse全部（前100个）docid都命中，且HR能命中，则<code>label=1</code>；否则为0</p>
+<p>CIKM2021：SRmiss。若一条query的sparse前50个候选docid中都没命中，则<code>label=1</code>；否则<code>label=0</code>。</p>
+<p>实验表明BERT在SRmiss_DRHRhit上提升明显<br>不打算在本次投稿中涉及，<strong>本次投稿SRmiss</strong></p>
+</blockquote>
+<p>CIKM的label策略存在问题：如果一条query不能被SR、DR和HR命中，此时CIKM2021还会把它<code>label=1</code>。这个时候会增加检索成本。对于无法命中的query，不应该再给它进一步的HR的机会。</p>
+<p>每个rk上的分数，应该有不同的权重。</p>
+<p>IDR（In-DenseRetriever）上的q2qdd问题：</p>
+<blockquote>
+<p>q2qdd需要获得$emb_q$ 到训练集所有query的cos距离。<br>在IDR的问题背景下，IDR数据集的$emb_q$和$emb_{doc}$都是通过DR得到的，而DR的训练来源就是IDR的语意空间。<br>IDR下，单单使用SR的BM25距离，不会影响DCN的性能。但是加上IDR的dense dist：q2qdd和q2ddd，效果会下降<br>ODR下，加上ODR的dense dist：q2qdd和q2ddd，效果会提升，且两者同时使用，提升更大。</p>
+<p>若把$\operatorname{DCN_{enhanced}}$也加入，但需要涉及到ODR和IDR，所以<strong>本次投稿中仅涉及q2dsd</strong></p>
+</blockquote>
+<p>只关注了SR（BM25）本身能否hit，而没有考虑交给DPR+HR后，能否hit。</p>
+<h3 id="GPT4咨询"><a href="#GPT4咨询" class="headerlink" title="GPT4咨询"></a>GPT4咨询</h3><p>Q：我当前的工作并没有提出新模型，而是用了现有的交叉网络DCN。只不过是把旧模型用到了新的问题之下，我有必要提出一个手动筛选交叉信号的算法吗？DCN本身已经很有效了</p>
+<blockquote>
+<p>你的问题十分重要，确实，在许多研究中，不一定需要提出新的模型或算法。将现有的模型或方法用于新的、前所未有的问题，本身就是一项有价值的贡献。如你所说，深度交叉网络（DCN）在你的问题上已经表现得十分有效。<br>提出一个手动筛选交叉信号的算法的决定，主要取决于你是否认为现有的 DCN 的使用还有改进的潜力。如果你认为在特性交叉的选择或应用上，有一些未发掘的潜力可以进一步提升模型的性能，那么提出并实现这种算法可能是一个好主意。这将不借助于改变模型本身，而是通过你的算法优化提升结果。<br>然而，如果 DCN 已经在你的问题上取得了你满意的结果，并且你认为进一步的细微提升可能收效甚微，那么专注于详细描述并解释 DCN 如何在你的新问题上实现效果，可能是一个更好的选择。<br>无论你选择如何进行，都记得清晰地展示你的贡献：将现有模型成功应用于新问题，以及（如果适用）通过手动筛选算法进一步改善了模型的性能。</p>
+</blockquote>
+<p>Q：手动筛选特征只是想说明用DCN的合理性，并不能进一步提高模型性能。或者说手动筛选之后，过一个MLP，这个模型比DCN更轻量。我还要做这个手动筛选特征的算法吗？</p>
+<blockquote>
+<p>如果手动筛选交叉特征主要用于证明深度交叉网络 (DCN) 的应用合理性，并且你认为该策略无法进一步提升模型性能，那么设计一个专门的手动筛选算法可能不是必要的。<br>另一方面，如果你的目标是实现一个更轻量的模型，并且你相信通过手动筛选的特征过一个多层感知机 (MLP) 的方法可以达到这个目标，那么你可能会想要试试这种方法。这基本上会在权衡模型性能和计算效率之间找到一个最佳点。<br>总的来说，是否要设计和实现这样一个算法取决于你的研究目标和你的优先级。既然你已经发现 DCN 在你的问题上表现出色，你可能会选择聚焦于如何优雅地应用它，而不是设计新的、更复杂的策略。不过，如果你觉得有足够的理由去尝试这种新的策略，那也没有问题。只要你清晰地列出你的理由和你的决定，你的研究就会让人信服。</p>
+</blockquote>
+<h2 id="07-28"><a href="#07-28" class="headerlink" title="07.28"></a>07.28</h2><h3 id="思考-1"><a href="#思考-1" class="headerlink" title="思考"></a>思考</h3><p>能否做成实验性、结论性的论文？就像之前看到TOIS2023上的关于插值融合 vs 倒数平均融合的比对论文一样。</p>
+<ul>
+<li>uplift的动机&#x2F;收益：<ul>
+<li>【降低成本】保证ROI (Return-on-investment)，以低成本实现更高recall</li>
+<li>【超额收益】某些情况下达到超越纯HR的recall</li>
 </ul>
 </li>
-<li>不同uplift模型下（BERT、树模型、MLP），AUUC、Cost @99.5%RRF等各种指标</li>
-<li>不同训练数据，比如in-DR和out-DR两种数据集的效果</li>
+<li>能做的实验包括：<ul>
+<li>不同DR（ANCE、DPR等），不同DR分数带来的影响</li>
+<li>✅不同特征数量带来的影响：q2dsd -&gt; q2qdd -&gt; q2ddd 成本依次变大</li>
+<li>不同数据集，Corpus对齐良好和欠佳两类数据集</li>
+<li>✅不同的资源下，uplift模型的效果<ul>
+<li>不同线程</li>
+<li>不同ANNS索引：包括加载预热时间</li>
 </ul>
-<h2 id="07-21"><a href="#07-21" class="headerlink" title="07.21"></a>07.21</h2><h3 id="Done"><a href="#Done" class="headerlink" title="Done"></a>Done</h3><ul>
+</li>
+<li>✅不同uplift模型下（BERT、树模型、MLP）<ul>
+<li>AUUC、Cost @99.5%RRF等各种指标</li>
+<li>模型参数量、FLOPs、推理时间等指标</li>
+</ul>
+</li>
+<li>【可选】不同训练数据，比如in-DR和out-DR两种数据集的效果。in-DR的数据集用来数据大概率会有bias。CIKM2021原文只提到用MSMarco训练分类器，并且还在MSMarco上做测试。实际上由于DR本来就是在MSMarco上训练的。因此DR、HR在in- DR数据集上测试，查询命中的概率也会偏高。我认为应该用DR没见过的数据集，即out- DR数据集上训练分类器。</li>
+<li>【数据增强】分数特征是否服从一定规律？能否随机构造更多正例？<br>  <code>[100, 80, 76, 75...60, 60]</code>是正例<br>  <code>[100+5, 80+3, 76, 75...,60-3 60-5]</code>是否还会是正例？<br>  <strong>排名靠前的doc对应分数，直觉上更有可能对hit recall作出贡献</strong><br>  统计每个rank位次上，hit的次数。比如rk1大概率会比rk100上hit的次数多得多。<br>  把这个hit次数转化成weight，衡量两个样本分数序列的相似度&#x2F;距离。<br>  每条召回分数特征（100维&#x2F;条）的weight是不一样的。</li>
+</ul>
+</li>
+<li>打散排序能否用于Retriever？<ul>
+<li>DPP打散</li>
+<li>Centroid打散</li>
+</ul>
+</li>
+<li>特征选择？现在直接将100维分数特征丢进DCN自动特征交叉。可能有点草率。</li>
+<li>【可选】分数特征：BruteForce的分数和HNSW的分数会有出入，可以评估分类器对这种出入的敏感度</li>
+<li>特征融合：文本特征 + 分数数值特征 如何更好的融合？<br>  最浅显的方法：直接concat BERT最后一层CLS对应的768维向量 + 数值特征。尝试过直接微调的方法，效果不佳。</li>
+</ul>
+<h3 id="Done"><a href="#Done" class="headerlink" title="Done"></a>Done</h3><ul>
+<li>初步测试Conv1d，效果一般</li>
+<li><del>尝试$\log (x + 1)$的特征预处理，<strong>DCN和MLP上均观察到收益</strong>，确切效果待更多模型验证</del></li>
+</ul>
+<blockquote>
+<p>注意：这里的实验结果不是最标准的。因为没有做train-test-split</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th>raw</th>
+<th>log2(x+1)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DCN</td>
+<td>AdversarialQA</td>
+<td>0.6116</td>
+<td>0.6118</td>
+</tr>
+<tr>
+<td></td>
+<td>SearchQA</td>
+<td>0.8396</td>
+<td>0.8405</td>
+</tr>
+<tr>
+<td></td>
+<td>SQuAD</td>
+<td>0.83617</td>
+<td>0.83624</td>
+</tr>
+<tr>
+<td></td>
+<td>FreebaseQA</td>
+<td>0.9689</td>
+<td>0.9701</td>
+</tr>
+<tr>
+<td>MLP</td>
+<td>AdversarialQA</td>
+<td>0.6077</td>
+<td>0.6100</td>
+</tr>
+<tr>
+<td></td>
+<td>SearchQA</td>
+<td>0.8362</td>
+<td>0.8380</td>
+</tr>
+<tr>
+<td></td>
+<td>SQuAD</td>
+<td>0.8350</td>
+<td>0.8360</td>
+</tr>
+<tr>
+<td></td>
+<td>FreebaseQA</td>
+<td>0.9673</td>
+<td>0.9683</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>尝试手动特征交叉，确切效果待验证（初步观察效果不佳）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python">indices = [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>, <span class="hljs-number">16</span>, <span class="hljs-number">25</span>, <span class="hljs-number">36</span>, <span class="hljs-number">64</span>, <span class="hljs-number">81</span>]<br>indices = [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">8</span>, <span class="hljs-number">16</span>, <span class="hljs-number">32</span>, <span class="hljs-number">64</span>]<br>q2q_ddist_slim = q2q_ddist[:, indices]<br>q2d_sdist_slim = q2d_sdist[:, indices]<br><span class="hljs-built_in">print</span>(q2q_ddist_slim.shape, q2d_sdist_slim.shape)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">cross_features</span>(<span class="hljs-params">tensor</span>):<br>    num_samples, num_features = tensor.shape<br>    crossed_features = []<br><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(num_features):<br>        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(i+<span class="hljs-number">1</span>, num_features):<br>            crossed = np.sqrt(tensor[:, i] * tensor[:, j])<br>            crossed_features.append(crossed)<br><br>    crossed_features_tensor = torch.stack(crossed_features, dim=<span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">return</span> crossed_features_tensor<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>发现直接微调BERT的性能远不如使用CrossEncoder的性能<br>  混合特征uplift模型的实现最好要基于CrossEncoder，普通的BERT微调效果很差。改CrossEncoder工程量很大，需要阅读 + 修改<code>transformer库</code>和<code>sentense_transformer</code>两个库</p>
+</li>
+<li><p>规范化实验：种子固定为42，学习率固定为2e-5，epoch上限为2000</p>
+</li>
+<li><p>引入q2qdd，对于DCN交叉网络效果提升；对于MLP看不到提升</p>
+</li>
+</ul>
+<h3 id="Speed-Perf-16-thread-2080ti"><a href="#Speed-Perf-16-thread-2080ti" class="headerlink" title="Speed Perf (16-thread + 2080ti)"></a>Speed Perf (16-thread + 2080ti)</h3><p>BERT-CrossEncoder：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># BERT-CrossEncoder latency</span><br><span class="hljs-comment"># 2.2s</span><br>latency_pred = BERT_inference<br><span class="hljs-comment"># 30s</span><br>latency_sparse = bm25_java21<br><span class="hljs-comment"># 4.3 + 27 + 5</span><br>latency_rrf = Q_encode + Q2DDD_HNSW + RRFusion<br></code></pre></td></tr></table></figure>
+
+<p>DCN（CPU+GPU环境）：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># DCN latency</span><br><span class="hljs-comment"># 30 + 4.3 + 0.2 + 0.01s</span><br>latency_pred = bm25_java21 + Q_encode + Q2QDD_HNSW + DCN_inference<br>latency_sparse = <span class="hljs-number">0</span><br><span class="hljs-comment"># 27 + 5</span><br>latency_rrf = Q2DDD_HNSW + RRFusion<br></code></pre></td></tr></table></figure>
+
+<p>DCN-lite（纯CPU环境适用）：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># DCN latency</span><br><span class="hljs-comment"># 30 + 0.01s</span><br>latency_pred = bm25_java21 + DCN_inference<br>latency_sparse = <span class="hljs-number">0</span><br>latency_rrf = Q_encode + Q2DDD_HNSW + RRFusion<br></code></pre></td></tr></table></figure>
+
+
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>latency (ms&#x2F;query)</th>
+<th>device</th>
+<th>Data-Split</th>
+<th># qas</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>BERT query encoder</td>
+<td>16.31</td>
+<td>2080ti</td>
+<td>TriviaQA-Train</td>
+<td>78785</td>
+</tr>
+</tbody></table>
+<h4 id="4-thread"><a href="#4-thread" class="headerlink" title="4-thread"></a>4-thread</h4><table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>latency (ms&#x2F;query)</th>
+<th>device</th>
+<th>Memory</th>
+<th>Data-Split</th>
+<th># qas</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>BM25 (java21)</td>
+<td>39.33</td>
+<td>4-thread</td>
+<td>10.4GB</td>
+<td>AdversarialQA-Val</td>
+<td>3000</td>
+</tr>
+<tr>
+<td>ANNS-HNSW</td>
+<td>17.00</td>
+<td>4-thread</td>
+<td>73.8GB</td>
+<td>AdversarialQA-Val</td>
+<td>3000</td>
+</tr>
+<tr>
+<td>Reciprocal Rank Fusion</td>
+<td>11.61</td>
+<td>4-thread</td>
+<td></td>
+<td>AdversarialQA-Val</td>
+<td>3000</td>
+</tr>
+</tbody></table>
+<h4 id="8-thread"><a href="#8-thread" class="headerlink" title="8-thread"></a>8-thread</h4><table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>latency (ms&#x2F;query)</th>
+<th>device</th>
+<th>Memory</th>
+<th>Data-Split</th>
+<th># qas</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>BM25 (java21)</td>
+<td>20.65</td>
+<td>8-thread</td>
+<td></td>
+<td>AdversarialQA-Val</td>
+<td>3000</td>
+</tr>
+<tr>
+<td>ANNS-HNSW</td>
+<td>13.09</td>
+<td>8-thread</td>
+<td>73.8GB</td>
+<td>AdversarialQA-Val</td>
+<td>3000</td>
+</tr>
+<tr>
+<td>Reciprocal Rank Fusion</td>
+<td></td>
+<td>8-thread</td>
+<td></td>
+<td>AdversarialQA-Val</td>
+<td>3000</td>
+</tr>
+</tbody></table>
+<h4 id="16-thread"><a href="#16-thread" class="headerlink" title="16-thread"></a>16-thread</h4><table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>latency (ms&#x2F;query)</th>
+<th>device</th>
+<th>Memory</th>
+<th>Data-Split</th>
+<th># qas</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>BM25 (java21)</td>
+<td>10.73</td>
+<td>16-thread</td>
+<td></td>
+<td>AdversarialQA-Val</td>
+<td>3000</td>
+</tr>
+<tr>
+<td>ANNS-HNSW</td>
+<td>9.72</td>
+<td>16-thread</td>
+<td>73.8GB</td>
+<td>AdversarialQA-Val</td>
+<td>3000</td>
+</tr>
+<tr>
+<td>Reciprocal Rank Fusion</td>
+<td></td>
+<td>16-thread</td>
+<td></td>
+<td>AdversarialQA-Val</td>
+<td>3000</td>
+</tr>
+</tbody></table>
+<h3 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h3><p>类别不平衡的处理</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Focal Loss 性能下降</li>
+<li><input disabled="" type="checkbox"> 上采样</li>
+<li><input disabled="" type="checkbox"> 🌟数据增强<br>不同的特征交叉网络效果，当前只有DCN</li>
+<li><input checked="" disabled="" type="checkbox"> SENet + Bilinear 不如DCN<br>当前BM25的测速部分，计时还包括了加载预热时间，需要修正</li>
+</ul>
+<h2 id="07-21"><a href="#07-21" class="headerlink" title="07.21"></a>07.21</h2><h3 id="Done-1"><a href="#Done-1" class="headerlink" title="Done"></a>Done</h3><ul>
 <li>把uplift图改成：打分排序，取得分前top k%（0.5%为step）的query做uplift。这样能固定打点数量，便于比较AUUC</li>
 <li>接通HNSW索引</li>
-<li>测试E2E各环节平均时间，得到最终提速效果[[_posts&#x2F;记录 - 混合检索框架探索#^79735c|记录 - 混合检索框架探索]]</li>
+<li>测试E2E各环节平均时间，得到最终提速效果[[记录 - 混合检索框架探索（一阶段）#^79735c|记录 - 混合检索框架探索]]</li>
 <li>改进模型，迭代至DCN（特征交叉）</li>
 </ul>
-<h3 id="现状"><a href="#现状" class="headerlink" title="现状"></a>现状</h3><p>采用 DCN（Deep Cross Network）架构，替代了之前的MLP。<br>AUUC差强人意，整体打不过BERT。<br>且在SQuAD上存在eval mode性能骤降的问题。<br>可以<strong>考虑把DCN的DNN换成Conv1d来提高性能、novelty</strong><br>主力模型：[[记录 - 混合检索框架探索#^e998c8]]</p>
-<h3 id="思考-1"><a href="#思考-1" class="headerlink" title="思考"></a>思考</h3><ul>
+<h3 id="现状"><a href="#现状" class="headerlink" title="现状"></a>现状</h3><p>采用 DCN（Deep Cross Network）架构，替代了之前的MLP。<br>AUUC差强人意，整体打不过BERT。<br>且在SQuAD上存在eval mode性能骤降的问题。<br>可以<strong>考虑把DCN的DNN换成Conv1d来提高性能、novelty</strong><br>主力模型：[[记录 - 混合检索框架探索（一阶段）#^e998c8]]</p>
+<h3 id="思考-2"><a href="#思考-2" class="headerlink" title="思考"></a>思考</h3><ul>
 <li>用多个embedding表征一个query？ref：推荐系统中的多兴趣召回</li>
 <li>E2E检索。encoder、hard-negative样本采样、index全部端到端。甚至还可以包括搜索参数的预测，都可以端到端。<br>  比较理想的模型是 ANCE + L2H index + 搜索参数预测。<br>  根据损失函数之类的来评估某些查询学习成都的好坏：学得好，搜的块就少；学得差，就多搜</li>
 <li>重新获取gt，目前的gt_cache存在问题。IVFPQ、HNSW等近似算法，可能会搜出一些BruteForce没找到的，但包含gt的passage。</li>
@@ -472,7 +771,7 @@
 <p>Java21：</p>
 <figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs txt">latency_rrf = 236.27999999999997<br>latency_60%-cost = 211.76<br>latency_50%-cost = 205.63<br>ratio_60%-cost = 0.8962248180125276<br>ratio_50%-cost = 0.8702810225156594<br></code></pre></td></tr></table></figure>
 
-<h4 id="4-thread"><a href="#4-thread" class="headerlink" title="4-thread"></a>4-thread</h4><table>
+<h4 id="4-thread-1"><a href="#4-thread-1" class="headerlink" title="4-thread"></a>4-thread</h4><table>
 <thead>
 <tr>
 <th>Stage</th>
@@ -524,7 +823,7 @@
 <figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs txt">latency_rrf = 84.25<br>latency_60%-cost = 72.806<br>latency_50%-cost = 69.945<br>ratio_60%-cost = 0.8641661721068249<br>ratio_50%-cost = 0.8302077151335311<br></code></pre></td></tr></table></figure>
 
 
-<h3 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h3><blockquote>
+<h3 id="TODO-1"><a href="#TODO-1" class="headerlink" title="TODO"></a>TODO</h3><blockquote>
 <p>尽可能拖慢DR、RRF的检索速度，并且提高SR的检索速度。（）</p>
 </blockquote>
 <ul>
@@ -556,19 +855,24 @@
 <thead>
 <tr>
 <th></th>
-<th>uplift✅</th>
-<th>uplift❌</th>
+<th></th>
+<th></th>
 </tr>
 </thead>
 <tbody><tr>
-<td>🎯✅</td>
-<td></td>
-<td>SR、HR均可🎯</td>
+<td>🎯 if ✅ <br>uplift</td>
+<td>HR&#x2F;DR🎯</td>
+<td>SR&#x2F;HR均可🎯</td>
 </tr>
 <tr>
-<td>🎯❌</td>
-<td>只能由DR🎯</td>
+<td>🎯 if ❌<br>uplift</td>
+<td>只能由DR🎯<br></td>
+<td>只能由SR🎯</td>
+</tr>
+<tr>
 <td></td>
+<td>🎯 if ❌ uplift</td>
+<td>🎯 if ✅ uplift</td>
 </tr>
 <tr>
 <td>这里先存一下，以备之后之需。</td>
@@ -576,7 +880,8 @@
 <td></td>
 </tr>
 </tbody></table>
-<h2 id="07-14"><a href="#07-14" class="headerlink" title="07.14"></a>07.14</h2><h3 id="Done-1"><a href="#Done-1" class="headerlink" title="Done"></a>Done</h3><ul>
+<p><img src="https://liuzaoqi.com/assets/images/uplift_2024-01-31-15-27-31-f97950ed9f17569a53f7f0910f55af7e.png" srcset="/img/loading.gif" lazyload alt="uplift"></p>
+<h2 id="07-14"><a href="#07-14" class="headerlink" title="07.14"></a>07.14</h2><h3 id="Done-2"><a href="#Done-2" class="headerlink" title="Done"></a>Done</h3><ul>
 <li>[[笔记 - IR &amp; ODQA Wiki#SearchQA]] train+val的gt查询</li>
 <li>[[笔记 - IR &amp; ODQA Wiki#WikiHop]] -train+val的gt查询</li>
 <li>[[笔记 - IR &amp; ODQA Wiki#FreeBaseQA]] -train+val的gt查询</li>
@@ -704,7 +1009,7 @@ G --&gt; H[拿q2d_ddist和q2d_sdist做rrf排名]
 H --&gt; I[返回结果]
 </code></pre>
 
-<h3 id="TODO-1"><a href="#TODO-1" class="headerlink" title="TODO"></a>TODO</h3><ul>
+<h3 id="TODO-2"><a href="#TODO-2" class="headerlink" title="TODO"></a>TODO</h3><ul>
 <li>改进分类模型<ul>
 <li>加入特征交叉[[#^d4c52f]]：</li>
 <li><input disabled="" type="checkbox"> $x_1 * w * x2$的形式</li>
@@ -728,7 +1033,7 @@ H --&gt; I[返回结果]
 <li>打分排序？or 设置分数阈值？</li>
 </ul>
 </li>
-<li>指标选取问题[[记录 - 混合检索框架探索#^ed6867]]：可以把AUUC（area under uplift curve）作为指标</li>
+<li>指标选取问题[[记录 - 混合检索框架探索（一阶段）#^ed6867]]：可以把AUUC（area under uplift curve）作为指标</li>
 <li>需不需要汇报Recall@20？</li>
 <li>是否需要剔除BM25无返回结果的qa？[[_posts&#x2F;笔记 - IR &amp; ODQA Wiki#BM25空结果情况]]</li>
 <li>E2E实验形式？单线程（embed慢） or 多线程？</li>
@@ -739,7 +1044,7 @@ H --&gt; I[返回结果]
 <li>计算二分类模型下，oracle对应的召回率</li>
 <li>复现CIKM2021的BERT-based分类方法作为baseline</li>
 </ul>
-<h2 id="07-07"><a href="#07-07" class="headerlink" title="07.07"></a>07.07</h2><h3 id="Done-2"><a href="#Done-2" class="headerlink" title="Done"></a>Done</h3><ul>
+<h2 id="07-07"><a href="#07-07" class="headerlink" title="07.07"></a>07.07</h2><h3 id="Done-3"><a href="#Done-3" class="headerlink" title="Done"></a>Done</h3><ul>
 <li><p>在hugging-face上搜罗了合适的数据集。<br>  合适：目前的doc语料库是wikipedia的500+（待确认？）篇文章。而QA数据集很多都无法在这些corpus上找到包含answer的passage。</p>
 <p>  目前觉得比较合适的数据集有：HotpotQA、SearchQA、WikiQA、NarrativeQA、<a target="_blank" rel="noopener" href="https://hf-mirror.com/datasets/lmqg/qa_harvesting_from_wikipedia">HarvestWikiQA</a>、<a target="_blank" rel="noopener" href="https://hf-mirror.com/datasets/UCLNLP/adversarial_qa">AdversarialQA</a>、<a target="_blank" rel="noopener" href="https://hf-mirror.com/datasets/ibm/duorc">duorc</a></p>
 </li>
@@ -801,7 +1106,7 @@ H --&gt; I[返回结果]
 <li>使用更复杂的模型不一定会更好，目前使用208的CPU进行简单的MLP训练</li>
 <li>加入更多的训练数据（目前只有SQuAD）效果也不一定会更好。</li>
 </ul>
-<h3 id="TODO-2"><a href="#TODO-2" class="headerlink" title="TODO"></a>TODO</h3><ul>
+<h3 id="TODO-3"><a href="#TODO-3" class="headerlink" title="TODO"></a>TODO</h3><ul>
 <li><del>[[笔记 - IR &amp; ODQA Wiki#SearchQA]] 数据集-train（117,384 qas）+val（16,980 qas）的gt查询</del></li>
 <li><del>将SearchQA-train加入分类器训练，验证val上的性能</del></li>
 <li><del>将HotpotQA train+dev的<code>yes / no question</code>删除，重新加入分类器训练并在dev验证效果</del></li>
@@ -823,12 +1128,12 @@ H --&gt; I[返回结果]
 <li>之前的label策略是站在dense retriever的角度。对于一条query，预测它能否被dense检索。分类器有点类似于dense retriever的向导，知道dense retriever的知识和<br>能力，从而能够预测query是否会被检索到。</li>
 <li>现在改成了sparse retriever的角度。对于一条query，预测它能否被sparse检索到。策略是把所有sparse检索不到的query且能被hybrid或dense检索到的，都标记为正样本。</li>
 </ul>
-<h3 id="Done-3"><a href="#Done-3" class="headerlink" title="Done"></a>Done</h3><ul>
+<h3 id="Done-4"><a href="#Done-4" class="headerlink" title="Done"></a>Done</h3><ul>
 <li>SQuAD 数据集-train（80599 qas）查询groundtruth完毕，分类器训练ready</li>
 <li>在SQuAD-train上使用Lightgbm训练了分类器</li>
 <li>特征选取只选了q2d_sdist + q2q_ddist</li>
 </ul>
-<h3 id="TODO-3"><a href="#TODO-3" class="headerlink" title="TODO"></a>TODO</h3><ul>
+<h3 id="TODO-4"><a href="#TODO-4" class="headerlink" title="TODO"></a>TODO</h3><ul>
 <li>更换不同的参数验证half-top merge算法的效果</li>
 <li>计算二分类模型下，oracle对应的召回率</li>
 </ul>
@@ -887,7 +1192,7 @@ H --&gt; I[返回结果]
   <div class="license-box my-3">
     <div class="license-title">
       <div>记录 - 混合检索框架探索</div>
-      <div>https://lcj2021.github.io/2024/07/22/记录 - 混合检索框架探索/</div>
+      <div>https://lcj2021.github.io/2024/08/16/记录 - 混合检索框架探索（一阶段）/</div>
     </div>
     <div class="license-meta">
       
@@ -899,7 +1204,7 @@ H --&gt; I[返回结果]
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年7月22日</div>
+          <div>2024年8月16日</div>
         </div>
       
       
@@ -931,12 +1236,18 @@ H --&gt; I[返回结果]
                   <article class="post-prev col-6">
                     
                     
+                      <a href="/2024/08/18/%E5%91%A8%E8%AE%B0%20-%202024%2007.29-08.18%EF%BC%88AAAI%E6%8A%95%E7%A8%BF%E5%B7%A5%E4%BD%9C%EF%BC%89/" title="周记 - 2024 07.29-08.18（AAAI投稿工作）">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">周记 - 2024 07.29-08.18（AAAI投稿工作）</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/07/22/%E8%AE%B0%E5%BD%95%20-%20%E7%9C%8B%E7%95%AA%E8%AE%B0%E5%BD%95/" title="记录 - 看番记录">
-                        <span class="hidden-mobile">记录 - 看番记录</span>
+                      <a href="/2024/08/05/%E7%AC%94%E8%AE%B0%20-%20ICTIR2023%20Towards%20Query%20Performance%20Prediction%20for%20Neural%20Information%20Retrieval%20-%20Challenges%20and%20Opportunities/" title="笔记 - ICTIR2023 Towards Query Performance Prediction for Neural Information Retrieval - Challenges and Opportunities">
+                        <span class="hidden-mobile">笔记 - ICTIR2023 Towards Query Performance Prediction for Neural Information Retrieval - Challenges and Opportunities</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

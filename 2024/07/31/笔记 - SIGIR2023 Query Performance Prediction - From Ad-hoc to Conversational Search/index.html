@@ -16,21 +16,22 @@
   <meta name="author" content="Channing Lau">
   <meta name="keywords" content="">
   
-    <meta name="description" content="备注  A叔: Animenzzz 猪仔: 和音社-猪仔很忙 P大: Phyxinon T叔: Theishter  已看:star: 你的名字  OP &amp; ED: 梦灯笼 (黄昏之时) OST: sparkle火花 (A叔)、前前前世 (A叔)、三叶的主题曲  火影忍者TV版（Episode 720&#x2F;720）  OP: Sign、silhouette剪影 (A叔)  继母的拖油">
+    <meta name="description" content="原文链接：ACM-digital-library代码链接： Abstract查询性能预测（QPP）是信息检索（IR）领域中的一个基本任务。它的目标是在没有相关性判断的情况下估计给定查询的检索质量[13, 15, 21, 25, 56, 59]。QPP一直是IR社区长期研究的主题[9]。已经识别出QPP的诸多益处，包括根据输入查询的难度选择最有效的排序算法[25, 26, 56]。 在对话式搜索（C">
 <meta property="og:type" content="article">
-<meta property="og:title" content="记录 - 看番记录">
-<meta property="og:url" content="https://lcj2021.github.io/2024/07/22/%E8%AE%B0%E5%BD%95%20-%20%E7%9C%8B%E7%95%AA%E8%AE%B0%E5%BD%95/index.html">
+<meta property="og:title" content="笔记 - SIGIR2023 Query Performance Prediction - From Ad-hoc to Conversational Search">
+<meta property="og:url" content="https://lcj2021.github.io/2024/07/31/%E7%AC%94%E8%AE%B0%20-%20SIGIR2023%20Query%20Performance%20Prediction%20-%20From%20Ad-hoc%20to%20Conversational%20Search/index.html">
 <meta property="og:site_name" content="ChanningLau&#39;s harbour">
-<meta property="og:description" content="备注  A叔: Animenzzz 猪仔: 和音社-猪仔很忙 P大: Phyxinon T叔: Theishter  已看:star: 你的名字  OP &amp; ED: 梦灯笼 (黄昏之时) OST: sparkle火花 (A叔)、前前前世 (A叔)、三叶的主题曲  火影忍者TV版（Episode 720&#x2F;720）  OP: Sign、silhouette剪影 (A叔)  继母的拖油">
+<meta property="og:description" content="原文链接：ACM-digital-library代码链接： Abstract查询性能预测（QPP）是信息检索（IR）领域中的一个基本任务。它的目标是在没有相关性判断的情况下估计给定查询的检索质量[13, 15, 21, 25, 56, 59]。QPP一直是IR社区长期研究的主题[9]。已经识别出QPP的诸多益处，包括根据输入查询的难度选择最有效的排序算法[25, 26, 56]。 在对话式搜索（C">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-07-21T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-07-22T01:02:55.226Z">
+<meta property="article:published_time" content="2024-07-30T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-11-30T09:42:40.932Z">
 <meta property="article:author" content="Channing Lau">
+<meta property="article:tag" content="Information-Retrieval">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>记录 - 看番记录 - ChanningLau&#39;s harbour</title>
+  <title>笔记 - SIGIR2023 Query Performance Prediction - From Ad-hoc to Conversational Search - ChanningLau&#39;s harbour</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -196,7 +197,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="记录 - 看番记录"></span>
+            <span id="subtitle" data-typed-text="笔记 - SIGIR2023 Query Performance Prediction - From Ad-hoc to Conversational Search"></span>
           
         </div>
 
@@ -207,8 +208,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-07-22 00:00" pubdate>
-          2024年7月22日 凌晨
+        <time datetime="2024-07-31 00:00" pubdate>
+          2024年7月31日 凌晨
         </time>
       </span>
     
@@ -219,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          896 字
+          2.3k 字
         
       </span>
     
@@ -230,7 +231,7 @@
         
         
         
-          8 分钟
+          20 分钟
         
       </span>
     
@@ -267,158 +268,24 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">记录 - 看番记录</h1>
+            <h1 id="seo-header">笔记 - SIGIR2023 Query Performance Prediction - From Ad-hoc to Conversational Search</h1>
             
             
               <div class="markdown-body">
                 
-                <p>备注</p>
-<blockquote>
-<p>A叔: Animenzzz</p>
-<p>猪仔: 和音社-猪仔很忙</p>
-<p>P大: Phyxinon</p>
-<p>T叔: Theishter</p>
-</blockquote>
-<h2 id="已看"><a href="#已看" class="headerlink" title="已看"></a>已看</h2><p>:star: <strong>你的名字</strong></p>
-<blockquote>
-<p>OP &amp; ED: 梦灯笼 (黄昏之时)</p>
-<p>OST: sparkle火花 (A叔)、前前前世 (A叔)、三叶的主题曲</p>
-</blockquote>
-<p>火影忍者TV版（Episode 720&#x2F;720）</p>
-<blockquote>
-<p>OP: Sign、silhouette剪影 (A叔)</p>
-</blockquote>
-<p>继母的拖油瓶是我的前女友</p>
-<p>剃须、然后捡到女高中生</p>
-<p><strong>青春猪头少年不会梦到兔女郎学姐</strong></p>
-<blockquote>
-<p>ED: 不可思議のカルテ</p>
-</blockquote>
-<p>埃罗芒阿老师</p>
-<blockquote>
-<p>OP ヒトリゴト</p>
-</blockquote>
-<p>尸体派对</p>
-<p>青春猪头少年不会梦到怀梦美少女（Film 1&#x2F;1）</p>
-<p>辉夜大小姐想让我告白 (天才们的恋爱头脑战) S1</p>
-<p>Charlotte</p>
-<p>:star: <strong>四月是你的谎言</strong></p>
-<blockquote>
-<p>OP: <strong>若能绽放光芒</strong> (A叔)、七色交响曲</p>
-<p>ED: <strong>オレンジ Orange</strong> (猪仔、T叔)、キラメキ闪烁微光</p>
-<p>OST: 私の嘘、Again、弟弟一般的存在、友人A</p>
-<p>古典: 爱的忧伤、冬风、肖邦第一叙事曲、圣桑:引子与回旋</p>
-</blockquote>
-<p><strong>天气之子</strong></p>
-<blockquote>
-<p>OST: <strong>Grand Escape</strong> (A叔、P大)</p>
-</blockquote>
-<p>通往夏天的隧道（难懂）</p>
-<p>辉夜大小姐想让我告白 S2</p>
-<p><strong>鬼灭之刃-立志篇</strong></p>
-<blockquote>
-<p>OP: 红莲华</p>
-<p>OST: 灶门炭治郎之歌</p>
-</blockquote>
-<p>鬼灭之刃-无限列车篇</p>
-<p>鬼灭之刃-游郭篇</p>
-<p>看得见的女孩</p>
-<p>鬼灭之刃-锻刀村篇</p>
-<p>比宇宙还远的地方<br>2023-07-22</p>
-<p><strong>紫罗兰永恒花园 (1-3集 + OVA + 4-6集 + 外传 + 7-13集)</strong></p>
-<blockquote>
-<p>OP: <strong>Sincerely</strong> (A叔、猪仔)</p>
-<p>ED: <strong>みちしるべ 路标</strong> (A叔)</p>
-</blockquote>
-<p>&#x3D;&#x3D;剧场版待看&#x3D;&#x3D;</p>
-<p>秒速五厘米（Film 1&#x2F;1）<br>2023-11-01</p>
-<blockquote>
-<p>OST: 回忆遥远的日子<br>主题曲: One more time、one more chance</p>
-</blockquote>
-<p>:star: <strong>来自风平浪静的明天</strong>*（Episode 26&#x2F;26）<br>2024-03-16</p>
-<blockquote>
-<p>OST: Cry for the moon<br>OP: lull～そして仆らは～、ebb and flow<br>ED: アクアテラリウム、三つ叶の结びめ<br>OPED串烧：<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=1zKejX-up-k">Nagi no Asu kara Piano Medley - All OPs and EDs</a></p>
-</blockquote>
-<p>干物妹！小埋<br>2024-04-05</p>
-<blockquote>
-<p>かくしん的☆めたまるふぉ～ぜっ! (猪仔)</p>
-</blockquote>
-<p>干物妹！小埋R<br>2024-04-12</p>
-<p><strong>我们仍未知道那天所看见的花的名字</strong> tv版 + 剧场版<br>2024-04-19</p>
-<blockquote>
-<p>ED: secret base 〜你给我的所有〜（A叔）</p>
-</blockquote>
-<p>樱子小姐的脚下埋着秘密<br>2024-05-05</p>
-<p>甲铁城的卡巴内利 tv版 + 剧场版（海门决战）<br>2024-05-07</p>
-<blockquote>
-<p>Ninelie（A叔）</p>
-</blockquote>
-<p>一拳超人 第一季<br>2024-05-10</p>
-<p>一拳超人 第二季<br>2024-05-11</p>
-<p>尸者的帝国（Film 1&#x2F;1）<br>2024-05-13</p>
-<p>蒸汽男孩 steamboy （Film 1&#x2F;1）<br>2024-05-13</p>
-<p><strong>钢之炼金术师FA</strong>（Episode 64&#x2F;64）<br>2024-06-18</p>
-<blockquote>
-<p>OP: Again (A叔)</p>
-</blockquote>
-<p>打工吧！魔王大人 S1（Episode 13&#x2F;13）<br>2024-06-24</p>
-<blockquote>
-<p>ED：月花</p>
-</blockquote>
-<p>鬼灭之刃-柱训练（Episode 8&#x2F;8）<br>2024-07-01</p>
-<p>打工吧！魔王大人 S2（Episode 21&#x2F;24）<br>2024-07-07</p>
-<h2 id="未看"><a href="#未看" class="headerlink" title="未看"></a>未看</h2><ul>
-<li><input disabled="" type="checkbox"> 辉夜大小姐想让我告白 S3</li>
-<li><input disabled="" type="checkbox"> 辉夜大小姐想让我告白 剧场版 初吻不会结束</li>
-<li><input disabled="" type="checkbox"> 我的青春恋爱物语果然有问题</li>
-<li><input disabled="" type="checkbox"> 物语系列（都有啥，观看顺序？）</li>
-<li><input disabled="" type="checkbox"> 轻音少女</li>
-<li><input disabled="" type="checkbox"> 路人女主的养成方法</li>
-<li><input disabled="" type="checkbox"> 冰菓</li>
-<li><input disabled="" type="checkbox"> 中二病也要谈恋爱</li>
-<li><input disabled="" type="checkbox"> 工作细胞</li>
-<li><input disabled="" type="checkbox"> 会长是女仆大人</li>
-<li><input disabled="" type="checkbox"> 堀与宫村</li>
-<li><input checked="" disabled="" type="checkbox"> 干物妹小埋</li>
-<li><input disabled="" type="checkbox"> 今天妹妹的样子有些怪</li>
-<li><input checked="" disabled="" type="checkbox"> 钢之炼金术师FA</li>
-<li><input disabled="" type="checkbox"> 来自深渊</li>
-<li><input disabled="" type="checkbox"> 怪兽八号</li>
-<li><input disabled="" type="checkbox"> 月色真美</li>
-<li><input disabled="" type="checkbox"> 天使降临到我身边</li>
-<li><input disabled="" type="checkbox"> 吹响! 上低音号</li>
-<li><input disabled="" type="checkbox"> 小林家的龙女仆 12季</li>
-<li><input disabled="" type="checkbox"> 逆转裁判 12季</li>
-<li><input disabled="" type="checkbox"> Jose与虎与鱼</li>
-<li><input disabled="" type="checkbox"> 天降之物</li>
-<li><input checked="" disabled="" type="checkbox"> 甲铁城的卡巴内利</li>
-<li><input disabled="" type="checkbox"> 从零开始的异世界生活</li>
-<li><input disabled="" type="checkbox"> 关於我转生变成史莱姆这档事</li>
-<li><input disabled="" type="checkbox"> blood c</li>
-<li><input disabled="" type="checkbox"> 灵能百分百</li>
-<li><input disabled="" type="checkbox"> 刀剑神域</li>
-<li><input disabled="" type="checkbox"> fate</li>
-<li><input checked="" disabled="" type="checkbox"> 一拳超人 one punch man</li>
-<li><input disabled="" type="checkbox"> 咒术回战</li>
-<li><input disabled="" type="checkbox"> 进击的巨人</li>
-<li><input disabled="" type="checkbox"> 夏日重现</li>
-<li><input disabled="" type="checkbox"> 一人之下</li>
-<li><input disabled="" type="checkbox"> 罪恶王冠</li>
-<li><input disabled="" type="checkbox"> 新世纪福音战士 EVA</li>
-<li><input disabled="" type="checkbox"> 我推的孩子</li>
-<li><input disabled="" type="checkbox"> 虚构推理</li>
-<li><input disabled="" type="checkbox"> 命运石之门</li>
-<li><input checked="" disabled="" type="checkbox"> 樱子小姐的脚下埋着秘密</li>
-<li><input disabled="" type="checkbox"> 奇巧出租车</li>
-<li><input disabled="" type="checkbox"> 漂流少年</li>
-<li><input disabled="" type="checkbox"> 葬送的芙莉莲</li>
-<li><input disabled="" type="checkbox"> another</li>
-<li><input disabled="" type="checkbox"> 寒蝉鸣泣之时</li>
-<li><input disabled="" type="checkbox"> 死亡笔记</li>
-<li><input disabled="" type="checkbox"> clannad</li>
-<li><input disabled="" type="checkbox"> 水星领航员</li>
-<li><input disabled="" type="checkbox"> 超时空要塞</li>
-</ul>
+                <p>原文链接：<a target="_blank" rel="noopener" href="https://dl.acm.org/doi/10.1145/3539618.3591919">ACM-digital-library</a><br>代码链接：</p>
+<h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>查询性能预测（QPP）是信息检索（IR）领域中的一个基本任务。它的目标是在没有相关性判断的情况下估计给定查询的检索质量[13, 15, 21, 25, 56, 59]。QPP一直是IR社区长期研究的主题[9]。已经识别出QPP的诸多益处，包括根据输入查询的难度选择最有效的排序算法[25, 26, 56]。</p>
+<p>在对话式搜索（CS）领域，已经在多个子任务上取得了显著进展[58]，其中包括段落检索[12, 55]、查询重写[51, 54]、混合主动交互[3, 57]、响应生成[37–39]以及评估[17, 18]。具体而言，段落检索一直是TREC CAsT 2019–2022的主要关注点[12]，其中研究表明建模长对话上下文来进行检索是非常具有挑战性的[2]。此外，研究还表明，混合主动交互可以导致用户和系统的性能提升[3, 60]。就像即席检索一样，QPP在多个方面对对话式搜索有益。例如，有效的QPP可以帮助对话式搜索系统在下一个回合采取适当的行动，比如当估计的检索质量对于当前用户查询较低时，主动提出澄清问题或告诉用户“我无法回答你的问题”，而不是给出低质量或冒险的答案[5, 44]。</p>
+<p>(1) 对话中的用户查询依赖于对话上下文，也就是说，它可能包含省略、共指或歧义，从而导致难以预料的QPP挑战； (2) 对话式搜索（CS）中的QPP需要预测专门为CS设计的新颖检索方法的性能；为了解决CS中的查询理解挑战，提出了两种主要的CS方法，即基于查询重写的检索[32, 35, 49, 51, 52, 54]和对话式密集检索方法[28, 31, 33, 33, 34, 42, 55]； (3) CS中的QPP应该侧重于估计排名靠前的结果的检索质量，而不是整个排名列表的质量，因为CS系统需要返回简短的回答以适应有限带宽的接口，例如移动屏幕[58]。</p>
+<p>在这篇可重复性研究论文中，我们根据这些CS特征设计实验，并检验关于即席搜索中QPP的既定发现是否在这些条件下仍然成立。具体来说，我们研究了文献中关于即席搜索中QPP的以下发现：<br>(i) 监督式QPP方法优于无监督式QPP方法[4, 7, 13, 15, 22, 56]；<br>(ii) 列表式的监督式QPP方法优于其点式对应方法[7, 15]；以及<br>(iii) 基于检索分数的无监督式QPP方法在估计基于神经网络的检索器的检索质量方面表现不佳[14, 22]。通过在CS设置下检验上述每一条即席搜索中的QPP发现，我们旨在描述应用于CS的QPP问题，并获得新的发现及未来研究的方向作为额外成果。</p>
+<p>在这篇论文中，我们在三个对话式搜索数据集上进行了实验：(i) CAsT-19 [12]，(ii) CAsT-20 [11]，以及(iii) OR-QuAC [42]。我们的实验表明，在对话式搜索的设置下，(i) 监督式QPP方法仅在有大量训练数据可用时明显优于无监督式方法；而在少量样本设置中以及预测更深排名列表的检索质量时，无监督式QPP方法表现出强劲的性能；(ii) 点式监督式QPP方法在大多数情况下优于其列表式对应方法；然而，在少量样本设置中以及预测更深排名列表的检索质量时，列表式QPP方法显示出轻微的优势；以及(iii) 基于检索分数的无监督式QPP方法在估计对话式密集检索方法ConvDR的检索质量方面显示出很高的有效性，无论是在顶级排名还是更深层的排名列表中。</p>
+<h2 id="1-INTRODUCTION"><a href="#1-INTRODUCTION" class="headerlink" title="1 INTRODUCTION"></a>1 INTRODUCTION</h2><h2 id="5"><a href="#5" class="headerlink" title="5"></a>5</h2><p><strong>实现细节</strong></p>
+<p>我们使用 PyTorch 实现所有 QPP 方法。对于无监督的 QPP 方法，我们采用先前研究证明有效的超参数设置。遵循 [59] 的做法，我们将 WIG 中的 𝑘k 设置为 5。根据 [47, 48] 的建议，NQC 和 SMV 中的 𝑘k 设置为 100；同样地，按照 [48] 的建议，我们使用前 1000 篇文档的平均检索得分作为语料库得分 Score(𝑞q;𝐷D)。根据 [10] 的做法，我们为 n(𝜎𝑥σx​) 设置 𝑥x 为 50。𝜎𝑚𝑎𝑥σmax​ 不使用任何超参数。遵循 [47] 的建议，我们使用基于求和归一化的检索得分（在我们的设置中来自 BM25 或 ConvDR）的 Clarity 变体来构建相关模型 [30]；我们的初步实验表明这种变体比使用查询似然得分来加权文档的原始 Clarity 表现更好；我们使用前 100 篇文档来构建相关模型，并在前 100 个术语处裁剪该模型 [46]。</p>
+<p>对于所有的监督式 QPP 方法，我们使用 <code>bert-base-uncased</code> 模型，固定的学习率（0.00002），以及 Adam 优化器 [29]。所有方法都在 NVIDIA RTX A6000 GPU 上进行训练和推理。遵循 [33, 55] 的做法，我们在 CAsT-19 或 CAsT-20 上的所有训练都采用五折交叉验证；我们使用 [55] 中的数据划分，并将所有监督式 QPP 方法训练 5 个周期。对于 OR-QuAC 的训练，我们让所有 QPP 方法在 OR-QuAC 的训练集上训练 1 个周期；我们向 QPP 方法提供人工重写的查询，并训练它们估计使用人工重写查询的 BM25 的检索质量。为了应对 CAsT-19 和 CAsT-20 上的数据稀缺问题，我们考虑了一种预热设置，在这种设置下，我们首先在 OR-QuAC 的训练集上预训练监督式 QPP 方法 1 个周期，然后在 CAsT 上进行五折交叉验证训练 5 个周期。为了确保未来的可复现性，我们的代码和数据资源可在 <a target="_blank" rel="noopener" href="https://github.com/ChuanMeng/QPP4CS">https://github.com/ChuanMeng/QPP4CS</a> 找到。</p>
+<h2 id="6-CONCLUSION"><a href="#6-CONCLUSION" class="headerlink" title="6 CONCLUSION"></a>6 CONCLUSION</h2><p>在这项可重复性研究中，我们考察了随机搜索中针对 QPP 的三项关键发现是否适用于会话搜索（CS）。我们在三种 CS 设置中试验了为随机搜索设计的 QPP 方法：(i) 预测 BM25 的检索质量同时研究查询重写的影响；(ii) 预测会话密集检索方法 ConvDR 的检索质量；以及 (iii) 预测前几条结果与更深层结果列表的检索质量。</p>
+<p>我们发现，随机搜索中的三项关于 QPP 的发现并不完全适用于 CS。具体来说，我们发现： (i) 监督式 QPP 方法仅在有足够的训练数据时才明显优于无监督方法；而在少样本设置下，无监督 QPP 方法在预测更深层结果列表的检索质量时表现出很强的性能； (ii) 基于点的监督式 QPP 方法在大多数情况下优于基于列表的方法；然而，基于列表的 QPP 方法更节省数据，在预测更深层结果列表的检索质量时显示出轻微的优势； (iii) 基于检索分数的无监督 QPP 方法无论是在预测前几条结果还是更深层结果列表时都能有效地估计会话密集检索方法 ConvDR 的检索质量；分数基础方法的有效性依赖于特定检索器的检索分数分布，无论这些检索器是基于词汇的还是基于神经网络的。</p>
+<p>我们的论文揭示了将经过 T5 或 QuReTeC 重写的查询输入到 QPP 方法中以评估会话搜索（CS）方法的检索质量表现出色。我们还指出了为随机搜索设计的 QPP 方法在 CS 上的不足之处，这为会话搜索中 QPP 的建模提供了未来的研究方向。我们表明，查询重写的质量非常重要，突显了提高查询编写质量的需求。这也显示了需要开发一种理解会话上下文的机制，以便 QPP 方法能够直接理解原始的历史对话。此外，我们还揭示了会话搜索中的数据稀疏问题严重降低了监督式 QPP 方法的性能。因此，使用少样本学习技术来设计 QPP 方法是一种可能的方式。</p>
+<p>我们指出了研究中的两个局限性，即：(i) 我们只考虑了一种会话密集检索方法的检索质量评估；(ii) 我们仅使用相关性指标来评估 QPP 方法的性能。在未来的工作中，我们计划 (i) 考虑更多的会话密集检索方法，如 CQE [31] 以及其他会话搜索中的密集检索方法，例如基于 T5 的重写器 + ANCE [53]；(ii) 引入专门针对 QPP 的评估指标，如缩放绝对排名误差 (sARE) 和缩放平均绝对排名误差 (sMARE) [19, 20]。</p>
 
                 
               </div>
@@ -437,7 +304,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E8%AE%B0%E5%BD%95/" class="category-chain-item">记录</a>
+  <a href="/categories/%E7%AC%94%E8%AE%B0/" class="category-chain-item">笔记</a>
   
   
 
@@ -449,6 +316,13 @@
     </div>
   
   
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Information-Retrieval/" class="print-no-link">#Information-Retrieval</a>
+      
+    </div>
+  
 </div>
 
 
@@ -457,8 +331,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>记录 - 看番记录</div>
-      <div>https://lcj2021.github.io/2024/07/22/记录 - 看番记录/</div>
+      <div>笔记 - SIGIR2023 Query Performance Prediction - From Ad-hoc to Conversational Search</div>
+      <div>https://lcj2021.github.io/2024/07/31/笔记 - SIGIR2023 Query Performance Prediction - From Ad-hoc to Conversational Search/</div>
     </div>
     <div class="license-meta">
       
@@ -470,7 +344,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年7月22日</div>
+          <div>2024年7月31日</div>
         </div>
       
       
@@ -502,9 +376,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/07/22/%E8%AE%B0%E5%BD%95%20-%20%E6%B7%B7%E5%90%88%E6%A3%80%E7%B4%A2%E6%A1%86%E6%9E%B6%E6%8E%A2%E7%B4%A2/" title="记录 - 混合检索框架探索">
+                      <a href="/2024/07/31/%E7%AC%94%E8%AE%B0%20-%20SIGIR2018%20Neural%20Query%20Performance%20Prediction%20using%20Weak%20Supervision%20from%20Multiple%20Signals/" title="笔记 - SIGIR2018 Neural Query Performance Prediction using Weak Supervision from Multiple Signals">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">记录 - 混合检索框架探索</span>
+                        <span class="hidden-mobile">笔记 - SIGIR2018 Neural Query Performance Prediction using Weak Supervision from Multiple Signals</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -512,8 +386,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/07/21/%E5%91%A8%E8%AE%B0%20-%202024%2007.15-07.21%EF%BC%88%E7%B2%89%E7%A2%8E%E4%BA%86LCJ3%E4%B8%AA%E6%9C%88%E5%8F%91%E6%96%87%E7%9A%84%E7%8B%82%E5%A6%84%E4%BC%81%E5%9B%BE%EF%BC%89/" title="周记 - 2024 07.15-07.21">
-                        <span class="hidden-mobile">周记 - 2024 07.15-07.21</span>
+                      <a href="/2024/07/31/%E7%AC%94%E8%AE%B0%20-%20TOIS2022%20Predicting%20Query%20Performance%20by%20Query-Drift%20Estimation/" title="笔记 - TOIS2022 Predicting Query Performance by Query-Drift Estimation">
+                        <span class="hidden-mobile">笔记 - TOIS2022 Predicting Query Performance by Query-Drift Estimation</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

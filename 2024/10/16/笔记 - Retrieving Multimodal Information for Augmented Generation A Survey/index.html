@@ -1,0 +1,695 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Channing Lau">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Retrieving Multimodal Information for Augmented Generation: A SurveyAbstract随着大型语言模型（LLMs）变得流行，出现了一个重要的趋势，即使用多模态来增强 LLMs 的生成能力，这使 LLMs 能够更好地与世界互动。然而，对于在哪个阶段以及如何整合不同的模态缺乏统一的认识。在本次调查中，我们回顾了通过检索多模态知识来辅助和">
+<meta property="og:type" content="article">
+<meta property="og:title" content="笔记 - Retrieving Multimodal Information for Augmented Generation A Survey">
+<meta property="og:url" content="https://lcj2021.github.io/2024/10/16/%E7%AC%94%E8%AE%B0%20-%20Retrieving%20Multimodal%20Information%20for%20Augmented%20Generation%20A%20Survey/index.html">
+<meta property="og:site_name" content="ChanningLau&#39;s harbour">
+<meta property="og:description" content="Retrieving Multimodal Information for Augmented Generation: A SurveyAbstract随着大型语言模型（LLMs）变得流行，出现了一个重要的趋势，即使用多模态来增强 LLMs 的生成能力，这使 LLMs 能够更好地与世界互动。然而，对于在哪个阶段以及如何整合不同的模态缺乏统一的认识。在本次调查中，我们回顾了通过检索多模态知识来辅助和">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-10-15T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-11-30T09:42:40.894Z">
+<meta property="article:author" content="Channing Lau">
+<meta property="article:tag" content="Information-Retrieval">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>笔记 - Retrieving Multimodal Information for Augmented Generation A Survey - ChanningLau&#39;s harbour</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lcj2021.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>ChanningLau&#39;s harbour</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="笔记 - Retrieving Multimodal Information for Augmented Generation A Survey"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-10-16 00:00" pubdate>
+          2024年10月16日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          8.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          69 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">笔记 - Retrieving Multimodal Information for Augmented Generation A Survey</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="Retrieving-Multimodal-Information-for-Augmented-Generation-A-Survey"><a href="#Retrieving-Multimodal-Information-for-Augmented-Generation-A-Survey" class="headerlink" title="Retrieving Multimodal Information for Augmented Generation: A Survey"></a>Retrieving Multimodal Information for Augmented Generation: A Survey</h2><h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><p>随着大型语言模型（LLMs）变得流行，出现了一个重要的趋势，即使用多模态来增强 LLMs 的生成能力，这使 LLMs 能够更好地与世界互动。然而，对于在哪个阶段以及如何整合不同的模态缺乏统一的认识。在本次调查中，我们回顾了通过检索多模态知识来辅助和增强生成模型的方法，其格式包括图像、代码、表格、图表和音频。这些方法为诸如真实性、推理、可解释性和鲁棒性等重要问题提供了一个有前途的解决方案。通过提供深入的综述，本次调查有望让学者对这些方法的应用有更深入的理解，并鼓励他们将现有技术应用于快速发展的 LLMs 领域。</p>
+<h3 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1 Introduction"></a>1 Introduction</h3><p>生成式人工智能（GAI）在文本生成（欧阳等人，2022；乔德赫里等人，2022；布朗等人，2020）和文本到图像生成（拉梅什等人，2021a；普尔等人，2022）等任务中表现出色。多模态大型语言模型（MLLMs）的最新进展（德里尔斯等人，2023；OpenAI，2023；黄等人，2023b）进一步提高了模型处理多格式信息的能力，为开发通用学习者开辟了可能性。</p>
+<p>然而，生成模型并非没有固有的局限性，包括产生幻觉的倾向（叶和杜雷特，2022）、在算术任务上的困难（帕特尔等人，2021）以及缺乏可解释性。因此，增强其能力的一个有前途的解决方案在于使它们能够与外部世界互动，并获取各种格式和模态的知识，从而提高生成内容的真实性和合理性。最近，出现了专注于检索增强方法的研究（米亚隆等人，2023），旨在提供更有根据和事实依赖的信息。其中，大多数（中野等人，2021；古等人，2020b）检索文本信息，这与预训练期间使用的数据格式相匹配，并为交互提供了自然的媒介。然而，在不同的结构和模态（如图像和视频）中存储了更多的世界知识，这些知识在传统的文本语料库中往往无法访问、不可用或无法描述。</p>
+<p>因此，出现了一个重要的研究交叉点，即检索多模态知识以增强生成模型。它为当前的真实性、推理、可解释性和鲁棒性等挑战提供了一个有前途的解决方案。由于这个领域是非常新的，对于将这些方法识别为一个特定的群体、可视化它们的内在联系、连接它们的方法以及概述它们的应用，缺乏统一的理解。</p>
+<p>因此，我们对多模态检索增强生成（RAG）的最新进展进行了调查。具体来说，我们通过将当前的研究分为不同的模态（包括图像、代码、结构化知识、音频和视频）来进行讨论。对于每种模态，我们使用相关的关键字在 ACL 文集和谷歌学术上进行系统搜索，并进行手动筛选以确定它们与本次调查的相关性。结果，我们收集了 146 篇论文进行详细分析。在附录 A.1 中，我们包括了搜索细节、统计数据和趋势分析图，这表明自大规模通用模型（large-scale general-purpose models）出现以来，多模态 RAG 论文确实发展得非常迅速。在每种模态中，我们通过将相关论文分组到不同的应用下进行讨论。通过提供深入的调查，我们希望帮助研究人员认识到纳入不同格式知识的重要性，并鼓励对现有技术进行适应和改进，以应用于快速发展的 LLMs 领域。</p>
+<p>总之，我们的贡献如下：</p>
+<ul>
+<li>我们将具有多模态的检索增强生成确立为随着 LLMs 的最新进展而出现的一组重要方法。</li>
+<li>对于常见的模态，我们通过将其内在联系和共同挑战置于上下文中，对研究论文进行了深入的回顾。</li>
+<li>我们对未来的方向提供了信息丰富的分析，其中可能包含对当前许多挑战的有希望的解决方案。</li>
+</ul>
+<h3 id="2-Definitions-and-Background"><a href="#2-Definitions-and-Background" class="headerlink" title="2 Definitions and Background"></a>2 Definitions and Background</h3><p>为了更好地理解激发多模态检索增强的现状和进展，我们首先定义并讨论两个关键概念的背景：多模态学习和检索增强生成（RAG）。</p>
+<h3 id="2-1-Multimodal-Learning"><a href="#2-1-Multimodal-Learning" class="headerlink" title="2.1 Multimodal Learning"></a>2.1 Multimodal Learning</h3><p>多模态学习是指从不同模态的数据中学习统一的表示。其旨在提取互补信息以促进组合任务（巴尔图沙蒂斯等人，2018；高等人，2020）。在本次调查中，我们包括了所有格式不同于自然语言的模态，包括图像、代码、结构化知识（例如表格、知识图谱）、音频和视频。</p>
+<p>多模态生成模型具有广泛的应用，如文本 - 图像生成、创意写作生成和多语言翻译。例如，图像识别任务可以通过结合分析图像和视频以及文本描述而受益（朱等人，2022；阿拉亚克等人，2022a；贾等人，2021；拉德福德等人，2021b）。相反，纳入视觉信息也有助于语言理解和生成（周等人，2020；雷等人，2021；？）。</p>
+<p>此外，它们有可能通过使模型能够从多个信息源学习并整合信息，从而显著改善各个领域的机器学习系统（蔡等人，2019；阿科斯塔等人，2022；纳格拉尼等人，2021）。</p>
+<p>另外，人们对开发能够输出多种模态数据的生成模型的兴趣日益浓厚（拉梅什等人，2021b；克劳森等人，2022；林和伯恩，2022a；陈等人，2022a）。然而，多模态生成模型仍然存在挑战，例如获取大量的多模态数据以及设计产生语义有意义输出的网络。</p>
+<h3 id="2-2-Retrieval-Augmented-Generation-RAG"><a href="#2-2-Retrieval-Augmented-Generation-RAG" class="headerlink" title="2.2 Retrieval-Augmented Generation (RAG)"></a>2.2 Retrieval-Augmented Generation (RAG)</h3><p>RAG 通常由两个阶段组成：检索上下文相关信息，以及使用检索到的知识指导生成过程。最近，由于通用大型语言模型（LLMs）的兴起（Chowdhery 等人，2022；OpenAI，2023），RAG 在自然语言处理（NLP）中越来越受欢迎，这在各种 NLP 任务中提高了性能。然而，存在两个主要挑战：首先，由于生成模型依赖于内部知识（权重），它们导致了大量的幻觉（Zhao 等人，2023b）。其次，由于它们的参数规模大以及更新成本高，传统的预训练和微调方法变得不可行。作为解决方案，RAG 方法（Gu 等人，2018；Weston 等人，2018；Cai 等人，2019b；Lewis 等人，2020）为 LLMs 与外部世界有效交互提供了一个有前途的解决方案。<br>RAG 被应用于广泛的下游 NLP 任务，包括机器翻译（Gu 等人，2018；Zhang 等人，2018；Xu 等人，2020；He 等人，2021）、对话生成（Weston 等人，2018；Wu 等人，2019；Cai 等人，2019a）、抽象摘要（Peng 等人，2019）和知识密集型生成（Lewis 等人，2020；Izacard 和 Grave，2021）。其中，大多数方法侧重于检索文本信息。例如，Guu 等人（2020b）；Lewis 等人（2020）；Borgeaud 等人（2022）；Izacard 等人（2022）联合训练了一个带有编码器或序列到序列 LM 的检索系统，实现了与使用明显更多参数的更大的 LMs 相当的性能。最近的研究还提出将检索器与思维链（CoT）提示相结合进行推理，以增强语言模型（He 等人，2022a；Trivedi 等人，2022；Zhao 等人，2023c）。</p>
+<h3 id="3-Multimodal-Retrieval-Augmented-Generation"><a href="#3-Multimodal-Retrieval-Augmented-Generation" class="headerlink" title="3 Multimodal Retrieval-Augmented Generation"></a>3 Multimodal Retrieval-Augmented Generation</h3><p>对于每种模态，都有不同的检索和合成程序、目标任务和挑战。因此，我们按照模态对相关方法进行分组讨论，包括图像、代码、结构化知识、音频和视频。</p>
+<h3 id="3-1-Image"><a href="#3-1-Image" class="headerlink" title="3.1 Image"></a>3.1 Image</h3><p>预训练模型的最新进展为通用图像 - 文本多模态模型带来了曙光（Ramesh 等人，2021a；Alayrac 等人，2022b；Aghajanyan 等人，2022；Yu 等人，2022；Dou 等人，2022；Li 等人，2023a）。然而，这些模型在预训练时需要巨大的计算资源和大量的模型参数 —— 因为它们需要记住大量的世界知识。更关键的是，它们不能有效地处理新的或域外的知识。为此，已经提出了多种检索增强方法，以更好地整合来自图像和文本文档的外部知识。在一般的文本生成任务中，图像检索还可以通过用更多的 “想象力” 扩展文本生成上下文来提高生成质量。</p>
+<p><strong>图像描述</strong> 为了生成多风格的描述，Zhou 和 Long（2023）在生成描述之前使用一个风格感知的视觉编码器来检索图像内容。除了简单地编码视觉信息，Cho 等人（2022）还进一步使用图像 - 文本对之间的多模态相似性作为奖励函数来训练更细粒度的描述模型。除了检索图像元素，Sarto 等人（2022）；Shi 等人（2021）；Ramos 等人（2023）；Yang 等人（2023b）检索与输入相关的描述。Zhou 等人（2022a）通过检索新闻文章中基于视觉的实体来解决新闻图像描述问题。</p>
+<p><strong>基于视觉的对话</strong> 这项任务（Lee 等人，2021b）需要检索视觉信息以产生相关的对话响应。Fan 等人（2021）使用基于 KNN 的信息获取（KIF）模块来增强生成模型，该模块检索图像和维基知识。Liang 等人（2021）从图像索引中检索与对话相关的图像来为响应生成器提供基础。Shen 等人（2021）训练一个词 - 图像映射模型来检索响应的视觉印象，然后使用文本和视觉信息进行响应生成。</p>
+<p><strong>文本生成</strong> 对于一般的文本生成任务，图像检索也有助于扩展上下文。Yang 等人（2022a）通过检索现有图像和合成新生成的图像来增强文本模型的 “想象力”。因此，为语言模型注入想象力可以提高许多下游自然语言任务的性能。同样，Zhu 等人（2023）比较了 “想象力” 增强与合成和检索图像，并认为机器生成的图像由于更好地考虑了上下文，可以提供更好的指导。此外，Fang 和 Feng（2022）表明，在短语级别检索视觉信息可以显著提高机器翻译，特别是在文本上下文有限的情况下。图像 RAG 还可以帮助低资源任务，如医疗报告生成（Wu 等人，2022a）和建筑描述生成（Mille 等人，2020）。</p>
+<p>除了在生成文本之前检索图像之外，Re-Imagen（Chen 等人，2022c）利用多模态知识库来检索图像 - 文本对，以促进图像生成。RA-CM3（Yasunaga 等人，2022）可以生成图像和文本的混合物。它表明，检索增强的图像生成在知识密集型生成任务上表现得更好，并开辟了新的能力，如多模态上下文学习。</p>
+<h3 id="3-2-Code"><a href="#3-2-Code" class="headerlink" title="3.2 Code"></a>3.2 Code</h3><p>软件开发人员试图从大量可用资源中搜索相关信息以提高其生产力，例如未知术语的解释、可重用的代码补丁以及常见编程错误的解决方案（Xia 等人，2017）。受深度学习在自然语言处理中的进展启发，通用的检索增强生成范式使广泛的代码智能任务受益，包括代码补全（Lu 等人，2022b）、代码生成（Zhou 等人，2022b）和自动程序修复（APR）（Nashid 等人，2023）。然而，这些方法通常将编程语言和自然语言视为等效的标记序列，并忽略了源代码固有的丰富语义。为了解决这些限制，最近的研究工作集中在通过多模态学习来提高代码的泛化性能，即将诸如代码注释、标识符标签和抽象语法树（AST）等其他模态纳入代码预训练模型（Wang 等人，2021b；Guo 等人，2022；Li 等人，2022d）。为此，多模态检索增强生成方法已在各种特定于代码的任务中证明了其可行性。</p>
+<p><strong>文本到代码生成</strong> 众多研究已经对利用相关代码和相关文档来造福代码生成模型进行了研究。一个突出的例子是 REDCODER（Parvez 等人，2021），它从现有的代码库中检索排名靠前的代码片段或摘要，并将它们与源代码序列聚合，以增强生成或总结能力。作为另一种这样的方法，DocPrompting（Zhou 等人，2022b）使用一组相关文档作为上下文提示，通过检索生成相应的代码。除了这些词汇模态之外，Hayati 等人（2018）提出了一种基于语法的代码生成方法，以明确地参考 AST 中现有的子树作为模板来指导代码生成。</p>
+<p><strong>代码到文本生成</strong> 基于检索的代码摘要方法得到了广泛研究。例如，RACE（Shi 等人，2022）利用相关的代码差异及其相关的提交消息来增强提交消息的生成。此外，RACE 计算源代码差异与检索到的差异之间的语义相似度，以权衡不同输入模态的重要性。Rencos（Zhang 等人，2020）根据给定查询代码的语法级相似度和语义级相似度方面检索两个相似的代码片段。然后在解码阶段将这些相似的上下文合并到摘要模型中。Liu 等人（2021）进一步探索了这个想法，其中检索到的代码 - 摘要对通过局部注意力机制用于增强源代码的原始代码属性图（Yamaguchi 等人，2014）。为了捕获全局语义以更好地进行代码结构学习，进一步采用了全局结构感知的自注意力机制（Zhu 等人，2019）。</p>
+<p><strong>代码补全</strong> 基于检索的代码补全任务（McConnell，2004）的最新进展越来越受到关注。值得注意的是，Hashimoto 等人（2018）采用了检索和编辑框架来提高模型在代码自动补全任务中的性能。为了解决实际的代码补全场景，ReACC（Lu 等人，2022b）同时考虑了未完成代码片段的词汇和语义信息，利用混合技术将基于词汇的稀疏检索器和基于语义的密集检索器相结合。首先，混合检索器根据给定的不完整代码从代码库中搜索相关代码。然后，将未完成的代码与检索结果连接起来，一个自回归代码补全生成器将基于它们生成完整的代码。为了解决项目关系，CoCoMIC（Ding 等人，2022）将一个代码文件分解为四个组件：文件、全局变量、类和函数。它基于所有相关代码组件之间的层次关系构建一个文件内上下文图，并通过考虑文件内和跨文件的依赖关系形成一个项目级上下文图。给定一个不完整的程序，CoCoMIC 从其项目级上下文图中检索最相关的跨文件实体，并联合学习不完整的程序和检索到的跨文件上下文以完成代码补全。</p>
+<p><strong>自动程序修复（APR）</strong> 受到很大一部分提交是由现有代码提交组成这一性质的启发（Martinez 等人，2014），APR 通常被视为一个搜索问题，通过遍历修复成分的搜索空间来确定正确的修复（Qi 等人，2014），基于一个冗余假设（White 等人，2019），即目标修复通常可以在搜索空间中重建。最近的研究表明，从现有的搜索空间中挖掘相关的错误修复模式（Jiang 等人，2018）以及从 StackOverflow 中获取外部修复模板（Liu 和 Zhong，2018）可以极大地有益于 APR 模型。Joshi 等人（2022）根据错误消息的相似性直观地对一组错误修复对进行排名，以开发少样本提示。他们将编译器错误消息纳入大型编程语言模型 Codex（Chen 等人，2021）以进行多语言 APR。CEDAR（Nashid 等人，2023）进一步将这一想法扩展到使用相关代码演示的基于检索的提示设计，包括更多模态，如单元测试、错误类型和错误信息。此外，Jin 等人（2023）利用静态分析器 Infer 提取错误类型、错误位置和语法层次结构（Clement 等人，2021）来确定重点上下文的优先级。然后，他们从现有的错误修复代码库中检索语义相似的修复，并将检索到的修复和重点上下文连接起来，形成程序修复的指令提示。</p>
+<p><strong>将代码作为中间步骤进行推理</strong> 虽然大型语言模型（LLMs）最近已经展示了其执行推理任务的令人印象深刻的能力，但它们仍然容易出现逻辑和算术错误（Gao 等人，2022a；Chen 等人，2022d；Madaan 等人，2022）。为了缓解这个问题，新兴的研究论文专注于使用代码的大型语言模型（例如，Codex（Chen 等人，2021））来生成用于解决逻辑和算术任务的代码命令，并调用外部解释器来执行这些命令以获得结果。值得注意的是，Gao 等人（2022a）提议生成 Python 程序作为中间推理步骤，并将解决方案步骤卸载到 Python 解释器。此外，Chen 等人（2022d）探索不仅为文本而且为编程语言语句生成思维链（CoT）（Wei 等人，2022）作为推理步骤来解决问题。在推理阶段，通过外部解释器获得答案。类似地，Lyu 等人（2023）提出了忠实的 CoT，它首先将自然语言查询转换为符号推理链，然后通过调用外部执行器来解决推理链以得出答案。</p>
+<p>另一个例子是 Ye 等人（2023），它利用大型语言模型将基于表格的推理任务分解为子任务，通过 Codex 的 SQL 查询在每个步骤中分离逻辑和数值计算，并调用 SQL 解释器来解决它们（这个过程称为 “解析 - 执行 - 填充”）。</p>
+<p>代码的大型语言模型也被称为结构良好的常识推理器，甚至比大型语言模型具有更好的结构（Madaan 等人，2022）。因此，先前的研究也研究了将结构化常识生成任务转换为代码生成问题，并使用代码的大型语言模型作为求解器的想法。其中一项工作是 CoCoGen（Madaan 等人，2022），它将每个训练样本（由文本输入和输出结构组成）转换为 Python 中的 Tree 类。然后，代码的大型语言模型对文本输入进行少样本推理以生成 Python 代码，然后将 Python 代码转换回原始结构进行评估。此外，像 Codex 这样的代码大型语言模型在合成计算机代码方面的成功也使它们适合生成正式代码。受此启发，Wu 等人（2022b）提议通过采用 Codex 从自然语言数学中为交互式定理证明器 Isabelle（Wenzel 等人，2008）生成形式化定理来证明数学定理。</p>
+<h3 id="3-3-Structured-Knowledge"><a href="#3-3-Structured-Knowledge" class="headerlink" title="3.3 Structured Knowledge"></a>3.3 Structured Knowledge</h3><p>生成模型中的一个公开挑战是幻觉，即模型很可能输出错误的信息。因此，一个潜在的解决方案是利用检索到的结构化知识来支撑生成，例如知识图谱、表格和数据库。</p>
+<p><strong>问答（QA）</strong> 使用知识的一个自然场景是问答。为了通过提取最相关的知识来增强知识库（KB）问答，Hu 等人（2022b）使用密集检索，Liu 等人（2022b）使用交叉编码器排序器。Shu 等人（2022）采用多粒度检索来提取相关的 KB 上下文，并使用受限解码来控制输出空间。在表格问答中，Nan 等人（2022）提出了一个需要检索相关表格以生成答案的数据集。Pan 等人（2021）随后提出了一种使用基于变压器的系统来检索最相关的表格并定位正确单元格的方法。此外，为了改进视频问答，Hu 等人（2023）从存储在内存中的知识图谱（KG）编码中进行检索。RAG 最突出的应用仍然在开放域问答中，其中提出了多个数据集（Lin 等人，2023；Ramnath 等人，2021）。对于检索，Ma 等人（2022）将 KG 进行语言化，然后使用密集段落检索。Fan 等人（2019）；Gupta 等人（2018）将 KG 信息编码为密集表示。Pramanik 等人（2021）；Jin 等人（2022）构建图嵌入来检索与问题相关的证据。Xu 等人（2021）；Baek 等人（2023）使用语义相似度和文本匹配方法。综合可以在不同阶段发生。在输入阶段，Xu 等人（2021）；Baek 等人（2023）将检索到的上下文作为额外的输入或提示输入到 PLM 中。（Ma 等人，2022；Fan 等人，2019）调整生成器以接受上下文表示作为输入。在模型推理阶段，一个有趣的工作是 Hu 等人（2022c），它在 PLM 中插入一个交互层来引导外部 KG 推理模块。</p>
+<p><strong>一般文本生成</strong> 外部知识检索可以改进一般文本生成，使其在事实上更有依据。Liu 等人（2022a）提出了一种记忆增强方法，以根据知识图谱（KG）来调节自回归语言模型。在推理过程中，Tan 等人（2022）通过密集检索选择知识条目，然后将它们注入到预训练语言模型（PLM）的输入编码和输出解码阶段。对于特定领域的文本生成，Frisoni 等人（2022）；Yang 等人（2021）；Li 等人（2019）检索医疗报告块或报告模板以扩充输入提示。然后，他们使用自行设计的解码器或图形转换器来生成有依据的报告。为了提高可解释性，RAG 可用于选择事实作为可解释的推理路径（Aggarwal 等人，2021；Jansen 和 Ustalov，2019）。此外，RAG 对于低资源生成任务特别有用，例如问题生成（Yu 和 Jiang，2021；Xin 等人，2021；Gu 等人，2019）、文档到幻灯片（Sun 等人，2021）、表到文本（Su 等人，2021）、反驳生成（Jo 等人，2021）、实体描述生成（Cheng 等人，2020）和基于文本的游戏（Murugesan 等人等人，2021）。  </p>
+<p>最近的研究试图通过利用外部结构化知识来减少大型语言模型中的幻觉。例如，在微调期间，LaMDA（Thoppilan 等人，2022）学会在响应用户之前咨询外部知识源，包括能够检索知识三元组和网页 URL 的信息检索系统。一些论文将生成模型（通常是大型语言模型）视为黑箱，并在不进行微调的情况下检索结构化信息。例如，BINDER（Cheng 等人，2023）使用上下文学习来输出设计的 API 调用，从表中检索与问题相关的列。</p>
+<p><strong>利用知识进行推理</strong> 通过选择知识，可以以更有依据和可解释的方式解决推理任务。为了为给定的假设生成一个蕴涵树解释，Neves Ribeiro 等人（2022）从文本前提中迭代检索并将它们与生成相结合。Yang 等人（2022c）提出了一个数学推理器，它首先检索高度相关的代数知识，然后将它们作为提示传递，以改进生成任务的语义表示。随着大型语言模型的最新进展，He 等人（2022a）；Li 等人（2023b）根据从思维链（CoT）提示（Wei 等人，2022）中获得的推理步骤，从诸如 Wikidata 等知识图谱（KG）和知识库（KB）中进行检索。</p>
+<h3 id="3-4-Audio"><a href="#3-4-Audio" class="headerlink" title="3.4 Audio"></a>3.4 Audio</h3><p>音频 RAG 在将音频信息纳入特定的音频语言任务（如音乐字幕、音乐和文本生成以及语音识别）中很有用。此外，使用音频 RAG 进行音频数据增强在缓解音频文本训练数据的缺乏方面也被证明是有用的。这可能是一个有前途的未来方向（Li 等人，2022a）。</p>
+<p><strong>音乐字幕</strong> 音乐字幕是给定音乐音频生成文本描述或歌词的任务。并且探索了 RAG 以学习更好的音频 - 歌词对齐。Manco 等人（2021）提出了第一个音乐音频字幕模型 MusCaps。首先，一个预训练的多模态编码器获得音频表示，该表示在输入中检索音乐特征。由于预训练弥合了音频模态和文本理解之间的差距，该方法提高了任务性能。He 等人（2022b）通过对比学习学习音频 - 歌词对齐，从而为音乐生成更高质量的字幕。</p>
+<p><strong>音乐生成</strong> Royal 等人（2020）使用深度神经哈希来检索音乐构建块，然后通过使用当前音乐片段来检索下一个片段进行生成。在自动语音识别（ASR）中，Chan 等人（2023）使用 k 近邻（KNN）方法检索与音频和文本嵌入相关的外部知识。检索到的知识显著减少了 ASR 的领域适应时间。<br>音频模态与其他模态（如视频）紧密交织在一起。因此，在使用音频特征进行文本 - 视频检索方面的最新进展（Falcon 等人，2022；Mithun 等人，2018）可以使涉及其他模态的 RAG 任务受益。此外，尽管音频 - 文本检索是一项长期存在的任务（Liu 等人，2015；Milde 等人，2016a，b），探索最近发现的技术（Hu 等人，2022a；Lou 等人，2022；Koepke 等人，2022）可能会带来进一步的改进。</p>
+<h3 id="3-5-Video"><a href="#3-5-Video" class="headerlink" title="3.5 Video"></a>3.5 Video</h3><p>用于生成的视频片段检索主要用于两个任务：基于视频的对话和视频字幕。最近，通过视频检索增强大型语言模型也表现出良好的性能，尤其是在少样本设置中。</p>
+<p><strong>基于视频的对话</strong> 给定视频上下文，模型学习参与相关对话。Pasunuru 和 Bansal（2018）引入了一个视频上下文、多说话者对话数据集，这对研究人员提出了挑战，要求他们开发出能够从实时视频中生成相关响应的基于视觉的对话模型。类似地，Lei 等人（2020）提出了 TVQA+，这是一个需要检索相关视频时刻来回答关于视频的文本问题的数据集。然后，它提出了一个统一的框架，将视频片段编码为表示，使用注意力机制定位相关信息，并生成文本答案。<br>为了更好地执行基于视觉的对话任务，Le 等人（2020）从先前的用户查询中检索视觉线索。这些线索随后被用作上下文信息来构建相关响应。在视频问答方面，它大大优于以前的方法。最近，Le 等人（2022）从视频中提取视觉线索以增强基于视频的对话。视频检索是通过神经模块网络执行的，这些网络由先前对话中的实体和动作实例化。</p>
+<p><strong>视频字幕</strong> 出于与 RAG 相似的动机，Long 等人（2018）首先提议使用注意力层自动选择最显著的视觉或语义特征，并使用它们来增强字幕生成。结果，它稳定地优于以前的方法。（Whitehead 等人，2018）随后开发了一种基于检索的视频描述生成方法。对于新闻视频，它检索主题相关的新闻文档，然后使用知识感知的视频描述网络生成描述。</p>
+<p><strong>大型语言模型增强</strong> Wang 等人（2022）试图增强大型语言模型，使其能够从几个示例推广到各种视频到文本的任务。由于大型语言模型无法接受视频输入，它首先使用图像 - 语言模型将视频内容转换为属性，然后提示检索到的内容来指导大型语言模型。它在广泛的视频 - 语言任务中表现出良好的少样本性能。  </p>
+<p>目前，视频 - 文本研究的瓶颈主要在于不同模态之间的表示差距。研究一直在尝试通过联合学习来学习视频 - 文本之间更好的映射（Xu 等人，2015；Sun 等人，2019）。关于密集视频表示学习的近期研究对未来的视频 RAG 也可能有用。此外，一些论文（Yang 等人，2023a；Wang 等人，2021a）试图引入不同模态之间的细粒度交互，以学习更好的对齐表示。Zeng 等人（2022）鼓励不同模态的多个预训练模型以零样本的方式相互交换信息。最近，Zhang 等人（2023a）训练 Video-Llama 以更好地将预训练的视频和音频编码器与大型语言模型的嵌入空间对齐。</p>
+<h3 id="4-Future-Directions"><a href="#4-Future-Directions" class="headerlink" title="4 Future Directions"></a>4 Future Directions</h3><p>随着多模态大型语言模型的发展，检索多模态信息以增强文本生成将是一个有前途的方向，以便在现实世界的背景下更好地为文本生成提供依据，有助于构建一个完全有意识并且能够更好地与世界互动的模型。具体来说，我们描述了一些可能对社区有益的潜在方向。</p>
+<h3 id="4-1-Retrieval-Augmented-Multimodal-Reasoning"><a href="#4-1-Retrieval-Augmented-Multimodal-Reasoning" class="headerlink" title="4.1 Retrieval Augmented Multimodal Reasoning"></a>4.1 Retrieval Augmented Multimodal Reasoning</h3><p>多模态 RAG 的一个潜在应用是多模态推理。Lu 等人（2022a）首先引入了 ScienceQA，这是一个带有讲座和解释注释的大规模多模态科学问题数据集。然后，Zhang 等人（2023b）提出了多模态思维链（Multimodal-CoT），它将语言和视觉模态纳入一个两阶段（推理生成和答案推断）框架，用一个小得多的微调模型大幅超越 GPT-3.5。与 Zhang 等人（2023b）类似，kosmos-1（Huang 等人，2023b）将多模态推理分解为两个步骤。它首先根据视觉信息生成中间内容作为推理依据，然后使用生成的推理依据得出结果。然而，这两种方法在理解某些类型的图像（例如地图）时可能存在困难，这可以通过检索信息丰富的图像 - 文本对来缓解。</p>
+<h3 id="4-2-Building-a-Multimodal-Knowledge-Index"><a href="#4-2-Building-a-Multimodal-Knowledge-Index" class="headerlink" title="4.2 Building a Multimodal Knowledge Index"></a>4.2 Building a Multimodal Knowledge Index</h3><p>为了促进多模态 RAG，最基本的方面之一是构建多模态知识索引。其目标有两个：首先，密集表示应支持低存储、知识库的动态更新和准确搜索。其次，在局部敏感哈希（Leskovec 等人，2014）的帮助下，它可以实现更快的搜索速度，解决了知识库极大扩展时的缩放和鲁棒性问题。  </p>
+<p>目前，对于文档（Karpukhin 等人，2020b；Gao 和 Callan，2021；Gao 等人，2021）、实体（Sciavolino 等人，2021；Lee 等人，2021a）和图像（Radford 等人，2021a）的文本片段的密集表示已得到广泛研究。此外，还有研究以端到端的方式优化密集表示（Lewis 等人，2020）。然而，很少有论文（Chen 等人，2022a）同时探索为下游生成任务构建多模态索引。如何将多模态知识索引映射到统一空间仍然是一个长期的挑战。</p>
+<h3 id="4-3-Pretraining-with-Multimodal-Retrieval"><a href="#4-3-Pretraining-with-Multimodal-Retrieval" class="headerlink" title="4.3 Pretraining with Multimodal Retrieval"></a>4.3 Pretraining with Multimodal Retrieval</h3><p>本次调查回顾了通过检索多模态信息来增强生成模型的研究。具体来说，我们将当前领域分类为通过不同模态进行增强，包括图像、代码、结构化知识、语音和视频。随着大型多模态模型的出现，我们相信本次调查可以作为这个新兴且有前途的领域的综合概述。此外，我们希望它能够鼓励该领域未来的研究，包括检索增强的多模态推理、构建多模态知识索引以及将检索与预训练相结合。</p>
+<h3 id="Limitations"><a href="#Limitations" class="headerlink" title="Limitations"></a>Limitations</h3><p>RAG 也有一些局限性。例如，存在归因 - 流畅性的权衡（Aksitov 等人，2023），其中由于检索到的知识所增加的约束，输出质量会受到影响。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%AC%94%E8%AE%B0/" class="category-chain-item">笔记</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Information-Retrieval/" class="print-no-link">#Information-Retrieval</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>笔记 - Retrieving Multimodal Information for Augmented Generation A Survey</div>
+      <div>https://lcj2021.github.io/2024/10/16/笔记 - Retrieving Multimodal Information for Augmented Generation A Survey/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Channing Lau</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年10月16日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/10/25/%E5%91%A8%E8%AE%B0%20-%202024%2010.28-11.03/" title="周记 - 2024 10.21-10.27">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">周记 - 2024 10.21-10.27</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/09/29/%E5%91%A8%E8%AE%B0%20-%202024%2009.23-09.29/" title="周记 - 2024 09.23-09.29">
+                        <span class="hidden-mobile">周记 - 2024 09.23-09.29</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

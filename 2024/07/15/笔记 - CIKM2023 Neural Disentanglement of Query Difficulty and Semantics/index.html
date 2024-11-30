@@ -16,15 +16,15 @@
   <meta name="author" content="Channing Lau">
   <meta name="keywords" content="">
   
-    <meta name="description" content="原文链接：https:&#x2F;&#x2F;doi.org&#x2F;10.1145&#x2F;3583780.3615189代码链接： Abstract1 INTRODUCTION">
+    <meta name="description" content="原文链接：https:&#x2F;&#x2F;doi.org&#x2F;10.1145&#x2F;3583780.3615189代码链接： Disentanglement：解耦 Abstract研究人员已经表明，查询的检索有效性不仅取决于查询的语义，还可能受到其他因素的影响。换句话说，几个表达相同意图甚至使用重叠关键词的查询可能会显示出完全不同的检索有效性程度。因此，在本文中我们的工作目标是提出一种神经解耦（Neural Disenta">
 <meta property="og:type" content="article">
 <meta property="og:title" content="笔记 - CIKM2023 Neural Disentanglement of Query Difficulty and Semantics">
 <meta property="og:url" content="https://lcj2021.github.io/2024/07/15/%E7%AC%94%E8%AE%B0%20-%20CIKM2023%20Neural%20Disentanglement%20of%20Query%20Difficulty%20and%20Semantics/index.html">
 <meta property="og:site_name" content="ChanningLau&#39;s harbour">
-<meta property="og:description" content="原文链接：https:&#x2F;&#x2F;doi.org&#x2F;10.1145&#x2F;3583780.3615189代码链接： Abstract1 INTRODUCTION">
+<meta property="og:description" content="原文链接：https:&#x2F;&#x2F;doi.org&#x2F;10.1145&#x2F;3583780.3615189代码链接： Disentanglement：解耦 Abstract研究人员已经表明，查询的检索有效性不仅取决于查询的语义，还可能受到其他因素的影响。换句话说，几个表达相同意图甚至使用重叠关键词的查询可能会显示出完全不同的检索有效性程度。因此，在本文中我们的工作目标是提出一种神经解耦（Neural Disenta">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-07-14T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-07-16T01:29:53.238Z">
+<meta property="article:modified_time" content="2024-11-30T09:42:40.853Z">
 <meta property="article:author" content="Channing Lau">
 <meta property="article:tag" content="BERT">
 <meta name="twitter:card" content="summary_large_image">
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          16 字
+          1.4k 字
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
         
-          1 分钟
+          12 分钟
         
       </span>
     
@@ -274,7 +274,12 @@
               <div class="markdown-body">
                 
                 <p>原文链接：<a target="_blank" rel="noopener" href="https://doi.org/10.1145/3583780.3615189">https://doi.org/10.1145/3583780.3615189</a><br>代码链接：</p>
-<h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><h2 id="1-INTRODUCTION"><a href="#1-INTRODUCTION" class="headerlink" title="1 INTRODUCTION"></a>1 INTRODUCTION</h2>
+<p>Disentanglement：解耦</p>
+<h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>研究人员已经表明，查询的检索有效性不仅取决于查询的语义，还可能受到其他因素的影响。换句话说，几个表达相同意图甚至使用重叠关键词的查询可能会显示出完全不同的检索有效性程度。因此，在本文中我们的工作目标是提出一种神经解耦（Neural Disentanglement）方法，该方法能够将查询语义与查询难度解耦。解耦后的查询语义表示提供了确定查询之间语义关联的手段，而解耦后的查询难度表示则允许估计查询的有效性。我们通过在查询性能预测和查询相似度计算任务上的实验表明，我们提出的解耦方法相比于现有技术能够展现出更好的性能。</p>
+<h2 id="1-INTRODUCTION"><a href="#1-INTRODUCTION" class="headerlink" title="1 INTRODUCTION"></a>1 INTRODUCTION</h2><p>深度神经网络在信息检索的各种任务中得到了越来越多的应用，并且相较于传统的检索方法展现出了显著的性能提升 [5, 26, 28, 34, 37]。这主要是由于它们能够通过密集表示学习数据的潜在分布。例如，在临时检索(ad hoc retrieval)的背景下，密集神经排序器学习到的表示能有效地将查询空间与文档空间连接起来，从而促进对输入查询相关文档的检索 [21, 35, 41]。研究者们已经证明，学习得到的表示编码了一系列的信息，只要最终表示对当前任务有效，这些信息并不会被区分对待 [12, 45]。在很多情况下，并不清楚表示中的每个子部分代表什么含义，以及它们是否独立携带了语义。正如早期的工作所示，查询和文档的表示很可能混合了不同的属性，如风格、内容语义、时态等，而没有将它们区分开来 [19, 20, 43]。</p>
+<p>现有的研究探索了如何将神经表示中交织在一起的属性分离的方法。这一过程被称为解耦(disentanglement)，并且已经在诸如可控文本生成 [18] 和风格迁移 [46] 等领域找到了应用。神经解耦的过程对于临时检索的任务来说似乎特别相关，尤其是在如何使用查询的神经表示方面 [17, 25, 30]。已有多个研究表明，相似的查询即使携带相似的语义，甚至有时使用了重叠的术语，但由于不同的顺序或语气，可能会导致完全不同的检索结果，因此它们的检索效果也大相径庭。例如，Matches Made in Heaven (MMH) 数据集表明，在MS MARCO段落检索数据集的50万查询中，有超过18万的查询，其中查询的小幅变化可以使大量查询的检索效果从平均精确率为0.139降至1 [1]。虽然查询和文档的语义是检索过程中的关键因素，但查询的有效性还取决于决定检索方法满足查询难度的其他因素。本研究的动机源自于MMH数据集中至少18万条查询的证据，这些查询的语义相似，但它们的检索有效性却有着显著的差异。我们感兴趣的是将查询表示分解为两个独立的表示：一个捕获查询语义，另一个可能捕获查询难度。理想情况下，一旦查询表示被解耦，相似查询的解耦表示中的语义成分应该也是相似的。<br>此外，人们期望解耦表示中的难度成分能够让我们区分出哪些查询对于检索方法来说更难以满足，无论比较的查询是否具有相似的语义。这种提出的查询解耦方法的好处在于，它使我们能够在检索之前执行预检索查询性能预测（QPP）任务，即在实际检索之前确定查询的检索有效性。大多数QPP方法 [2, 3, 6–8, 11, 14, 22, 23, 31, 36, 38] 要么依赖于查询词与文档语料库之间的统计关系，要么依赖于神经嵌入模型产生的几何空间中查询词之间的关系。然而，在我们的工作中，我们通过解耦过程产生了一个明确的查询难度表示，可以直接用于执行QPP。</p>
+<p>通过对四个广泛使用的数据集进行实验，包括MS MARCO开发集、TREC DL 2019、TREC DL 2020以及TREC DL-Hard，并基于三种评估指标——Kendall和Spearman相关系数以及缩放后的平均绝对排名误差（sMARE）指标 [13]，我们证明了所提出的解耦方法能够有效地独立捕获查询难度。此外，为了证明所提出的方法也能独立隔离查询语义，我们评估了解耦表示在计算由Nogueira和Lin [33]发布的语义相似查询对之间的关联方面的表现。我们展示了内容的解耦表示在捕捉查询语义方面比各种最先进的大型语言模型更有效。</p>
+
                 
               </div>
             

@@ -16,15 +16,15 @@
   <meta name="author" content="Channing Lau">
   <meta name="keywords" content="">
   
-    <meta name="description" content="原文链接：arXiv:2109.10739代码链接：Retrieval-Strategy-Selection Abstract在过去的几年里，上下文化预训练的Transformer模型，如BERT，在信息检索任务上通过在嵌入空间中微调查询和文档的密集低维上下文化表示，提供了实质性的改进。另一方面，传统的稀疏检索方法，如BM25，依赖于高维、稀疏、词袋式的查询表示来检索文档。尽管密集检索器在检索效果">
+    <meta name="description" content="原文链接：arXiv:2109.10739代码链接：Retrieval-Strategy-Selection 1234567891011@inproceedings&#123;DBLP:conf&#x2F;cikm&#x2F;ArabzadehYC21,  author       &#x3D; &#123;Negar Arabzadeh and                  Xinyi Yan and">
 <meta property="og:type" content="article">
 <meta property="og:title" content="笔记 - CIKM2021 Predicting Efficiency Effectiveness Trade-offs for  Dense vs. Sparse Retrieval Strategy Selection">
 <meta property="og:url" content="https://lcj2021.github.io/2024/07/15/%E7%AC%94%E8%AE%B0%20-%20CIKM2021%20Predicting%20Efficiency%20Effectiveness%20Trade-offs%20for%20%20Dense%20vs.%20Sparse%20Retrieval%20Strategy%20Selection/index.html">
 <meta property="og:site_name" content="ChanningLau&#39;s harbour">
-<meta property="og:description" content="原文链接：arXiv:2109.10739代码链接：Retrieval-Strategy-Selection Abstract在过去的几年里，上下文化预训练的Transformer模型，如BERT，在信息检索任务上通过在嵌入空间中微调查询和文档的密集低维上下文化表示，提供了实质性的改进。另一方面，传统的稀疏检索方法，如BM25，依赖于高维、稀疏、词袋式的查询表示来检索文档。尽管密集检索器在检索效果">
+<meta property="og:description" content="原文链接：arXiv:2109.10739代码链接：Retrieval-Strategy-Selection 1234567891011@inproceedings&#123;DBLP:conf&#x2F;cikm&#x2F;ArabzadehYC21,  author       &#x3D; &#123;Negar Arabzadeh and                  Xinyi Yan and">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-07-14T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-07-16T15:32:16.214Z">
+<meta property="article:modified_time" content="2024-11-30T09:42:40.837Z">
 <meta property="article:author" content="Channing Lau">
 <meta property="article:tag" content="BERT">
 <meta property="article:tag" content="Information-Retrieval">
@@ -221,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.6k 字
+          4.7k 字
         
       </span>
     
@@ -275,6 +275,7 @@
               <div class="markdown-body">
                 
                 <p>原文链接：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2109.10739">arXiv:2109.10739</a><br>代码链接：<a target="_blank" rel="noopener" href="https://github.com/Narabzad/Retrieval-Strategy-Selection">Retrieval-Strategy-Selection</a></p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs txt">@inproceedings&#123;DBLP:conf/cikm/ArabzadehYC21,<br>  author       = &#123;Negar Arabzadeh and<br>                  Xinyi Yan and<br>                  Charles L. A. Clarke&#125;,<br>  title        = &#123;Predicting Efficiency/Effectiveness Trade-offs for Dense vs. Sparse<br>                  Retrieval Strategy Selection&#125;,<br>  booktitle    = &#123;&#123;CIKM&#125;&#125;,<br>  pages        = &#123;2862--2866&#125;,<br>  publisher    = &#123;&#123;ACM&#125;&#125;,<br>  year         = &#123;2021&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>在过去的几年里，上下文化预训练的Transformer模型，如BERT，在信息检索任务上通过在嵌入空间中微调查询和文档的密集低维上下文化表示，提供了实质性的改进。另一方面，传统的稀疏检索方法，如BM25，依赖于高维、稀疏、词袋式的查询表示来检索文档。尽管密集检索器在检索效果上与稀疏检索器相比有显著提升，但它们计算密集，需要大量的GPU资源，且密集检索器在时间和资源消耗上更为昂贵。此外，稀疏检索器已被证明能检索到相对于密集检索器的互补信息，这导致了混合检索器的提议。这些混合检索器利用低成本、基于精确匹配的稀疏检索器以及密集检索器来弥合查询与文档之间的语义差距。在这项工作中，我们通过提出一个分类器来选择适合的检索策略（即，稀疏、密集或混合）来解决稀疏与密集检索器的成本与效用之间的权衡问题，针对每个查询进行选择。对于可以通过稀疏检索器回答的查询，利用稀疏检索器可以减少调用GPU的次数。因此，虽然效用得以保持，查询延迟却减少了。尽管我们使用了更少的计算资源和时间，但我们仍然取得了改进的表现。我们的分类器可以根据查询本身选择稀疏或密集检索策略。我们在MS MARCO段落数据集上进行了实验，展示了纯稀疏、纯密集或混合检索策略之间效率&#x2F;效果权衡的改善范围，允许根据目标延迟和资源预算选择合适的策略。</p>
 <h2 id="1-INTRODUCTION"><a href="#1-INTRODUCTION" class="headerlink" title="1 INTRODUCTION"></a>1 INTRODUCTION</h2><p>信息检索（IR）系统已被神经排名方法彻底改变。几年前，最先进的排名堆栈（ranking stack）会采用第一阶段的稀疏检索器，如BM25，它依赖于确切的词条匹配来检索初始的项目池，供后续阶段重新排序[10, 14, 22]。倒排索引使整个语料库能够被高效扫描，延迟极低。这种类型的第一阶段检索器自最早的商业和学术系统以来一直是IR的标准配置。</p>
 <p>最近的进展提供了一种基于经典倒排索引的第一阶段检索器的替代方案。上下文预训练的转换器模型，例如BERT [2]，使得一种新型的第一阶段检索器能够将查询和文档映射到低维密集向量，并利用最大内积搜索方法来查找与查询向量最相似的文档向量[4、11、24、26]。虽然这些检索器与传统方法相比具有显着的检索效果改进，但它们仍然存在缺点，包括增加的GPU资源和潜在的更高延迟。虽然这些密集检索器在检索效果上平均优于传统的稀疏检索器，但仍然存在查询，稀疏检索器提供更优秀的性能。没有一种单一的检索方法可以有效和高效地回答所有查询，选择合适的检索策略是维护系统效率和效果之间的平衡的关键问题。传统的初始检索器，例如BM25 [10]，在信息检索中有着悠久的历史。在现代排名堆栈中，BM25通常与WAND查询处理策略配对，以最大化第一阶段检索的效率[1]。这些第一阶段排名器可以称为“稀疏检索器”，因为它们主要利用稀疏的高维度词袋表示。 在给定查询时，检索器使用评分函数对文档进行排序。由于稀疏检索器通过查询和文档术语之间的精确匹配进行操作，因此当查询和语料库语言之间存在语义差距时，它们不足以解决词汇不匹配问题。然而，它们非常具有成本效益并且易于扩展，即使在廉价硬件上也是如此。大多数第一阶段稀疏检索器的更稀疏排名方法通常使用BM25作为多级排名堆栈的第一阶段[5、6、18 20]。排名阶段的后续阶段使用更高成本的基于神经网络的重新排名器来重新排名初始低成本的稀疏检索器检索到的文档。虽然这种初始稀疏检索步骤与多个重新排名步骤的组合已经表现出优异的性能，但通过用密集检索器替换初始检索步骤可以进一步提高性能。这些密集检索器使用上下文化的预训练变压器模型将查询和文档映射到嵌入空间[4、11、12、24、26]。在这个密集的低维嵌入空间中，查询和文档之间的关联（例如点积）提供了相关性得分。通过用密集检索器替换稀疏检索器所做的改进已经在许多核心检索任务和排行榜上得到了证明，例如MS MARCO。MS MARCO是一个大规模的集合，重点是为信息检索的深度学习方法提供应用。提供相对较大的训练数据使MS MARCO成为比较SOTA检索方法的合适测试平台。</p>
@@ -377,9 +378,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/07/15/%E7%AC%94%E8%AE%B0%20-%20ACL2023%20A%20Study%20on%20the%20Efficiency%20and%20Generalization%20of%20Light%20Hybrid%20Retrievers/" title="笔记 - ACL2023 A Study on the Efficiency and Generalization of Light Hybrid Retrievers">
+                      <a href="/2024/07/16/%E7%AC%94%E8%AE%B0%20-%20ICLR2021%20Approximate%20Nearest%20Neighbor%20Negative%20Contrastive%20Learning%20for%20Dense%20Text%20Retrieval/" title="笔记 - ICLR2021 Approximate Nearest Neighbor Negative Contrastive Learning for Dense Text Retrieval">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">笔记 - ACL2023 A Study on the Efficiency and Generalization of Light Hybrid Retrievers</span>
+                        <span class="hidden-mobile">笔记 - ICLR2021 Approximate Nearest Neighbor Negative Contrastive Learning for Dense Text Retrieval</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     

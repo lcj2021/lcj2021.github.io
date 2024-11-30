@@ -1,0 +1,677 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Channing Lau">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="原文链接：ACM-digital-libraryhttps:&#x2F;&#x2F;www.vldb.org&#x2F;pvldb&#x2F;vol17&#x2F;p525-musleh.pdf代码链接： Abstract许多重要的应用依赖于详细的轨迹数据。 然而，不幸的是，轨迹数据集通常稀疏，在每两点之间存在较大的空间和时间间隔，这是影响其准确性的主要障碍。本文介绍了Kamel；这是一个可扩展的轨迹插补系统，它插入额外的真实轨迹点，从而提高轨迹">
+<meta property="og:type" content="article">
+<meta property="og:title" content="笔记 - VLDB2024 Kamel - A Scalable BERT-based System for Trajectory Imputation">
+<meta property="og:url" content="https://lcj2021.github.io/2024/09/11/%E7%AC%94%E8%AE%B0%20-%20VLDB2024%20Kamel%20-%20A%20Scalable%20BERT-based%20System%20for%20Trajectory%20Imputation/index.html">
+<meta property="og:site_name" content="ChanningLau&#39;s harbour">
+<meta property="og:description" content="原文链接：ACM-digital-libraryhttps:&#x2F;&#x2F;www.vldb.org&#x2F;pvldb&#x2F;vol17&#x2F;p525-musleh.pdf代码链接： Abstract许多重要的应用依赖于详细的轨迹数据。 然而，不幸的是，轨迹数据集通常稀疏，在每两点之间存在较大的空间和时间间隔，这是影响其准确性的主要障碍。本文介绍了Kamel；这是一个可扩展的轨迹插补系统，它插入额外的真实轨迹点，从而提高轨迹">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-09-10T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-11-30T09:42:40.949Z">
+<meta property="article:author" content="Channing Lau">
+<meta property="article:tag" content="BERT">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>笔记 - VLDB2024 Kamel - A Scalable BERT-based System for Trajectory Imputation - ChanningLau&#39;s harbour</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lcj2021.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>ChanningLau&#39;s harbour</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="笔记 - VLDB2024 Kamel - A Scalable BERT-based System for Trajectory Imputation"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-09-11 00:00" pubdate>
+          2024年9月11日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          47 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">笔记 - VLDB2024 Kamel - A Scalable BERT-based System for Trajectory Imputation</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>原文链接：<a target="_blank" rel="noopener" href="https://dl.acm.org/doi/10.1145/3539618.3591919">ACM-digital-library</a><br><a target="_blank" rel="noopener" href="https://www.vldb.org/pvldb/vol17/p525-musleh.pdf">https://www.vldb.org/pvldb/vol17/p525-musleh.pdf</a><br>代码链接：</p>
+<h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>许多重要的应用依赖于详细的轨迹数据。 然而，不幸的是，轨迹数据集通常稀疏，在每两点之间存在较大的空间和时间间隔，这是影响其准确性的主要障碍。本文介绍了Kamel；这是一个可扩展的轨迹插补系统，它插入额外的真实轨迹点，从而提高轨迹应用的准确性。Kamel将轨迹插补问题映射到寻找缺失词的问题；这是自然语言处理（NLP）领域中的一个经典问题。这使得可以使用广泛采用的BERT模型来进行轨迹插补。然而，原版BERT并不适用于轨迹的特殊特性。因此，Kamel基于BERT，但随后在其操作中增加了空间意识，调整轨迹数据使其更接近语言数据的性质，并增加了多点插补能力；所有这些都封装在一个系统中。基于真实数据集的实验结果显示，Kamel显著优于其竞争对手，并适用于城市规模的轨迹、大的间隔以及严格的精度阈值。</p>
+<h2 id="1-INTRODUCTION"><a href="#1-INTRODUCTION" class="headerlink" title="1 INTRODUCTION"></a>1 INTRODUCTION</h2><p>在本文中，我们介绍了Kamel；这是一种新的可扩展轨迹插补框架，首次结合了以下独特特征：(1) 不需要了解底层的道路网络，因为它是仅基于输入轨迹进行插补的；(2) 不需要先前高度密集的轨迹数据（即，在小范围内有大量轨迹）；(3) 能够扩展以支持超出交叉路口或小城市区域的大地理区域；(4) 支持离线批量模式和在线模式下的轨迹插补，适用于传入的轨迹流。</p>
+<p>Kamel的核心思想是将轨迹插补映射到自然语言处理（NLP）中的“寻找缺失词”问题，这一问题通常使用广泛使用的BERT模型来解决。例如，给定一个陈述如“巴黎是法国的…”，其中“…”代表一个由于语音识别、翻译或拼写错误而缺失的词，BERT能够找出缺失的词是“首都”。为此，BERT首先通过大量陈述进行训练。Kamel将轨迹视为陈述，其中轨迹&#x2F;陈述由从有限的可能点&#x2F;词集合中抽取的一组有序点&#x2F;词组成。此外，轨迹&#x2F;陈述中的点&#x2F;词在空间上&#x2F;语义上是相关的，并受底层道路网络&#x2F;语言语法规则的约束。因此，Kamel的核心装备了一个通过一组轨迹训练的BERT模型，然后用于插补稀疏轨迹。</p>
+<p>然而，直接在Kamel中使用BERT并不直接且会导致非常差的准确性和性能。这主要是由于三个主要挑战：<br>(1) 空间感知。BERT不具备空间感知能力，可能会因包含与空间无关的数据集而导致模型训练不佳，或者产生在空间上不可行的结果。<br>(2) 训练数据因素。这是每个词在训练数据集中平均出现的次数。原始的BERT模型是在包含约30,000（30,522）个不同词汇的约33亿词的语料库上训练的，因此每个词在训练集中平均出现约10万次。相比之下，轨迹数据远未达到这些数量级。一个典型的轨迹数据集（例如 Portland 数据集）可能包含约200万个GPS点，其中有约150万个不同的点，这意味着每个点在训练数据集中平均只出现一次。这种极低的训练数据量显著降低了BERT的质量，几乎使其无用。<br>(3) 多个缺失点。BERT通常旨在在一个陈述中找到一个缺失的词，而轨迹插补可能需要在两个已知点之间找到多个缺失点。重复应用BERT会显著降低插补质量和性能。</p>
+<p>Kamel通过由五个主要模块组成的架构克服了使用BERT的所有挑战，这些模块分别是：分词(Tokenization)、分区(Partitioning)、空间约束(Spatial Constraints)、多点插补(Multipoint Imputation) 和反分词(Detokenization)。分区模块和空间约束模块通过分别在BERT的训练过程和输出结果中注入空间感知来应对空间感知挑战。分词模块和反分词模块通过将点聚类成分词来增加其在训练数据集中的出现次数，从而应对训练数据因素挑战。多点插补模块通过估计多个点一起形成插补段的概率来应对多个缺失点的挑战。</p>
+<p>我们的目标是展示NLP模型（如BERT），在使用轨迹数据训练后，具有推动轨迹插补技术前沿的潜力。我们并不是要寻找最适合轨迹处理的最佳NLP模型。我们选择了BERT，因为它是最常用的模型之一。然而，其他BERT变体或语言模型也可以通过不同的适应性调整来使用。我们选择了一种设计，即将BERT作为架构的一部分直接应用于轨迹数据的训练，而不是语言数据，这使得Kamel对于已经熟悉该模型的工业界和开源市场更具吸引力，并且对现有系统的干扰较小。基于Kamel系统部署和真实数据集的实验评估表明，Kamel能够从实际轨迹中以高达89%的召回率和高精度识别出缺失点。与其他方法相比，Kamel的得分几乎是基线和其他最先进方法的三倍，并且能够在最大间隙达2.5公里的各种直线和曲线轨迹上工作。</p>
+<p>本文其余部分组织如下：第2节介绍了Kamel架构。第3至7节描述了Kamel的五个模块。第8节展示了实验结果。第9节讨论了相关工作。第10节总结了全文。</p>
+<h2 id="2-KAMEL-ARCHITECTURE"><a href="#2-KAMEL-ARCHITECTURE" class="headerlink" title="2 KAMEL ARCHITECTURE"></a>2 KAMEL ARCHITECTURE</h2><p>图1展示了Kamel的架构，它接收两种类型的输入：(1) 训练数据；新的轨迹数据集不会产生任何输出，而是Kamel用来丰富其模型的数据。(2) 稀疏轨迹；用户想要插补的轨迹。Kamel可以批量离线模式或流式接收这些数据。在这两种情况下，Kamel都会输出与稀疏输入对应的密集轨迹。Kamel是一个基于BERT的系统，其中BERT作为核心组件，在图1底部以一个黑盒形式展示。然而，正如前面提到的，直接使用BERT会导致较差的准确性和性能，因为存在三个主要挑战：空间感知、训练数据因素以及多个缺失点。因此，Kamel内部由五个主要模块组成，以应对这些挑战，分别是：标记化、分区、空间约束、多点插补和去标记化，简要介绍如下：</p>
+<ul>
+<li><p><strong>标记化（Tokenization）</strong>：这个模块是通往Kamel的入口，所有输入首先经过这个模块。它通过将每个输入点转换为覆盖特定空间区域的标记来解决训练数据因素挑战。这减少了不同项目的数量并增加了它们在训练集中的出现频率。该模块的输出是一组发送到分区模块的标记。详情见第3节。</p>
+</li>
+<li><p><strong>分区（Partitioning）</strong>：这个模块解决了空间感知挑战，因为它根据输入数据的空间覆盖范围构建了多种BERT模型。它接收来自标记化模块的一组标记作为输入。如果这些标记代表训练数据，分区模块会将此类数据存储在其原始轨迹存储中。然后，它决定是否需要丰富或扩展现有的某个模型，甚至构建一个新的模型，并相应地调用BERT。新模型或更新后的模型将存储在一个专用的模型仓库中。如果输入标记代表需要插补的稀疏轨迹，则分区模块确定需要使用哪个BERT模型来插补每条轨迹。对于每一条由两个终端标记表示的轨迹间隙，它调用选定的BERT模型，在两个终端标记之间插补一个标记。BERT的输出是一组候选标记（带概率值），发送到空间约束模块。详情见第4节。</p>
+</li>
+<li><p><strong>空间约束（Spatial Constraints）</strong>：这个模块解决了BERT输出中的空间感知问题。它的输入是从BERT产生的候选标记集合。然后，它会丢弃一些不满足一组空间约束的标记。剩余的标记传递给多点插补模块。详情见第5节。</p>
+</li>
+</ul>
+<ul>
+<li><p>多点插补（Multipoint Imputation）。这个模块解决了多个缺失点的挑战。它通过迭代调用BERT将输入从候选插补标记转换为一系列标记。它输出每个轨迹间隙中最有可能的标记序列，并将其发送到去标记化模块。详情见第6节。</p>
+</li>
+<li><p>去标记化（Detokenization）。这个模块解决了训练数据因素挑战，并在某种程度上逆转了标记化模块的功能。该模块的输入是用标记表示的插补轨迹。输出是以点表示的插补轨迹，这是Kamel的最终输出。详情见第7节。</p>
+</li>
+</ul>
+<h2 id="3-TOKENIZATION"><a href="#3-TOKENIZATION" class="headerlink" title="3 TOKENIZATION"></a>3 TOKENIZATION</h2><p>这个模块是Kamel的入口，所有输入数据（无论是训练数据还是稀疏轨迹）都必须先经过这个模块才能进入其他任何Kamel模块。一个典型的轨迹输入由若干点组成，每个点由其经纬度坐标表示。由于这些坐标的高精度，某个特定点在训练数据集中很少出现超过一两次，这不足以训练BERT模型。相比之下，BERT处理的语言中的每个词在训练过程中可能会出现十多万次。该模块旨在通过将整个空间划分为一组不重叠的单元格来解决这一挑战，在同一个单元格中的所有点都被赋予相同的标记，即单元格ID。这意味着轨迹数据集将以一组标记（单元格ID）的形式呈现，而不是一组点。因此，不同的点将具有相同的标记，因此它们在由标记组成的训练数据集中可以更频繁地出现。为了提高准确性和效率，标记化模块必须决定如何将空间划分为单元格（第3.1节）以及每个数据集的最佳单元格大小（第3.2节）。</p>
+<h3 id="3-1-六边形空间划分"><a href="#3-1-六边形空间划分" class="headerlink" title="3.1 六边形空间划分"></a>3.1 六边形空间划分</h3><p>对于其标记方案，Kamel使用基于Uber的H3六边形分层空间索引的密集六边形网格结构。在这个索引中，整个世界地理区域被划分为一组不重叠的六边形，每个六边形都有一个唯一的ID hh。图2展示了使用六边形网格的标记化过程。图的上半部分显示了一个包含五个点 p1p1​ 到 p5p5​ 的输入轨迹，而下半部分显示了由五个标记 t1t1​ 到 t5t5​ 组成的输出标记化轨迹，其中每个标记对应一个输入点。需要注意的是，背景中的道路网络仅用于说明，但插补过程并不依赖于（甚至不知道）它。其他替代标记方法如Google S2 方块分区也是一种可能的选择，但实验结果表明（第8.5节），六边形有助于实现更精确的插补。</p>
+<p>使用六边形而非常见的方形或矩形划分的原因在于：在六边形网格中，每个单元格 cc 的六个邻近单元格在距离 cc 的中心和与 cc 共享边界的长度方面具有完全相同的属性。而在矩形划分中，每个单元格会有四个角上的邻居共享一个点，两个邻居共享一条边长，另外两个邻居共享一条宽度。确保所有邻居具有相同的属性使它更适合BERT，因为从一个标记（六边形）到其邻近标记的转换不会受到我们的划分方式的影响。同时，我们承认与矩形不同，六边形不是分层的，我们无法将一组相邻的六边形单元格拟合进一个更大的六边形单元格中。然而，这对Kamel来说并不是问题，因为它不需要这种层次结构。六边形仅用于将点标记化为单元格，之后再将单元格去标记化为点（第7节）。将点映射到其对应的六边形单元格所需的时间是常数时间，这可以通过一系列坐标系统转换来完成。</p>
+<h3 id="3-2-Cell-Size-Optimization"><a href="#3-2-Cell-Size-Optimization" class="headerlink" title="3.2 Cell Size Optimization"></a>3.2 Cell Size Optimization</h3><p>选择正确的单元格大小将会显著影响Kamel的准确性。图3(a)-(c)展示了三种不同大小的单元格，其边长分别为25米、75米和200米，覆盖在同一段路网之上。单元格大小与不同单元格（标记）的数量成反比；单元格越大，不同标记的数量就越少，因此标记在训练集中出现的次数就会更多。因此，较大的单元格大小有助于解决训练数据因素的问题，并推动更好的插值精度。同时，随着单元格大小的增加，每个单元格变得不再能很好地代表其中的点，因为太多的点会被映射到同一个单元格上，这将对标记化和去标记化模块（第7节）的准确性产生负面影响。此外，较大的单元格使得BERT难以学习轨迹之间的可区分上下文，因为一个大的单元格会包含来自许多道路和方向的轨迹。这可能需要使用较小的单元格大小，这样会大大增加数据集中不同标记的数量。这就使得选择合适的单元格大小成为一个优化问题，如图3(d)所示，极端情况下的两端都会导致较低的准确性。Kamel附带了一个默认的单元格大小，这是根据我们在第8节中的详尽实验得出的结果。然而，Kamel意识到，对于每个数据集而言，最佳的单元格大小可能是不同的，因为这取决于轨迹和区域特性。因此，Kamel配备了一个自动调优模块，可以根据给定的训练数据集设置系统的单元格大小。当输入标记化模块的是一个训练数据集时，我们会对该输入数据进行采样，并尝试使用不同的单元格大小训练多个BERT模型，然后选择能够实现最高准确性的单元格大小。</p>
+<h2 id="4-PARTITIONING"><a href="#4-PARTITIONING" class="headerlink" title="4 PARTITIONING"></a>4 PARTITIONING</h2><p>原始的BERT模型是针对每种语言单独训练的。例如，用于英语的BERT模型与用于韩语的BERT模型有很大的不同，因为它们是由完全不同的数据集训练而成的。虽然语言之间的界限是明确的，但对于地理空间区域来说则并非如此。轨迹数据集可能来自邻近、重叠或遥远的空间区域。Kamel中的分区模块通过为不同的空间区域维护多种模型来使BERT模型具有空间感知能力，即使这些区域的边界并不十分明确。可以把Kamel中的每一个BERT模型看作是一种不同语言的模型。因此，我们维护了两个数据存储：一个是简单的轨迹存储，用于保存作为输入训练数据集传入的标记化轨迹；另一个是模型存储库，用于保存Kamel为不同空间区域构建的所有BERT模型。构建和&#x2F;或更新这些模型完全是在离线状态下完成的，所需时间取决于模型和轨迹的数量。但是，这并不会影响插值过程本身的可扩展性，因为这个过程是在在线状态下完成的，并且只使用预先计算好的模型。通过这种方式，Kamel可以扩展以支持大面积的地理区域。分区模块接收到的标记化输入轨迹要么代表一组需要插值的稀疏轨迹，要么代表训练轨迹。在前者的情况下，分区模块基本上会查询其模型存储库（第4.1节），以检索最适合插值过程的BERT模型。对于训练轨迹，分区模块则使用它们来更新其模型存储库（第4.2节）。 </p>
+<h3 id="4-1-模型存储库结构和检索"><a href="#4-1-模型存储库结构和检索" class="headerlink" title="4.1 模型存储库结构和检索"></a>4.1 模型存储库结构和检索</h3><p>Kamel在其模型存储库中采用了一种基于磁盘的层次金字塔数据结构，该结构由层级组成，每一层由4h个等分单元构成。金字塔的根节点高度为零，只有一个覆盖整个空间的单元。金字塔从下往上构建，并非所有层级都需要维护。实际上，我们只维护金字塔的最低ℓ层，因为通常没有足够的轨迹数据来为更高的层级建立模型。层级数量ℓℓ和hh是平衡模型高分辨率与金字塔结构维护开销的参数。图4给出了这样一个结构的例子，其中ℓ&#x3D;5，h&#x3D;3。阴影部分的单元格是有模型的，而空白部分则没有需要维护的内容。</p>
+<p>我们维护了两种类型的模型：(1) 单元格模型，它是基于单个单元格的内容构建的；(2) 邻近单元格模型，它是基于两个相邻且共享一条边的单元格的内容构建的，并存储在这两个邻近单元格的北侧或西侧单元格中。邻近单元格模型的目标是在边界情况中提供帮助，即我们需要一个模型跨越两个相邻单元格的内容，特别是在它们没有共同的父单元格时，或者它们的父单元格没有模型时。为了确保模型的准确性，只有当某个单元格中有至少 T×4(ℓ−h) 个标记时，我们才会在层级 ℓ 的单元格 c 中构建一个模型，其中 T 是系统参数（默认为20,000），h 是金字塔的高度。这意味着我们需要至少 T 个标记来在叶节点上构建一个模型，并且需要 4T 个标记来在比叶节点高一层的单元格上构建一个模型。对于邻近单元格模型，我们将这个阈值翻倍。每个单元格 c 包含以下一项或多项内容：(1) 轨迹存储中位于单元格 c 内的标记数量；(2) 用于单元格 c 内容的单单元格BERT模型及其元数据（包括模型统计信息和最后更新日期）；(3) 最多两个邻近单元格BERT模型（带元数据），用于单元格 c 及其东侧和&#x2F;或南侧的邻近单元格的内容；(4) 最多两个指向存储在北侧和&#x2F;或西侧邻近单元格中的邻近单元格BERT模型的指针。</p>
+<p>当输入到分区模块的是一个待插值的稀疏轨迹时，我们会找到完全包含轨迹最小边界矩形的最小单元格 c 或一对邻近单元格 ci 和 cj​，并相应地选择用于插值过程的BERT模型。调用模型不会在离线训练后扫描或读取任何轨迹数据，这使得Kamel具有很高的可扩展性。如果没有单个或一对带有模型的单元格能够覆盖轨迹，则将其分割成子轨迹，这些子轨迹可以被包含在一个模型内。对于那些无法适应我们任何模型的子轨迹，我们只需用简单的直线进行插值处理。</p>
+<h3 id="4-2-Models-Repository-Maintenance"><a href="#4-2-Models-Repository-Maintenance" class="headerlink" title="4.2 Models Repository Maintenance"></a>4.2 Models Repository Maintenance</h3><p>每当接收一个新的训练轨迹数据集 T 时，我们首先将其添加到我们的轨迹存储中。然后，我们找到包含 T 中所有轨迹的最小边界矩形的最小金字塔单元格 c 。接着，我们将存储中完全包含在单元格 c 内的所有轨迹集加入到 T 中，从而丰富 T 。有了 c ，我们执行以下四个步骤：<br>(1) 如果 T 中的标记数量超过了模型阈值，我们将构建一个BERT模型并将其存储在 c 中，这将更新现有模型或创建一个新的模型。<br>(2) 对于 c 的四个邻近单元格中的每一个 ci​，如果 c 和 ci​ 中的总标记数超过了我们的模型阈值，我们检索 ci​ 中的所有轨迹，并使用这些轨迹与 T 构建邻近单元格模型。该模型存储在 c 和 ci​ 的北侧或西侧单元格中，并在另一个单元格中设置指向该模型的指针。<br>(3) 如果 c 和它的三个同级单元格中的总标记数超过了在其父单元格中构建模型的阈值，我们就这样做。这一过程会递归地应用于 c 的祖先单元格，直到达到我们维护的最低层级。<br>(4) 如果 c 不是叶节点，我们将 T 中的轨迹分配给 c 的四个子单元格，并检查是否有必要在这些子单元格中的任何一个上构建新的模型。我们递归地进行这一操作，直到没有足够的标记来构建模型为止。需要注意的是，这并不需要针对每一个单独的轨迹发生。相反，当一批新的轨迹需要时，它会被安排为后台进程进行处理，而不会导致系统的任何停机时间。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%AC%94%E8%AE%B0/" class="category-chain-item">笔记</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/BERT/" class="print-no-link">#BERT</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>笔记 - VLDB2024 Kamel - A Scalable BERT-based System for Trajectory Imputation</div>
+      <div>https://lcj2021.github.io/2024/09/11/笔记 - VLDB2024 Kamel - A Scalable BERT-based System for Trajectory Imputation/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Channing Lau</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年9月11日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/09/15/%E5%91%A8%E8%AE%B0%20-%202024%2009.09-09.15/" title="周记 - 2024 09.09-09.15">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">周记 - 2024 09.09-09.15</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/09/08/%E5%91%A8%E8%AE%B0%20-%202024%2009.02-09.08%EF%BC%88%E7%A0%94%E4%BA%8C%E4%B8%8A%E8%BF%94%E6%A0%A1+%E5%AD%97%E8%8A%82%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%9B%A2%E5%BB%BA%EF%BC%89/" title="周记 - 2024 09.02-09.08（研二上返校+字节第一次团建）">
+                        <span class="hidden-mobile">周记 - 2024 09.02-09.08（研二上返校+字节第一次团建）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

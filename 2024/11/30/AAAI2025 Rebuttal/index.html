@@ -1,0 +1,864 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Channing Lau">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="SummaryThis paper studies the problem of learning a routing function for the hybrid retrieval setup where an ensemble of dense (more accurate but expensive) and sparse retrieval (less accurate but che">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ChanningLau&#39;s harbour">
+<meta property="og:url" content="https://lcj2021.github.io/2024/11/30/AAAI2025%20Rebuttal/index.html">
+<meta property="og:site_name" content="ChanningLau&#39;s harbour">
+<meta property="og:description" content="SummaryThis paper studies the problem of learning a routing function for the hybrid retrieval setup where an ensemble of dense (more accurate but expensive) and sparse retrieval (less accurate but che">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-11-30T09:42:40.697Z">
+<meta property="article:modified_time" content="2024-11-30T09:42:40.707Z">
+<meta property="article:author" content="Channing Lau">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>ChanningLau&#39;s harbour</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lcj2021.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>ChanningLau&#39;s harbour</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text=""></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-11-30 17:42" pubdate>
+          2024年11月30日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          18 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header"></h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>Summary<br>This paper studies the problem of learning a routing function for the hybrid retrieval setup where an ensemble of dense (more accurate but expensive) and sparse retrieval (less accurate but cheap) methods are used. It proposes a low-cost learned routing network PIN (Priority-biased interaction network) which takes in the scores of the sparse retrieval method and some learned priority bias as input and predicts whether the sparse retrieval method’s output should be further reranked&#x2F;augmented with dense retriever’s output.</p>
+<p>Strengths<br>The paper offers a low-cost routing network that is competent with the more expensive methods on the explored benchmarks</p>
+<p>Weakness<br>The paper is difficult to read with many details not put in their relevant places or unclear by reading the paper. For e.g. -<br>a) Figure 2’s caption is just “Overview of our framework”, ideally this figure’s caption should clearly explain the figure and the method along with what the red&#x2F;black lines mean, similarly for other figures in the paper;<br>b) In section 3.2 the DCNv2 equation is defined without saying what x0 represents;<br>c) For the priority bias only this statement is mentioned: “Specifically, we use a learnable priority bias approach for the top 100 signals” which to me isn’t clear what exactly is the formulation of this priority bias - is it a learnable scalar for each of the positions?<br>d) there are no training details</p>
+<p>There is limited novelty in the proposed method or any new technical insight offered.<br>The design choices of the method are not well motivated, for e.g. why the chosen network is a DCNv2 architecture why not any MLP block, or what happens if you just put an MLP block?</p>
+<p>W1<br>a) 红线代表着Sparse检索器得到的passage的数据流，黑线代表原始问题的数据流，蓝线代表Dense检索器得到passage的数据流，紫线代表Hybrid Retriever返回的数据流。我们会在figure2的caption中详细介绍这些线条含义，包括所选query用例的分析。<br>b) 在 DCNv2 的公式里，x0 为原始输入的 sparse 信号，在每轮迭代过程中，都要运用到这个原始输入。<br>c) 是的。这个scalar是可学习的。并且这是基于Sparse检索器分数的bias，其尺度处于一个相当可控的数值范围之内，所以学习效果良好。<br>d) 我们在Appendix B中的Setup Details中提到了我们的训练方法，后续我们还会进一步补充更多训练细节，和工作的可扩展性。</p>
+<p>W2<br>我们提出了一种general framework。在此框架中，我们提出了新的、ROI驱动的问题，旨在优化overall 开销。我们从端到端的视角来考虑问题，这有别于传统的、仅注重查询难度预测准确度的问题。并且我们创新地以uplift的视角建模问题，使得模型具有超越纯Hybrid Retrieval的潜力。</p>
+<p>下表展示的是squad数据集， 我们把train中的query按照三个retriever能否回答，分成了以下8类。</p>
+<table>
+<thead>
+<tr>
+<th>class</th>
+<th>DR hit?</th>
+<th>HR hit?</th>
+<th>SR hit?</th>
+<th>proportion</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1.55%</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0.09%</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1.02%</td>
+</tr>
+<tr>
+<td>3</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>4.62%</td>
+</tr>
+<tr>
+<td>4</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>16.81%</td>
+</tr>
+<tr>
+<td>5</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0.18%</td>
+</tr>
+<tr>
+<td>6</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>55.92%</td>
+</tr>
+<tr>
+<td>7</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>19.79%</td>
+</tr>
+</tbody></table>
+<p>我们将SR hit为0的都当作正样本。<br>注意到我们并没有排除class7，这是考虑到这些查询在词项mismatch上的表现会反映到Sparse signal中，这能反映查询的困难性。<br>这样label还有个好处就是：能在一定程度上学习那些HR不能回答，而SR却能回答的问题（class 0和5，共占比1.73%）。事实上当我们的budget在一定范围内时，我们的混合检索模型甚至能超过HR的recall。<br>在SQuAD-test上，仅需HR 92%的成本即可达到84.19%的召回率，超过了纯HR的检索质量（84.15%）。</p>
+<p>W3<br>受限于篇幅，我们并未展示我们模型设计动机，我们会在final version中补充。<br>最初，我们尝试了以 LightGBM 为代表的浅层模型，并手动进行低阶特征交叉（如top1信号和最后一个信号的乘积）。在这个过程中，我们选取并发现这些特征交叉呈现出了较高的特征重要度，其预测结果相较于原始的 Sparse 信号也更为出色。基于此，我们着重对几种常见的、能自动挖掘交叉特征的 CTR 模型的效果展开了实验，例如 FiBiNet、AFN 等。</p>
+<p>我们选择了其中效果最好的DCNv2作为router的backbone，作用于我们的框架。<br>同时，我们也曾尝试针对这些信号使用 CNN1d 等深度模型，然而它们的效果均不如 DCNv2 理想。</p>
+<p>除此之外，在对 LightGBM 的特征重要度进行分析时，我们发现某些信号（比如重要度排名最高的 3 个信号和最低的 3 个信号）通常具有比其他信号高得多的重要度。鉴于此，我们尝试去 “学习” 这种所谓的重要度，于是考虑引入了 priority - bias。</p>
+<p>在Section 4.4 Ablation Study的Table6中，w&#x2F;o position bias&amp; interaction layer就代表了MLP block。</p>
+<p>1a) The red, blue and purple line represent data flow of passages from the SR, DR and HR, the black line is that of the original question. These will be detailed in the caption of Figure 2, including analysis of selected query cases in final version.<br>1b) In the formula of DCNv2, x0 is the original input sparse signal, which is used in each iteration process.<br>1c) Yes. They are learnable scalars for each of the positions.<br>1d) We mentioned training method in the Setup Details in Appendix B. We will further supplement more training details and the scalability in final version.<br>2 ) We propose an ROI-driven questions aiming to optimize the overall cost. Considering the problem from an end-to-end perspective, different from the traditional ones focusing only on the query difficulty prediction accuracy. Moreover, we innovatively model the problem from the view of uplift, enabling the model to have the potential to surpass pure HR.<br>The following table shows the SQuAD dataset. We divide train queries into 4 classes based on retrievability by SR and HR.</p>
+<table>
+<thead>
+<tr>
+<th>class</th>
+<th>HR hit?</th>
+<th>SR hit?</th>
+<th>proportion</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1.73%</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>4.71%</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>72.73%</td>
+</tr>
+<tr>
+<td>3</td>
+<td>0</td>
+<td>0</td>
+<td>20.81%</td>
+</tr>
+</tbody></table>
+<p>We regard all those with 0 SR hit as positive samples.<br>An advantage is that it can learn the problems that HR cannot answer but SR can (class 0).<br>On test set, a recall rate of 84.19% can be achieved with only 92% of the cost of HR, exceeding the retrieval quality of pure HR (84.15%).</p>
+<p>3 ) Constrained by the length, we did not present the design motivation, and we will supplement it in the final version.<br>Initially, we try shallow models like LightGBM and manually do low-order feature cross (products of the tops and tails). During this, we select and find that these cross features exhibit high feature importance, and the prediction results with crossing are also better. Based on this, we mainly experiment on the effects of CTR models that can automatically mine cross-features, such as FiBiNet, AFN, etc.<br>We select DCNv2 (the most effective among them) as the backbone of the router for our framework.<br>Meanwhile, we try using deep models such as CNN1d for these signals but they are less effective than DCNv2.<br>In addition, we find that certain signals (e.g. the top and bottom ones) usually have higher importance than other signals in LightGBM. So we attempt to learn this by introducing priority-bias.<br>In Table 6 of Section 4.4 Ablation Study, “w&#x2F;o position bias &amp; interaction layer” represents the bare MLP block.</p>
+<p>Review:<br>This paper presents the Priority-biased Interaction Network (PIN), integrated into a cost-efficient hybrid retrieval framework. The approach relies solely on numerical retrieval feedback signals for inference, achieving prediction accuracy comparable to BERT-based models while operating with only 1% of the parameters and 1‰ of the computational cost. The proposed Priority-Biased Interaction Network efficiently predicts which queries need hybrid retrieval, significantly reducing computational costs while maintaining high recall rates.</p>
+<p>Pros: Lightweight Design: The PIN model can run on a single-threaded CPU, unlike typical transformer-based models that require extensive GPU resources.</p>
+<p>Cons: The baselines used in the paper, such as BERT-QPP and DPR, are around three years old and may not reflect recent advancements in retrieval techniques.</p>
+<p>W<br>由衷感谢您的认可。在此需要说明的是，Dense 模型的优劣并非我们此次比较的目标，原因在于 DPR 是可以被任意 dense 模型所替换的。我们所提出的是基于 Sparse 信号的路由器（router）以及一个通用框架。<br>无论是当前 SOTA 的 BGE - m3，还是 openAI - text - embedding - 3 等都可以用来作为dense模块。<br>我们实际上是选出了sparse难以回答的query給dense模块，因此一个更好的dense模块会提高整体的召回效果，而对我们的查询路由决策影响有限。</p>
+<p>据我们了解，在 QPP 领域中，除了基于 LLM 的方法之外，BERT - QPP 已经是较为新颖且被广泛应用的工作了。那些更新的利用 LLM 进行决策的工作，成本要高得多。二者完全不是一个量级，仅仅是 LLM 的决策时间就已经超过了我们模型的端到端运行时间。</p>
+<p>Thank you for your valuable suggestions. We will supplement the relevant work of Sparse, Dense Retrieval models and more QPP methods in the final version<br>It should be noted here that the quality of the Dense model is not the target of our comparison this time, because DPR can be replaced by any dense model. What we proposed is a router based on Sparse signals and a general framework.</p>
+<p>Whether it is the state-of-the-art BGE-m3 or openAI’s text-embedding-3, etc., they can all be used as dense modules.</p>
+<p>We actually select the queries that are difficult for the sparse model to answer and give them to the dense module. Therefore, a better dense module will improve the overall recall effect, but has limited impact on our query routing decision.</p>
+<p>As far as we know, in the QPP field, apart from the LLM-based methods, BERT-QPP is already relatively novel and widely-used work. Those newer works that use LLM for decision-making are much more costly. They are not in the same order of magnitude at all. Just the decision-making time of the LLM already exceeds the end-to-end running time of our model.</p>
+<p>论文中提到的通用框架是什么？</p>
+<p>如何评估改进后的dense模块的效果？</p>
+<p>稀疏模型和密集模型各自的优势是什么？</p>
+<p>Review:<br>Overview:</p>
+<p>This paper proposes the Priority-biased Interaction Network (PIN), a lightweight framework aimed at improving the efficiency of hybrid retrieval systems used in tasks like Open-Domain Question Answering (ODQA) and Retrieval-Augmented Generation (RAG). The primary goal of the framework is to reduce computational costs while maintaining the recall rates of more resource-intensive hybrid retrieval methods, which combine both sparse and dense retrieval. The paper introduces a Query Performance Prediction (QPP) method that relies on numerical retrieval feedback rather than the more complex, computation-heavy BERT-based models. Experiments across seven question-answering datasets demonstrate that the proposed framework achieves comparable recall to full hybrid retrieval, while reducing costs by over 13%.</p>
+<p>Pros:</p>
+<p>The paper is well-structured and easy to follow, making the proposed framework and methodology clear and accessible.<br>The Priority-biased Interaction Network (PIN) presents an innovative approach to reducing computational costs in hybrid retrieval without sacrificing performance, an important contribution to resource-efficient retrieval systems.<br>The framework demonstrates substantial efficiency gains, using only 1% of the parameters and 1‰ of the computational cost of BERT-based models, while maintaining comparable accuracy.<br>The extensive experimental evaluation across diverse datasets provides a thorough demonstration of the framework’s effectiveness in real-world scenarios.<br>Cons:</p>
+<p>1.The related work on sparse retrievers omits key references such as SPLADE, which is an important method in sparse lexical and expansion retrieval models:<br>[a] Formal, Thibault, et al. “SPLADE: Sparse lexical and expansion model for first-stage ranking.” SIGIR, 2021.<br>[b] Formal, Thibault, et al. “SPLADE v2: Sparse lexical and expansion model for information retrieval.” arXiv, 2021.<br>% Similarly, the dense retrieval-related section does not cover some of the latest developments in decoder-only models like e5-mistral and its high-scoring variations in the BEIR benchmark:<br>[c] Wang, Liang, et al. “Improving text embeddings with large language models.” arXiv, 2023.<br>[d] Meng, Rui, et al. “Sfrembedding-mistral: enhance text retrieval with transfer learning.” Salesforce AI Research Blog, 2024.<br>[e] Lee, Chankyu, et al. “NV-Embed: Improved Techniques for Training LLMs as Generalist Embedding Models.” arXiv, 2024.</p>
+<p>2.The training process for the Priority-biased Interaction Network (PIN) is not clearly explained. More specifically, how is the ground truth for the PIN output curated?</p>
+<p>In Figure 3, it is unclear whether the input signal for Sparse Retrieval (SigSR) is sorted before being fed as input. If not, the use of a position bias could result in different values based on the order of the input, which might introduce inconsistencies.</p>
+<p>The integration of Figure 3 (PIN) into the broader framework (Figure 2) is unclear. Is the Priority-biased Interaction Network part of the QPP process? Further clarification is needed in Section 3.</p>
+<p>Justification:</p>
+<p>While the overall idea of a cost-efficient hybrid retrieval framework is novel and promising, there are concerns about missing recent works in both sparse and dense retrieval literature. Additionally, further clarity is needed regarding the training process of the Priority-biased Interaction Network. Addressing these issues would make the paper more robust and complete.<br>% 虽然成本高效的混合检索框架的总体想法是新颖的和有前途的，但人们担心稀疏和密集检索文献中缺少最近的工作。此外，需要进一步明确优先偏向交互网络的训练过程。解决这些问题将使论文更加健全和完整。</p>
+<p>W1-2</p>
+<p>感谢理解。<br>我们先前引用了SPLADE，但在后期由于篇幅原因未引入这些工作。我们将会在final version补充他们。</p>
+<p>但是值得注意的是，只要sparse模型的信号在一定尺度内且排好序，我们的模型是通用的。</p>
+<p>我们将会在final version中引用他们，并讨论他们与我们工作的关系。<br>Dense模型并不影响我们PIN网络的输入——sparse信号，也因此造成的影响有限。<br>当然更好的Dense模型会有更好的HR检索效果。</p>
+<p>W3<br>我们会在final version中介绍更多关于训练的细节，尤其是label标注以及数据分布。<br>下表展示的是squad数据集， 我们把train中的query按照三个retriever能否回答，分成了以下8类。</p>
+<table>
+<thead>
+<tr>
+<th>class</th>
+<th>DR hit?</th>
+<th>HR hit?</th>
+<th>SR hit?</th>
+<th>proportion</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1.55%</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0.09%</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1.02%</td>
+</tr>
+<tr>
+<td>3</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>4.62%</td>
+</tr>
+<tr>
+<td>4</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>16.81%</td>
+</tr>
+<tr>
+<td>5</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0.18%</td>
+</tr>
+<tr>
+<td>6</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>55.92%</td>
+</tr>
+<tr>
+<td>7</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>19.79%</td>
+</tr>
+</tbody></table>
+<p>Dense Retriever 的能回答的问题是class 2, 3, 5, 6的并集，召回率为61.75%。<br>Sparse Retriever则是class 0, 4, 5, 6，召回率为74.47%；Hybrid Retriever是class 1, 3, 4, 6，召回率为77.45%。<br>我们将SR hit为0的都当作正样本，即class 1, 2, 3, 7。<br>注意到我们并没有排除class7，这是考虑到这些查询在词项mismatch上的表现会反映到Sparse signal中，这能反映查询的困难性。<br>这实际上是Uplift模型的简化版。<br>这样label还有个好处就是：能在一定程度上学习那些HR不能回答，而SR却能回答的问题（class 0和5，共占比1.73%）。事实上当我们的budget在一定范围内时，我们的混合检索模型甚至能超过HR的recall。<br>在SQuAD-test上，仅需HR 92%的成本即可达到84.19%的召回率，超过了纯HR的检索质量（84.15%）。</p>
+<p>W4<br>检索模型的工作是返回top-k个最相关的 passage，top-k是根据分数排序的，因此分数是有序的。</p>
+<p>W5<br>PIN确实就是在 QPP process 起作用。我们会在section3以及figure2的caption中进行补充。</p>
+<p>1 )<br>We previously cited SPLADE, but finally did not cite it due to space limitations in the later stage. We will supplement them in the final version.<br>However, it is worth noting that as long as the signals of the sparse model are within a certain scale and sorted, they can also be applied to our model.<br>2 )<br>We will cite them in the final version and discuss their relationship with our work.<br>The Dense model does not affect the input of our PIN network-the sparse signal, and thus has limited impact.<br>Certainly, a better Dense model will lead to a better HR retrieval effect and thus better end-to-end retrieval effect.</p>
+<p>3 ) We model the problem from the perspective of uplift, so the annotation of the ground truth label is similar.<br>The following table shows the SQuAD dataset. We divide train queries into 4 classes based on retrievability by SR and HR.</p>
+<table>
+<thead>
+<tr>
+<th>class</th>
+<th>HR hit?</th>
+<th>SR hit?</th>
+<th>proportion</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1.73%</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>4.71%</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>72.73%</td>
+</tr>
+<tr>
+<td>3</td>
+<td>0</td>
+<td>0</td>
+<td>20.81%</td>
+</tr>
+</tbody></table>
+<p>We regard all those with 0 SR hit as positive samples.<br>In our context, the consumption voucher is an HR boost (most of the time, an HR boost can make retrieval better), and the customer is a query. We need to give the consumption voucher to those customers worthy of investment, that is, class 1. Note that we did not exclude class 3. This is because the performance of these queries in term mismatch will be reflected in the Sparse signal, which can reflect the difficulty of the query.<br>An advantage is that it can learn the problems that HR cannot answer but SR can (class 0).<br>On test set, a recall rate of 84.19% can be achieved with only 92% of the cost of HR, exceeding the retrieval quality of pure HR (84.15%).</p>
+<p>We will introduce more details about the training in the final version, especially the label annotation and data distribution.</p>
+<p>4 ) Yes, it is sorted. The task of the retrieval model is to return the top-k most relevant passages which is sorted according to the scores.</p>
+<p>5 ) PIN indeed functions in the QPP process. We will make supplements in section 3 and the caption of figure 2.</p>
+<p>Response to Justification:<br>Thank you for your Justification. We will supplement the relevant work of Sparse and Dense Retrieval models in the final version. We mentioned the training method in the Setup Details in Appendix B, and we will also supplement more detailed modeling and training processes.</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div></div>
+      <div>https://lcj2021.github.io/2024/11/30/AAAI2025 Rebuttal/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Channing Lau</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年11月30日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/11/14/%E8%AE%B0%E5%BD%95%20-%20%E4%BF%A1%E6%81%AF%E6%A3%80%E7%B4%A2%E6%8E%A2%E7%B4%A2%EF%BC%88%E4%BA%8C%E9%98%B6%E6%AE%B5%EF%BC%89/" title="记录 - 混合检索框架探索（二阶段）">
+                        <span class="hidden-mobile">记录 - 混合检索框架探索（二阶段）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

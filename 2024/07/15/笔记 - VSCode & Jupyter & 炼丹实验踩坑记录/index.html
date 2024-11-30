@@ -16,15 +16,15 @@
   <meta name="author" content="Channing Lau">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Error while fetching extensions : XHR failedVSCode安装插件时，显示XHR failed。 ping update.code.visualstudio.com此时大概率无法ping通。 找到host文件Win：C:\Windows\System32\drivers\etc\hostsMac&#x2F;Linux（sudo）：&#x2F;etc&#x2F;hosts 追加">
+    <meta name="description" content="Jupyter的环境变量设置要在pyserini这个虚拟环境中设置环境变量，要在~&#x2F;miniconda3&#x2F;envs&#x2F;pyserini&#x2F;etc&#x2F;conda&#x2F;activate.d中创建一个add_path.sh文件。在里面加入例如如下内容 1234export PYTHONPATH&#x3D;&quot;$PYTHONPATH:&#x2F;dk&#x2F;lcj_rag&#x2F;&quot;export PYTHONPATH&#x3D;&quot;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="笔记 - VSCode &amp; Jupyter实验踩坑记录">
 <meta property="og:url" content="https://lcj2021.github.io/2024/07/15/%E7%AC%94%E8%AE%B0%20-%20VSCode%20&%20Jupyter%20&%20%E7%82%BC%E4%B8%B9%E5%AE%9E%E9%AA%8C%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/index.html">
 <meta property="og:site_name" content="ChanningLau&#39;s harbour">
-<meta property="og:description" content="Error while fetching extensions : XHR failedVSCode安装插件时，显示XHR failed。 ping update.code.visualstudio.com此时大概率无法ping通。 找到host文件Win：C:\Windows\System32\drivers\etc\hostsMac&#x2F;Linux（sudo）：&#x2F;etc&#x2F;hosts 追加">
+<meta property="og:description" content="Jupyter的环境变量设置要在pyserini这个虚拟环境中设置环境变量，要在~&#x2F;miniconda3&#x2F;envs&#x2F;pyserini&#x2F;etc&#x2F;conda&#x2F;activate.d中创建一个add_path.sh文件。在里面加入例如如下内容 1234export PYTHONPATH&#x3D;&quot;$PYTHONPATH:&#x2F;dk&#x2F;lcj_rag&#x2F;&quot;export PYTHONPATH&#x3D;&quot;">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-07-14T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-07-22T01:07:48.958Z">
+<meta property="article:modified_time" content="2024-11-30T09:42:40.954Z">
 <meta property="article:author" content="Channing Lau">
 <meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary_large_image">
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          541 字
+          701 字
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
         
-          5 分钟
+          6 分钟
         
       </span>
     
@@ -273,7 +273,14 @@
             
               <div class="markdown-body">
                 
-                <h2 id="Error-while-fetching-extensions-XHR-failed"><a href="#Error-while-fetching-extensions-XHR-failed" class="headerlink" title="Error while fetching extensions : XHR failed"></a>Error while fetching extensions : XHR failed</h2><p>VSCode安装插件时，显示XHR failed。</p>
+                <h3 id="Jupyter的环境变量设置"><a href="#Jupyter的环境变量设置" class="headerlink" title="Jupyter的环境变量设置"></a>Jupyter的环境变量设置</h3><p>要在pyserini这个虚拟环境中设置环境变量，要在<code>~/miniconda3/envs/pyserini/etc/conda/activate.d</code>中创建一个<code>add_path.sh</code>文件。<br>在里面加入例如如下内容</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">export PYTHONPATH=&quot;$PYTHONPATH:/dk/lcj_rag/&quot;<br>export PYTHONPATH=&quot;$PYTHONPATH:/dk/lcj_rag/Retriever-Feedback-QA&quot;<br>export PYSERINI_CACHE=/dk/rag-dataset/<br>echo $PYTHONPATH<br></code></pre></td></tr></table></figure>
+
+<h2 id="VScode上Jupyter插件无法安装"><a href="#VScode上Jupyter插件无法安装" class="headerlink" title="VScode上Jupyter插件无法安装"></a>VScode上Jupyter插件无法安装</h2><p>VSCode输出：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">2024-07-29 14:04:09.143 [error] Error: Unable to read file &#x27;/root/.vscode-server/extensions/ms-toolsai.jupyter-2024.5.0-linux-x64/package.json&#x27; (Error: Unable to resolve nonexistent file &#x27;/root/.vscode-server/extensions/ms-toolsai.jupyter-2024.5.0-linux-x64/package.json&#x27;)<br></code></pre></td></tr></table></figure>
+
+<p>只需要把<code>/root/.vscode-server/extensions/ms-toolsai.jupyter-2024.5.0-linux-x64/</code>这个文件夹删了，重新在服务器安装Jupyter插件就OK了。</p>
+<h2 id="Error-while-fetching-extensions-XHR-failed"><a href="#Error-while-fetching-extensions-XHR-failed" class="headerlink" title="Error while fetching extensions : XHR failed"></a>Error while fetching extensions : XHR failed</h2><p>VSCode安装插件时，显示XHR failed。</p>
 <p><code>ping update.code.visualstudio.com</code><br>此时大概率无法ping通。</p>
 <p>找到<code>host文件</code><br>Win：<code>C:\Windows\System32\drivers\etc\hosts</code><br>Mac&#x2F;Linux（sudo）：<code>/etc/hosts</code></p>
 <p>追加：</p>

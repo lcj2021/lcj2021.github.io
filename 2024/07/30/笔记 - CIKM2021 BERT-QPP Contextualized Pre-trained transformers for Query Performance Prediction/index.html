@@ -1,0 +1,655 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Channing Lau">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="原文链接：ACM-digital-library代码链接： Abstract查询性能预测 (QPP) 致力于估计使用特定检索方法满足用户查询的难度。虽然大多数最先进的 QPP 方法基于词频和语料库统计，但最近的研究开始探索预训练神经嵌入、神经网络架构和上下文嵌入的效用。这些方法从预训练或上下文嵌入中提取特征，以便训练监督性能预测器。在本文中，我们采用上下文嵌入来进行性能预测，但我们与现有技术的不同">
+<meta property="og:type" content="article">
+<meta property="og:title" content="笔记 - CIKM2021 BERT-QPP Contextualized Pre-trained transformers for Query Performance Prediction">
+<meta property="og:url" content="https://lcj2021.github.io/2024/07/30/%E7%AC%94%E8%AE%B0%20-%20CIKM2021%20BERT-QPP%20Contextualized%20Pre-trained%20transformers%20for%20Query%20Performance%20Prediction/index.html">
+<meta property="og:site_name" content="ChanningLau&#39;s harbour">
+<meta property="og:description" content="原文链接：ACM-digital-library代码链接： Abstract查询性能预测 (QPP) 致力于估计使用特定检索方法满足用户查询的难度。虽然大多数最先进的 QPP 方法基于词频和语料库统计，但最近的研究开始探索预训练神经嵌入、神经网络架构和上下文嵌入的效用。这些方法从预训练或上下文嵌入中提取特征，以便训练监督性能预测器。在本文中，我们采用上下文嵌入来进行性能预测，但我们与现有技术的不同">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-07-29T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-11-30T09:42:40.833Z">
+<meta property="article:author" content="Channing Lau">
+<meta property="article:tag" content="Information-Retrieval">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>笔记 - CIKM2021 BERT-QPP Contextualized Pre-trained transformers for Query Performance Prediction - ChanningLau&#39;s harbour</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lcj2021.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>ChanningLau&#39;s harbour</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="笔记 - CIKM2021 BERT-QPP Contextualized Pre-trained transformers for Query Performance Prediction"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-07-30 00:00" pubdate>
+          2024年7月30日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          21 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">笔记 - CIKM2021 BERT-QPP Contextualized Pre-trained transformers for Query Performance Prediction</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>原文链接：<a target="_blank" rel="noopener" href="https://dl.acm.org/doi/10.1145/3459637.3482063">ACM-digital-library</a><br>代码链接：</p>
+<h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>查询性能预测 (QPP) 致力于估计使用特定检索方法满足用户查询的难度。虽然大多数最先进的 QPP 方法基于词频和语料库统计，但最近的研究开始探索预训练神经嵌入、神经网络架构和上下文嵌入的效用。这些方法从预训练或上下文嵌入中提取特征，以便训练监督性能预测器。在本文中，我们采用上下文嵌入来进行性能预测，但我们与现有技术的不同之处在于提出直接微调上下文嵌入模型——即 BERT——专门用于查询性能预测任务。因此，我们的工作允许微调后的上下文表示根据查询表示与检索到的文档之间的关联来估计查询的性能。我们根据 MS MARCO 段落检索语料库及其三个相关的查询集比较了我们方法的性能：(1) MS MARCO 开发集，(2) TREC DL 2019，以及 (3) TREC DL 2020。我们表明，与所有现有的方法相比，我们的方法不仅显示出显著改进的预测性能，而且与过去的神经预测器不同，它还显示出明显更低的延迟，使其在实践中成为可能。</p>
+<h2 id="1-INTRODUCTION"><a href="#1-INTRODUCTION" class="headerlink" title="1 INTRODUCTION"></a>1 INTRODUCTION</h2><p>随机检索任务专注于从大型文档集合中检索出按相关性排序的文档列表，以满足通过查询表达的信息需求。尽管在随机检索任务上取得了进展，从传统的基于词频的统计和查询似然语言模型 [16, 20] 到更近的深度神经排名器 [18, 40]，但仍有一些难以处理的查询无法被检索方法有效满足。因此，查询性能预测 (QPP) 任务的目标是预测检索方法对于给定的用户查询可能的表现。换句话说，QPP 任务旨在预测检索方法是否能够为特定查询检索出相关文档，而无需访问该查询的相关性标准信息。有效的 QPP 方法在随机检索过程中扮演着重要角色，例如实现查询路由或查询重写 [5, 34]。QPP 方法的更多近期应用可见于智能助手领域，在该领域中，用户对其从助手处获得的响应非常敏感 [31]。</p>
+<p>在本文中，我们通过采用上下文化神经嵌入来预测查询性能，从而推进了该领域的研究前沿。我们的工作提出对预训练的转换器(transformer)进行微调，以学习估计查询在其相关文档集下的性能。我们提出了一种架构，称为BERT-QPP，它直接通过微调BERT来学习查询性能。与用于即席检索的其他基于BERT的模型[17, 40, 42]不同，我们提出的BERT-QPP方法侧重于学习检索到的文档的质量，因此，基于检索到的文档的检索得分学习查询的潜在性能。这使得BERT-QPP能够直接通过微调BERT来学习查询性能，而无需额外的训练。我们考虑了两种广泛使用的架构，即交叉编码器(cross-encoder)和双编码器(bi-encoder)架构，来实现BERT-QPP。我们在这两种架构中使用查询及其相关检索到的文档来微调BERT。BERT-QPP与最先进的NQA-QPP方法[12]的区别在于，在NQA-QPP的上下文中，查询和文档的BERT表示被视为第二个前馈神经网络的输入特征，该网络被训练来预测查询的性能。相反，通过在我们提出的框架中微调BERT，BERT-QPP可以直接基于检索到的文档来学习预测查询性能，因此，我们提出的方法不需要除了微调过的BERT之外的单独训练模型。这使得我们提出的方法计算上更为简便且更易于部署。此外，大多数QPP方法对于其超参数具有高度敏感性。然而，我们提出的BERT-QPP方法没有任何参数，因此更加稳定可靠。为了展示我们提出的QPP方法的有效性，我们在著名的MS MARCO段落检索数据集[24]以及TREC深度学习赛道2019年和2020年的查询上进行了实验，这些查询是在不同的评估方案下进行判断的，以表明不完整的标签不会影响我们BERT-QPP方法的训练。我们证明了我们的方法能够在所有查询集上展现出更好的性能预测性能，这是基于Pearson ρ、Kendall τ 和Spearman ρ 相关性度量指标的。</p>
+<h2 id="2-PROPOSED-APPROACH"><a href="#2-PROPOSED-APPROACH" class="headerlink" title="2 PROPOSED APPROACH"></a>2 PROPOSED APPROACH</h2><p>首先，让我们正式定义在非特定需求检索(ad hoc retrieval)上下文中查询性能预测(QPP)任务。给定一个文档集合 C，一个检索到的文档列表 Dq​，一个输入查询 q，以及一个检索方法 R，查询性能预测器 $\mu$ 需要估计 R 对于查询 q 相对于某个期望的评价指标 M（例如，平均精度或倒数排名）的表现。预测器 $\mu$  可以定义如下：</p>
+<p>为了实现预测器 $\mu$，我们提出通过微调一个预训练的上下文感知变换器模型，即BERT，并使用回归模型输出一个连续得分来体现查询对于检索方法的难度。这一过程将在两种架构下进行，分别是交叉编码器网络(cross-encoder network)和双编码器网络(bi-encoder network)。</p>
+<h3 id="2-1-Cross-Encoder-Network"><a href="#2-1-Cross-Encoder-Network" class="headerlink" title="2.1 Cross-Encoder Network"></a>2.1 Cross-Encoder Network</h3><p>为了训练交叉编码器网络以开发高效的预测器 $\mu$，我们基于输入查询与由检索方法 R 对查询 q 检索出的前 k 个文档之间的关联性来学习一个连续的难度评分。具体做法是，我们将输入查询和检索出的前 k 个文档 Dqk​ 使用特殊的分隔符令牌连接起来。然后，在由变换器产生的第一个向量上应用一个线性层，以产生一个标量值，我们称之为 QPPCross(q,Dqk​)。我们利用了一个Sigmoid层和一个单类别的二元交叉熵损失函数。更正式地，我们的交叉编码器网络的损失函数可以定义如下，其中M(q,Dq​) 是期望的排序指标，例如平均精确度（Average Precision）：</p>
+<p>将查询和前 k 个文档放在同一个变换器中的优势在于，这能增加查询与前 k 个文档之间的交互，从而可能捕捉到查询与文档空间之间更深层次的关联。然而，这样做会增加计算成本 [14, 29, 38, 39]。此外，该模型需要在运行时即时计算查询与前 k 个文档之间的关联，一旦接收到查询即开始计算。这意味着无法预先进行任何可能的离线计算，因为这些计算都是根据输入查询上下文得出的。因此，在实践中可能会遇到推理时间较慢的问题。</p>
+<h3 id="3-2-Baselines"><a href="#3-2-Baselines" class="headerlink" title="3.2 Baselines"></a>3.2 Baselines</h3><p>我们将所提出的方法与文献中已经显示出有前景的几种检索后查询性能预测器进行了比较 [5]。WIG [43] 通过测量顶级文档的检索得分与其文档集合之间的偏差来预测查询难度。Clarity [8] 通过测量检索到的文档的语言模型与语料库之间的偏差来运作。Query Feedback (QF) [43] 使用低成本且直接的技术如伪相关反馈 [21] 来衡量从原始查询和修订查询中检索出的顶级文档之间的重叠度。大多数在大多数基准测试中表现出最高性能的检索后 QPP 指标 [5] 使用顶级检索文档的检索得分的标准差。NQC [36]、σk [27]、n(σ%) [9] 和 SMV [37] 以及 RSD [32] 利用了这种标准差的变化。效用估计框架 (UEF) [35] 在表现良好的 QPP 基线方法上运行，例如 NQC [36]。此外，我们还考虑了三种最先进的监督式 QPP 基线。NeuralQPP [41] 是一个使用其他无监督 QPP 方法作为弱监督学习信号的框架。类似地，LTRoq [28] 是一个利用学习排序框架的监督式 QPP 方法，它将其他 QPP 方法作为特征。我们还包括最新的基于 BERT 的 QPP 方法，即 NQA-QPP [12]，并指出这是文献中最新的基于上下文预训练嵌入的 QPP 方法。由于大多数介绍的 QPP 基线需要超参数调整，我们从 MS MARCO 训练集中随机留出了一个小子集的查询（5,000 个查询）来调整基线的超参数。此外，我们在 TREC 2020 查询上调整了 TREC 2019 的基线超参数，反之亦然。</p>
+<h2 id="4-CONCLUSION"><a href="#4-CONCLUSION" class="headerlink" title="4 CONCLUSION"></a>4 CONCLUSION</h2><p>我们提出了一种基于微调预训练变换器的方法，该方法使模型学会估算给定输入查询下检索到的文档列表的性能，针对的是临时检索（ad hoc retrieval）场景下的查询性能预测。我们提出了两种变体，分别是采用交叉编码器架构的BERT-QPP𝑐𝑟𝑜𝑠𝑠和采用双编码器架构的BERT-QPP𝑏𝑖。前者相较于基线模型展现出持续且强大的性能，而后者则更为高效，具有相对较小的延迟。我们的实验表明，BERT-QPPs在与MS MARCO数据集相关的三个查询集上超越了现有的最先进QPP基线模型。此外，我们还展示了BERT-QPP𝑐𝑟𝑜𝑠𝑠和BERT-QPP𝑏𝑖均比现有的神经网络QPP方法快得多。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%AC%94%E8%AE%B0/" class="category-chain-item">笔记</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Information-Retrieval/" class="print-no-link">#Information-Retrieval</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>笔记 - CIKM2021 BERT-QPP Contextualized Pre-trained transformers for Query Performance Prediction</div>
+      <div>https://lcj2021.github.io/2024/07/30/笔记 - CIKM2021 BERT-QPP Contextualized Pre-trained transformers for Query Performance Prediction/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Channing Lau</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年7月30日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/07/31/%E7%AC%94%E8%AE%B0%20-%20TOIS2022%20Predicting%20Query%20Performance%20by%20Query-Drift%20Estimation/" title="笔记 - TOIS2022 Predicting Query Performance by Query-Drift Estimation">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">笔记 - TOIS2022 Predicting Query Performance by Query-Drift Estimation</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/07/30/%E7%AC%94%E8%AE%B0%20-%20ECIR2023%20Learning%20to%20Jointly%20Transform%20and%20Rank%20Difficult%20Queries/" title="笔记 - ECIR2023 Learning to Jointly Transform and Rank Difficult Queries">
+                        <span class="hidden-mobile">笔记 - ECIR2023 Learning to Jointly Transform and Rank Difficult Queries</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

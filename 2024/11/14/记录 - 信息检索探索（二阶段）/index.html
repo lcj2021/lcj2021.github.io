@@ -1,0 +1,2863 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Channing Lau">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="11.24All In　ICDE 論文！頑張るよ！ 11.17Introduction 传统ANNS算法存在着召回瓶颈，无法达到高召回率。即便是著名的HNSW索引，也难以在大型高维度数据集中达到高召回率。此外，一味地增加索引参数不仅难以达到高召回率（图的稀疏性），更会极大延长构建索引的时间空间开销。更进一步地，在查询与数据库分布一致性未知的情况下，ANNS索引将会遭受更严重的性能损失。 kNNS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记录 - 混合检索框架探索（二阶段）">
+<meta property="og:url" content="https://lcj2021.github.io/2024/11/14/%E8%AE%B0%E5%BD%95%20-%20%E4%BF%A1%E6%81%AF%E6%A3%80%E7%B4%A2%E6%8E%A2%E7%B4%A2%EF%BC%88%E4%BA%8C%E9%98%B6%E6%AE%B5%EF%BC%89/index.html">
+<meta property="og:site_name" content="ChanningLau&#39;s harbour">
+<meta property="og:description" content="11.24All In　ICDE 論文！頑張るよ！ 11.17Introduction 传统ANNS算法存在着召回瓶颈，无法达到高召回率。即便是著名的HNSW索引，也难以在大型高维度数据集中达到高召回率。此外，一味地增加索引参数不仅难以达到高召回率（图的稀疏性），更会极大延长构建索引的时间空间开销。更进一步地，在查询与数据库分布一致性未知的情况下，ANNS索引将会遭受更严重的性能损失。 kNNS">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.picgo.net/2024/10/26/imagebc2030de1939ce89.png">
+<meta property="og:image" content="https://pic2.zhimg.com/v2-1b01cc54b3a5fe5dd34045cd71b11239_b.jpg">
+<meta property="article:published_time" content="2024-11-13T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-11-30T09:42:40.982Z">
+<meta property="article:author" content="Channing Lau">
+<meta property="article:tag" content="Information-Retrieval">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://img.picgo.net/2024/10/26/imagebc2030de1939ce89.png">
+  
+  
+  
+  <title>记录 - 混合检索框架探索（二阶段） - ChanningLau&#39;s harbour</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lcj2021.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>ChanningLau&#39;s harbour</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="记录 - 混合检索框架探索（二阶段）"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-11-14 00:00" pubdate>
+          2024年11月14日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          9.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          78 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">记录 - 混合检索框架探索（二阶段）</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="11-24"><a href="#11-24" class="headerlink" title="11.24"></a>11.24</h2><p>All In　ICDE 論文！<br>頑張るよ！</p>
+<h2 id="11-17"><a href="#11-17" class="headerlink" title="11.17"></a>11.17</h2><p>Introduction</p>
+<p>传统ANNS算法存在着召回瓶颈，无法达到高召回率。即便是著名的HNSW索引，也难以在大型高维度数据集中达到高召回率。此外，一味地增加索引参数不仅难以达到高召回率（图的稀疏性），更会极大延长构建索引的时间空间开销。更进一步地，在查询与数据库分布一致性未知的情况下，ANNS索引将会遭受更严重的性能损失。</p>
+<p>kNNS exact search则需要极大的成本，0.5M条query在10M x 768dim的数据库中进行kNNS，即便是在96 thread下也需要超过10个小时。<br>随着GPU上的NNS搜索技术的引入，这一过程被极大地加速。但即便是放到GPU上运行，也需要超过10分钟。</p>
+<p>由此可见，在传统ANNS算法和 kNNS exact search 中，存在着相当大的隔阂。<br>因此我们提出了一个异构机器上的混合检索系统，来弥补这个隔阂。<br>考虑到同分布情况下，大部分查询都是简单查询。这些查询在ANNS图索引只需要很少的NDC，就可以达到较高的召回率。而kNNS则近乎一视同仁——无论简单困难都能慢工出细活，达到极高召回率。<br>一种直觉上的想法是尽量发挥ANNS和kNNS各自的优势，即把这些所谓的简单查询分配给ANNS，剩下的困难查询交给GPU。</p>
+<p>具体来说，我们的贡献可以总结如下：</p>
+<ul>
+<li>我们研究了一种全新的问题：异构机器下的混合最近邻检索。我们提出了一种混合检索系统，通过合理地将查询进行路由，将“简单”查询分配给CPU上的HNSW近似索引，剩下的分配给GPU进行暴力搜索。</li>
+<li>我们提出了一种路由模型，来提供快速而精确的查询路由推理。我们针对HNSW索引的检索特点，挖掘了获取成本低，且表现力强的因子来丰富模型。</li>
+<li>我们在5个数据集上进行了大量丰富的实验来验证我们模型的端到端表现。数据集的量级高达10M～100M，维度覆盖96～1024，模态包含文本、图片以及文搜图、图搜文跨模态检索。结果表明我们的混合模型充分利用了CPU和GPU的优势，提供了高QPS高Recall表现。</li>
+</ul>
+<p>Preliminaries</p>
+<p>Experiments</p>
+<p>相关工作：</p>
+<p>ANNS与kNNS。<br>现有的ANNS索引可以分成以下几类：<br>1）划分类，如基于LS Hashing的各种索引，利用哈希函数将向量划分到不同的桶中，使得相似向量有较大概率落入同一桶。最新的工作利用深度学习来进行 Hash。Inverted Files倒排索引类则通常利用聚类，通过索引指向各个聚类，检索时先定位可能的聚类再在聚类内查找相似向量。基于树的划分方法是对数据空间进行划分，以树形结构存储向量，通过比较维度信息来缩小搜索范围。较为出名的有K-D Tree和Ball Tree。<br>2）图搜索类：利用图搜索技术来加速检索。DiskANN可以将索引存储在磁盘上，适用于大规模数据，在磁盘和内存间进行数据交互来完成检索。NSG通过构建特殊的图结构，减少搜索路径长度，有效找到近邻向量。最具代表性的是HNSW，通过构建具有分层结构的图来建立“高速公路”，在图中进行高效搜索。<br>3）量化类：</p>
+<p>在高维度NNS检索背景下，由于curse of dimensionality，ANNS的各种pruning技术将不可避免地造成recall的损失。要想保持高召回率检索，一种方案是提高ANNS index的参数。但是这显然会造成极大的indexing时空开销，例如以M&#x3D;128，efConstruct&#x3D;1000的参数使用HNSW对deep100m进行index，在96线程下花费5小时建立的索引高达31G，最终仍需检索全部向量的28.65%才能达到99.94%的召回率。<br>另一种方案便是使用brute force检索，虽然没有indexing成本，但每进行一条向量的检索就需要进行<code>9.6T</code>次浮点数加法和乘法。<br>值得注意的是，在L2距离和maximum inner product度量下，这一步骤可以转换为矩阵乘法运算，which is GPU所擅长的。</p>
+<p>kNN-join。与我们的工作类似，都是利用异构机器的计算资源来进行高效的NNS。但是一大区别是，他们工作讨论的都是low to moderate dimensionality KNN searches (2–6 dimensions), where ANNS也能取得近似kNNS的召回效果，然而我们讨论的是成百上千维的NNS问题。<br>自从以BERT、CLIP、Vision Transformer等为代表的深度学习模型流行以来，NNS逐渐转向了更高维度的应用，如BERT的768维、BGE-m3的1024维。<br>而这一类工作都是建立在所建立“index”不会带来recall损失的前提下的，并且召回邻居数通常只有几十。<br>在本文中我们所讨论的工作是在高维度dim、高近邻数k以及base向量很多的困难召回场景。</p>
+<p>Out-of-Distribution。在常规的NNS问题中，我们都假定query向量的分布与base向量的分布是一致的。<br>然而，在例如文搜图等跨模态检索场景下，这样的假设是不成立的。<br>跨模态NNS旨在使用一个模态（例如文本）的数据向量作为查询，以检索另一模态（例如图像或视频）中最相似的项。然而，不同模态之间的向量存在固有的分布差异，跨模态查询变成了对数据库中数据的分布偏移（OOD）查询。OOD查询在空间上偏离基础数据，且OOD查询的k个最近邻在高维空间中彼此距离较远。这一属性破坏了现有ANNS索引的假设，因此更加扩大了ANNS和kNNS之间的隔阂。<br>现有的工作提出了利用已知的OOD查询来指导ANNS索引的构建，很大程度上缓解了OOD上召回率的损失。但是这种针对OOD查询专门建index的方法，需要在ANNS侧投入更多的索引构建时间空间投入。</p>
+<p>MTL实盘效果验证：不及原生单分类模型的效果</p>
+<p>新策略：</p>
+<p>HNSW的最大的特点是它确认搜索入口点的方式。<br>起初从结点稀疏的顶层进入，逐层下降来得到基层的入口点。<br>这个逐层下降的过程NDC在44～333之间，平均NDC仅有100+。<br>但是这短短的100+次比较，却十分具有区分度。<br>在“逐层下降 zoom in”的过程中收集特征，效果与在“基层搜索”过程中收集的特征相当。<br>但是收集成本显著更低，ROI更高。</p>
+<p>以往的工作（SIGMOD20早停）采集“基层搜索”的特征——当前时间节点，队列top结点与query的距离。<br>我们提出可以用成本更低的方式，即采集“zoom in”阶段的特征。<br>并且我们额外加入了3个图索引所特有的搜索特征：1）搜索“回退”次数；2）“逐层下降”阶段的NDC；3）搜索更新最优距离的次数</p>
+<p>还有个好处是可以把“逐层下降”得到的结果——入口点，以极低的成本和二阶段的正式搜索对接。<br>如果是采集“基层搜索”过程的特征，有两个缺点：<br>1）采集特征需要执行更高的NDC，这会拖累决策推理速度。<br>2）“基层搜索”的中间结果为队列、搜索过的点集合，与二阶段正式搜索对接成本高于“zoom in”的对接。后者仅需对接搜索入口点即可。</p>
+<p>实验结果表明，我们的决策效果显著优于仅用查询作为特征的方法。<br>我们首次在OOD数据集上进行了验证，证明了因子和特征对于ood查询也是有辨识度的，更进一步地证明了我们因子选择的重要性。</p>
+<h2 id="11-10"><a href="#11-10" class="headerlink" title="11.10"></a>11.10</h2><p>avg score：只考虑总recall &gt; 80%部分的召回点，取平均</p>
+<p>0.5%budget打点</p>
+<p>full_feat &#x3D; qonly + dist_feat + update_feat</p>
+<p>cross_topk &#x3D; 将qonly所有维度中方差最大的topk个维度拿出来，做二阶交叉，得到新的<code>topk * (topk - 1) / 2</code></p>
+<p>MTL_fusion &#x3D; 同时预测 原有的二分类得分 + log2的NDC（SIGMOD20早停论文中已经被证实有效）。两者相乘作为最终得分。但是目前是两个模型分别训练。<br>欠点：存在一定偏差性 + 推理成本翻倍。<br>难点：MTL版本的LightGBM只支持统一目标，比如3个分类head &#x2F; 3个回归head。而我们的任务是二分类 + 回归</p>
+<p>MTL Sort模块：接在召回模块之后。通常用<strong>同一个模型</strong>来做multi-task-learning，共享bottom、特征提取部分，分出多个head，做多个目标的预测。最终这多个目标的得分根据一定的公式得到最终得分，用来排序</p>
+<table>
+<thead>
+<tr>
+<th>method</th>
+<th>full_feat</th>
+<th>qonly</th>
+<th>MTL_fusion</th>
+<th>cross_25</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>thr_600</td>
+<td>924.79</td>
+<td>916.63</td>
+<td>916.65</td>
+<td>916.42</td>
+</tr>
+<tr>
+<td>thr_680</td>
+<td></td>
+<td>920.89</td>
+<td>921.80</td>
+<td></td>
+</tr>
+<tr>
+<td>thr_690</td>
+<td></td>
+<td>920.88</td>
+<td>924.68</td>
+<td></td>
+</tr>
+<tr>
+<td>thr_700</td>
+<td>927.82</td>
+<td>920.73</td>
+<td>927.40（？）</td>
+<td>920.75</td>
+</tr>
+<tr>
+<td>thr_710</td>
+<td></td>
+<td>920.57</td>
+<td>930.02（？）</td>
+<td></td>
+</tr>
+<tr>
+<td>thr_720</td>
+<td></td>
+<td>921.24</td>
+<td>930.62</td>
+<td></td>
+</tr>
+<tr>
+<td>thr_730</td>
+<td></td>
+<td>921.03</td>
+<td>929.55</td>
+<td></td>
+</tr>
+<tr>
+<td>thr_800</td>
+<td>923.73</td>
+<td>918.59</td>
+<td>920.57</td>
+<td>918.43</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>P.S. 目前只是打点得分，并没有进行端到端 QPS-recall测试</p>
+</blockquote>
+<p>获取 dist_feat + update_feat 成本过高<br>用ANNS，根据query找到train中的近似样本，用近似样本的特征来近似。</p>
+<p>预测效果不如qonly</p>
+<h2 id="11-03"><a href="#11-03" class="headerlink" title="11.03"></a>11.03</h2><p>用户量级，用户个体一旦fail，体验感灾难性。</p>
+<p>加到6个数据集</p>
+<p>skyline算法<br>一对一的 multi-vector search</p>
+<p>采样一部分query，将他们图搜特征的中位数 &#x2F; 平均数作为在线特征</p>
+<h3 id="11-02-优化端到端表现"><a href="#11-02-优化端到端表现" class="headerlink" title="11.02 优化端到端表现"></a>11.02 优化端到端表现</h3><p>将第一阶段，NDC从 0 -&gt; check_stamp 的中间结果保存。<br>lightgbm推理后，直接从中间结果继续搜索。</p>
+<p>如果 内存交换时间 &lt; 0 -&gt; check_stamp的搜索时间，就会有提升效果</p>
+<p>DEBUG：没有把正确的qid传给 stage 2的搜索过程。</p>
+<p>出现问题：在CPU瓶颈（HNSW的完成时间 &gt; GPU）的阶段<br>结论：&#x3D;&#x3D;CPU瓶颈越早出现，效果越好！&#x3D;&#x3D;<br>解决方案：</p>
+<ol>
+<li>将HNSW的线程数调小（？）</li>
+<li>将建图参数调大</li>
+</ol>
+<h3 id="11-01-特征选择-端到端实现"><a href="#11-01-特征选择-端到端实现" class="headerlink" title="11.01  特征选择 + 端到端实现"></a>11.01  特征选择 + 端到端实现</h3><p>feat_dist：用绝对距离<code>check_candidates[i].first</code>优于相对距离<code>check_candidates[i].first / dist_start</code></p>
+<h3 id="10-30-下午讨论结果"><a href="#10-30-下午讨论结果" class="headerlink" title="10.30 下午讨论结果"></a>10.30 下午讨论结果</h3><p>contribution</p>
+<ol>
+<li>异构计算资源 CPU GPU。新的问题，给定有限的GPU和CPU计算资源，如何route达到高召回、</li>
+<li>learning方法图索引难度。<br> &#x3D;&#x3D;能否在OOD数据集上生效？&#x3D;&#x3D;</li>
+<li>图特有的特征：回溯次数、更新次数</li>
+<li>大量实验，数据集丰富：<ol>
+<li>规模从1m到100m</li>
+<li>文本、图片以及跨模态</li>
+<li>不同的距离度量：L2以及InnerProduct</li>
+<li>维度从96到1024</li>
+</ol>
+</li>
+</ol>
+<p>参数：</p>
+<ol>
+<li>check_stamp</li>
+<li>分配阈值</li>
+<li>计算资源，索引参数、数据分布</li>
+<li>训练样本数量</li>
+</ol>
+<h3 id="特征重要性"><a href="#特征重要性" class="headerlink" title="特征重要性"></a>特征重要性</h3><p>feat_query: dim维<br>feat_dist: 100维<br>feat_update: 3维</p>
+<p>当前统计法：以feat_dist为例，计算的是100个feat_importance的平均值</p>
+<h3 id="数据集更新"><a href="#数据集更新" class="headerlink" title="数据集更新"></a>数据集更新</h3><h4 id="deep100m-96d"><a href="#deep100m-96d" class="headerlink" title="deep100m 96d"></a>deep100m 96d</h4><p>fvecs格式下，base.norm大小为37G。A6000显存48G，能塞得下✅</p>
+<h4 id="datacomp-CLIP-768d"><a href="#datacomp-CLIP-768d" class="headerlink" title="datacomp-CLIP 768d"></a>datacomp-CLIP 768d</h4><p>新增数据集 <a target="_blank" rel="noopener" href="https://hf-mirror.com/datasets/nielsr/datacomp-small-with-embeddings">datacomp-small-with-embeddings</a>。<br>基于clip模型，共10M行，每一行对应一张图片 &amp; 其对应描述 和 text_embedding &amp; image_embedding。</p>
+<p>跨模态检索：文搜图<br>以10M条image_embedding作为base向量建HNSW，用10k条text_embedding检索。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell">index_path: /data/guohaoran/HNNS/index/datacomp-image.M_48.efc_1000.hnsw<br>num_test: 10000<br>Build Time: 2.1e-07<br>Search 836 / 10000<br>[Query][HNSW] Params: M: 48, efSearch: 1000<br>[Query][HNSW] Using GT from file: /data/guohaoran/HNNS/query/datacomp//query.norm.gt.ivecs.cpu.1000<br>[Query][HNSW] Search time: 3.24526<br>[Query][HNSW] Recall@1000: 0.727616<br></code></pre></td></tr></table></figure>
+<p>结论：发生OOD现象。将M增大至128，recall@1000更是降低到69%。</p>
+<p>是否需要保留OOD数据集？</p>
+<p>CPUFlat [[记录 - 信息检索探索（二阶段）#^ad2371]]</p>
+<h4 id="imagenet-768d（移除？❌）"><a href="#imagenet-768d（移除？❌）" class="headerlink" title="imagenet 768d（移除？❌）"></a>imagenet 768d（移除？❌）</h4><p>imagenet在GPUFlat [[记录 - 信息检索探索（二阶段）#^4a7874]]和HNSW高参数下存在少量向量极难被检索。</p>
+<p><del>GPUFlat在recall@1000下无法与CPU保持一致。</del><br>以上现象普遍存在。</p>
+<h3 id="GPUFlat（kselect-1024）"><a href="#GPUFlat（kselect-1024）" class="headerlink" title="GPUFlat（kselect&#x3D;1024）"></a>GPUFlat（kselect&#x3D;1024）</h3><p>datacomp-image 10M 768d</p>
+<table>
+<thead>
+<tr>
+<th>k</th>
+<th>train recall@k</th>
+<th>train time (s)</th>
+<th>query recall@k</th>
+<th>query time (s)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>10</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>100</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>1000</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>gist 1M 960d</p>
+<table>
+<thead>
+<tr>
+<th>k</th>
+<th>train recall@k</th>
+<th>train time (s)</th>
+<th>query recall@k</th>
+<th>query time (s)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>0.997</td>
+<td></td>
+<td>0.995</td>
+<td></td>
+</tr>
+<tr>
+<td>10</td>
+<td>0.9991</td>
+<td></td>
+<td>0.9994</td>
+<td></td>
+</tr>
+<tr>
+<td>100</td>
+<td>0.99988</td>
+<td></td>
+<td>0.99985</td>
+<td></td>
+</tr>
+<tr>
+<td>1000</td>
+<td>0.999967</td>
+<td></td>
+<td>0.999964</td>
+<td>0.175949</td>
+</tr>
+</tbody></table>
+<p>imagenet 10M 768d</p>
+<table>
+<thead>
+<tr>
+<th>k</th>
+<th>train recall@k</th>
+<th>train time (s)</th>
+<th>query recall@k</th>
+<th>query time (s)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>0.9911</td>
+<td></td>
+<td>0.9958</td>
+<td></td>
+</tr>
+<tr>
+<td>10</td>
+<td>0.99671</td>
+<td></td>
+<td>0.99675</td>
+<td></td>
+</tr>
+<tr>
+<td>100</td>
+<td>0.999452</td>
+<td></td>
+<td>0.999351</td>
+<td></td>
+</tr>
+<tr>
+<td>1000</td>
+<td>0.999727</td>
+<td>137.739</td>
+<td>0.999464</td>
+<td>11.1365</td>
+</tr>
+</tbody></table>
+<p>wikipedia 10M 1024d</p>
+<table>
+<thead>
+<tr>
+<th>k</th>
+<th>train recall@k</th>
+<th>train time (s)</th>
+<th>query recall@k</th>
+<th>query time (s)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>10</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>100</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>1000</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>deep100m 96d<br>train 1M 无法全量，显存只够查询0.25M。</p>
+<table>
+<thead>
+<tr>
+<th>k</th>
+<th>train recall@k</th>
+<th>train time (s)</th>
+<th>query recall@k</th>
+<th>query time (s)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>10</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>100</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>1000（1024 select）</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>1000（2048 select）</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="10-27"><a href="#10-27" class="headerlink" title="10.27"></a>10.27</h2><h3 id="考え（かんがえ）"><a href="#考え（かんがえ）" class="headerlink" title="考え（かんがえ）"></a>考え（かんがえ）</h3><ul>
+<li>多线程建图，图性能损失</li>
+<li>GPU矩阵乘法的精度 vs CPU</li>
+</ul>
+<h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><ul>
+<li>医疗、金融风控 ANNS。<ul>
+<li>在医学影像分析中，可以通过对大量已标注的影像数据进行学习，当出现新的影像时，能够找到与该影像特征相似的样本，从而辅助医生进行诊断决策。</li>
+<li>在金融风控领域，也可以通过对大量客户数据的学习，找到与新客户特征相似的已有客户，从而评估新客户的风险水平。</li>
+</ul>
+</li>
+<li>大规模GPU召回</li>
+<li>XML（Extreme Multi-label Learning，极限多标签学习）<ul>
+<li>任务处理的是具有大量标签的分类问题</li>
+<li>每个样本可能与多个标签相关联</li>
+<li>标签的总数可能达到成千上万</li>
+<li>推理时，参考样本 # base越多，近邻数k越大，效果一般越好</li>
+</ul>
+</li>
+</ul>
+<h3 id="GPUFLat-分析与精简"><a href="#GPUFLat-分析与精简" class="headerlink" title="GPUFLat 分析与精简"></a>GPUFLat 分析与精简</h3><p>Q：GPUFlat与CPUFlat的结果为何存在出入？<br>A：CPUFlat的计算方式为 <code>for d in dim</code> 循环累加。误差来源于double + float之间的累加；<br>GPUFlat的计算方式为矩阵乘法，乘法次数和加法次数与CPU相比未知。</p>
+<p>Q：以谁为准（作为GroundTruth）？<br>A：CPUFlat。</p>
+<p>10.22 抽丝剥茧环节基本结束</p>
+<h3 id="GroundTruth搜索数据"><a href="#GroundTruth搜索数据" class="headerlink" title="GroundTruth搜索数据"></a>GroundTruth搜索数据</h3><p>^ad2371</p>
+<p>gist1m</p>
+<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs subunit">data_split: learn <br># vectors: 500K <br>recall_k: 1000<br><span class="hljs-keyword">time:</span> 1886.34s<br>cores: 96<br><br>data_split: query <br># vectors: 10K <br>recall_k: 1000<br><span class="hljs-keyword">time:</span> 4.8691s<br>cores: 96<br></code></pre></td></tr></table></figure>
+
+<p>imagenet</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs txt">data_split: learn <br># vectors: 500K <br>recall_k: 1000<br>time: 19441.9s<br>cores: 96<br><br>data_split: query <br># vectors: 10K <br>recall_k: 1000<br>time: 2200.28s<br>cores: 96<br></code></pre></td></tr></table></figure>
+
+
+<p>wikipedia</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs txt">data_split: learn <br># vectors: 500K <br>recall_k: 1000<br>time: 36911.1<br>cores: 96<br><br>data_split: query <br># vectors: 10K <br>recall_k: 1000<br>time: 3036.28<br>cores: 96<br></code></pre></td></tr></table></figure>
+
+<p>datacomp-image 10M 768d<br>query: datacomp-text</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs txt">data_split: learn <br># vectors: 500K <br>recall_k: 1000<br>time: 37383.7<br>cores: 96<br><br>data_split: query <br># vectors: 10K <br>recall_k: 1000<br>time: 694.926<br>cores: 96<br></code></pre></td></tr></table></figure>
+
+<p>query: datacomp-image</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs txt">data_split: learn <br># vectors: 500K <br>recall_k: 1000<br>time: <br>cores: 96<br><br>data_split: query <br># vectors: 10K <br>recall_k: 1000<br>time: 2692.25<br>cores: 96<br></code></pre></td></tr></table></figure>
+
+<p>datacomp-text 10M 768d<br>query: datacomp-image</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs txt">data_split: learn <br># vectors: 500K <br>recall_k: 1000<br>time: 37758.5<br>cores: 96<br><br>data_split: query <br># vectors: 10K <br>recall_k: 1000<br>time: 2046.11<br>cores: 96<br></code></pre></td></tr></table></figure>
+
+<p>query: datacomp-text</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs txt">data_split: learn <br># vectors: 500K <br>recall_k: 1000<br>time: <br>cores: 96<br><br>data_split: query <br># vectors: 10K <br>recall_k: 1000<br>time: <br>cores: 96<br></code></pre></td></tr></table></figure>
+
+
+<p>datacomp-combined 10M 1536 d<br>query: datacomp-combined</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs txt">data_split: learn <br># vectors: 500K <br>recall_k: 1000<br>time: <br>cores: 96<br><br>data_split: query <br># vectors: 10K <br>recall_k: 1000<br>time: 3864.86<br>cores: 96<br></code></pre></td></tr></table></figure>
+
+
+
+<p>deep100m 96d</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs txt">data_split: learn <br># vectors: 500K <br>recall_k: 1000<br>time: 118717<br>cores: 96<br><br>data_split: query <br># vectors: 10K <br>recall_k: 1000<br>time: 3265.83<br>cores: 96<br></code></pre></td></tr></table></figure>
+
+<p>SPACEV 100d</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs txt">data_split: learn <br># vectors: 500K <br>recall_k: 1000<br>time: 136484<br>cores: 96<br><br>data_split: query <br># vectors: 10K <br>recall_k: 1000<br>time: <br>cores: 96<br></code></pre></td></tr></table></figure>
+
+
+<h3 id="建图数据"><a href="#建图数据" class="headerlink" title="建图数据"></a>建图数据</h3><p><a target="_blank" rel="noopener" href="https://github.com/erikbern/ann-benchmarks/blob/main/ann_benchmarks/algorithms/hnswlib/config.yml">ANN Benchmark</a></p>
+<p><code>efconstruct == efsearch</code></p>
+<p>gist1m 960d</p>
+<table>
+<thead>
+<tr>
+<th>M</th>
+<th>ef_construct</th>
+<th># thread</th>
+<th>time</th>
+<th>size</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>32</td>
+<td>1000</td>
+<td>96</td>
+<td>256.912</td>
+<td>118M</td>
+</tr>
+<tr>
+<td>48</td>
+<td>1000</td>
+<td>96</td>
+<td>303.864</td>
+<td>131M</td>
+</tr>
+<tr>
+<td>64</td>
+<td>1000</td>
+<td>96</td>
+<td>306.888</td>
+<td>137M</td>
+</tr>
+<tr>
+<td>96</td>
+<td>1000</td>
+<td>96</td>
+<td>317.833</td>
+<td>142M</td>
+</tr>
+<tr>
+<td>128</td>
+<td>1000</td>
+<td>96</td>
+<td>309.673</td>
+<td>143M</td>
+</tr>
+<tr>
+<td>256</td>
+<td>1000</td>
+<td>96</td>
+<td>330.769</td>
+<td>143M</td>
+</tr>
+</tbody></table>
+<p>imagenet 10M 768d</p>
+<table>
+<thead>
+<tr>
+<th>M</th>
+<th>ef_construct</th>
+<th># thread</th>
+<th>time</th>
+<th>size</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>32</td>
+<td>1000</td>
+<td>96</td>
+<td>1270.36</td>
+<td>1.3G</td>
+</tr>
+<tr>
+<td>48</td>
+<td>1000</td>
+<td>96</td>
+<td>1335.19</td>
+<td>1.4G</td>
+</tr>
+<tr>
+<td>64</td>
+<td>1000</td>
+<td>96</td>
+<td>1376.5</td>
+<td>1.4G</td>
+</tr>
+<tr>
+<td>96</td>
+<td>1000</td>
+<td>96</td>
+<td></td>
+<td>1.4G</td>
+</tr>
+<tr>
+<td>128</td>
+<td>1000</td>
+<td>96</td>
+<td>1428.77</td>
+<td>1.4G</td>
+</tr>
+</tbody></table>
+<p>wikipedia 10M  1024d</p>
+<table>
+<thead>
+<tr>
+<th>M</th>
+<th>ef_construct</th>
+<th># thread</th>
+<th>time</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>16</td>
+<td>1000</td>
+<td>96</td>
+<td>2767</td>
+</tr>
+<tr>
+<td>32</td>
+<td>1000</td>
+<td>96</td>
+<td>4431.62</td>
+</tr>
+<tr>
+<td>48</td>
+<td>1000</td>
+<td>96</td>
+<td>5492.39</td>
+</tr>
+<tr>
+<td>64</td>
+<td>1000</td>
+<td>96</td>
+<td>6153.54</td>
+</tr>
+<tr>
+<td>96</td>
+<td>1000</td>
+<td>96</td>
+<td>6781.29</td>
+</tr>
+<tr>
+<td>128</td>
+<td>1000</td>
+<td>96</td>
+<td>7084.53</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>7456.89</td>
+</tr>
+</tbody></table>
+<p>datacomp-image 10M  768d</p>
+<table>
+<thead>
+<tr>
+<th>M</th>
+<th>ef_construct</th>
+<th># thread</th>
+<th>time</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>32</td>
+<td>1000</td>
+<td>96</td>
+<td>1887.43</td>
+</tr>
+<tr>
+<td>48</td>
+<td>1000</td>
+<td>96</td>
+<td>2090.48</td>
+</tr>
+<tr>
+<td>64</td>
+<td>1000</td>
+<td>96</td>
+<td></td>
+</tr>
+<tr>
+<td>96</td>
+<td>1000</td>
+<td>96</td>
+<td></td>
+</tr>
+<tr>
+<td>128</td>
+<td>1000</td>
+<td>96</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>deep100m 96d</p>
+<table>
+<thead>
+<tr>
+<th>M</th>
+<th>ef_construct</th>
+<th># thread</th>
+<th>time</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>32</td>
+<td>1000</td>
+<td>96</td>
+<td>14019.8</td>
+</tr>
+<tr>
+<td>48</td>
+<td>1000</td>
+<td>96</td>
+<td></td>
+</tr>
+<tr>
+<td>64</td>
+<td>1000</td>
+<td>96</td>
+<td></td>
+</tr>
+<tr>
+<td>96</td>
+<td>1000</td>
+<td>96</td>
+<td></td>
+</tr>
+<tr>
+<td>128</td>
+<td>1000</td>
+<td>96</td>
+<td>17933</td>
+</tr>
+</tbody></table>
+<p>spacev100m 100d</p>
+<table>
+<thead>
+<tr>
+<th>M</th>
+<th>ef_construct</th>
+<th># thread</th>
+<th>time</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>32</td>
+<td>1000</td>
+<td>96</td>
+<td>30943</td>
+</tr>
+<tr>
+<td>48</td>
+<td>1000</td>
+<td>96</td>
+<td></td>
+</tr>
+<tr>
+<td>64</td>
+<td>1000</td>
+<td>96</td>
+<td></td>
+</tr>
+<tr>
+<td>96</td>
+<td>1000</td>
+<td>96</td>
+<td></td>
+</tr>
+<tr>
+<td>128</td>
+<td>1000</td>
+<td>96</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="GPUFLat-数据（depreciated）"><a href="#GPUFLat-数据（depreciated）" class="headerlink" title="GPUFLat 数据（depreciated）"></a>GPUFLat 数据（depreciated）</h3><p>^4a7874</p>
+<p>gist 1M 960d</p>
+<table>
+<thead>
+<tr>
+<th>k</th>
+<th>train recall@k</th>
+<th>train time (s)</th>
+<th>query recall@k</th>
+<th>query time (s)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>0.999960</td>
+<td>54.3132&#x2F;54.4417&#x2F;54.7458</td>
+<td>1</td>
+<td>0.156648&#x2F;0.150908&#x2F;0.15616</td>
+</tr>
+<tr>
+<td>10</td>
+<td>0.998689</td>
+<td>54.8549&#x2F;55.1605&#x2F;54.6921</td>
+<td>0.999200</td>
+<td>0.158231&#x2F;0.160197&#x2F;0.155859</td>
+</tr>
+<tr>
+<td>100</td>
+<td>0.999845</td>
+<td>56.5907&#x2F;56.2320&#x2F;56.2018</td>
+<td>0.999810</td>
+<td>0.208489&#x2F;0.15984&#x2F;0.161549</td>
+</tr>
+<tr>
+<td>1000</td>
+<td>0.999961</td>
+<td>64.6821&#x2F;65.2319&#x2F;65.3669</td>
+<td>0.999963</td>
+<td>0.176541&#x2F;0.175003&#x2F;0.172843</td>
+</tr>
+</tbody></table>
+<p>imagenet 10M 768d</p>
+<table>
+<thead>
+<tr>
+<th>k</th>
+<th>train recall@k</th>
+<th>train time (s)</th>
+<th>query recall@k</th>
+<th>query time (s)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>0.931518</td>
+<td>453.385&#x2F;451.547&#x2F;451.811</td>
+<td>0.955000</td>
+<td>8.8142&#x2F;8.79696&#x2F;8.79121</td>
+</tr>
+<tr>
+<td>10</td>
+<td>0.994679</td>
+<td>454.876&#x2F;454.66&#x2F;452.106</td>
+<td>0.996050</td>
+<td>8.95321&#x2F;8.83573&#x2F;8.8199</td>
+</tr>
+<tr>
+<td>100</td>
+<td>0.999175</td>
+<td>476.927&#x2F;460.545&#x2F;460.727</td>
+<td>0.999115</td>
+<td>9.16091&#x2F;9.15087&#x2F;9.0416</td>
+</tr>
+<tr>
+<td>1000</td>
+<td>0.999701</td>
+<td>599.089&#x2F;570.655&#x2F;565.609</td>
+<td>0.999423</td>
+<td>11.2577&#x2F;11.8291&#x2F;11.1889</td>
+</tr>
+</tbody></table>
+<p>wikipedia 10M 1024d</p>
+<table>
+<thead>
+<tr>
+<th>k</th>
+<th>train recall@k</th>
+<th>train time (s)</th>
+<th>query recall@k</th>
+<th>query time (s)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>0.999816</td>
+<td>601.338&#x2F;600.813&#x2F;600.462</td>
+<td>0.999600</td>
+<td>11.8147&#x2F;11.8079&#x2F;11.707</td>
+</tr>
+<tr>
+<td>10</td>
+<td>0.999957</td>
+<td>603.516&#x2F;602.828&#x2F;603.36</td>
+<td>0.999950</td>
+<td>11.7984&#x2F;11.7992&#x2F;11.7448</td>
+</tr>
+<tr>
+<td>100</td>
+<td>0.999990</td>
+<td>613.853&#x2F;612.5&#x2F;612.988</td>
+<td>0.999986</td>
+<td>12.0125&#x2F;11.9544&#x2F;11.9426</td>
+</tr>
+<tr>
+<td>1000</td>
+<td>0.999993</td>
+<td>732.101&#x2F;731.671&#x2F;728.928</td>
+<td>0.999993</td>
+<td>14.3147&#x2F;14.2636&#x2F;14.2045</td>
+</tr>
+</tbody></table>
+<h3 id="图搜数据"><a href="#图搜数据" class="headerlink" title="图搜数据"></a>图搜数据</h3><p>gist 1M  960d  0.5M Train</p>
+<table>
+<thead>
+<tr>
+<th>M</th>
+<th>ef_search</th>
+<th># NDC</th>
+<th>query R@1</th>
+<th>query R@10</th>
+<th>query R@100</th>
+<th>query R@1000</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>32</td>
+<td>1000</td>
+<td>23807.5</td>
+<td>0.997672</td>
+<td>0.997861</td>
+<td>0.995402</td>
+<td>0.977185</td>
+</tr>
+<tr>
+<td></td>
+<td>2000</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>3000</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>48</td>
+<td>1000</td>
+<td>27675.7</td>
+<td>0.99845</td>
+<td>0.99865</td>
+<td>0.997169</td>
+<td>0.985006</td>
+</tr>
+<tr>
+<td></td>
+<td>2000</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>3000</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>64</td>
+<td>1000</td>
+<td>29905.8</td>
+<td>0.998728</td>
+<td>0.998925</td>
+<td>0.997761</td>
+<td>0.987761</td>
+</tr>
+<tr>
+<td></td>
+<td>2000</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>3000</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>96</td>
+<td>1000</td>
+<td>32199.4</td>
+<td>0.998962</td>
+<td>0.999099</td>
+<td>0.998116</td>
+<td>0.989472</td>
+</tr>
+<tr>
+<td></td>
+<td>2000</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>3000</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>128</td>
+<td>1000</td>
+<td>33102.2</td>
+<td>0.99903</td>
+<td>0.999157</td>
+<td>0.99824</td>
+<td>0.990018</td>
+</tr>
+<tr>
+<td></td>
+<td>2000</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>3000</td>
+<td>68231.4</td>
+<td>0.99966</td>
+<td>0.999788</td>
+<td>0.999726</td>
+<td>0.99899</td>
+</tr>
+<tr>
+<td>256</td>
+<td>1000</td>
+<td>33830.3</td>
+<td>0.999098</td>
+<td>0.99921</td>
+<td>0.998363</td>
+<td>0.990482</td>
+</tr>
+<tr>
+<td></td>
+<td>2000</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>&#x3D;&#x3D;3000&#x3D;&#x3D;</td>
+<td>69427.9</td>
+<td>0.999688</td>
+<td>0.999811</td>
+<td>0.999763</td>
+<td>0.999098</td>
+</tr>
+</tbody></table>
+<p>imagenet 10M  768d  0.5M Train</p>
+<table>
+<thead>
+<tr>
+<th>M</th>
+<th>ef_search</th>
+<th># NDC</th>
+<th>query R@1</th>
+<th>query R@10</th>
+<th>query R@100</th>
+<th>query R@1000</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>32</td>
+<td>1000</td>
+<td>13514.7</td>
+<td>0.998534</td>
+<td>0.99879</td>
+<td>0.998761</td>
+<td>0.994057</td>
+</tr>
+<tr>
+<td></td>
+<td>2000</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>3000</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>48</td>
+<td>1000</td>
+<td>14973.7</td>
+<td>0.998722</td>
+<td>0.998971</td>
+<td>0.998992</td>
+<td>0.995304</td>
+</tr>
+<tr>
+<td></td>
+<td>2000</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>3000</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>64</td>
+<td>1000</td>
+<td>15668.7</td>
+<td>0.998806</td>
+<td>0.999037</td>
+<td>0.99905</td>
+<td>0.995674</td>
+</tr>
+<tr>
+<td></td>
+<td>2000</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>3000</td>
+<td>37390.7</td>
+<td>0.999192</td>
+<td>0.999315</td>
+<td>0.999372</td>
+<td>0.999151</td>
+</tr>
+<tr>
+<td>96</td>
+<td>1000</td>
+<td>16123.2</td>
+<td>0.998958</td>
+<td>0.999187</td>
+<td>0.999436</td>
+<td>0.996225</td>
+</tr>
+<tr>
+<td></td>
+<td>2000</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>&#x3D;&#x3D;3000&#x3D;&#x3D;</td>
+<td>38504.8</td>
+<td>0.999334</td>
+<td>0.999445</td>
+<td>0.99973</td>
+<td>0.999542</td>
+</tr>
+<tr>
+<td>128</td>
+<td>1000</td>
+<td>16238.4</td>
+<td>0.998892</td>
+<td>0.999129</td>
+<td>0.999145</td>
+<td>0.995935</td>
+</tr>
+<tr>
+<td></td>
+<td>2000</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>3000</td>
+<td>38793.1</td>
+<td>0.999298</td>
+<td>0.999419</td>
+<td>0.999473</td>
+<td>0.99925</td>
+</tr>
+</tbody></table>
+<p>wikipedia 10M  1024d  0.5M Train</p>
+<table>
+<thead>
+<tr>
+<th>M</th>
+<th>ef_search</th>
+<th># NDC</th>
+<th>query R@1</th>
+<th>query R@10</th>
+<th>query R@100</th>
+<th>query R@1000</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>32</td>
+<td>1000</td>
+<td>35857.2</td>
+<td>0.9974</td>
+<td>0.997157</td>
+<td>0.992503</td>
+<td>0.95115</td>
+</tr>
+<tr>
+<td></td>
+<td>2000</td>
+<td>64470.6</td>
+<td>0.99893</td>
+<td>0.998886</td>
+<td>0.997506</td>
+<td>0.982482</td>
+</tr>
+<tr>
+<td></td>
+<td>3000</td>
+<td>90485.5</td>
+<td>0.99938</td>
+<td>0.999363</td>
+<td>0.99872</td>
+<td>0.990995</td>
+</tr>
+<tr>
+<td>48</td>
+<td>1000</td>
+<td>45798</td>
+<td>0.998554</td>
+<td>0.998562</td>
+<td>0.9959</td>
+<td>0.967415</td>
+</tr>
+<tr>
+<td></td>
+<td>2000</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>3000</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>64</td>
+<td>1000</td>
+<td>52376.8</td>
+<td>0.99886</td>
+<td>0.998976</td>
+<td>0.997115</td>
+<td>0.974716</td>
+</tr>
+<tr>
+<td></td>
+<td>2000</td>
+<td>93114.2</td>
+<td>0.999588</td>
+<td>0.999635</td>
+<td>0.999193</td>
+<td>0.992416</td>
+</tr>
+<tr>
+<td></td>
+<td>3000</td>
+<td>129674</td>
+<td>0.999772</td>
+<td>0.999789</td>
+<td>0.999614</td>
+<td>0.996506</td>
+</tr>
+<tr>
+<td>96</td>
+<td>1000</td>
+<td>60255.4</td>
+<td>0.999186</td>
+<td>0.999252</td>
+<td>0.99797</td>
+<td>0.980642</td>
+</tr>
+<tr>
+<td></td>
+<td>2000</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>3000</td>
+<td>147959</td>
+<td>0.999838</td>
+<td>0.999835</td>
+<td>0.99973</td>
+<td>0.997501</td>
+</tr>
+<tr>
+<td>128</td>
+<td>1000</td>
+<td>64441.1</td>
+<td>0.999224</td>
+<td>0.999333</td>
+<td>0.998219</td>
+<td>0.982658</td>
+</tr>
+<tr>
+<td></td>
+<td>2000</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>3000</td>
+<td>157619</td>
+<td>0.99983</td>
+<td>0.999844</td>
+<td>0.999759</td>
+<td>0.997807</td>
+</tr>
+<tr>
+<td>256</td>
+<td>1000</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>2000</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>3000</td>
+<td>167695</td>
+<td>0.999868</td>
+<td>0.999865</td>
+<td>0.999781</td>
+<td>0.998002</td>
+</tr>
+</tbody></table>
+<p>deep100m  96d  1M Train</p>
+<table>
+<thead>
+<tr>
+<th>M</th>
+<th>ef_search</th>
+<th># NDC</th>
+<th>query R@1</th>
+<th>query R@10</th>
+<th>query R@100</th>
+<th>query R@1000</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>32</td>
+<td>1000</td>
+<td>30764.6</td>
+<td>0.9989</td>
+<td>0.99878</td>
+<td>0.996928</td>
+<td>0.978704</td>
+</tr>
+<tr>
+<td></td>
+<td>2000</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>3000</td>
+<td>75789</td>
+<td>0.9991</td>
+<td>0.99911</td>
+<td>0.998942</td>
+<td>0.997054</td>
+</tr>
+<tr>
+<td>48</td>
+<td>1000</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>2000</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>3000</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>64</td>
+<td>1000</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>2000</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>3000</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>96</td>
+<td>1000</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>2000</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>3000</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>128</td>
+<td>1000</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>2000</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>3000</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>10000</td>
+<td>286450</td>
+<td>0.999435</td>
+<td>0.999385</td>
+<td>0.99937</td>
+<td>0.999405</td>
+</tr>
+</tbody></table>
+<h3 id="欠点（けってん-ketten）があります"><a href="#欠点（けってん-ketten）があります" class="headerlink" title="欠点（けってん　ketten）があります"></a>欠点（けってん　ketten）があります</h3><p>label的规则。目前是把不能做到100%Recall的Q当成正样本。</p>
+<p>可是在Recall@1000这种极端情况下，正样本的比例会达到50%以上。<br>在只有50% GPU Budget下，难以召回大部份正样本。</p>
+<p>设置一个阈值thr，将<code>召回数量 &lt; thr</code>的样本label为1，反之为0</p>
+<h3 id="方案"><a href="#方案" class="headerlink" title="方案"></a>方案</h3><p>将查询Q集合分为两部份：$Q_C$和$Q_G$，前者由CPU HNSW多线程搜索，后者由GPUFlat基于矩阵乘法搜索。<br>默认$Q_C$和$Q_G$为1:1。</p>
+<p>$Q_G$的QPS固定，问题在于如何分配最少的CPU资源（线程数），使得$Q_C$的QPS能接近$Q_G$。<br>这样$Q_C$和$Q_G$完成的总用时最少。<br>同时在此问题上下文中，我们还需要考虑$Q_C$的召回率。</p>
+<p>motivation：将 NDC大的 &#x2F; 无法达到高召回率阈值thr的 Q交给GPU，其余简单查询交给CPU。</p>
+<p>利用HNNS-Core进行分配。</p>
+<h3 id="实验结果（非端到端-R-1000）"><a href="#实验结果（非端到端-R-1000）" class="headerlink" title="实验结果（非端到端 R@1000）"></a>实验结果（非端到端 R@1000）</h3><p>gist 1M 960d 1k Test</p>
+<table>
+<thead>
+<tr>
+<th>thr</th>
+<th># NDC all</th>
+<th># below thr</th>
+<th># $Q_C$</th>
+<th># $Q_G$</th>
+<th># NDC CPU</th>
+<th># NDC GPU</th>
+<th># CPU miss</th>
+<th>AUC (R vs Budget)</th>
+<th>R@1000</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>999</td>
+<td>71922.43</td>
+<td>138</td>
+<td>503</td>
+<td>497</td>
+<td>64237.26</td>
+<td>79700.38</td>
+<td>0 &#x2F; 138</td>
+<td>0.8872</td>
+<td></td>
+</tr>
+<tr>
+<td>1000</td>
+<td>71922.43</td>
+<td>282</td>
+<td>494</td>
+<td>506</td>
+<td>64079.93</td>
+<td>79578.95</td>
+<td>25 &#x2F; 282</td>
+<td>0.7829</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>imagenet 10M 768d 10k Test</p>
+<table>
+<thead>
+<tr>
+<th>thr</th>
+<th># NDC all</th>
+<th># below thr</th>
+<th># $Q_C$</th>
+<th># $Q_G$</th>
+<th># NDC CPU</th>
+<th># NDC GPU</th>
+<th># CPU miss</th>
+<th>AUC (R vs Budget)</th>
+<th>R@HNSW</th>
+<th>R@CPU</th>
+<th>R@GPU</th>
+<th>R@HNNS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>999</td>
+<td>43268.65</td>
+<td>376</td>
+<td>4825</td>
+<td>5175</td>
+<td>36059.25</td>
+<td>49990.46</td>
+<td>2 &#x2F; 376</td>
+<td>0.9468</td>
+<td>0.999542</td>
+<td>0.999995</td>
+<td>&#x3D;&#x3D;0.9989340&#x3D;&#x3D;</td>
+<td>0.9994461</td>
+</tr>
+<tr>
+<td>1000</td>
+<td>43268.65</td>
+<td>913</td>
+<td>4658</td>
+<td>5342</td>
+<td>35651.92</td>
+<td>49910.12</td>
+<td>14 &#x2F; 913</td>
+<td>0.8926</td>
+<td>0.999542</td>
+<td>0.999997</td>
+<td>&#x3D;&#x3D;0.9980967&#x3D;&#x3D;</td>
+<td>0.9994467</td>
+</tr>
+</tbody></table>
+<p>wikipedia 10M 1024d 10k Test</p>
+<table>
+<thead>
+<tr>
+<th>thr</th>
+<th># NDC all</th>
+<th># below thr</th>
+<th># $Q_C$</th>
+<th># $Q_G$</th>
+<th># NDC CPU</th>
+<th># NDC GPU</th>
+<th># CPU miss</th>
+<th>AUC (R vs Budget)</th>
+<th>R@1000</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>999</td>
+<td>156330.61</td>
+<td>3374</td>
+<td>5028</td>
+<td>4972</td>
+<td>123977.30</td>
+<td>189048.31</td>
+<td>236 &#x2F; 3374</td>
+<td>0.7796</td>
+<td></td>
+</tr>
+<tr>
+<td>1000</td>
+<td>156330.61</td>
+<td>5188</td>
+<td>5095</td>
+<td>4905</td>
+<td>124399.18</td>
+<td>189498.93</td>
+<td>1134 &#x2F; 5188</td>
+<td>0.6864</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>结论：R@HNNS 介于 R@GPU和R@HNSW 之间，其中<code>R@GPU &lt; R@HNSW</code>！</p>
+<p>最大难点：无法解决R@GPU的精度问题</p>
+<p>解决方案：</p>
+<ol>
+<li>以GPUFlat作为GT</li>
+<li>爆改GPUFlat，</li>
+</ol>
+<p>Q：为何既能同时提高CPU侧的R@1000，又能降低CPU侧的NDC呢？<br>A：两者基本成正相关。</p>
+<p><img src="https://img.picgo.net/2024/10/26/imagebc2030de1939ce89.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<h2 id="10-20"><a href="#10-20" class="headerlink" title="10.20"></a>10.20</h2><h3 id="Closing-the-gap-between-ANNS-and-kNNS-混合ANNS索引"><a href="#Closing-the-gap-between-ANNS-and-kNNS-混合ANNS索引" class="headerlink" title="Closing the gap between ANNS and kNNS - 混合ANNS索引"></a>Closing the gap between ANNS and kNNS - 混合ANNS索引</h3><p>ANNS速度快，但很难召回100%的answer。<br>通常情况：5~30ms &#x2F; query</p>
+<p>比如图索引连通性不够，参数再大也没法达到100%；<br>IVF得搜很多簇，相当于暴搜时间慢</p>
+<p>如今互联网企业已经尝试使用GPU集群进行召回：美团、字节跳动。<br>通常情况：A6000单卡，batch_size&#x3D;1，每个查询需要60ms。<br>优点是没有召回率损失，但成本高。</p>
+<p>能否结合GPU kNNS + CPU ANNS的优势，实现高召回率 + 高QPS？</p>
+<p>应用场景：</p>
+<ol>
+<li>医疗、金融风控 ANNS</li>
+<li>大规模GPU召回</li>
+</ol>
+<p>cost effective</p>
+<p>GPU kNNS视角：</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs erlang">能否将一些简单查询分配给CPU ANNS？<br><br>这些简单查询即使是用ANNS，也能接近<span class="hljs-number">100</span><span class="hljs-comment">%召回，并且速度比GPU kNNS更快。</span><br><br>这样既能保持极高召回率，还能减轻GPU负担，提高总体qps<br><br>预测特征：只有<span class="hljs-keyword">query</span>向量本身，预测精度难以保证。<br></code></pre></td></tr></table></figure>
+
+<p>CPU ANNS视角：</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs erlang">能否将一些困难查询分配给GPU kNNS？<br><br>这些困难查询就能保证<span class="hljs-number">100</span><span class="hljs-comment">%召回。</span><br><br>从而破解纯ANNS无法达到极高召回的难题。<br><br>预测特征：<span class="hljs-keyword">query</span>向量本身 + 当前候选的距离。（还可以加入更多特征，比如Bert的cluster id特征）<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="背景-10-20-updated"><a href="#背景-10-20-updated" class="headerlink" title="背景 10.20 updated"></a>背景 10.20 updated</h3><p>链接：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/438753577">Faiss on GPU&#x2F;CPU</a><br><img src="https://pic2.zhimg.com/v2-1b01cc54b3a5fe5dd34045cd71b11239_b.jpg" srcset="/img/loading.gif" lazyload alt="ANNS覆盖"></p>
+<p>可以看到GPU上的Faiss没能覆盖Faiss中的全部的算法，这是因为HNSW等算法对GPU是天然不亲和的。GPU在传统深度学习和数据挖掘中扮演计算密集型的算术优化器的角色，在一个NN网络中（如ResNet、VGG等），超过95%的计算量都来自于各种方式的<strong>矩阵计算</strong>（卷积、全连接等），所以GPU才能在这些领域大放异彩。</p>
+<p>然而和高性能计算相对应的，则是GPU孱弱的的程序控制和跳转能力，对于HNSW等算法，我们几乎无时无刻都需要在一套精巧的算法中判断和跳转（是否在当前layer进行搜索、对于当前的candidates是否完成遍历、是否进行启发式搜索等），所以自然难以在GPU上最大程度的发挥GPU的能力。</p>
+<p>GPU作为老师，CPU是学生，一起完成作业。</p>
+<p>高召回率背景：</p>
+<p>CPU学生做得慢且不完全准确，但是人&#x2F;cores可以有很多。每人每秒钟可以做20～100个作业。</p>
+<p>GPU老师任何查询都能 做得快且完全准确。每秒钟最多可以做接近1000个作业，与batch_size有关。</p>
+<p>CPU学生计划将困难作业分给GPU老师做，困难作业指的是：</p>
+<ul>
+<li>学生做得慢（比较次数多）</li>
+<li>做得差（召回率低）</li>
+</ul>
+<p>但是首先学生要从老师的“标准答案”（以上两个label训练）中“学习”如何区分困难查询</p>
+<p>预期目标：学生做他们擅长的 得分率高且做得快的作业；老师做学生不擅长做的。</p>
+<p>两者负载均衡，且整体得分率高</p>
+<h3 id="特征工程"><a href="#特征工程" class="headerlink" title="特征工程"></a>特征工程</h3><p>新加入：</p>
+<p>搜索回退次数<br>下限更新次数<br>队列pop次数</p>
+<h3 id="数据准备"><a href="#数据准备" class="headerlink" title="数据准备"></a>数据准备</h3><p>gist1m</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs txt"><br>data_split: query <br># vectors: 10K <br>recall_k: 100<br>time: <br>cores: 128<br><br><br>data_split: learn <br># vectors: 500K <br>recall_k: 100<br>time: <br>cores: 128<br><br></code></pre></td></tr></table></figure>
+
+
+<p>imagenet ground_truth</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs txt">data_split: query<br># vectors: 10K <br>recall_k: 100<br>time: 2888.13<br>cores: 128<br><br><br>data_split: learn <br># vectors: 500K <br>recall_k: 100<br>time: 31990.1s<br>cores: 128<br><br></code></pre></td></tr></table></figure>
+
+
+<p>wikipedia ground_truth</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs txt">data_split: query <br># vectors: 10K <br>recall_k: 100<br>time: <br>cores: 128<br><br><br>data_split: learn <br># vectors: 500K <br>recall_k: 100<br>time: 29783.1s<br>cores: 128<br><br></code></pre></td></tr></table></figure>
+
+
+
+
+<h3 id="CPU算法选择"><a href="#CPU算法选择" class="headerlink" title="CPU算法选择"></a>CPU算法选择</h3><ul>
+<li><input checked="" disabled="" type="checkbox"> HNSW</li>
+<li><input disabled="" type="checkbox"> Vamana</li>
+<li><input disabled="" type="checkbox"> NSG</li>
+</ul>
+<h3 id="GPU暴搜"><a href="#GPU暴搜" class="headerlink" title="GPU暴搜"></a>GPU暴搜</h3><p>toy版本：github上<a target="_blank" rel="noopener" href="https://github.com/vincentfpgarcia/kNN-CUDA">kNN-CUDA</a>修改版，召回率100%，但速度很慢</p>
+<p>faiss版本：<strong>极其难以修改</strong>，召回率99.999%，但在10M x 1024的数据集上 QPS近1000。<br>昨晚刚刚分离出可运行版本。目前最大的困难</p>
+<h2 id="10-13"><a href="#10-13" class="headerlink" title="10.13"></a>10.13</h2><h3 id="数据集调查"><a href="#数据集调查" class="headerlink" title="数据集调查"></a>数据集调查</h3><table>
+<thead>
+<tr>
+<th>dataset</th>
+<th># embeds</th>
+<th># dimension</th>
+<th>encoder model</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>imagenet</td>
+<td>13M</td>
+<td>768</td>
+<td>Vision Transformer</td>
+</tr>
+<tr>
+<td>GIST1M</td>
+<td>1M</td>
+<td>960</td>
+<td></td>
+</tr>
+<tr>
+<td>wikipedia</td>
+<td>42.5M</td>
+<td>1024</td>
+<td>BGE-m3</td>
+</tr>
+</tbody></table>
+<h3 id="Findings"><a href="#Findings" class="headerlink" title="Findings"></a>Findings</h3><p>仅在DistilBert级别以上的Bert能超过lightgbm</p>
+<p>GIST1M上的实验结果。<br>实验参数：<code>M=16, efSearch=500, check_stamp=1000, num_tokens=8192</code><br>建图参数较小，无法达到很高的recall</p>
+<table>
+<thead>
+<tr>
+<th>baseline</th>
+<th>RMSE</th>
+<th>MAE</th>
+<th>inference time</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>lightgbm</td>
+<td>0.1214</td>
+<td>0.0915</td>
+<td><strong>0.0134</strong></td>
+</tr>
+<tr>
+<td>DistilBert</td>
+<td><strong>0.1004</strong></td>
+<td><strong>0.0738</strong></td>
+<td>0.6950</td>
+</tr>
+<tr>
+<td>TinyBert</td>
+<td>0.1186</td>
+<td>0.0906</td>
+<td>0.5460</td>
+</tr>
+<tr>
+<td>num_tokens&#x3D;8192的效果优于4096，应该存在某个最优的cluster&#x2F;token参数</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>建图参数越大，能达到的召回率上限越高，Bert预测的准确度应该会跟lightgbm拉开差距</p>
+<h3 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h3><p>只发现在GIST这样960维的高维数据集上，存在优势</p>
+<p>实际端到端加速效果还未知</p>
+<p>我们这种方法不局限于图索引，IVF方法同样适用。</p>
+<p>本质是提出了一种新的难度预测&#x2F;早停范式，与数据集维度解耦，而只与当前搜索的中间结果的所在位置有关。</p>
+<p>预测工具不局限于Bert，只要是能做token序列分类的模型理论上都能用。比如LSTM。</p>
+<p><code>M=64, efConstruct=1000</code></p>
+<table>
+<thead>
+<tr>
+<th>efSearch</th>
+<th>recall@100</th>
+<th>time</th>
+<th>comparison</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>4000</td>
+<td>0.998057</td>
+<td>421.299</td>
+<td>53291.7</td>
+</tr>
+<tr>
+<td>2500</td>
+<td>0.998042</td>
+<td>299.477</td>
+<td>36215.7</td>
+</tr>
+<tr>
+<td>2250</td>
+<td>0.997934</td>
+<td>421.864</td>
+<td>33222.5</td>
+</tr>
+<tr>
+<td>2000</td>
+<td>0.997928</td>
+<td>247.026</td>
+<td>30177.1</td>
+</tr>
+<tr>
+<td>1500</td>
+<td>0.997798</td>
+<td>201.132</td>
+<td>23869.5</td>
+</tr>
+<tr>
+<td><code>M=128, efConstruct=1000</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>efSearch</th>
+<th>recall@100</th>
+<th>time</th>
+<th>comparison</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>5000</td>
+<td>0.998575</td>
+<td>523.454</td>
+<td>66928.3</td>
+</tr>
+<tr>
+<td>3000</td>
+<td>0.998474</td>
+<td>333.312</td>
+<td>43923.9</td>
+</tr>
+<tr>
+<td>2000</td>
+<td>0.99845</td>
+<td>256.377</td>
+<td>31527</td>
+</tr>
+<tr>
+<td>1000</td>
+<td>0.998113</td>
+<td></td>
+<td>17885.2</td>
+</tr>
+<tr>
+<td><code>M=256, efConstruct=1000</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Build Time: 10889.2</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>efSearch</th>
+<th>recall@100</th>
+<th>time</th>
+<th>comparison</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>7500</td>
+<td>0.998472</td>
+<td>694.225</td>
+<td>94251.6</td>
+</tr>
+<tr>
+<td>3000</td>
+<td>0.998452</td>
+<td>337.471</td>
+<td>44230.1</td>
+</tr>
+</tbody></table>
+<h3 id="聚类问题"><a href="#聚类问题" class="headerlink" title="聚类问题"></a>聚类问题</h3><p>所选聚类方法KMeans</p>
+<p>imagenet数据集使用的是InnerProduct，不能直接用L2做KMeans。</p>
+<p>Naive KMeans只能用L2做聚类，导致得到的Bert训练token数据质量较差（未跟检索Metric IP对齐）<br>但是如果把KMeans逻辑中的L2距离直接换成IP，则产生的聚类将会非常skewed：会有非常大的cluster。</p>
+<p>调研发现一种专门针对IP、cosine metric的KMeans算法：Spherical KMeans。</p>
+<p>希望能同时解决Bert For IVF</p>
+<p>OpenAI-text-embedding 3072维，是否开源？要不要钱？</p>
+<h3 id="实际效果（stamp-1000）"><a href="#实际效果（stamp-1000）" class="headerlink" title="实际效果（stamp 1000）"></a>实际效果（stamp 1000）</h3><p>lgb</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">The</span> time of prediction is <span class="hljs-number">0</span>.<span class="hljs-number">04120230674743652</span><br><span class="hljs-attribute">The</span> mse of prediction is <span class="hljs-number">0</span>.<span class="hljs-number">039302242508574975</span><br><span class="hljs-attribute">The</span> rmse of prediction is <span class="hljs-number">0</span>.<span class="hljs-number">19824793191500126</span><br><span class="hljs-attribute">The</span> mae of prediction is <span class="hljs-number">0</span>.<span class="hljs-number">26930854327860576</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">efSearch:</span> <span class="hljs-number">5000</span><br><span class="hljs-attr">efConstruct:</span> <span class="hljs-number">1000</span><br><span class="hljs-attr">M:</span> <span class="hljs-number">128</span><br><span class="hljs-attr">check_stamp:</span> <span class="hljs-number">1000</span><br><span class="hljs-attr">num_clusters:</span> <span class="hljs-number">8192</span><br><span class="hljs-string">comparison_pred[0]:</span> <span class="hljs-number">2250</span><br><span class="hljs-attr">Build Time:</span> <span class="hljs-number">2.01e-07</span><br>[<span class="hljs-string">Early</span> <span class="hljs-string">stop</span>] <span class="hljs-attr">Query search time:</span> <span class="hljs-number">1.89001</span><br>[<span class="hljs-string">Early</span> <span class="hljs-string">stop</span>] <span class="hljs-string">Recall@100:</span> <span class="hljs-number">0.994818</span><br>[<span class="hljs-string">Early</span> <span class="hljs-string">stop</span>] <span class="hljs-attr">num_early_stop:</span> <span class="hljs-number">0</span><br>[<span class="hljs-string">Early</span> <span class="hljs-string">stop</span>] <span class="hljs-attr">avg comparison:</span> <span class="hljs-number">7621.27</span><br></code></pre></td></tr></table></figure>
+<p>bert</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">Inference</span> time: <span class="hljs-number">6</span>.<span class="hljs-number">979</span> <br><span class="hljs-attribute">The</span> mse of prediction is <span class="hljs-number">0</span>.<span class="hljs-number">043406706</span> <br><span class="hljs-attribute">The</span> rmse of prediction is <span class="hljs-number">0</span>.<span class="hljs-number">2083427615813856</span> <br><span class="hljs-attribute">The</span> mae of prediction is <span class="hljs-number">0</span>.<span class="hljs-number">15999442</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">efSearch:</span> <span class="hljs-number">5000</span><br><span class="hljs-attr">efConstruct:</span> <span class="hljs-number">1000</span><br><span class="hljs-attr">M:</span> <span class="hljs-number">128</span><br><span class="hljs-attr">check_stamp:</span> <span class="hljs-number">1000</span><br><span class="hljs-attr">num_clusters:</span> <span class="hljs-number">8192</span><br><span class="hljs-string">comparison_pred[0]:</span> <span class="hljs-number">1750</span><br><span class="hljs-attr">Build Time:</span> <span class="hljs-number">2.11e-07</span><br>[<span class="hljs-string">Early</span> <span class="hljs-string">stop</span>] <span class="hljs-attr">Query search time:</span> <span class="hljs-number">2.29762</span><br>[<span class="hljs-string">Early</span> <span class="hljs-string">stop</span>] <span class="hljs-string">Recall@100:</span> <span class="hljs-number">0.994266</span><br>[<span class="hljs-string">Early</span> <span class="hljs-string">stop</span>] <span class="hljs-attr">num_early_stop:</span> <span class="hljs-number">0</span><br>[<span class="hljs-string">Early</span> <span class="hljs-string">stop</span>] <span class="hljs-attr">avg comparison:</span> <span class="hljs-number">9160.68</span><br></code></pre></td></tr></table></figure>
+
+
+<h2 id="09-29"><a href="#09-29" class="headerlink" title="09.29"></a>09.29</h2><p>HNSW 记录</p>
+<p>efSearch: 1500<br>M: 128<br>efConstruction: 1500<br>num_clusters: 4096<br>check_stamp: 5000<br>Build Time: 350.897<br>Query TIme: 91.2687<br>Recall@100: 0.999234<br>num_early_stop: 0<br>avg comparison: 30552</p>
+<p>efSearch: 2000<br>M: 128<br>efConstruction: 2000<br>num_clusters: 4096<br>check_stamp: 5000<br>Build Time: 451.171<br>Query TIme: 105.395<br>Recall@100: 0.99921<br>num_early_stop: 0<br>avg comparison: 38310.4</p>
+<h3 id="如何获取训练数据？"><a href="#如何获取训练数据？" class="headerlink" title="如何获取训练数据？"></a>如何获取训练数据？</h3><p>1）随机生成。不服从原向量空间的分布。<br>2）某些数据集会提供 learn vector</p>
+<h3 id="如何用Bert做回归任务？"><a href="#如何用Bert做回归任务？" class="headerlink" title="如何用Bert做回归任务？"></a>如何用Bert做回归任务？</h3><p>以二分类任务的形式，让Bert学习一个token序列的得分。</p>
+<p>训练数据如何构造？<br>样本点在图搜的某个时间戳（例如 comparison&#x3D;1000 ），拿出队列中的结点对应的 cluster id（长度100）。cluster id序列 作为这个样本的特征，将来作为Bert的tokens直接输入。</p>
+<p>如果当前的recall已经为100%，那么它的label&#x3D;0。否则label为1</p>
+<p>接下来，每隔500次comparison进行一次recall计算，如果当前搜索结果的recall到达了100%，就把当前的comparison作为这条样本的最终比较次数。</p>
+<p>把所有样本的比较次数汇总，做分位数统计存入Table。</p>
+<p>根据得分对token序列的打分对应的分位数，从Table中查找对应的比较次数，作为最终预测结果。</p>
+<p>混合训练数据：</p>
+<p>把不同搜索参数下的样本做混合，作为同一个模型的训练数据。<br>比如efSearch&#x3D;500和efSearch&#x3D;1000的样本进行混合。</p>
+<h3 id="Bert推理速度调研"><a href="#Bert推理速度调研" class="headerlink" title="Bert推理速度调研"></a>Bert推理速度调研</h3><p>单卡2080ti</p>
+<p>使用PIN工作的数据集：平均每个序列约80个tokens，共10570个序列。</p>
+<p>cross-encoder推理速度</p>
+<table>
+<thead>
+<tr>
+<th>Bert变种</th>
+<th>推理速度</th>
+<th>AUC</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>bert-base-uncased</td>
+<td>40.032</td>
+<td>0.8364</td>
+</tr>
+<tr>
+<td>distilbert-base-uncased</td>
+<td>21.731</td>
+<td>0.8360</td>
+</tr>
+<tr>
+<td>tinybert-4l</td>
+<td>7.637</td>
+<td>0.8357</td>
+</tr>
+<tr>
+<td>tinybert-l2-v2</td>
+<td>6.548</td>
+<td>0.8353</td>
+</tr>
+<tr>
+<td>影响因素：</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>1）显卡级别。“相比上一代 V100 芯片，A100 在 BERT 模型的训练上性能提升 6 倍，BERT 推断时性能提升 7 倍。”—— <a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000044372654">https://segmentfault.com/a/1190000044372654</a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>A100与2080ti的性能差距未知，A100上实际的推理速度不可推算。</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>2）特征token序列的长度，可选50，100。序列越长推理越慢</p>
+<p>3）以上实验包含了tokenize的时间开销，早停实际推理时，拿到的特征已经是token，不需要计算tokenizer的时间。</p>
+<p>规律性：某个时间戳，队列中结点对应的token。</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs txt"><br>qid: 198, recall: 1, deduped:6 <br>595 595 595 595 595 595 5321 595 5321 595 595 595 5321 5321 595 595 595 595 595 5321 5321 595 595 5321 5321 595 595 3219 595 595 595 5321 595 595 5321 5321 595 5321 595 595 595 5321 5323 3219 5321 5321 5321 595 795 5321 595 595 595 595 595 595 595 595 595 595 535 595 5321 5321 595 595 595 3219 5321 5321 5321 5321 5321 5321 5321 595 5321 5321 595 595 5321<br><br>qid: 199, recall: 0.8,deduped: 59<br>1656 2303 421 705 682 421 2619 848 1760 6938 3340 3121 848 7882 3877 4393 377 3877 5471 54 3161 3682 848 4144 271I5 421 782 3340 5984 5102 5471 771 6518 2596 5417 421 1613 165 7919 6938 750 3161 2401 3479 363 627 3127 3554 7835 6302 6518 8037 2726 8054 5465 1656 2438 4570 8054 1912 1656 750 1656 491 7867 6938 2856 7463 2303 2427 892 3877 6518 7550 2596 5984 3682 750 1656 3554 5690 6548 4421 3728 8054 7592 5984 750 115 6443 7414 7609 3877 6146 5471 6882 7550 2137 8854 7414<br></code></pre></td></tr></table></figure>
+
+<h3 id="09-26"><a href="#09-26" class="headerlink" title="09.26"></a>09.26</h3><p>实锤：Bert去掉 tokenizer 后，推理速度接近翻倍</p>
+<h3 id="09-27"><a href="#09-27" class="headerlink" title="09.27"></a>09.27</h3><p>完成 CrossEncoder 的初步实验：去掉自带的tokenizer，直接将输入当作token做推理。</p>
+<p>数据集情况：SIFT1M，# Train 100k，观察窗口&#x3D;2000 Comparison。</p>
+<p>完成 SIGMOD2020 早停的复现，lightgbm 预测效果不如 Bert</p>
+<p>性能预测依据：<br>1）distance、query based：SIGMOD2020<br>2）vertex based：Bert早停</p>
+<p>下午142机器宕机，后续实验无法继续推进</p>
+<h3 id="09-28"><a href="#09-28" class="headerlink" title="09.28"></a>09.28</h3><p>准备SIFT10M、GIST1M数据集，包括base_gt、train_gt的计算。</p>
+<p>在SIFT10M、GIST1M上建图，参数遵从SIGMOD2020 <code>M=16, efConstruct=500</code>.</p>
+<p>142机器仍全天宕机</p>
+<h3 id="09-29-1"><a href="#09-29-1" class="headerlink" title="09.29"></a>09.29</h3><p>给定召回率目标，将比较次数最小化</p>
+<p>应用场景：客户的口味需求。</p>
+<p>在搜索场景下，A类客户容易满足，仅需很低的召回率；B类客户口味较刁，需要很高的召回率。</p>
+<p>根据召回率需求，用几套不同的模型。一次检索完后，客户根据满意度进行反馈是否需要继续检索。模型利用搜索的特征进行预测，达到最小的比较次数。</p>
+<p>场景：B类用户提出的需求，对应99%的召回率。最小比较次数为 11450 次</p>
+<p>baseline：</p>
+<p>1）每隔500次返回一次结果，但是次数太多（23次）客户会烦。比较次数肯定会小，为11500次，仅溢出50次比较</p>
+<p>2）根据口味最刁的用户，即最高召回率需求的用户，进行调参。这样会导致成本很高。</p>
+<p>方法：用模型预测，可能返回2次结果就能达到B类用户的需求。但是比较次数可能会溢出较多，成本较高。</p>
+<h2 id="09-22"><a href="#09-22" class="headerlink" title="09.22"></a>09.22</h2><h3 id="Q2Q2P-检索"><a href="#Q2Q2P-检索" class="headerlink" title="Q2Q2P 检索"></a>Q2Q2P 检索</h3><p>借鉴推荐系统中的 U2U2I 召回。</p>
+<p>传统召回：U2I，User塔、Item塔。根据uid拿到user embedding，从Item中做ANNS</p>
+<p>U2U2I 召回：利用 User 喜爱的 Item 建图。得到 user embedding 以及user之间的相似度（根据喜好 图）。推理时，从当前用户最相似的 User 中获取Item倒排。</p>
+<p>做法：生成一部份伪查询 Q’，使得这些伪查询能覆盖大部分的 Document。</p>
+<p>好处：不需要document塔。只需要专注于Q2Q相似度，Q2Q查询之间语态应该更接近，更容易学。并且检索速度应该会更快，因为|Q’| 会设计得比较小，比直接搜D得搜索量要小。</p>
+<p>引入到Passage Retrieval面临的问题：<br>1）推理时，给定的Q无法直接拿到它的 embedding（U2U2I可以）。需要 text -&gt; embedding的步骤。很难做成端到端的模型，把GNN的知识喂给query塔<br>2）GNN数量级问题：U2U2I使用GNN训练 User 之间的相似度。但是Item&#x2F;document 的数量级都在M级别以上。</p>
+<h3 id="基于Bert-的图索引早停"><a href="#基于Bert-的图索引早停" class="headerlink" title="基于Bert 的图索引早停"></a>基于Bert 的图索引早停</h3><p>chengjun</p>
+<p>推理速度问题：TinyBert、DistilBert可以解决。精度会有所损失。</p>
+<p>和杨铭讨论结果：可能需要换个故事，换个任务。<br>通常思路：用ANNS增强PLM，但是此任务属于PLM增强ANNS</p>
+<h3 id="Multi-Vector调研"><a href="#Multi-Vector调研" class="headerlink" title="Multi-Vector调研"></a>Multi-Vector调研</h3><p>现有方法：设计了检索范式，其中用到了LSH</p>
+<p>如果使用Learning to hash，只是更换了partition方法，贡献不大。</p>
+<h3 id="负样本增强"><a href="#负样本增强" class="headerlink" title="负样本增强"></a>负样本增强</h3><p>思路也是如何学好Q2Q。<br>使用Q2Q2P的路线挖掘hard-negative</p>
+<h2 id="09-16-小组会议（线上）"><a href="#09-16-小组会议（线上）" class="headerlink" title="09.16 小组会议（线上）"></a>09.16 小组会议（线上）</h2><h3 id="pseudo-query-based-单塔模型-schema"><a href="#pseudo-query-based-单塔模型-schema" class="headerlink" title="pseudo-query-based 单塔模型 schema"></a>pseudo-query-based 单塔模型 schema</h3><p>wenyi、hanzhi</p>
+<p>OpenAI text embedding<br>BGE-m3（M3-Embedding- Multi-Linguality, Multi-Functionality, Multi-Granularity Text Embeddings Through Self-Knowledge Distillation） 就是单塔模型，把Q和P都同等对待。<br>可以做 探索性&#x2F;综述类工作，说明为何现在IR模型基本都是双塔。</p>
+<p>个人猜想：单塔的训练难度 &gt;&gt; 双塔。单塔需要经过大规模无监督语料的预训练 + ……（详见BGE-m3论文）</p>
+<h3 id="pseudo-query-based-样本增强-与-长尾现象"><a href="#pseudo-query-based-样本增强-与-长尾现象" class="headerlink" title="pseudo-query-based 样本增强 与 长尾现象"></a>pseudo-query-based 样本增强 与 长尾现象</h3><p>kaiqian、guohao</p>
+<p>关键词：pseudo-query、augmentation、long-tail</p>
+<p>Q &#x3D;&gt; postive（少数） + negative（多数）……</p>
+<p>缓解 passage-query 的长尾程度。<br>设定：大部分passage无法被 数据集给定的query检索到。<br>因为在IR模型训练时，每个查询都会选出对应的 正样本 + 负样本（随机负样本 &#x2F; 困难负样本）<br>但是（我相信）仍有部分 passage 是自始至终 未曾进入训练样本 的。</p>
+<p>可以做成研究型 &#x2F; 探索性的工作。</p>
+<p>分析点：现有数据集的query相较passage的量级而言非常少。</p>
+<p>DPR论文（Dense Passage Retrieval for Open-Domain Question Answering）使用的数据集：<br>Wikipedia：|P| &#x3D; 21M</p>
+<table>
+<thead>
+<tr>
+<th>Dataset</th>
+<th># Q Train</th>
+<th># Q Dev</th>
+<th># Q Test</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Natural Questions</td>
+<td>79,168 58,880</td>
+<td>8,757</td>
+<td>3,610</td>
+</tr>
+<tr>
+<td>TriviaQA</td>
+<td>78,785 60,413</td>
+<td>8,837</td>
+<td>11,313</td>
+</tr>
+<tr>
+<td>WebQuestions</td>
+<td>3,417 2,474</td>
+<td>361</td>
+<td>2,032</td>
+</tr>
+<tr>
+<td>CuratedTREC</td>
+<td>1,353 1,125</td>
+<td>133</td>
+<td>694</td>
+</tr>
+<tr>
+<td>SQuAD</td>
+<td>78,713 70,096</td>
+<td>8,886</td>
+<td>10,570</td>
+</tr>
+<tr>
+<td>每个Q对应 7 &#x2F; 31 &#x2F; 127 &#x2F; 256 个负样本。但是大部分负样本是 随机抽样 &#x2F; in-batch负样本。</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>给每个文档都生成对应的伪查询，这样能保证绝大部分文档都进入样本，从而被学习。<br>可以对应减少随机负样本的数量。</p>
+<p><strong>如果问题确实存在，且存在影响</strong>。<br>可以考虑构造一个针对长尾Passage的数据集。</p>
+<h3 id="pseudo-query-based-增强负样本"><a href="#pseudo-query-based-增强负样本" class="headerlink" title="pseudo-query-based 增强负样本"></a>pseudo-query-based 增强负样本</h3><p>yitao、xintong</p>
+<p>关键词：pseudo-query、hard-negative、similarity</p>
+<p>ANCE（开源）是从 Q-P 的相似度出发，迭代地挖掘hard negative。</p>
+<p>Q-Q-P检索范式：Offline Pseudo Relevance Feedback for Efficient and Effective Single-pass Dense Retrieval</p>
+<p>可能和ANCE的相似度对不上，需要细化idea。</p>
+<p>Q的相似度是否也能 挖掘 hard negative？</p>
+<h3 id="query-encoder侧的交互"><a href="#query-encoder侧的交互" class="headerlink" title="query encoder侧的交互"></a>query encoder侧的交互</h3><p>提取少量passage，放到query侧</p>
+<h3 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h3><p>论文查找：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs txt">arxiv预印本：https://arxiv.org/<br>acm图书馆：https://dl.acm.org/ <br>google scholar：https://scholar.google.com/<br></code></pre></td></tr></table></figure>
+
+<p>**<a target="_blank" rel="noopener" href="https://github.com/castorini/pyserini">pyserini</a>**（AI框架、训练模型）非常重要！！！以后咱的工作基本都会用到</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/castorini/anserini">anserini</a>（稀疏检索 BM25）可以了解，主要用来挖掘 BM25 hard-negative</p>
+<h2 id="09-08"><a href="#09-08" class="headerlink" title="09.08"></a>09.08</h2><h3 id="ideas-on-GNN-graph-based检索的早停"><a href="#ideas-on-GNN-graph-based检索的早停" class="headerlink" title="ideas on GNN + graph-based检索的早停"></a>ideas on GNN + graph-based检索的早停</h3><p>动机：当目标为 recall90%@50时</p>
+<ul>
+<li>80% 简单查询：访问1000个向量即可</li>
+<li>20% 困难查询：访问&gt;10000个向量<br>数据来源于<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2408.13899">Steiner-Hardness: A Query Hardness Measure for Graph-Based ANN Indexes</a></li>
+</ul>
+<p>固定访问次数为1000次。达到1000次访问时，将队列中top-k近的结点取出。</p>
+<p>当快要搜好的时候（recall快到上限），队列中的结点可能相互之间的 拓扑比较像似 &#x2F; 距离比较近。<br>训练这些结点的topo-embedding，结合这些结点的距离，做早停判断。</p>
+<p>思路1：GNN<br>图索引的图规模都很大，最小的 sift1m 数据集都有10M级别的结点数量。显存非常有限，GNN难以应用。<br>改进：也许只需要关注一部分结点。比如只考虑训练数据中，访问次数达到1000次时，对应队列中的结点。这些结点说不定只占全图结点的小部份。只训练这部分结点的topo-embedding，GNN说不定能训练下来。</p>
+<p>大型图GNN算法有GraphSaint、GraphSAGE</p>
+<p>GNN 结点分类</p>
+<p>两段式：1）用GNN训练出结点的 topo-embedding，2）用1）的embedding训练分类模型</p>
+<p>感觉不如端到端地训练，但是很难设计训练方式。</p>
+<p>思路2：Bert<br>借鉴 [[记录 - 信息检索探索（二阶段）#^a788ec]] 候选队列Q中的结点是有序的（距离排序）。<br>把某一时间戳，Q中结点拿出来。每个结点当成一个token，当成Bert的输入，来做分类任务。</p>
+<p>改进：相比起传统的NLP任务背景，图索引的早停涉及到的token会比vocab_size大得多。<br>但同时也没有NLP那么丰富的语意信息（一词多义、语境、情感、上下文……）。<br>而bert_base_uncased每个token对应维度是768，vocab_size只有30k。图早停背景之下，可以把每个token的维度缩到24维左右，vocab_size则需要大得多，得上960k的量级。<br>这样推理成本也能极大降低。</p>
+<p><strong>包装成排序技术</strong></p>
+<h3 id="multi-vector-优化（最適化-さいてきか）"><a href="#multi-vector-优化（最適化-さいてきか）" class="headerlink" title="multi-vector 优化（最適化　さいてきか）"></a>multi-vector 优化（最適化　さいてきか）</h3><p>背景：ColBERT 嵌入模型需要把P侧的每个passage都encode成多个embedding，Q侧也是。</p>
+<p>[NIPS2023]<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2210.15748">DESSERT: An Efficient Algorithm for Vector Set Search with Vector Set Queries</a><br>基于LSH，把P侧的每个Passage对应的|P|个向量hash成一个（？有待确认）</p>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2405.19504">MUVERA: Multi-Vector Retrieval via Fixed Dimensional Encodings</a></p>
+<p>能否用 learning2hash 来替换LSH？<br>考虑query交互</p>
+<table>
+<thead>
+<tr>
+<th>Query Vector</th>
+<th>V0</th>
+<th>V1</th>
+<th>V2</th>
+<th>V3</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Q0</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Q1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>Passage Vector</th>
+<th>V0</th>
+<th>V1</th>
+<th>V2</th>
+<th>V3</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>P0</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>P1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>P2</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>P3</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>P_{fusion}</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Hash函数:</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>每个维度单独hash：F(P0Vi, P1Vi, P2Vi, P3Vi) &#x3D; P_{fusion}Vi</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>整个向量做hash：F(P0, P1, P2, P3) &#x3D; P_{fusion}</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>使得P_{fusion} * Q0 接近 P0 * Q0 + P1 * Q0…</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="QPP-——-Bert-文本数值交互"><a href="#QPP-——-Bert-文本数值交互" class="headerlink" title="QPP —— Bert 文本数值交互"></a>QPP —— Bert 文本数值交互</h3><h3 id="嵌入模型训练schema"><a href="#嵌入模型训练schema" class="headerlink" title="嵌入模型训练schema"></a>嵌入模型训练schema</h3><p>负样本：从弱到强。<br>先拿BM25之类的简单negative训练，再拿ANCE之类的hard negative训练。</p>
+<p>顺应训练梯度：刷算法题，不能一上来就刷高rating的题，而应该先从低rating的题开始，循序渐进。</p>
+<p>ANCE：只考虑了P侧的相似度，要不把Q侧的相似度也考虑上？</p>
+<h3 id="大模型推理早停"><a href="#大模型推理早停" class="headerlink" title="大模型推理早停"></a>大模型推理早停</h3><p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2405.15198">RAEE: A Training-Free Retrieval-Augmented Early Exiting Framework for Efficient Inference</a></p>
+<h3 id="端到端检索模型"><a href="#端到端检索模型" class="headerlink" title="端到端检索模型"></a>端到端检索模型</h3><p>降低encode成本<br>ELIAS: End-to-End Learning to Index and Search in Large Output Spaces<br><a target="_blank" rel="noopener" href="https://proceedings.neurips.cc/paper_files/paper/2022/hash/7d4f98f916494121aca3da02e36a4d18-Abstract-Conference.html">https://proceedings.neurips.cc/paper_files/paper/2022/hash/7d4f98f916494121aca3da02e36a4d18-Abstract-Conference.html</a></p>
+<h3 id="1-样本增强的IR模型"><a href="#1-样本增强的IR模型" class="headerlink" title="1 样本增强的IR模型"></a>1 样本增强的IR模型</h3><p>offline阶段生成大量Q。<br>统一encoder（类似BGE）</p>
+<p>对样本进行分类</p>
+<h3 id="2-Q端的负样本"><a href="#2-Q端的负样本" class="headerlink" title="2 Q端的负样本"></a>2 Q端的负样本</h3><p>加上Q对比损失<br>让Q侧的相似度也能用 Semantic Space 来衡量</p>
+<p>latent pseudo query</p>
+<h3 id="09-14"><a href="#09-14" class="headerlink" title="09.14"></a>09.14</h3><h3 id="图索引早停思路整理"><a href="#图索引早停思路整理" class="headerlink" title="图索引早停思路整理"></a>图索引早停思路整理</h3><p>数据集中的向量&#x2F;点数过多，都是1M起步，训练时的数据应该会比较稀疏，即有部份向量点的embedding学习不好（长尾）。</p>
+<p>解决方法：<strong>聚类</strong>，聚类ID作为Token。能有效降低Token数量，降低训练数据的稀疏性。推理时，将队列中的结点映射成它对应的聚类ID。</p>
+<p>衍生Idea：直接使用聚类ID&#x2F;Token来做早停。对队列中的结点对应的Token做去重操作。</p>
+<p><strong>考察了队列中结点的距离，但没有观察到队列中的结点的规律。</strong></p>
+<h3 id="长尾-检索数据集"><a href="#长尾-检索数据集" class="headerlink" title="长尾 检索数据集"></a>长尾 检索数据集</h3><p>增大 passage-query 的长尾程度。<br>设定：大部分passage无法被 数据集给定的query检索到。</p>
+<h3 id="IR模型调研（pseudo-query）"><a href="#IR模型调研（pseudo-query）" class="headerlink" title="IR模型调研（pseudo-query）"></a>IR模型调研（pseudo-query）</h3><p>主要调研了doc2query和docT5query这些pseudo-query类的工作。<br>训练设备基·本上是4张V100（32GB）左右。<br>推理设备RTX显卡（24GB）</p>
+<p>已有工作：<br><a target="_blank" rel="noopener" href="https://dl.acm.org/doi/pdf/10.1145/3539618.3592028">Offline Pseudo Relevance Feedback for Efficient and Effective Single-pass Dense Retrieval</a><br>给每个doc都生成m个伪查询（摘要）。每个伪查询都提前离线好top-k个doc。<br>线上推理时，对q使用BM25检索top-s个伪文档。总共对应s x k个doc。<br>打分：通过q与伪文档的分数 + q与doc的分数，联合打分。</p>
+<h3 id="样本增强"><a href="#样本增强" class="headerlink" title="样本增强"></a>样本增强</h3><p>BGE-m3就是单塔模型，把Q和P都同等对待。<br>可以做 探索性&#x2F;综述类工作，说明为何现在IR模型基本都是双塔。</p>
+<p>个人猜想：单塔的训练难度 &gt;&gt; 双塔。单塔需要经过大规模无监督语料的预训练 + ……</p>
+<h2 id="09-01"><a href="#09-01" class="headerlink" title="09.01"></a>09.01</h2><p>VLDB2024 交流的收获</p>
+<p>BERT的应用：把BERT用于路线补全。每条路作为1个TOKEN。 ^a788ec</p>
+<p>图上也可以应用，比如图基础模型 @龚畅<br><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2402.11235">ZeroG: Investigating Cross-dataset Zero-shot Transferability in Graphs</a><br>貌似用BERT即可，显存要求相对较低</p>
+<p>大模型量化：PKU组<br>与ANNS中的技术有重叠，尤其是向量量化<br>VQ-VAE、VQ-Transformer、PQ-Cache、Distill-VQ</p>
+<p>AI4DB<br>早停，针对图索引的优化。结合GNN。</p>
+<p>multi-vector<br>目前工作较少<br>[NIPS2023] <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2210.15748">DESSERT: An Efficient Algorithm for Vector Set Search with Vector Set Queries</a><br><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2405.19504">MUVERA: Multi-Vector Retrieval via Fixed Dimensional Encodings</a></p>
+<h2 id="08-25"><a href="#08-25" class="headerlink" title="08.25"></a>08.25</h2><h3 id="計画（けいかく）"><a href="#計画（けいかく）" class="headerlink" title="計画（けいかく）"></a>計画（けいかく）</h3><p>1）如果过第一轮初审，努力rebuttal<br>2）将 BERT-CrossEncoder 融合PIN<br>3）改进PIN本身</p>
+<h3 id="考え（かんがえ）-1"><a href="#考え（かんがえ）-1" class="headerlink" title="考え（かんがえ）"></a>考え（かんがえ）</h3><p>现有一个打分器&#x2F;分类器clf，即一阶段的PIN网络：<br>input：100维的数值向量<br>output：得分<br>目标：将PIN融合进text-based的 BERT-CrossEncoder（特指 [[笔记 - CIKM2021 BERT-QPP Contextualized Pre-trained transformers for Query Performance Prediction]]），提高预测精度。<br>基本想法：结合clf的数值特征和BERT的文本特征，一起做分类微调。</p>
+<p><strong>后期交互</strong><br>clf和BERT各自走自己的流程，到倒数第二步，把 clf_embed 和 BERT_embed 做拼接，得到 fusion_embed，送进最后的 分类层。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">FusionModel</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, clf, bert_model</span>):<br>        <span class="hljs-built_in">super</span>(FusionModel, self).__init__()<br>        self.clf = clf<br>        self.bert_model = bert_model<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, numerical_inputs, text_inputs</span>):<br>        clf_embed = self.clf(numerical_inputs)<br>        bert_embed = self.bert_model(text_inputs)<br>        combined = torch.cat([clf_embed, bert_embed], dim=-<span class="hljs-number">1</span>)<br>        ...  <span class="hljs-comment"># 接下来可以添加额外的层（如全连接层，dropout层，或激活层等）进行处理</span><br>        <span class="hljs-keyword">return</span> output<br></code></pre></td></tr></table></figure>
+
+<p><strong>前期交互</strong><br>在 BERTQPP_QD 进行 tokenize 阶段就讲 clf_embed 的信息注入。<br>核心：如何将clf的输出编码为一个可被BERT识别的token？</p>
+<p>可选方案包括：</p>
+<ol>
+<li>直接将 clf_embed 过Sigmoid + BCEWithLogits，得到最终分数。分数 &#x3D;&gt; 归一化 &#x3D;&gt; int &#x3D;&gt; str，把最终的 PIN_score_str 当成 PIN_TOKEN 送进 BERTQPP_QD。即 <code>qtext [SEP] PIN_score_str [SEP] topdoc</code></li>
+<li>将 clf_embed 做聚类，并且把<code>TOKEN_&#123;clusterid&#125;</code>全部加进BERT的词汇表。训练推理时，拿到一个新的 clf_embed 时，计算它的聚类id。然后把它当作 PIN_TOKEN 送进 BERTQPP_QD。<br>以上方案都无法把PIN和BERT进行联合微调。</li>
+</ol>
+<p>效果肯定比后期交互好，但是训练成本（显存需求）大，因为相当于新加了token词。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%B0%E5%BD%95/" class="category-chain-item">记录</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E8%AE%B0%E5%BD%95/python/" class="category-chain-item">python</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Information-Retrieval/" class="print-no-link">#Information-Retrieval</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>记录 - 混合检索框架探索（二阶段）</div>
+      <div>https://lcj2021.github.io/2024/11/14/记录 - 信息检索探索（二阶段）/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Channing Lau</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年11月14日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/11/30/AAAI2025%20Rebuttal/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/11/12/%E8%AE%B0%E5%BD%95%20-%20%E4%BF%A1%E6%81%AF%E6%A3%80%E7%B4%A2%E6%8E%A2%E7%B4%A2%EF%BC%88%E4%B8%89%E9%98%B6%E6%AE%B5%EF%BC%89/" title="记录 - 混合检索框架探索">
+                        <span class="hidden-mobile">记录 - 混合检索框架探索</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  <script>
+  Fluid.utils.createScript('https://lib.baomitu.com/mermaid/8.14.0/mermaid.min.js', function() {
+    mermaid.initialize({"theme":"default"});
+
+    Fluid.utils.listenDOMLoaded(function() {
+      Fluid.events.registerRefreshCallback(function() {
+        if ('mermaid' in window) {
+          mermaid.init();
+        }
+      });
+    });
+  });
+</script>
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

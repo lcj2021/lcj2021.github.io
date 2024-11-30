@@ -16,23 +16,22 @@
   <meta name="author" content="Channing Lau">
   <meta name="keywords" content="">
   
-    <meta name="description" content="原文链接：  arxiv NIPS2022代码链接：ELIAS提出算法：ELIAS  Abstract">
+    <meta name="description" content="原文链接：Predicting Query Performance by Query-Drift Estimation代码链接： Abstract预测查询性能，即针对查询执行搜索的有效性，是一个极其重要且富有挑战性的问题。我们提出了一种新颖的方法来解决这一任务，该方法基于测量排名最高的文档结果列表中检索得分的标准差。我们认为，对于基于文档与查询表面相似性的检索方法而言，标准差可以作为估算结果列表中">
 <meta property="og:type" content="article">
-<meta property="og:title" content="笔记 - NIPS2022 EHI End-to-end Learning of Hierarchical Index for Efficient Dense Retrieval">
-<meta property="og:url" content="https://lcj2021.github.io/2024/07/18/%E7%AC%94%E8%AE%B0%20-%20NIPS2022%20EHI%20End-to-end%20Learning%20of%20Hierarchical%20Index%20for%20Efficient%20Dense%20Retrieval/index.html">
+<meta property="og:title" content="笔记 - TOIS2022 Predicting Query Performance by Query-Drift Estimation">
+<meta property="og:url" content="https://lcj2021.github.io/2024/07/31/%E7%AC%94%E8%AE%B0%20-%20TOIS2022%20Predicting%20Query%20Performance%20by%20Query-Drift%20Estimation/index.html">
 <meta property="og:site_name" content="ChanningLau&#39;s harbour">
-<meta property="og:description" content="原文链接：  arxiv NIPS2022代码链接：ELIAS提出算法：ELIAS  Abstract">
+<meta property="og:description" content="原文链接：Predicting Query Performance by Query-Drift Estimation代码链接： Abstract预测查询性能，即针对查询执行搜索的有效性，是一个极其重要且富有挑战性的问题。我们提出了一种新颖的方法来解决这一任务，该方法基于测量排名最高的文档结果列表中检索得分的标准差。我们认为，对于基于文档与查询表面相似性的检索方法而言，标准差可以作为估算结果列表中">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-07-17T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-07-18T11:13:53.088Z">
+<meta property="article:published_time" content="2024-07-30T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-11-30T09:42:40.934Z">
 <meta property="article:author" content="Channing Lau">
 <meta property="article:tag" content="BERT">
-<meta property="article:tag" content="Information-Retrieval">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>笔记 - NIPS2022 EHI End-to-end Learning of Hierarchical Index for Efficient Dense Retrieval - ChanningLau&#39;s harbour</title>
+  <title>笔记 - TOIS2022 Predicting Query Performance by Query-Drift Estimation - ChanningLau&#39;s harbour</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -198,7 +197,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="笔记 - NIPS2022 EHI End-to-end Learning of Hierarchical Index for Efficient Dense Retrieval"></span>
+            <span id="subtitle" data-typed-text="笔记 - TOIS2022 Predicting Query Performance by Query-Drift Estimation"></span>
           
         </div>
 
@@ -209,8 +208,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-07-18 00:00" pubdate>
-          2024年7月18日 凌晨
+        <time datetime="2024-07-31 00:00" pubdate>
+          2024年7月31日 凌晨
         </time>
       </span>
     
@@ -221,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          15 字
+          219 字
         
       </span>
     
@@ -232,7 +231,7 @@
         
         
         
-          1 分钟
+          2 分钟
         
       </span>
     
@@ -269,17 +268,14 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">笔记 - NIPS2022 EHI End-to-end Learning of Hierarchical Index for Efficient Dense Retrieval</h1>
+            <h1 id="seo-header">笔记 - TOIS2022 Predicting Query Performance by Query-Drift Estimation</h1>
             
             
               <div class="markdown-body">
                 
-                <p>原文链接：</p>
-<ol>
-<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2310.08891">arxiv</a></li>
-<li><a target="_blank" rel="noopener" href="https://proceedings.neurips.cc/paper_files/paper/2022/hash/7d4f98f916494121aca3da02e36a4d18-Abstract-Conference.html">NIPS2022</a><br>代码链接：<a target="_blank" rel="noopener" href="https://github.com/nilesh2797/ELIAS">ELIAS</a><br>提出算法：ELIAS</li>
-</ol>
-<h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2>
+                <p>原文链接：<a target="_blank" rel="noopener" href="https://dl.acm.org/doi/10.1145/2180868.2180873">Predicting Query Performance by Query-Drift Estimation</a><br>代码链接：</p>
+<h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>预测查询性能，即针对查询执行搜索的有效性，是一个极其重要且富有挑战性的问题。我们提出了一种新颖的方法来解决这一任务，该方法基于测量排名最高的文档结果列表中检索得分的标准差。我们认为，对于基于文档与查询表面相似性的检索方法而言，标准差可以作为估算结果列表中的查询漂移量的一个替代指标，即列表中的文档存在（并且占主导地位）与查询无关的方面或主题。经验评估证明了我们方法在几种检索模型上的预测有效性。具体而言，预测质量通常超越当前最先进的预测方法。</p>
+<h2 id="1-INTRODUCTION"><a href="#1-INTRODUCTION" class="headerlink" title="1 INTRODUCTION"></a>1 INTRODUCTION</h2>
                 
               </div>
             
@@ -314,8 +310,6 @@
       
         <a href="/tags/BERT/" class="print-no-link">#BERT</a>
       
-        <a href="/tags/Information-Retrieval/" class="print-no-link">#Information-Retrieval</a>
-      
     </div>
   
 </div>
@@ -326,8 +320,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>笔记 - NIPS2022 EHI End-to-end Learning of Hierarchical Index for Efficient Dense Retrieval</div>
-      <div>https://lcj2021.github.io/2024/07/18/笔记 - NIPS2022 EHI End-to-end Learning of Hierarchical Index for Efficient Dense Retrieval/</div>
+      <div>笔记 - TOIS2022 Predicting Query Performance by Query-Drift Estimation</div>
+      <div>https://lcj2021.github.io/2024/07/31/笔记 - TOIS2022 Predicting Query Performance by Query-Drift Estimation/</div>
     </div>
     <div class="license-meta">
       
@@ -339,7 +333,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年7月18日</div>
+          <div>2024年7月31日</div>
         </div>
       
       
@@ -371,9 +365,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/07/18/%E7%AC%94%E8%AE%B0%20-%20EMNLP2020%20Dense%20Passage%20Retrieval%20for%20Open-Domain%20Question%20Answering/" title="笔记 - EMNLP2020 Dense Passage Retrieval for Open-Domain Question Answering">
+                      <a href="/2024/07/31/%E7%AC%94%E8%AE%B0%20-%20SIGIR2023%20Query%20Performance%20Prediction%20-%20From%20Ad-hoc%20to%20Conversational%20Search/" title="笔记 - SIGIR2023 Query Performance Prediction - From Ad-hoc to Conversational Search">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">笔记 - EMNLP2020 Dense Passage Retrieval for Open-Domain Question Answering</span>
+                        <span class="hidden-mobile">笔记 - SIGIR2023 Query Performance Prediction - From Ad-hoc to Conversational Search</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -381,8 +375,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/07/18/%E8%AE%B0%E5%BD%95%20-%20%E9%98%BF%E9%87%8C%E4%BA%91%E7%AE%97%E6%B3%95%E5%B2%97%E7%AC%94%E8%AF%95+%E9%9D%A2%E7%BB%8F/" title="记录 - 阿里云算法岗笔试+面经">
-                        <span class="hidden-mobile">记录 - 阿里云算法岗笔试+面经</span>
+                      <a href="/2024/07/30/%E7%AC%94%E8%AE%B0%20-%20CIKM2021%20BERT-QPP%20Contextualized%20Pre-trained%20transformers%20for%20Query%20Performance%20Prediction/" title="笔记 - CIKM2021 BERT-QPP Contextualized Pre-trained transformers for Query Performance Prediction">
+                        <span class="hidden-mobile">笔记 - CIKM2021 BERT-QPP Contextualized Pre-trained transformers for Query Performance Prediction</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
